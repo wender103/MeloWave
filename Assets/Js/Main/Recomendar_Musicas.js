@@ -42,6 +42,8 @@ function Salvar_Historico() {
 
     new_Historico.Musicas = Musicas
 
+    console.log(new_Historico)
+
     db.collection('Users').doc(User.ID).update({ Historico: new_Historico })
 }
 

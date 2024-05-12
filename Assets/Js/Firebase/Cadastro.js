@@ -13,6 +13,7 @@ function Pegar_Usuarios() {
             Todos_Usuarios.push(InfoUsers)
 
             Todos_Usuarios[contador].ID = Users.id
+            contador++
         })
 
         Logar_Na_Conta()
