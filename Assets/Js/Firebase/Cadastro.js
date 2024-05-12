@@ -54,6 +54,7 @@ function Logar_Na_Conta() {
             for (let c = 0; c < Todos_Usuarios.length; c++) {
                 if(Todos_Usuarios[c].Email == val.email) {
                     usuario_encontrado = true
+                    console.log('User recebendo algo');
                     User = Todos_Usuarios[c]
                     Fechar_Entrar()
                     Atualizar_User()

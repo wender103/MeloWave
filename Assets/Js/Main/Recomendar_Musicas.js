@@ -2,7 +2,13 @@
 const maximo_infos_salvas = 100
 function Salvar_Historico() {
 
-    let new_Historico = User.Historico
+    let new_Historico = {
+        Musicas: [...User.Historico.Musicas],
+        Playlists: [...User.Historico.Playlists],
+        Users: [...User.Historico.Users],
+        Artistas: [...User.Historico.Artistas],
+        Pesquisa: [...User.Historico.Pesquisa],
+    }
 
     let Musicas = []
 
@@ -41,8 +47,6 @@ function Salvar_Historico() {
     }
 
     new_Historico.Musicas = Musicas
-
-    console.log(new_Historico)
 
     db.collection('Users').doc(User.ID).update({ Historico: new_Historico })
 }
@@ -144,8 +148,6 @@ function Retornar_Daily() {
             if(resultado) {
                 array_daily = resultado.Musicas
             }
-
-            console.log(resultado)
 
             if(array_daily != null && array_daily.length > 0) {
     
