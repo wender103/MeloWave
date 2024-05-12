@@ -1,0 +1,1602 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Khmer&display=swap");
+:root {
+  --fonte_inter: "Inter", sans-serif;
+  --fonte_khmer: "Khmer", sans-serif;
+  --white: #fff;
+  --white_transparent: #ffffff8a;
+  --black: #000;
+  --black_transparent: #0000001a;
+  --padrao1: rgba(58, 62, 64, 0.404);
+  --padrao15: rgba(35, 38, 39, 0.404);
+  --padrao2: rgba(46, 49, 50, 1);
+  --padrao3: rgb(31, 36, 37);
+  --padrao4: #0d0e0e;
+  --background: rgba(82, 87, 90, 0.77);
+  --cor_qse_transparente_background: #2e31333f;
+  --background_black: hsla(0, 0%, 0%, 0.643);
+  --fonte_transparente: rgba(255, 255, 255, 0.23);
+  --fonte_meio_transparente: rgba(255, 255, 255, 0.555);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--fonte_inter);
+  list-style: none;
+}
+
+*::-webkit-scrollbar {
+  width: 1px;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 0 0 0 0;
+}
+
+div.musica_linha {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--white);
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: var(--padrao1);
+  border-radius: 4px;
+}
+div.musica_linha div.primeira_parte_musica_linha {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+div.musica_linha div.primeira_parte_musica_linha p.p_contador_musica_curtida {
+  width: 30px;
+  font-size: 12px;
+}
+div.musica_linha div.primeira_parte_musica_linha img {
+  width: 43px;
+  height: 43px;
+  border-radius: 4px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha p {
+  font-size: 14px;
+}
+div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha span {
+  font-size: 12px;
+  color: var(--fonte_meio_transparente);
+}
+div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha span p span {
+  padding-left: 5px;
+  margin-bottom: -0.5px;
+}
+div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha span p span:first-child {
+  padding: 0;
+}
+div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha span p span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+div.musica_linha div.segunda_parte_musica_linha {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+div.musica_linha div.segunda_parte_musica_linha p {
+  width: 30px;
+  font-size: 14px;
+}
+
+div.container_inputs_pesquisar {
+  width: 95%;
+  max-width: 380px;
+  padding: 0px 0px 0px 13px;
+  background-color: var(--cor_qse_transparente_background);
+  border-radius: 4px;
+  display: none;
+  align-items: center;
+  gap: 13px;
+}
+div.container_inputs_pesquisar img {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+div.container_inputs_pesquisar input {
+  width: 100%;
+  font-size: 13px;
+  padding-right: 13px;
+  background-color: transparent;
+  border: transparent;
+  outline: none;
+  color: var(--white);
+}
+div.container_inputs_pesquisar input::-moz-placeholder {
+  color: var(--fonte_transparente);
+  font-family: var(--fonte_inter);
+}
+div.container_inputs_pesquisar input::placeholder {
+  color: var(--fonte_transparente);
+  font-family: var(--fonte_inter);
+}
+
+.icons_like_barra_musica {
+  cursor: pointer;
+}
+
+div.musica_caixa {
+  width: 160px;
+  min-width: 150px;
+  height: 245px;
+  border-radius: 8px;
+  background-color: var(--cor_qse_transparente_background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  cursor: pointer;
+  padding: 10px;
+}
+div.musica_caixa div.container_img_musica {
+  width: 95%;
+  height: 55%;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 2px;
+}
+div.musica_caixa div.container_img_musica img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+div.musica_caixa div.texto_musica {
+  width: 100%;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+div.musica_caixa div.texto_musica p {
+  font-size: 14px;
+  color: var(--white);
+}
+div.musica_caixa div.texto_musica span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  cursor: pointer;
+}
+div.musica_caixa div.texto_musica span p span {
+  padding-left: 5px;
+  margin-bottom: -0.5px;
+}
+div.musica_caixa div.texto_musica span p span:first-child {
+  padding: 0;
+}
+div.musica_caixa div.texto_musica span p span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+div.daily_caixa {
+  width: 160px;
+  min-width: 150px;
+  height: 245px;
+  border-radius: 8px;
+  background-color: var(--cor_qse_transparente_background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  cursor: pointer;
+  padding: 10px;
+}
+div.daily_caixa div.container_img_musica {
+  width: 95%;
+  height: 55%;
+  min-height: 55%;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 2px;
+  position: relative;
+}
+div.daily_caixa div.container_img_musica img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+div.daily_caixa div.container_img_musica div.contaier_svg_daily {
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  bottom: 0;
+  color: var(--white);
+  margin-bottom: -10px;
+}
+div.daily_caixa div.container_img_musica div.contaier_svg_daily svg {
+  height: 83px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+}
+div.daily_caixa div.container_img_musica div.contaier_svg_daily p {
+  width: 100%;
+  font-size: 15px;
+  font-weight: bold;
+  z-index: 2;
+  position: absolute;
+  text-align: center;
+  bottom: 23px;
+}
+div.daily_caixa div.texto_musica {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+div.daily_caixa div.texto_musica p {
+  font-size: 14px;
+  color: var(--white);
+}
+div.daily_caixa div.texto_musica span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  cursor: pointer;
+}
+div.daily_caixa div.texto_musica span p span {
+  padding-left: 5px;
+  margin-bottom: -0.5px;
+}
+div.daily_caixa div.texto_musica span p span:first-child {
+  padding: 0;
+}
+div.daily_caixa div.texto_musica span p span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  background-image: url("../../Imgs/thumbnail.jpg");
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 8px;
+  overflow: auto;
+}
+body div#background_blur {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+body .Musica_On {
+  transition: 500ms height ease-in-out;
+  height: calc(100vh - 112px);
+}
+body .Fila_On {
+  transition: 500ms width ease-in-out;
+  width: calc(100vw - 386px);
+  right: 298px;
+}
+body nav {
+  width: 72px;
+  height: calc(100vh - 16px);
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  display: flex;
+  flex-direction: column;
+  z-index: 4;
+  gap: 8px;
+}
+body nav ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  background-color: var(--cor_qse_transparente_background);
+  padding: 18px 0;
+  border-radius: 8px;
+}
+body nav ul#ul_artistas_seguindo {
+  flex: 1;
+}
+body nav ul li {
+  position: relative;
+  cursor: pointer;
+}
+body nav ul li p {
+  text-wrap: nowrap;
+  position: absolute;
+  top: 0px;
+  color: var(--white);
+  left: 56px;
+  background-color: var(--padrao2);
+  display: none;
+  padding: 8px 10px;
+  z-index: 3;
+  border-radius: 4px;
+  opacity: 0;
+  transition: 0.4s opacity ease-in-out;
+}
+body div#nav_main {
+  width: calc(100vw - 96px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 8px;
+  padding: 22px;
+  left: 88px;
+  z-index: 3;
+  background-image: linear-gradient(var(--padrao1), transparent);
+  border-radius: 8px 8px 0 0;
+}
+body div#nav_main div#btns_esquerda {
+  width: calc(100% - 120px);
+  display: flex;
+  gap: 8px;
+}
+body div#nav_main div#btns_esquerda button {
+  width: 32px;
+  height: 32px;
+  background-color: var(--cor_qse_transparente_background);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+}
+body div#nav_main div#btns_direita {
+  display: none;
+  gap: 8px;
+}
+body div#nav_main div#btns_direita button {
+  width: 32px;
+  height: 32px;
+  background-color: var(--cor_qse_transparente_background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  overflow: hidden;
+}
+body div#nav_main div#btns_direita button#user_email_icon img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body div#nav_main div#btns_cadastro button {
+  height: 32px;
+  background-color: var(--padrao2);
+  color: #fff;
+  padding: 5px 10px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+body main {
+  width: calc(100vw - 96px);
+  position: fixed;
+  height: calc(100vh - 16px);
+  top: 8px;
+  left: 88px;
+  z-index: 2;
+  border-radius: 8px;
+  padding: 22px;
+  overflow: auto;
+  background-image: linear-gradient(to bottom, transparent, var(--padrao15));
+}
+body main section.Paginas {
+  margin: 54px 0 35px;
+  display: none;
+  min-height: calc(100vh - 149px);
+  opacity: 0;
+  transition: 0.5s opacity ease-in-out;
+}
+body main section.Paginas.Pagina_Aberta {
+  display: block;
+}
+body main section.Paginas h1 {
+  font-size: 20px;
+  color: var(--white);
+  margin: 30px 0 16px;
+}
+body main section.Paginas h1#h1_pesquisa {
+  color: var(--fonte_meio_transparente);
+}
+body main section.Paginas h1#h1_pesquisa span {
+  color: var(--white);
+}
+body main section.Paginas article {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  gap: 12px;
+}
+body main section.Paginas article div.artista_caixa {
+  width: 160px;
+  min-width: 150px;
+  height: 245px;
+  border-radius: 8px;
+  background-color: var(--cor_qse_transparente_background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  cursor: pointer;
+  padding: 10px;
+}
+body main section.Paginas article div.artista_caixa div.container_img_musica {
+  width: 95%;
+  height: 55%;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: 2px;
+}
+body main section.Paginas article div.artista_caixa div.container_img_musica img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+body main section.Paginas article div.artista_caixa div.texto_musica {
+  width: 100%;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+body main section.Paginas article div.artista_caixa div.texto_musica p {
+  font-size: 14px;
+  color: var(--white);
+}
+body main section.Paginas article div.artista_caixa div.texto_musica span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_home.Pagina_Aberta {
+  display: block;
+}
+body main section.Paginas#Pagina_home.Pesquisa_Nao_Encontrada {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body main section.Paginas#Pagina_home section#autores_recentes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 12px;
+  grid-template-rows: repeat(2, auto);
+}
+body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curtidas {
+  display: flex;
+  align-items: center;
+  color: var(--white);
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: var(--padrao1);
+  border-radius: 5px;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curtidas div {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curtidas:hover button {
+  opacity: 1;
+  transition: 200ms opacity linear;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curtidas button {
+  background: transparent;
+  border: none;
+  opacity: 0;
+  padding: 0 20px;
+}
+body main section.Paginas#Pagina_home section#container_musicas_home {
+  margin-top: 20px;
+}
+body main section.Paginas#Pagina_pesquisar section {
+  display: none;
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado {
+  width: 100%;
+  display: none;
+  gap: 50px;
+  justify-content: space-between;
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section {
+  display: flex;
+  flex-direction: column;
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte1_melhor_resultado {
+  width: 50%;
+  max-width: 400px;
+  min-width: 300px;
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte1_melhor_resultado article#article_melhor_resultado {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cor_qse_transparente_background);
+  border-radius: 8px;
+  padding: 20px;
+  max-height: 252px;
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte1_melhor_resultado article#article_melhor_resultado img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte1_melhor_resultado article#article_melhor_resultado div {
+  color: var(--white);
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte1_melhor_resultado article#article_melhor_resultado div p {
+  font-size: 1.8em;
+  font-weight: bold;
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte2_melhor_resultado {
+  width: 100%;
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte2_melhor_resultado article#musicas_linha_melhor_resultado {
+  display: flex;
+  flex-direction: column;
+  max-height: 252px;
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte2_melhor_resultado article#musicas_linha_melhor_resultado div.musica_linha {
+  background-color: transparent;
+}
+body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte2_melhor_resultado article#musicas_linha_melhor_resultado div.musica_linha:hover {
+  background-color: var(--black_transparent);
+}
+body main section.Paginas#Pagina_pesquisar div#pesquisa_nao_encontrada {
+  width: 70%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+body main section.Paginas#Pagina_pesquisar div#pesquisa_nao_encontrada h1 {
+  font-size: 1.5em;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 0;
+}
+body main section.Paginas#Pagina_pesquisar div#pesquisa_nao_encontrada p {
+  font-size: 0.9em;
+  color: var(--white_transparent);
+}
+body main section.Paginas#Pagina_adicionarmusicas {
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+body main section.Paginas#Pagina_adicionarmusicas.Pagina_Aberta {
+  display: flex;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_musica {
+  width: 95%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  color: var(--white);
+}
+body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_musica h1 {
+  font-size: 4em;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_musica a {
+  color: red;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_musica div#container_input_add_musica {
+  min-width: 380px;
+  height: 60px;
+  padding: 0px 0px 0px 13px;
+  background-color: var(--padrao1);
+  -webkit-backdrop-filter: blur(0px);
+          backdrop-filter: blur(0px);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_musica div#container_input_add_musica img {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_musica div#container_input_add_musica input {
+  width: 100%;
+  font-size: 16px;
+  padding-right: 13px;
+  background-color: transparent;
+  border: transparent;
+  outline: none;
+  color: var(--white);
+}
+body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_musica div#container_input_add_musica input::-moz-placeholder {
+  color: var(--fonte_transparente);
+  font-family: var(--fonte_inter);
+}
+body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_musica div#container_input_add_musica input::placeholder {
+  color: var(--fonte_transparente);
+  font-family: var(--fonte_inter);
+}
+body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_musica button {
+  background-color: var(--cor_qse_transparente_background);
+  cursor: pointer;
+  border-radius: 4px;
+  height: 60px;
+  border: none;
+  color: var(--white);
+  font-size: 16px;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica {
+  width: 100%;
+  height: 100%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica {
+  width: 95%;
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--white);
+  background-color: var(--padrao1);
+  padding: 20px;
+  border-radius: 8px;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica img {
+  max-width: 70%;
+  margin: 0 auto 30px;
+  border-radius: 8px;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica input {
+  width: 100%;
+  height: 20px;
+  background-color: transparent;
+  font-size: 16px;
+  border: transparent;
+  outline: none;
+  color: var(--white);
+  margin-bottom: 15px;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica input::-moz-placeholder {
+  color: var(--fonte_transparente);
+  font-family: var(--fonte_inter);
+}
+body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica input::placeholder {
+  color: var(--fonte_transparente);
+  font-family: var(--fonte_inter);
+}
+body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica input#input_add_musica_nome {
+  font-size: 25px;
+  font-weight: bold;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica input#input_add_musica_autor {
+  font-size: 16px;
+  font-weight: bold;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica div#btns_postar_musica {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica div#btns_postar_musica button, body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica div#btns_postar_musica a {
+  width: 100%;
+  padding: 15px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--padrao15);
+  border: none;
+  text-align: center;
+}
+body main section.Paginas#Pagina_artista div#background_paginas_artista {
+  width: 100%;
+  height: 80%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("../../Imgs/artista.png");
+  background-position: center 35%;
+  -webkit-mask-image: linear-gradient(to bottom, #000000, #000000, transparent);
+          mask-image: linear-gradient(to bottom, #000000, #000000, transparent);
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 1;
+  display: none;
+}
+body main section.Paginas#Pagina_artista div#background_blur_paginas_artista {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to top, var(--padrao15), transparent);
+  z-index: 1;
+  display: none;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista {
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 2;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  align-items: start;
+  justify-content: end;
+  margin-top: 60px;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas div#container_infos_artista {
+  display: flex;
+  flex-direction: column;
+  color: var(--white);
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas div#container_infos_artista p {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas div#container_infos_artista p svg {
+  width: 24px;
+  height: 24px;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas div#container_infos_artista p span {
+  font-size: 12px;
+  color: var(--white);
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas div#container_infos_artista h1 {
+  font-size: 64px;
+  font-weight: bold;
+  margin: 0;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas div#container_infos_artista span {
+  font-size: 12px;
+  color: var(--white_transparent);
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas div#container_seguir_artista {
+  display: flex;
+  align-items: center;
+  margin-top: 31px;
+  gap: 17px;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas div#container_seguir_artista img {
+  width: 68px;
+  height: 68px;
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas div#container_seguir_artista button {
+  padding: 5px 20px;
+  border-radius: 4px;
+  border: 1px solid var(--white);
+  background-color: transparent;
+  color: var(--white);
+  font-size: 12px;
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista h1 {
+  margin: 30px 0 16px 22px;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#container_musicas_pag_artista {
+  width: calc(100% - 44px);
+  margin: 0 auto;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#container_musicas_pag_artista div.musica_linha {
+  background-color: transparent;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista article#container_musicas_pag_artista div.musica_linha:hover {
+  background-color: var(--black_transparent);
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_infos_header_musicas_curtidas {
+  display: flex;
+  align-items: end;
+  gap: 20px;
+  color: var(--white);
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_infos_header_musicas_curtidas div#container_header_img_musicas_curtidas {
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_infos_header_musicas_curtidas div#container_header_img_musicas_curtidas img {
+  width: 110%;
+  height: 110%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_infos_header_musicas_curtidas div#container_infos_musicas_curtidas {
+  padding: 0;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_infos_header_musicas_curtidas div#container_infos_musicas_curtidas span {
+  font-size: 13px;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_infos_header_musicas_curtidas div#container_infos_musicas_curtidas h1 {
+  font-size: 3em;
+  font-weight: 800;
+  margin: 0;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_infos_header_musicas_curtidas div#container_infos_musicas_curtidas p {
+  font-size: 13px;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_infos_header_musicas_curtidas div#container_infos_musicas_curtidas p span {
+  font-weight: normal;
+  color: var(--fonte_meio_transparente);
+  font-size: 12px;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+  justify-content: space-between;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#part1_btns_musicas_curtidas {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#part1_btns_musicas_curtidas img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#part1_btns_musicas_curtidas img#img_play_musicas_curtidas {
+  width: 70px;
+  height: 70px;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#container_pesquisar_musicas_curtidas {
+  display: flex;
+  height: 32px;
+  background-color: var(--cor_qse_transparente_background);
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas hr {
+  border-color: rgba(180, 180, 180, 0.24);
+  margin: 10px 0;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_musicas_curtidas {
+  flex-direction: column;
+  margin-top: 20px;
+  padding-bottom: 0px;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_musicas_curtidas div.musica_linha {
+  background-color: transparent;
+}
+body main section.Paginas#Pagina_musicascurtidas article#container_musicas_curtidas div.musica_linha:hover {
+  background-color: var(--black_transparent);
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist {
+  display: flex;
+  align-items: end;
+  gap: 20px;
+  color: var(--white);
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_header_img_playlist {
+  width: 180px;
+  height: 180px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  position: relative;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_header_img_playlist img {
+  width: 110%;
+  height: 110%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_header_img_playlist div#container_svg_mix_daily {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  color: var(--white);
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_header_img_playlist div#container_svg_mix_daily svg {
+  width: 100%;
+  height: 80px;
+  bottom: 0px;
+  position: absolute;
+  z-index: 1;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_header_img_playlist div#container_svg_mix_daily p {
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 15px;
+  z-index: 2;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_infos_playlist {
+  padding: 0;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_infos_playlist span {
+  font-size: 13px;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_infos_playlist h1 {
+  font-size: 3em;
+  font-weight: 800;
+  margin: 0;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_infos_playlist p {
+  font-size: 13px;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_infos_playlist p span {
+  font-weight: normal;
+  color: var(--fonte_meio_transparente);
+  font-size: 12px;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_headers_btns_playlist {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+  justify-content: space-between;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_headers_btns_playlist div#part1_btns_playlist {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_headers_btns_playlist div#part1_btns_playlist img {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_headers_btns_playlist div#part1_btns_playlist img#img_play_playlist {
+  width: 70px;
+  height: 70px;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_headers_btns_playlist div#container_pesquisar_playlist {
+  display: flex;
+  height: 32px;
+  background-color: var(--cor_qse_transparente_background);
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist hr {
+  border-color: rgba(180, 180, 180, 0.24);
+  margin: 10px 0;
+}
+body main section.Paginas#Pagina_playlist article#container_playlist {
+  flex-direction: column;
+  margin-top: 20px;
+  padding-bottom: 0px;
+}
+body main section.Paginas#Pagina_playlist article#container_playlist div.musica_linha {
+  background-color: transparent;
+}
+body main section.Paginas#Pagina_playlist article#container_playlist div.musica_linha:hover {
+  background-color: var(--black_transparent);
+}
+body section#container_fila {
+  width: 282px;
+  height: calc(100vh - 112px);
+  position: fixed;
+  right: -282px;
+  z-index: 2;
+  color: var(--white);
+  padding: 16px;
+  background-color: var(--padrao1);
+  -webkit-backdrop-filter: blur(0px);
+          backdrop-filter: blur(0px);
+  border-radius: 8px;
+  transition: 500ms right ease-in-out;
+  overflow: auto;
+}
+body section#container_fila article {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+body section#container_fila article p#texto_fila {
+  margin-left: 8px;
+  -webkit-text-decoration: underline rgb(0, 255, 213);
+          text-decoration: underline rgb(0, 255, 213);
+}
+body section#container_fila article div.contanier_caixa_fila {
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s height ease-in-out;
+  height: 58px;
+  position: relative;
+}
+body section#container_fila article div.contanier_caixa_fila#container_a_seguir_fila {
+  height: 0;
+}
+body section#container_fila article div.contanier_caixa_fila .Animation_Nova_Musica_Fila {
+  margin-left: 0px !important;
+}
+body section#container_fila article div.contanier_caixa_fila p {
+  margin-top: 30px;
+  font-weight: 600;
+  padding-left: 8px;
+  margin-left: 282px;
+  transition: 500ms margin-left ease-in-out;
+}
+body section#container_fila article div.contanier_caixa_fila#container_musica_tocando_agora_fila p#nome_tocando_agora_fila {
+  color: rgb(0, 255, 213);
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo {
+  width: 100%;
+  height: 73px;
+  gap: 10px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-left: 282px;
+  transition: 500ms margin-left ease-in-out;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo:hover {
+  background-color: var(--padrao15);
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo:hover > span.config_lista_prox {
+  opacity: 1;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo div.primeira_parte_lista_prox {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo div.primeira_parte_lista_prox img {
+  width: 55px;
+  height: 55px;
+  border-radius: 4px;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo div.primeira_parte_lista_prox div.texto_musica_resulmo {
+  width: 149px;
+  overflow: hidden;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo div.primeira_parte_lista_prox div.texto_musica_resulmo p {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo div.primeira_parte_lista_prox div.texto_musica_resulmo span {
+  font-size: 12px;
+  color: var(--fonte_meio_transparente);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo div.primeira_parte_lista_prox div.texto_musica_resulmo span p span {
+  padding-left: 5px;
+  margin-bottom: -0.5px;
+  font-weight: normal;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo div.primeira_parte_lista_prox div.texto_musica_resulmo span p span:first-child {
+  padding: 0;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo div.primeira_parte_lista_prox div.texto_musica_resulmo span p span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo span.config_lista_prox {
+  font-size: 14px;
+  font-weight: 700;
+  opacity: 0;
+  letter-spacing: 2px;
+  padding: 5px;
+  position: absolute;
+  right: 5px;
+}
+body section#container_barra_musica {
+  width: calc(100vw - 16px);
+  height: 88px;
+  position: fixed;
+  bottom: -300px;
+  z-index: 5;
+  transition: 500ms bottom ease-in-out;
+  background-color: var(--padrao1);
+  -webkit-backdrop-filter: blur(0px);
+          backdrop-filter: blur(0px);
+  border-radius: 8px;
+  padding: 8px;
+}
+body section#container_barra_musica article {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica {
+  display: flex;
+  align-items: center;
+  color: var(--white);
+}
+body section#container_barra_musica article div#infos_musica_barra_musica img#img_musica_barra_musica {
+  width: 72px;
+  height: 72px;
+  border-radius: 4px;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#texto_barra_musica {
+  margin: 0 26px 0 10px;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#texto_barra_musica p {
+  font-size: 14px;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#texto_barra_musica span {
+  font-size: 12px;
+  color: var(--white_transparent);
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#texto_barra_musica span p {
+  display: flex;
+  align-items: end;
+  cursor: default;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#texto_barra_musica span p span {
+  padding-left: 5px;
+  margin-bottom: -0.5px;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#texto_barra_musica span p span:first-child {
+  padding: 0;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#texto_barra_musica span p span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica {
+  width: 90%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_controles {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: auto;
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_controles svg {
+  cursor: pointer;
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_controles img {
+  cursor: pointer;
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_barra {
+  display: flex;
+  align-items: center;
+  color: var(--white);
+  gap: 12px;
+  font-size: 12px;
+  margin: 5px 0 0;
+  /* Hides the thumb (slider handle) */
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_barra p {
+  width: 20px;
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_barra input {
+  background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
+  border: none;
+  border-radius: 8px;
+  height: 5px;
+  width: 100%;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_barra input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px; /* ajuste conforme necessário */
+  height: 10px; /* ajuste conforme necessário */
+  background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+  border-radius: 50%; /* para fazer uma bolinha */
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+  opacity: 0; /* inicia invisível */
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_barra input:hover::-webkit-slider-thumb,
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_barra input:focus::-webkit-slider-thumb {
+  opacity: 1; /* torna visível ao passar o mouse ou focar */
+}
+body section#container_barra_musica article div#container_opcoes_barra_musica {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+body section#container_barra_musica article div#container_opcoes_barra_musica svg, body section#container_barra_musica article div#container_opcoes_barra_musica img {
+  cursor: pointer;
+}
+body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Hides the thumb (slider handle) */
+}
+body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som div#container_icon_volume {
+  width: 25px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som div#container_icon_volume img {
+  transition: all 5s ease-in-out;
+}
+body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som input {
+  background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
+  border: none;
+  border-radius: 8px;
+  height: 5px;
+  width: 100%;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px; /* ajuste conforme necessário */
+  height: 10px; /* ajuste conforme necessário */
+  background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+  border-radius: 50%; /* para fazer uma bolinha */
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+  opacity: 0; /* inicia invisível */
+}
+body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som input:hover::-webkit-slider-thumb,
+body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som input:focus::-webkit-slider-thumb {
+  opacity: 1; /* torna visível ao passar o mouse ou focar */
+}
+body section#container_fullscreen {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: none;
+  top: 0;
+  left: 0;
+  background-color: rgb(22, 22, 22);
+  z-index: 6;
+  transition: 1s opacity ease-in-out;
+  opacity: 0;
+}
+body section#container_fullscreen div#background_fullscreen {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-image: url("../../Imgs/thumbnail.jpg");
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.5;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen {
+  width: 90%;
+  position: absolute;
+  z-index: 2;
+  bottom: 50px;
+  left: 50%;
+  transform: translate(-50%);
+  color: var(--white);
+  transition: 1s bottom ease-in-out;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#container_nome_musica_fullscreen {
+  display: flex;
+  align-items: end;
+  gap: 20px;
+  margin-bottom: 50px;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#container_nome_musica_fullscreen img {
+  width: 120px;
+  height: 120px;
+  border-radius: 4px;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#container_nome_musica_fullscreen div {
+  font-weight: bold;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#container_nome_musica_fullscreen div p {
+  font-size: 2.5em;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#container_nome_musica_fullscreen div span {
+  color: var(--white_transparent);
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#barra_musica_fullscreen {
+  display: flex;
+  align-items: center;
+  color: var(--white);
+  gap: 12px;
+  font-size: 14px;
+  margin: 5px 0 0;
+  /* Hides the thumb (slider handle) */
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#barra_musica_fullscreen p {
+  width: 30px;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#barra_musica_fullscreen input {
+  background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
+  border: none;
+  border-radius: 8px;
+  height: 6px;
+  width: 100%;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#barra_musica_fullscreen input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px; /* ajuste conforme necessário */
+  height: 10px; /* ajuste conforme necessário */
+  background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+  border-radius: 50%; /* para fazer uma bolinha */
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+  opacity: 0; /* inicia invisível */
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#barra_musica_fullscreen input:hover::-webkit-slider-thumb,
+body section#container_fullscreen article#container_barra_musica_fullscreen div#barra_musica_fullscreen input:focus::-webkit-slider-thumb {
+  opacity: 1; /* torna visível ao passar o mouse ou focar */
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 50px;
+  opacity: 1;
+  transition: 1s opacity ease-in-out;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part1_controles_fullscreen img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part2_controles_fullscreen {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part2_controles_fullscreen svg, body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part2_controles_fullscreen img {
+  cursor: pointer;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen svg, body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen img {
+  cursor: pointer;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Hides the thumb (slider handle) */
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div img {
+  cursor: pointer;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div input {
+  background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
+  border: none;
+  border-radius: 8px;
+  height: 5px;
+  width: 100%;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px; /* ajuste conforme necessário */
+  height: 10px; /* ajuste conforme necessário */
+  background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+  border-radius: 50%; /* para fazer uma bolinha */
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+  opacity: 0; /* inicia invisível */
+}
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div input:hover::-webkit-slider-thumb,
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div input:focus::-webkit-slider-thumb {
+  opacity: 1; /* torna visível ao passar o mouse ou focar */
+}
+body section#opcoes_click_direito {
+  position: fixed;
+  z-index: 5;
+  display: none;
+  min-width: 270px;
+  color: var(--white);
+  background-color: var(--padrao15);
+  -webkit-backdrop-filter: blur(4px);
+          backdrop-filter: blur(4px);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.404);
+}
+body section#opcoes_click_direito ul {
+  display: flex;
+  flex-direction: column;
+}
+body section#opcoes_click_direito ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+body section#opcoes_click_direito ul li img {
+  width: 17px;
+  height: 17px;
+}
+body section#opcoes_click_direito ul li p {
+  font-size: 14px;
+}
+body section#opcoes_click_direito ul li:hover {
+  background-color: var(--padrao15);
+}
+body section#opcoes_click_direito ul hr {
+  border-color: rgba(180, 180, 180, 0.397);
+  margin: 10px 0;
+}
+body section#container_notificacao_infos {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background-color: var(--background_black);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+body section#container_notificacao_infos article {
+  width: 95%;
+  max-width: 450px;
+  padding: 20px;
+  background-color: var(--padrao4);
+  color: var(--white);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body section#container_notificacao_infos article p {
+  text-align: justify;
+  margin: 30px 0;
+}
+body section#container_notificacao_infos article button {
+  width: 100%;
+  height: 44px;
+  padding: 10px 15px;
+  background-color: var(--white);
+  color: var(--black);
+  font-weight: bold;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  text-align: center;
+}
+body section#Container_Cadastro {
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  position: fixed;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background_black);
+}
+body section#Container_Cadastro article {
+  width: 95%;
+  max-width: 450px;
+  padding: 20px;
+  background-color: var(--padrao4);
+  color: var(--white);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body section#Container_Cadastro article p {
+  width: 90%;
+  text-align: justify;
+  font-size: 12px;
+  margin: 30px 0 200px;
+}
+body section#Container_Cadastro article button {
+  width: 227px;
+  height: 44px;
+  padding: 10px 15px;
+  background-color: var(--padrao3);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}/*# sourceMappingURL=Home.css.map */

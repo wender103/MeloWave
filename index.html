@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeloWave - Home</title>
+
+    <!-- <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css"> -->
+    <link rel="stylesheet" href="Assets/Styles/Home/Home.css">
+</head>
+<body>
+    <div id="background_blur"></div>
+
+    <nav>
+        <ul>
+            <li class="li_icon">
+                <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <mask id="path-1-inside-1_4_7" fill="white">
+                    <path d="M10.2432 1.778L1.41382 7.18998V21.4046H7.00803V13.7366H13.5271V21.4046H19.0725V7.1509L10.2432 1.778ZM10.2432 0.499939L20.1112 6.31233V22.4999H12.4885V14.8319H8.04676V22.4999H0.375092V6.3645L10.2432 0.499939Z"/>
+                    </mask>
+                    <path d="M10.2432 1.778L1.41382 7.18998V21.4046H7.00803V13.7366H13.5271V21.4046H19.0725V7.1509L10.2432 1.778ZM10.2432 0.499939L20.1112 6.31233V22.4999H12.4885V14.8319H8.04676V22.4999H0.375092V6.3645L10.2432 0.499939Z" fill="white"/>
+                    <path d="M10.2432 1.778L11.8027 -0.784778L10.2375 -1.73725L8.67541 -0.779746L10.2432 1.778ZM1.41382 7.18998L-0.153956 4.63223L-1.58618 5.51011V7.18998H1.41382ZM1.41382 21.4046H-1.58618V24.4046H1.41382V21.4046ZM7.00803 21.4046V24.4046H10.008V21.4046H7.00803ZM7.00803 13.7366V10.7366H4.00803V13.7366H7.00803ZM13.5271 13.7366H16.5271V10.7366H13.5271V13.7366ZM13.5271 21.4046H10.5271V24.4046H13.5271V21.4046ZM19.0725 21.4046V24.4046H22.0725V21.4046H19.0725ZM19.0725 7.1509H22.0725V5.46469L20.632 4.58812L19.0725 7.1509ZM10.2432 0.499939L11.7657 -2.08499L10.2364 -2.9858L8.71053 -2.07901L10.2432 0.499939ZM20.1112 6.31233H23.1112V4.59764L21.6338 3.72741L20.1112 6.31233ZM20.1112 22.4999V25.4999H23.1112V22.4999H20.1112ZM12.4885 22.4999H9.48845V25.4999H12.4885V22.4999ZM12.4885 14.8319H15.4885V11.8319H12.4885V14.8319ZM8.04676 14.8319V11.8319H5.04676V14.8319H8.04676ZM8.04676 22.4999V25.4999H11.0468V22.4999H8.04676ZM0.375092 22.4999H-2.62491V25.4999H0.375092V22.4999ZM0.375092 6.3645L-1.15756 3.78555L-2.62491 4.65759V6.3645H0.375092ZM8.67541 -0.779746L-0.153956 4.63223L2.9816 9.74773L11.811 4.33575L8.67541 -0.779746ZM-1.58618 7.18998V21.4046H4.41382V7.18998H-1.58618ZM1.41382 24.4046H7.00803V18.4046H1.41382V24.4046ZM10.008 21.4046V13.7366H4.00803V21.4046H10.008ZM7.00803 16.7366H13.5271V10.7366H7.00803V16.7366ZM10.5271 13.7366V21.4046H16.5271V13.7366H10.5271ZM13.5271 24.4046H19.0725V18.4046H13.5271V24.4046ZM22.0725 21.4046V7.1509H16.0725V21.4046H22.0725ZM20.632 4.58812L11.8027 -0.784778L8.68365 4.34078L17.5129 9.71368L20.632 4.58812ZM8.72064 3.08486L18.5887 8.89726L21.6338 3.72741L11.7657 -2.08499L8.72064 3.08486ZM17.1112 6.31233V22.4999H23.1112V6.31233H17.1112ZM20.1112 19.4999H12.4885V25.4999H20.1112V19.4999ZM15.4885 22.4999V14.8319H9.48845V22.4999H15.4885ZM12.4885 11.8319H8.04676V17.8319H12.4885V11.8319ZM5.04676 14.8319V22.4999H11.0468V14.8319H5.04676ZM8.04676 19.4999H0.375092V25.4999H8.04676V19.4999ZM3.37509 22.4999V6.3645H-2.62491V22.4999H3.37509ZM1.90775 8.94345L11.7758 3.07889L8.71053 -2.07901L-1.15756 3.78555L1.90775 8.94345Z" fill="#FEFEFE" mask="url(#path-1-inside-1_4_7)"/>
+                </svg>
+
+                <p class="nome_li">Home</p>
+            </li>
+            <li class="li_icon">
+                <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.25 18.75L14.1378 14.6305M16.4167 9.12498C16.4167 11.1915 15.5958 13.1733 14.1346 14.6345C12.6733 16.0957 10.6915 16.9166 8.62501 16.9166C6.55853 16.9166 4.57669 16.0957 3.11547 14.6345C1.65425 13.1733 0.833344 11.1915 0.833344 9.12498C0.833344 7.0585 1.65425 5.07666 3.11547 3.61544C4.57669 2.15422 6.55853 1.33331 8.62501 1.33331C10.6915 1.33331 12.6733 2.15422 14.1346 3.61544C15.5958 5.07666 16.4167 7.0585 16.4167 9.12498Z" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>                
+                
+                <p class="nome_li">Pesquisar</p>
+            </li>
+            <li class="li_icon">
+                <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12.2383 4.35938H13.7617C13.8971 4.35938 13.9648 4.42708 13.9648 4.5625V22.4375C13.9648 22.5729 13.8971 22.6406 13.7617 22.6406H12.2383C12.1029 22.6406 12.0352 22.5729 12.0352 22.4375V4.5625C12.0352 4.42708 12.1029 4.35938 12.2383 4.35938Z" fill="white"/>
+                    <path d="M4.46875 12.5352H21.5312C21.6667 12.5352 21.7344 12.6029 21.7344 12.7383V14.2617C21.7344 14.3971 21.6667 14.4648 21.5312 14.4648H4.46875C4.33333 14.4648 4.26562 14.3971 4.26562 14.2617V12.7383C4.26562 12.6029 4.33333 12.5352 4.46875 12.5352Z" fill="white"/>
+                </svg>   
+                
+                <p class="nome_li">Adicionar Músicas</p>
+            </li>
+            <li class="li_icon">
+                <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_2_648)">
+                    <path d="M12.7032 0.61338L22 21.4921L20.9213 21.9747L11.6245 1.09597L12.7032 0.61338ZM0 21.9605V0.499817H1.1923V21.9605H0ZM7.15356 21.9605V0.499817H8.34586V21.9605H7.15356Z" fill="white"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_2_648">
+                    <rect width="22" height="22" fill="white" transform="translate(0 0.5)"/>
+                    </clipPath>
+                    </defs>
+                </svg>
+
+                <p class="nome_li">Biblioteca</p>
+            </li>
+        </ul>
+
+        <ul id="ul_artistas_seguindo">
+            <li class="li_icon">
+                <img src="Assets/Imgs/Musicas curtidas.svg">
+                <p class="nome_li">Músicas Curtidas</p>
+            </li>
+                
+        </ul>
+    </nav>
+    <!--! Fim Nav -->
+
+    <!--! Div Nav -->
+    <div id="nav_main">
+        <div id="btns_esquerda">
+            <button>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5364 2.58957L6.84479 11.2968C6.76655 11.3715 6.70447 11.4615 6.66236 11.5612C6.62026 11.6609 6.59903 11.7682 6.59999 11.8764C6.59967 12.0997 6.68767 12.3141 6.84479 12.4728C9.98879 15.54 13.0188 18.5004 15.9348 21.354C16.0848 21.4944 16.6848 21.8436 17.148 21.3252C17.6112 20.8056 17.3304 20.3532 17.148 20.166L8.66639 11.8764L16.7628 3.76557C17.058 3.35877 17.034 2.98317 16.6908 2.63877C16.3476 2.29437 15.9624 2.27757 15.5364 2.58957Z" fill="#BDBDBD"/>
+                </svg>                        
+            </button>
+
+            <button>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.46361 2.58957L17.1552 11.2968C17.2334 11.3715 17.2955 11.4615 17.3376 11.5612C17.3797 11.6609 17.401 11.7682 17.4 11.8764C17.4003 12.0997 17.3123 12.3141 17.1552 12.4728C14.0112 15.54 10.9812 18.5004 8.06521 21.354C7.91521 21.4944 7.31521 21.8436 6.85201 21.3252C6.38881 20.8056 6.66961 20.3532 6.85201 20.166L15.3336 11.8764L7.23721 3.76557C6.94201 3.35877 6.96601 2.98317 7.30921 2.63877C7.65241 2.29437 8.03761 2.27757 8.46361 2.58957Z" fill="#BDBDBD"/>
+                </svg>
+            </button>
+
+            <div id="input_pesquisa" class="container_inputs_pesquisar">
+                <img src="Assets/Imgs/Icons_search_input.svg" id="icon_pesquisar">                      
+
+                <input type="text" placeholder="O que quer ouvir?" id="input_pesquisar" autocomplete="off">
+            </div>
+        </div>
+        
+        <div id="btns_direita">
+            <button>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_2_494)">
+                    <path d="M8.00006 1.5C6.93919 1.5 5.92178 1.92143 5.17163 2.67157C4.42149 3.42172 4.00006 4.43913 4.00006 5.5V8.77C3.99985 8.90093 3.96538 9.02953 3.90006 9.143L2.25506 12H13.7451L12.1001 9.142C12.0346 9.02823 12.0001 8.89927 12.0001 8.768V5.5C12.0001 4.43913 11.5786 3.42172 10.8285 2.67157C10.0783 1.92143 9.06092 1.5 8.00006 1.5ZM2.50006 5.5C2.50006 4.04131 3.07952 2.64236 4.11097 1.61091C5.14242 0.579463 6.54137 0 8.00006 0C9.45875 0 10.8577 0.579463 11.8891 1.61091C12.9206 2.64236 13.5001 4.04131 13.5001 5.5V8.567L15.6931 12.376C15.7587 12.49 15.7931 12.6193 15.793 12.7508C15.7928 12.8824 15.7581 13.0116 15.6922 13.1255C15.6264 13.2393 15.5317 13.3339 15.4178 13.3996C15.3038 13.4654 15.1746 13.5 15.0431 13.5H10.5001C10.5001 14.163 10.2367 14.7989 9.76783 15.2678C9.29898 15.7366 8.6631 16 8.00006 16C7.33702 16 6.70113 15.7366 6.23229 15.2678C5.76345 14.7989 5.50006 14.163 5.50006 13.5H0.957058C0.825511 13.5 0.696283 13.4654 0.582341 13.3996C0.4684 13.3339 0.373753 13.2393 0.307899 13.1255C0.242045 13.0116 0.207301 12.8824 0.207154 12.7508C0.207006 12.6193 0.24146 12.49 0.307058 12.376L2.50006 8.569V5.5ZM7.00006 13.5C7.00006 13.7652 7.10542 14.0196 7.29295 14.2071C7.48049 14.3946 7.73484 14.5 8.00006 14.5C8.26528 14.5 8.51963 14.3946 8.70716 14.2071C8.8947 14.0196 9.00006 13.7652 9.00006 13.5H7.00006Z" fill="white"/>
+                    </g>
+                    <defs>
+                    <clipPath id="clip0_2_494">
+                    <rect width="16" height="16" fill="white"/>
+                    </clipPath>
+                    </defs>
+                </svg>    
+            </button>
+
+            <button>
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.4 5.59999C3.2825 5.59999 4 4.88249 4 3.99999C4 3.11749 3.2825 2.39999 2.4 2.39999C1.5175 2.39999 0.8 3.11749 0.8 3.99999C0.8 4.88249 1.5175 5.59999 2.4 5.59999ZM13.6 5.59999C14.4825 5.59999 15.2 4.88249 15.2 3.99999C15.2 3.11749 14.4825 2.39999 13.6 2.39999C12.7175 2.39999 12 3.11749 12 3.99999C12 4.88249 12.7175 5.59999 13.6 5.59999ZM14.4 6.39999H12.8C12.36 6.39999 11.9625 6.57749 11.6725 6.86499C12.68 7.41749 13.395 8.41499 13.55 9.59999H15.2C15.6425 9.59999 16 9.24249 16 8.79999V7.99999C16 7.11749 15.2825 6.39999 14.4 6.39999ZM8 6.39999C9.5475 6.39999 10.8 5.14749 10.8 3.59999C10.8 2.05249 9.5475 0.799988 8 0.799988C6.4525 0.799988 5.2 2.05249 5.2 3.59999C5.2 5.14749 6.4525 6.39999 8 6.39999ZM9.92 7.19999H9.7125C9.1925 7.44999 8.615 7.59999 8 7.59999C7.385 7.59999 6.81 7.44999 6.2875 7.19999H6.08C4.49 7.19999 3.2 8.48999 3.2 10.08V10.8C3.2 11.4625 3.7375 12 4.4 12H11.6C12.2625 12 12.8 11.4625 12.8 10.8V10.08C12.8 8.48999 11.51 7.19999 9.92 7.19999ZM4.3275 6.86499C4.0375 6.57749 3.64 6.39999 3.2 6.39999H1.6C0.7175 6.39999 0 7.11749 0 7.99999V8.79999C0 9.24249 0.3575 9.59999 0.8 9.59999H2.4475C2.605 8.41499 3.32 7.41749 4.3275 6.86499Z" fill="white"/>
+                </svg>                        
+            </button>
+
+            <button id="user_email_icon">
+                <img src="" id="img_perfil_emial">
+            </button>
+        </div>
+
+        <div id="btns_cadastro">
+            <button onclick="Abrir_Entrar()">Entrar</button>
+        </div>
+    </div>
+    <!--! Fim Div Nav -->
+
+    <!--! Main -->
+    <main>
+
+        <section class="Paginas Pagina_Aberta" id="Pagina_home" style="opacity: 1;">
+            <section id="autores_recentes">
+                <div id="musicas_curtidas">
+                    <div>
+                        <img src="Assets/Imgs/Musicas curtidas.svg">
+        
+                        <p>Músicas Curtidas</p>
+                    </div>
+    
+                    <button>
+                        <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 21L18.375 10.5L0 0V21Z" fill="white"/>
+                        </svg>                        
+                    </button>
+                </div>
+            </section>
+
+            <section id="container_musicas_home"></section>
+        </section>
+
+        <section class="Paginas" id="Pagina_pesquisar">
+            <section id="container_melhor_resultado">
+                <section id="parte1_melhor_resultado">
+                    <h1>Melhor resultado</h1>
+                    <article id="article_melhor_resultado">
+                        <img src="https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/FUhQGZhJ9qkB6q9ObZep/Hulvey___Topic_thumbnail.jpg" id="img_melhor_resultado">
+
+                        <div>
+                            <p id="nome_melhor_resultado">Forrest Frank</p>
+                            <span id="tipo_melhor_resultado">Artista</span>
+                        </div>
+                    </article>
+                </section>
+                <section id="parte2_melhor_resultado">
+                    <h1>Músicas</h1>
+                    <article id="musicas_linha_melhor_resultado">
+                        <div class="musica_linha">
+                            <div class="primeira_parte_musica_linha">
+                                <img src="Assets/Imgs/music1.png">
+
+                                <div class="texto_musica_linha">
+                                    <p>Can't tell all (Remix)</p>
+                                    <span>Hulvey, Lecrea, KB</span>
+                                </div>
+                            </div>
+
+                            <div class="segunda_parte_musica_linha">
+                                <img src="Assets/Imgs/Like_Vazio.svg">
+                                <p>3:31</p>
+                            </div>
+                        </div>
+                        <div class="musica_linha">
+                            <div class="primeira_parte_musica_linha">
+                                <img src="Assets/Imgs/music1.png">
+
+                                <div class="texto_musica_linha">
+                                    <p>Can't tell all (Remix)</p>
+                                    <span>Hulvey, Lecrea, KB</span>
+                                </div>
+                            </div>
+
+                            <div class="segunda_parte_musica_linha">
+                                <img src="Assets/Imgs/Like_Vazio.svg">
+                                <p>3:31</p>
+                            </div>
+                        </div>
+                        <div class="musica_linha">
+                            <div class="primeira_parte_musica_linha">
+                                <img src="Assets/Imgs/music1.png">
+
+                                <div class="texto_musica_linha">
+                                    <p>Can't tell all (Remix)</p>
+                                    <span>Hulvey, Lecrea, KB</span>
+                                </div>
+                            </div>
+
+                            <div class="segunda_parte_musica_linha">
+                                <img src="Assets/Imgs/Like_Vazio.svg">
+                                <p>3:31</p>
+                            </div>
+                        </div>
+                        <div class="musica_linha">
+                            <div class="primeira_parte_musica_linha">
+                                <img src="Assets/Imgs/music1.png">
+
+                                <div class="texto_musica_linha">
+                                    <p>Can't tell all (Remix)</p>
+                                    <span>Hulvey, Lecrea, KB</span>
+                                </div>
+                            </div>
+
+                            <div class="segunda_parte_musica_linha">
+                                <img src="Assets/Imgs/Like_Vazio.svg">
+                                <p>3:31</p>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+            </section>
+
+            <section class="Container_Autor_Caixa" id="container_artistas">
+                <h1>Artistas</h1>
+                <article></article>
+            </section>
+
+            <section class="Container_Musicas_Caixa" id="container_playlists">
+                <h1>Playlists</h1>
+                <article></article>
+            </section>
+
+            <section class="Container_Musicas_Caixa" id="container_perfis">
+                <h1>Perfis</h1>
+                <article></article>
+            </section>
+
+            <section class="Container_Musicas_Caixa" id="container_pesquisa">
+                <h1 id="h1_pesquisa"></h1>
+                <article></article>
+            </section>
+
+            <div id="pesquisa_nao_encontrada">
+                <h1>Nehum resultado encontrado para: <span id="span_pesquisa_nao_encontrada"></span></h1>
+                <p>Tente escrevendo o termo da busca de outra forma ou usando outra palavra-chave</p>
+            </div>
+        </section>
+
+
+        <section class="Paginas" id="Pagina_adicionarmusicas">
+            <article id="primeira_parte_postar_musica">
+                <h1>Poste suas músicas favoritas aqui</h1>
+                <p>Para adicionar uma música ao nosso site, basta utilizar o link da música do <a href="https://music.youtube.com/" target="_blank">YouTube Music</a>. Copie o link da música desejada e cole-o no campo específico. Nossa plataforma cuidará do resto, tornando a sua experiência musical ainda mais fácil e personalizada.</p>
+                <div id="container_input_add_musica">
+                    <img src="Assets/Imgs/Icons_search_input.svg" id="icon_pesquisar">
+                    <input type="text" placeholder="Cole o link da música aqui..." id="input_add_musica" autocomplete="off">
+                </div>
+
+                <button onclick="Postar_Musica()">Prosseguir</button>
+            </article>
+
+            <article id="segunda_parte_postar_musica">
+                <div id="container_nova_musica">
+                    <img src="./Assets/Imgs/thumbnail.jpg" id="img_musica_postada">
+                    <input type="text" placeholder="Autor da música" id="input_add_musica_autor" autocomplete="off">
+                    <input type="text" placeholder="Nome da música" id="input_add_musica_nome" autocomplete="off">
+                    <input type="text" placeholder="Gênero da música" id="input_add_musica_genero" autocomplete="off">
+
+                    <div id="btns_postar_musica">
+                        <button onclick="Finalizar_Postar()">Finalizar</button>
+                        <a id="btn_pesquisar_genero" target="_blank">Pesquisar gênero musical</button>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!--? Páginas Extras -->
+        <section class="Paginas" id="Pagina_artista">
+            <div id="background_paginas_artista"></div>
+            <div id="background_blur_paginas_artista"></div>
+
+            <section id="container_pag_artista">
+                <article id="header_pag_artistas">
+                    <div id="container_infos_artista">
+                        <p>
+                            <img src="Assets/Imgs/verificado.svg">
+                            <span>Artista</span>
+                        </p>
+                        <h1 id="nome_artista">Hulvey</h1>
+                        <span id="ouvintes_artista">2.273.886 ouvintes mensais</span>
+                    </div>
+
+                    <div id="container_seguir_artista">
+                        <img src="Assets/Imgs/play_pc.svg" id="img_play_musicas_artista">                  
+
+                        <button>Seguir</button>
+                    </div>
+                </article>
+
+                <h1>Populares</h1>
+                <article id="container_musicas_pag_artista"></article>
+            </section>
+        </section>
+
+        <section class="Paginas" id="Pagina_musicascurtidas">
+            <article id="container_header_musicas_curtidas">
+                <div id="container_infos_header_musicas_curtidas">
+                    <div id="container_header_img_musicas_curtidas">
+                        <img src="Assets/Imgs/Musicas curtidas.svg">
+                    </div>
+
+                    <div id="container_infos_musicas_curtidas">
+                        <span>Playlist</span>
+                        <h1>Músicas Curtidas</h1>
+                        <p id="p_infos_musicas_curtidas"></p>
+                    </div>
+                </div>
+
+                <div id="container_headers_btns_musicas_curtidas">
+                    <div id="part1_btns_musicas_curtidas">
+                        <img src="Assets/Imgs/play_pc.svg" id="img_play_musicas_curtidas">
+                        <img src="Assets/Imgs/Ramdon.svg">
+                    </div>
+
+                    <div id="container_pesquisar_musicas_curtidas" class="container_inputs_pesquisar">
+                        <img src="Assets/Imgs/Icons_search_input.svg">
+                        <input type="text" placeholder="Buscar na playlist" id="input_pesquisar_musicas_curtidas" oninput="Pesquisar_Musicas_Curtidas(this.value)">
+                    </div>
+                </div>
+
+                <hr>
+            </article>
+
+            <article id="container_musicas_curtidas"></article>
+        </section>
+
+        <section class="Paginas" id="Pagina_playlist" style="opacity: 1;">
+            <article id="container_header_playlist">
+                <div id="container_infos_header_playlist">
+                    <div id="container_header_img_playlist" class="mix_diario_playlist">
+                        <img src="https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/OxPPhrOit6quZ7kKua33/Danny_Gokey___Topic_thumbnail.jpg" id="img_da_playlist">
+
+                        <div id="container_svg_mix_daily">
+                            <div id="contaier_svg_playlist">
+                                <svg width="144" height="59" viewBox="0 0 144 59" fill="none" xmlns="http://www.w3.org/2000/svg" id="svg_mix_playlist">
+                                    <path d="M0 15C0 15 13.4746 19.6021 28 21C52.3421 23.3426 65.2079 4.31478 89.5 1.5C104.323 -0.217548 113.667 -0.0966148 127.5 5.5C134.393 8.2887 144 15 144 15V64H0V15Z" fill="rgb(145, 145, 152)"></path>
+                                </svg>
+                            </div>
+
+                            <p id="nome_mix_playlist">Mix Diário 1</p>
+                        </div>
+                    </div>
+
+                    <div id="container_infos_playlist">
+                        <span>Playlist pública</span>
+                        <h1 id="nome_playlist">Mix Diário 1</h1>
+                        <p id="p_infos_playlist">Feito para Wedner Natanael - <span>209 músicas</span></p>
+                    </div>
+                </div>
+
+                <div id="container_headers_btns_playlist">
+                    <div id="part1_btns_playlist">
+                        <img src="Assets/Imgs/play_pc.svg" id="img_play_playlist">
+                        <img src="Assets/Imgs/Ramdon.svg">
+                    </div>
+
+                    <div id="container_pesquisar_playlist" class="container_inputs_pesquisar">
+                        <img src="Assets/Imgs/Icons_search_input.svg">
+                        <input type="text" placeholder="Buscar na playlist" id="input_pesquisar_playlist" oninput="Pesquisar_Musicas_Playlist(this.value)">
+                    </div>
+                </div>
+
+                <hr>
+            </article>
+
+            <article id="container_playlist"></article>
+        </section>
+    </main>
+    <!--! Fim Main -->
+
+    <section id="container_fila">
+        <article>
+            <p id="texto_fila">Fila</p>
+
+            <div id="container_musica_tocando_agora_fila" class="contanier_caixa_fila">
+                <p id="p_Tocando_agora" class="Animation_Nova_Musica_Fila">Tocando agora</p>
+
+                <div id="container_filho_musica_tocando_agora_fila">
+                    <div class="contanier_caixa_fila2">
+                        <div class="musica_resulmo Animation_Nova_Musica_Fila" id="musica_tocando_agora_fila">
+                            <div class="primeira_parte_lista_prox">
+                                <img src="https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/1ppcDBGWY14jvKrqORj0/Omy_Alka___Topic_thumbnail.jpg" id="img_tocando_agora_fila">
+                
+                                <div class="texto_musica_resulmo">
+                                    <p id="nome_tocando_agora_fila"></p>
+                                    <span id="autor_tocando_agora_fila"></span>
+                                </div>
+                            </div>
+        
+                            <span class="config_lista_prox" id="config_lista_prox_musica_tocando_agora">...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="container_a_seguir_fila" class="contanier_caixa_fila">
+                <p id="p_a_seguir">A Seguir</p>
+
+                <div id="container_musicas_a_seguir_fila" class="contanier_caixa_fila2"></div>
+            </div>
+
+            <div id="container_proximas_fila" class="contanier_caixa_fila">
+                <p>Próximas</p>
+
+                <div id="container_musicas_prox_fila" class="contanier_caixa_fila2"></div>
+            </div>
+        </article>
+    </section>
+
+    <!--! ----------------------------------------------------------------- -->
+
+    <!--! Container Barra Música -->
+    <section id="container_barra_musica">
+        <article>
+            <div id="infos_musica_barra_musica">
+                <img src="" id="img_musica_barra_musica">
+                <div id="texto_barra_musica">
+                    <p id="nome_musica_barra_musica"></p>
+                    <span id="autor_musica_barra_musica"></span>
+                </div>
+                <img src="./Assets/Imgs/Like_Vazio.svg" id="btn_like_barra_musica" class="icons_like_barra_musica">
+            </div>
+
+            <div id="container_controles_musica_barra_musica">
+                <div id="container_controles">
+
+                    <img src="Assets/Imgs/Ramdon.svg">
+                    <img src="Assets/Imgs/Back.svg" onclick="Musica_Anterior()">
+                    <img src="Assets/Imgs/Pause.svg" class="icone_play_pc">                                           
+                    <img src="Assets/Imgs/Next.svg" onclick="Proxima_Musica()">
+                    <img src="Assets/Imgs/Repeat.svg">
+                </div>
+
+                <div id="container_barra">
+                    <p id="contador_segundos_musica"></p>
+                    <input type="range" min="0" max="100" value="0" id="input_range_musica_pc">
+                    <p id="tempo_max_musica"></p>
+                </div>
+            </div>
+
+            <div id="container_opcoes_barra_musica">
+                <img src="Assets/Imgs/Mic.svg">
+                <img src="Assets/Imgs/Fila.svg" onclick="Abrir_Fila()">
+                <img src="Assets/Imgs/Pc.svg">
+
+                <div id="container_icon_som">
+                    <div id="container_icon_volume">
+                        <img src="Assets/Imgs/Som.svg" class="icone_som_pc">
+                    </div>
+
+                    <input type="range" min="0" max="100" value="0" id="input_volume_pc">
+                </div>
+
+                <img src="Assets/Imgs/Maximizar.svg" onclick="Ativar_Fullscreen()">                 
+            </div>
+        </article>
+    </section>
+
+    <!--! Container FullScreen -->
+    <section id="container_fullscreen">
+        <div id="background_fullscreen"></div>
+
+        <article id="container_barra_musica_fullscreen">
+            <div id="container_nome_musica_fullscreen">
+                <img src="Assets/Imgs/music1.png" id="img_musica_fullscreen">
+
+                <div>
+                    <p id="nome_musica_fullscreen">So Better Days</p>
+                    <span id="nome_autor_fullscreen">Hulvey</span>
+                </div>
+            </div>
+
+            <div id="barra_musica_fullscreen">
+                <p id="contador_segundos_musica_fullscreen">0:00</p>
+                <input type="range" min="0" max="100" value="0" id="input_range_musica_pc_fullscreen">
+                <p id="tempo_max_musica_fullscreen">3:37</p>
+            </div>
+
+            <div id="contaier_controles_fullscreen">
+                <div id="part1_controles_fullscreen">
+                    <img src="Assets/Imgs/Like_Vazio.svg" id="like_fullscreen" class="icons_like_barra_musica">
+                </div>
+                <div id="part2_controles_fullscreen">
+                    <img src="Assets/Imgs/Ramdon.svg">
+                    <img src="Assets/Imgs/Back.svg" onclick="Musica_Anterior()">
+                    <img src="Assets/Imgs/Pause.svg" class="icone_play_pc">                                           
+                    <img src="Assets/Imgs/Next.svg" onclick="Proxima_Musica()">
+                    <img src="Assets/Imgs/Repeat.svg">            
+                </div>
+                <div id="part3_controles_fullscreen">
+                    <div id="container_icon_som">
+                        <div id="container_icon_volume">
+                            <img src="Assets/Imgs/Som.svg" class="icone_som_pc">
+                        </div>
+    
+                        <input type="range" min="0" max="100" value="0" id="input_volume_pc_fullscreen">
+                    </div>
+    
+                    <img src="Assets/Imgs/Maximizar.svg" onclick="Destivar_Fullscreen()">  
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!--! Notificação -->
+    <section id="container_notificacao_infos">
+        <article id="notificacao_infos">
+            <p id="texto_notificacao_infos">Parabéns pela escolha da música! 🎶 É incrível como uma simples melodia pode nos transportar para tantos lugares e momentos especiais. Obrigado por compartilhá-la conosco!</p>
+            <button onclick="Fechar_Notificacao_Infos()">Fechar</button>
+        </article>
+    </section>
+
+    <!--! Opções click direito  -->
+    <section id="opcoes_click_direito">
+        <ul id="opcoes_musica_ul">
+        </ul>
+        <ul id="opcoes_fila_ul">
+        </ul>
+        <ul id="opcoes_musica2_ul">
+        </ul>
+        <ul id="opcoes_compartilhar_ul">
+        </ul>
+    </section>
+
+    <!--! Cadastro -->
+    <section id="Container_Cadastro">
+        <article>
+            <h1>Faça Parte Desse Projeto :)</h1>
+            <p>Seja bem-vindo(a) à nossa comunidade musical! 🎶 Estamos felizes por você estar aqui! Aproveite para descobrir novas músicas, criar playlists e se conectar com outros amantes da música. Divirta-se explorando!</p>
+            <button onclick="Login()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M21.6 12.2273C21.6 11.5182 21.5364 10.8364 21.4182 10.1819H12V14.0501H17.3818C17.15 15.3001 16.4455 16.3592 15.3864 17.0682V19.5773H18.6182C20.5091 17.8364 21.6 15.2728 21.6 12.2273Z" fill="#4285F4"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 21.9999C14.7001 21.9999 16.9637 21.1044 18.6183 19.5772L15.3864 17.0681C14.491 17.6681 13.3455 18.0226 12.0001 18.0226C9.39554 18.0226 7.19099 16.2635 6.40463 13.8999H3.06372V16.4908C4.70918 19.759 8.09099 21.9999 12.0001 21.9999Z" fill="#34A853"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.40455 13.8999C6.20455 13.2999 6.09091 12.659 6.09091 11.9999C6.09091 11.3409 6.20455 10.6999 6.40455 10.0999V7.50903H3.06364C2.38636 8.85903 2 10.3863 2 11.9999C2 13.6136 2.38636 15.1409 3.06364 16.4909L6.40455 13.8999Z" fill="#FBBC05"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0001 5.97727C13.4683 5.97727 14.7864 6.48182 15.8228 7.47273L18.691 4.60455C16.9592 2.99091 14.6955 2 12.0001 2C8.09099 2 4.70918 4.24091 3.06372 7.50909L6.40463 10.1C7.19099 7.73636 9.39554 5.97727 12.0001 5.97727Z" fill="#EA4335"/>
+                </svg>
+                <span>Continuar com o Google</span>
+            </button>
+
+            <button onclick="Fechar_Entrar()">Cancelar</button>
+        </article>
+    </section>
+
+    <!--! Audio -->
+    <audio id="audio_player" style="display: none;"></audio>
+
+    <!--? Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-auth.js"></script>
+    <script src="Assets/Js/Firebase/Firebase.js"></script>
+
+    <!--? Extras -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>  
+
+    <!--? My Scripts -->
+
+    <!--* Cadastro -->
+    <script src="Assets/Js/Firebase/Cadastro.js"></script>
+
+    <!--* Utils -->
+    <script src="Assets/Js/Utils/Utils.js"></script>
+
+    <!--* Nav -->
+    <script src="Assets/Js/Nav/Nav.js"></script>
+
+    <!--* Main -->
+    <script src="Assets/Js/Main/Main.js"></script>
+    <script src="Assets/Js/Main/Postar_Musica.js"></script>
+    <script src="Assets/Js/Main/Pesquisar.js"></script>
+    <script src="Assets/Js/Main/Artista.js"></script>
+    <script src="Assets/Js/Main/FullScreen.js"></script>
+    <script src="Assets/Js/Main/Fila.js"></script>
+    <script src="Assets/Js/Main/Opcoes_Click_Diereito.js"></script>
+    <script src="Assets/Js/Main/Musicas_Curtidas.js"></script>
+    <script src="Assets/Js/Main/Recomendar_Musicas.js"></script>
+    <script src="Assets/Js/Main/Playlist.js"></script>
+
+
+    <!--? Testes -->
+    <script src="Assets/Js/Teste.js"></script>
+</body>
+</html>
