@@ -4,7 +4,8 @@ async function Postar_Musica() {
     document.getElementById('input_add_musica').value = ''
     if(input_add_musica.startsWith('https://music.youtube.com')) {
         try {
-            const response = await fetch('http://localhost:3000/download', {
+            // const response = await fetch('http://localhost:3000/download', {
+            const response = await fetch('https://molewaveapibaixarmusica.onrender.com/download', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
