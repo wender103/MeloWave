@@ -2,10 +2,12 @@
 const maximo_infos_salvas = 100
 function Salvar_Historico() {
 
+    let new_Historico = User.Historico
+
     let Musicas = []
 
-    for (let c = 0; c < User.Historico.Musicas.length; c++) {
-        Musicas.push(User.Historico.Musicas[c].ID)
+    for (let c = 0; c < new_Historico.Musicas.length; c++) {
+        Musicas.push(new_Historico.Musicas[c].ID)
     }
 
     let Diferenca_Musicas = Musicas.length - maximo_infos_salvas
@@ -14,31 +16,33 @@ function Salvar_Historico() {
        Musicas.splice(0, Diferenca_Musicas)
     }
 
-    let Diferenca_Playlists = User.Historico.Playlists.length - maximo_infos_salvas
+    let Diferenca_Playlists = new_Historico.Playlists.length - maximo_infos_salvas
 
     if(Diferenca_Playlists > 0) {
-        User.Historico.Playlists.splice(0, Diferenca_Playlists)
+        new_Historico.Playlists.splice(0, Diferenca_Playlists)
     }
 
-    let Diferenca_Users = User.Historico.Users.length - maximo_infos_salvas
+    let Diferenca_Users = new_Historico.Users.length - maximo_infos_salvas
 
     if(Diferenca_Users > 0) {
-        User.Historico.Users.splice(0, Diferenca_Users)
+        new_Historico.Users.splice(0, Diferenca_Users)
     }
 
-    let Diferenca_Artistas = User.Historico.Artistas.length - maximo_infos_salvas
+    let Diferenca_Artistas = new_Historico.Artistas.length - maximo_infos_salvas
 
     if(Diferenca_Artistas > 0) {
-        User.Historico.Artistas.splice(0, Diferenca_Artistas)
+        new_Historico.Artistas.splice(0, Diferenca_Artistas)
     }
 
-    let Diferenca_Pesquisa = User.Historico.Pesquisa.length - maximo_infos_salvas
+    let Diferenca_Pesquisa = new_Historico.Pesquisa.length - maximo_infos_salvas
 
     if(Diferenca_Pesquisa > 0) {
-        User.Historico.Pesquisa.splice(0, Diferenca_Pesquisa)
+        new_Historico.Pesquisa.splice(0, Diferenca_Pesquisa)
     }
 
-    db.collection('Users').doc(User.ID).update({ Historico: User.Historico })
+    new_Historico.Musicas = Musicas
+
+    db.collection('Users').doc(User.ID).update({ Historico: new_Historico })
 }
 
 function Salvar_GostoMusical() {
@@ -87,8 +91,6 @@ function Retornar_Feito_Para_Voce() {
                 }
             }
         }
-
-        console.log(array_recomendacoes.length)
 
         if(array_recomendacoes.length > 5) {
             let array_autores = []
