@@ -3,9 +3,20 @@ async function Postar_Musica() {
     const input_add_musica = document.getElementById('input_add_musica').value
     document.getElementById('input_add_musica').value = ''
     if(input_add_musica.startsWith('https://music.youtube.com')) {
+        let downloadURL
+
+        // Verifica se está rodando localmente
+        if (window.location.href.includes('http://127.0.0.1:5501/?Page=pesquisar')) {
+            downloadURL = 'http://localhost:3000/download'
+        } else if (window.location.href.includes('https://wender103.github.io/MeloWave/')) {
+            downloadURL = 'https://molewaveapibaixarmusica.onrender.com/download'
+        } else {
+            // Caso a URL não corresponda a nenhum dos casos anteriores
+            console.error('URL não reconhecida')
+        }
+
         try {
-            const response = await fetch('http://localhost:3000/download', {
-            // const response = await fetch('https://molewaveapibaixarmusica.onrender.com/download', {
+            const response = await fetch(downloadURL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
