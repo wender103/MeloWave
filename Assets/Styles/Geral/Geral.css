@@ -17,6 +17,7 @@
   --background_black: hsla(0, 0%, 0%, 0.643);
   --fonte_transparente: rgba(255, 255, 255, 0.23);
   --fonte_meio_transparente: rgba(255, 255, 255, 0.555);
+  --verde_azul: rgb(0, 255, 213);
 }
 
 * {
@@ -46,11 +47,14 @@ div.musica_linha {
   padding: 5px 10px;
   background-color: var(--padrao1);
   border-radius: 4px;
+  gap: 20px;
 }
 div.musica_linha div.primeira_parte_musica_linha {
+  width: 85%;
   display: flex;
   align-items: center;
   gap: 10px;
+  overflow: hidden;
 }
 div.musica_linha div.primeira_parte_musica_linha p.p_contador_musica_curtida {
   width: 30px;
@@ -63,8 +67,14 @@ div.musica_linha div.primeira_parte_musica_linha img {
   -o-object-fit: cover;
      object-fit: cover;
 }
+div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha {
+  width: 66%;
+}
 div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha p {
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha span {
   font-size: 12px;
@@ -166,6 +176,9 @@ div.musica_caixa div.texto_musica {
 div.musica_caixa div.texto_musica p {
   font-size: 14px;
   color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 div.musica_caixa div.texto_musica span {
   font-size: 13px;
@@ -255,6 +268,10 @@ div.daily_caixa div.texto_musica span {
   color: var(--fonte_meio_transparente);
   cursor: pointer;
 }
+div.daily_caixa div.texto_musica span p {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+}
 div.daily_caixa div.texto_musica span p span {
   padding-left: 5px;
   margin-bottom: -0.5px;
@@ -265,4 +282,11 @@ div.daily_caixa div.texto_musica span p span:first-child {
 div.daily_caixa div.texto_musica span p span:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.icon_random {
+  cursor: not-allowed;
+}
+.icon_random path {
+  fill: rgba(255, 255, 255, 0.438);
 }/*# sourceMappingURL=Geral.css.map */

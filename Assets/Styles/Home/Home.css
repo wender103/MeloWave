@@ -18,6 +18,7 @@
   --background_black: hsla(0, 0%, 0%, 0.643);
   --fonte_transparente: rgba(255, 255, 255, 0.23);
   --fonte_meio_transparente: rgba(255, 255, 255, 0.555);
+  --verde_azul: rgb(0, 255, 213);
 }
 
 * {
@@ -47,11 +48,14 @@ div.musica_linha {
   padding: 5px 10px;
   background-color: var(--padrao1);
   border-radius: 4px;
+  gap: 20px;
 }
 div.musica_linha div.primeira_parte_musica_linha {
+  width: 85%;
   display: flex;
   align-items: center;
   gap: 10px;
+  overflow: hidden;
 }
 div.musica_linha div.primeira_parte_musica_linha p.p_contador_musica_curtida {
   width: 30px;
@@ -64,8 +68,14 @@ div.musica_linha div.primeira_parte_musica_linha img {
   -o-object-fit: cover;
      object-fit: cover;
 }
+div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha {
+  width: 66%;
+}
 div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha p {
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha span {
   font-size: 12px;
@@ -167,6 +177,9 @@ div.musica_caixa div.texto_musica {
 div.musica_caixa div.texto_musica p {
   font-size: 14px;
   color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 div.musica_caixa div.texto_musica span {
   font-size: 13px;
@@ -256,6 +269,10 @@ div.daily_caixa div.texto_musica span {
   color: var(--fonte_meio_transparente);
   cursor: pointer;
 }
+div.daily_caixa div.texto_musica span p {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+}
 div.daily_caixa div.texto_musica span p span {
   padding-left: 5px;
   margin-bottom: -0.5px;
@@ -266,6 +283,13 @@ div.daily_caixa div.texto_musica span p span:first-child {
 div.daily_caixa div.texto_musica span p span:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.icon_random {
+  cursor: not-allowed;
+}
+.icon_random path {
+  fill: rgba(255, 255, 255, 0.438);
 }
 
 body {
@@ -525,6 +549,50 @@ body main section.Paginas#Pagina_home section#container_musicas_home {
 }
 body main section.Paginas#Pagina_pesquisar section {
   display: none;
+}
+body main section.Paginas#Pagina_pesquisar section#Pesquisar_Home {
+  display: flex;
+  flex-direction: column;
+}
+body main section.Paginas#Pagina_pesquisar section#Pesquisar_Home h1#h1_buscas_recentes {
+  display: none;
+}
+body main section.Paginas#Pagina_pesquisar section#Pesquisar_Home article#buscas_recentes {
+  display: none;
+}
+body main section.Paginas#Pagina_pesquisar section#Pesquisar_Home article#container_todas_as_secoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
+  gap: 24px;
+  height: auto;
+}
+body main section.Paginas#Pagina_pesquisar section#Pesquisar_Home article#container_todas_as_secoes div.container_genero_secao {
+  min-width: 205px;
+  height: 205px;
+  display: flex;
+  flex-direction: column;
+  background-position: center;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #1e1e20;
+  cursor: pointer;
+  background-color: rgba(0, 255, 242, 0.274);
+  position: relative;
+  text-align: center;
+}
+body main section.Paginas#Pagina_pesquisar section#Pesquisar_Home article#container_todas_as_secoes div.container_genero_secao img {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  overflow: hidden;
+  position: absolute;
+  rotate: 25deg;
+  right: -15px;
+  bottom: -15px;
+  border-radius: 22px;
+  display: block;
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado {
   width: 100%;
@@ -897,12 +965,12 @@ body main section.Paginas#Pagina_musicascurtidas article#container_header_musica
   align-items: center;
   gap: 20px;
 }
-body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#part1_btns_musicas_curtidas img {
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#part1_btns_musicas_curtidas img, body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#part1_btns_musicas_curtidas svg {
   width: 30px;
   height: 30px;
   cursor: pointer;
 }
-body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#part1_btns_musicas_curtidas img#img_play_musicas_curtidas {
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#part1_btns_musicas_curtidas img#img_play_musicas_curtidas, body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#part1_btns_musicas_curtidas svg#img_play_musicas_curtidas {
   width: 70px;
   height: 70px;
 }
@@ -926,18 +994,18 @@ body main section.Paginas#Pagina_musicascurtidas article#container_musicas_curti
 body main section.Paginas#Pagina_musicascurtidas article#container_musicas_curtidas div.musica_linha:hover {
   background-color: var(--black_transparent);
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix {
   width: 100%;
   display: flex;
   flex-direction: column;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix {
   display: flex;
   align-items: end;
   gap: 20px;
   color: var(--white);
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_header_img_playlist {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_header_img_playlistmix {
   width: 180px;
   height: 180px;
   overflow: hidden;
@@ -947,26 +1015,26 @@ body main section.Paginas#Pagina_playlist article#container_header_playlist div#
   border-radius: 8px;
   position: relative;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_header_img_playlist img {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_header_img_playlistmix img {
   width: 110%;
   height: 110%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_header_img_playlist div#container_svg_mix_daily {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_header_img_playlistmix div#container_svg_mix_daily {
   width: 100%;
   bottom: 0;
   position: absolute;
   color: var(--white);
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_header_img_playlist div#container_svg_mix_daily svg {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_header_img_playlistmix div#container_svg_mix_daily svg {
   width: 100%;
   height: 80px;
   bottom: 0px;
   position: absolute;
   z-index: 1;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_header_img_playlist div#container_svg_mix_daily p {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_header_img_playlistmix div#container_svg_mix_daily p {
   width: 100%;
   text-align: center;
   font-size: 18px;
@@ -975,64 +1043,64 @@ body main section.Paginas#Pagina_playlist article#container_header_playlist div#
   bottom: 15px;
   z-index: 2;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_infos_playlist {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_infos_playlistmix {
   padding: 0;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_infos_playlist span {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_infos_playlistmix span {
   font-size: 13px;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_infos_playlist h1 {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_infos_playlistmix h1 {
   font-size: 3em;
   font-weight: 800;
   margin: 0;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_infos_playlist p {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_infos_playlistmix p {
   font-size: 13px;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_infos_header_playlist div#container_infos_playlist p span {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_infos_playlistmix p span {
   font-weight: normal;
   color: var(--fonte_meio_transparente);
   font-size: 12px;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_headers_btns_playlist {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_headers_btns_playlistmix {
   width: 100%;
   display: flex;
   align-items: center;
   margin-top: 25px;
   justify-content: space-between;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_headers_btns_playlist div#part1_btns_playlist {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_headers_btns_playlistmix div#part1_btns_playlistmix {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_headers_btns_playlist div#part1_btns_playlist img {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_headers_btns_playlistmix div#part1_btns_playlistmix img, body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_headers_btns_playlistmix div#part1_btns_playlistmix svg {
   width: 30px;
   height: 30px;
   cursor: pointer;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_headers_btns_playlist div#part1_btns_playlist img#img_play_playlist {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_headers_btns_playlistmix div#part1_btns_playlistmix img#img_play_playlistmix, body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_headers_btns_playlistmix div#part1_btns_playlistmix svg#img_play_playlistmix {
   width: 70px;
   height: 70px;
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist div#container_headers_btns_playlist div#container_pesquisar_playlist {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_headers_btns_playlistmix div#container_pesquisar_playlistmix {
   display: flex;
   height: 32px;
   background-color: var(--cor_qse_transparente_background);
 }
-body main section.Paginas#Pagina_playlist article#container_header_playlist hr {
+body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix hr {
   border-color: rgba(180, 180, 180, 0.24);
   margin: 10px 0;
 }
-body main section.Paginas#Pagina_playlist article#container_playlist {
+body main section.Paginas#Pagina_playlistmix article#container_playlistmix {
   flex-direction: column;
   margin-top: 20px;
   padding-bottom: 0px;
 }
-body main section.Paginas#Pagina_playlist article#container_playlist div.musica_linha {
+body main section.Paginas#Pagina_playlistmix article#container_playlistmix div.musica_linha {
   background-color: transparent;
 }
-body main section.Paginas#Pagina_playlist article#container_playlist div.musica_linha:hover {
+body main section.Paginas#Pagina_playlistmix article#container_playlistmix div.musica_linha:hover {
   background-color: var(--black_transparent);
 }
 body section#container_fila {
@@ -1059,8 +1127,8 @@ body section#container_fila article {
 }
 body section#container_fila article p#texto_fila {
   margin-left: 8px;
-  -webkit-text-decoration: underline rgb(0, 255, 213);
-          text-decoration: underline rgb(0, 255, 213);
+  -webkit-text-decoration: underline var(--verde_azul);
+          text-decoration: underline var(--verde_azul);
 }
 body section#container_fila article div.contanier_caixa_fila {
   display: flex;
@@ -1083,7 +1151,7 @@ body section#container_fila article div.contanier_caixa_fila p {
   transition: 500ms margin-left ease-in-out;
 }
 body section#container_fila article div.contanier_caixa_fila#container_musica_tocando_agora_fila p#nome_tocando_agora_fila {
-  color: rgb(0, 255, 213);
+  color: var(--verde_azul);
 }
 body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 {
   height: 100%;

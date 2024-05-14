@@ -55,7 +55,7 @@ function Atualizar_Likes_Musica(Musica, Comando) {
         }  
     })
 
-    if(Infos_Pagina.Pagina.Nome == 'musicascurtidas' && Comando != 'Não Atualizar') {
+    if(Pagina_Interna.Nome == 'musicascurtidas' && Comando != 'Não Atualizar') {
         if(Comando == 'Descurtir') {
             Descurtir_Remover_Da_Tela(Musica)
         } else {
@@ -69,15 +69,15 @@ let Musicas_Curtidas_Array = []
 let musicas_curtidas_convertidas = false
 function Retornar_Musicas_Curtidas(Array_Musicas = undefined, Comando = undefined) {
 
-    Musicas_Curtidas_Array = User.Musicas_Curtidas
+    Musicas_Curtidas_Array = [...User.Musicas_Curtidas]
 
     if(!Array_Musicas) {
-        Array_Musicas = User.Musicas_Curtidas
+        Array_Musicas = [...User.Musicas_Curtidas]
     }
 
     const Local = document.getElementById('container_musicas_curtidas')
     Local.innerHTML = ''
-    Retornar_Musica_Linha(Array_Musicas, Local)
+    Retornar_Musica_Linha(Array_Musicas, Local, null, 'Músicas Curtidas')
 
     let name_msuicas = 'músicas'
     if(Array_Musicas.length == 1) {
@@ -88,7 +88,7 @@ function Retornar_Musicas_Curtidas(Array_Musicas = undefined, Comando = undefine
         document.getElementById('p_infos_musicas_curtidas').innerHTML = `${User.Nome} - <span id="quantidade_musicas_playlist_musicas_curtidas">${Array_Musicas.length} ${name_msuicas}</span>`
     }
 
-    Musicas_Curtidas_Array = Array_Musicas
+    Musicas_Curtidas_Array = [...Array_Musicas]
 }
 
 function Descurtir_Remover_Da_Tela(Musica) {
@@ -107,17 +107,6 @@ function Descurtir_Remover_Da_Tela(Musica) {
 
     Atualizar_Likes_Musica(Musica, 'Não Atualizar')
 }
-
-//! Tocar Músicas Curtidas
-document.getElementById('img_play_musicas_curtidas').addEventListener('click', () => {
-    let array_inverso = [...Musicas_Curtidas_Array]
-    array_inverso = array_inverso.reverse()
-
-    if(array_inverso.length > 0) {
-        Tocar_Musica(array_inverso, array_inverso[0])
-        Listas_Prox.Nome_Album = 'Músicas Curtidas'
-    }
-})
 
 const icons_like_barra_musica = document.querySelectorAll('.icons_like_barra_musica')
 let like_add = false
@@ -172,3 +161,51 @@ function Pesquisar_Musicas_Curtidas(Pesquisa) {
         Retornar_Musicas_Curtidas()
     }
 }
+
+//! Tocar Músicas Curtidas
+let musica_curtida_random = false
+let musica_curtidas_id_page = undefined
+const icon_random_musicascurtidas = document.getElementById('icon_random_musicascurtidas')
+icon_random_musicascurtidas.addEventListener('click', () => {
+    let new_arrey = [...Musicas_Curtidas_Array]
+
+    if(icon_random_musicascurtidas.style.cursor == 'pointer') { 
+        if(musica_curtida_random) {
+            musica_curtida_random = false
+            icon_random_musicascurtidas.style.cursor = 'pointer'
+            var paths = icon_random_musicascurtidas.querySelectorAll('path')
+            paths.forEach(function(path) {
+                path.style.fill = '#fff'
+                path.style.cursor = 'pointer'
+            })
+
+            Random(new_arrey.reverse(), false)
+
+
+        } else {
+            musica_curtida_random = true
+
+            icon_random_musicascurtidas.style.cursor = 'pointer'
+            var paths = icon_random_musicascurtidas.querySelectorAll('path')
+            paths.forEach(function(path) {
+                path.style.fill = 'rgb(0, 255, 213)'
+                path.style.cursor = 'pointer'
+            })
+
+            Random(new_arrey.reverse(), true, 'musicascurtidas')
+        }
+    }
+})
+
+const img_play_musicas_curtidas = document.getElementById('img_play_musicas_curtidas')
+img_play_musicas_curtidas.addEventListener('click', () => {
+    let new_arrey = [...Musicas_Curtidas_Array]
+    icon_random_musicascurtidas.style.cursor = 'pointer'
+    var paths = icon_random_musicascurtidas.querySelectorAll('path')
+    paths.forEach(function(path) {
+        path.style.fill = '#fff'
+        path.style.cursor = 'pointer'
+    })
+
+    Tocar_Musica(new_arrey.reverse(), Musicas_Curtidas_Array[0])
+})

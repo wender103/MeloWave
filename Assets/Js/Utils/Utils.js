@@ -47,8 +47,6 @@ function Abrir_Pagina(Pagina) {
         }
     })
 
-
-
     if(Pagina == 'pesquisar') {
         document.getElementById('input_pesquisa').style.display = 'flex'
     } else {
@@ -57,11 +55,33 @@ function Abrir_Pagina(Pagina) {
         if(Pagina == 'home') {
             Mostrar_Max_Musicas()
         } else if(Pagina == 'musicascurtidas') {
+            Pagina_Interna.ID = User.ID
             Retornar_Musicas_Curtidas()
+
+            if(musica_curtida_random) {
+                const icon_random_musicascurtidas = document.getElementById('icon_random_musicascurtidas')
+                icon_random_musicascurtidas.style.cursor = 'pointer'
+                var paths = icon_random_musicascurtidas.querySelectorAll('path')
+                paths.forEach(function(path) {
+                    path.style.fill = 'rgb(0, 255, 213)'
+                    path.style.cursor = 'pointer'
+                })
+            }
         }
     }
 
-    Infos_Pagina.Pagina.Nome = Pagina
+    Pagina_Interna.Nome = Pagina
+
+    if(Infos_Random.Nome == 'musicascaixa') {
+        if(musicas_caixa_random) {
+            random_barra_musicas.style.cursor = 'pointer'
+            var paths = random_barra_musicas.querySelectorAll('path')
+            paths.forEach(function(path) {
+                path.style.fill = 'rgb(0, 255, 213)'
+                path.style.cursor = 'pointer'
+            })
+        }
+    }
 }
 
 function formatarTermoPesquisa(musica, cantor) {
@@ -257,7 +277,6 @@ function removerNomesDuplicados(arrayDeNomes) {
 
     // Iterar sobre o array de nomes
     arrayDeNomes.forEach(nome => {
-        console.log(nome)
         // Formatar o nome removendo espaços em branco extras e convertendo para minúsculas
         const nomeFormatado = nome.trim().toLowerCase();
 
@@ -397,7 +416,7 @@ document.addEventListener('contextmenu', function(event) {
     event.preventDefault()
 })
 
-function gerarCorAleatoria(clara = true) {
+function gerarCorAleatoria(clara = true, transparencia = 1) {
     if (clara) {
         // Gerar uma cor clara
         var r = Math.floor(Math.random() * 76) + 90; // Intervalo entre 180 e 255
@@ -410,5 +429,13 @@ function gerarCorAleatoria(clara = true) {
         var b = Math.floor(Math.random() * 101);
     }
     
-    return `rgb(${r}, ${g}, ${b})`;
+    return `rgb(${r}, ${g}, ${b}, ${transparencia})`;
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }

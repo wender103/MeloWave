@@ -20,6 +20,7 @@
     --background_black: hsla(0, 0%, 0%, 0.643);
     --fonte_transparente: rgba(255, 255, 255, 0.23);
     --fonte_meio_transparente: rgba(255, 255, 255, 0.555);
+    --verde_azul: rgb(0, 255, 213);
 }
 
 * {
@@ -50,11 +51,14 @@ div.musica_linha {
     padding: 5px 10px;
     background-color: var(--padrao1);
     border-radius: 4px;
+    gap: 20px;
 
     div.primeira_parte_musica_linha {
+        width: 85%;
         display: flex;
         align-items: center;
         gap: 10px;
+        overflow: hidden;
 
         p.p_contador_musica_curtida {
             width: 30px;
@@ -69,8 +73,13 @@ div.musica_linha {
         }
 
         div.texto_musica_linha {
+            width: 66%;
+
             p {
                 font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             span {
@@ -187,6 +196,9 @@ div.musica_caixa {
         p {
             font-size: 14px;
             color: var(--white);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         span {
@@ -293,6 +305,9 @@ div.daily_caixa {
             cursor: pointer;
 
             p {
+                font-size: 13px;
+                color: var(--fonte_meio_transparente);
+
                 span {
                     padding-left: 5px;
                     margin-bottom: -0.5px;
@@ -308,5 +323,13 @@ div.daily_caixa {
                 }
             }
         }
+    }
+}
+
+.icon_random {
+    cursor: not-allowed;
+
+    path {
+        fill: rgba(255, 255, 255, 0.438);
     }
 }

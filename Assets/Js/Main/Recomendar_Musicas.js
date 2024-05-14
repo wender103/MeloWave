@@ -87,18 +87,21 @@ function Retornar_Feito_Para_Voce() {
         array_generos_historico = ordenarNomesPorFrequencia(array_generos_historico)
 
         let array_recomendacoes = []
-        for (let c = 0; c < TodasMusicas.length; c++) {
-            let genero_formatado = formatarString(TodasMusicas[c].Genero)
+        let Array_Todas_Musicas_Embaralhado = [...TodasMusicas]
+        Array_Todas_Musicas_Embaralhado = shuffleArray(Array_Todas_Musicas_Embaralhado)
+
+        for (let c = 0; c < Array_Todas_Musicas_Embaralhado.length; c++) {
+            let genero_formatado = formatarString(Array_Todas_Musicas_Embaralhado[c].Genero)
             let genero_historico_formatado = formatarString(array_generos_historico[qts_vezes_chamadaS_feito_pra_voce - 1])
 
             if(genero_formatado.includes(genero_historico_formatado) || genero_historico_formatado.includes(genero_formatado)) {
                 if(array_recomendacoes.length < max_feito_pra_voce) {
-                    array_recomendacoes.push(TodasMusicas[c])
+                    array_recomendacoes.push(Array_Todas_Musicas_Embaralhado[c])
                 }
             }
         }
 
-        if(array_recomendacoes.length > 5) {
+        if(array_recomendacoes.length > 1) {
             let array_autores = []
     
             for (let c = 0; c < array_recomendacoes.length; c++) {
@@ -122,7 +125,9 @@ function Retornar_Feito_Para_Voce() {
 
 //! Mostrar na tela
 const container_musicas_home = document.getElementById('container_musicas_home')
-
+let nome_do_mix = ''
+let Arraay_PlaylistMix = []
+let nome_daily = ''
 function Retornar_Daily() {
     if(contador_feito_pra_voce == 0) {
         Historico_Musicas = User.Historico.Musicas
@@ -146,7 +151,7 @@ function Retornar_Daily() {
             let array_daily = []
 
             if(resultado) {
-                array_daily = resultado.Musicas
+                array_daily = [...resultado.Musicas]
             }
 
             if(array_daily != null && array_daily.length > 0) {
@@ -166,22 +171,58 @@ function Retornar_Daily() {
                 contaier_svg_daily.className = 'contaier_svg_daily'
                 texto_musica.classList.add('texto_musica')
                 p.className = 'Nome_musicas_caixa'
-                img.className = 'Img_daily_caixa'
-    
+                img.className = 'Img_daily_caixa'    
 
                 //! Valores
                 img.src = array_daily[array_daily.length -1].Img
                 p.innerText = `Seu Mix Diário ${qts_vezes_chamadaS_feito_pra_voce}`
                 p_daily.innerText = `Mix Diário ${qts_vezes_chamadaS_feito_pra_voce}`
-                
 
+                const p_container_span = document.createElement('p')
                 for (let h = 0; h < resultado.Autores_Presentes.length; h++) {
+                    const span_com_nome = document.createElement('span')
+                    span_com_nome.className = 'nome_autores_daily'
+
                     if(h >= resultado.Autores_Presentes.length - 1) {
-                        span.innerText += `${resultado.Autores_Presentes[h]}`
+                        span_com_nome.innerText = `${resultado.Autores_Presentes[h]}`
+                        p_container_span.appendChild(span_com_nome)
                     } else {
-                        span.innerText += `${resultado.Autores_Presentes[h]}, `
+                        span_com_nome.innerText = `${resultado.Autores_Presentes[h]}`
+                        p_container_span.appendChild(span_com_nome)
+                        p_container_span.innerHTML += ', '
+                    }
+
+                    if(h + 1 >= resultado.Autores_Presentes.length) {
+                        
                     }
                 }
+
+                let spans = p_container_span.querySelectorAll('span')
+                spans.forEach(element => {
+                    element.addEventListener('click', () => {
+                        let autor_encontrado = false
+                        for (let c = 0; c < TodasMusicas.length; c++) {
+                            const autor_formatado = separarArtistas(formatarString(TodasMusicas[c].Autor))
+                            const Autor2_formatado = formatarString(element.innerText)
+
+                            if(!autor_encontrado) {
+                                for (let b = 0; b < autor_formatado.length; b++) {
+                                    if(Autor2_formatado == autor_formatado[b]) {
+                                        Abrir_Perfil_Artista(element.innerText, TodasMusicas[c])
+                                        autor_encontrado = true
+                                        break
+                                    }
+                                }
+                            } else {
+                                break
+                            }
+                        }
+                    })  
+                })                
+
+                span.appendChild(p_container_span)
+                span.className = 'nome_autores_daily'
+                p_container_span.className = 'nome_autores_daily'
 
                 contaier_svg_daily.style.backgroundImage = `linear-gradient(to top, ${gerarCorAleatoria(false)}, transparent)`
                 let Cor_svg = gerarCorAleatoria()
@@ -213,8 +254,15 @@ function Retornar_Daily() {
                 container_playlits_daily.appendChild(daily_caixa)
 
                 //! Funções
-                daily_caixa.addEventListener('click', () => {
-                    Abrir_PLaylist_Mix(array_daily, p_daily.innerText, contaier_svg_daily.innerHTML, )
+                daily_caixa.addEventListener('click', (e) => {
+                    let el = e.target.className
+                    
+                    if(el != 'nome_autores_daily') {
+                        nome_do_mix = formatarString(p_daily.innerText)
+                        Abrir_PLaylistMix(array_daily, p_daily.innerText, contaier_svg_daily.innerHTML, )
+                        nome_daily = p_daily.innerText
+                        Arraay_PlaylistMix = [...array_daily]
+                    }
                 })
             } else {
                 break
@@ -231,3 +279,56 @@ function Retornar_Daily() {
         document.getElementById('container_musicas_home').appendChild(container_mixes_daily)
     }
 }
+
+let musica_playlistmix_random = false
+let playlistmix_ID = undefined
+const icon_random_playlistmix = document.getElementById('icon_random_playlistmix')
+icon_random_playlistmix.addEventListener('click', () => {
+    console.log(icon_random_playlistmix.style.cursor == 'pointer', playlistmix_ID == Pagina_Interna.ID);
+    if(icon_random_playlistmix.style.cursor == 'pointer' && playlistmix_ID == Pagina_Interna.ID) { 
+        console.log('Uai');
+        if(musica_playlistmix_random) {
+            musica_playlistmix_random = false
+            icon_random_playlistmix.style.cursor = 'pointer'
+            var paths = icon_random_playlistmix.querySelectorAll('path')
+            paths.forEach(function(path) {
+                path.style.fill = '#fff'
+                path.style.cursor = 'pointer'
+            })
+
+            Random(Arraay_PlaylistMix, false)
+
+
+        } else {
+            musica_playlistmix_random = true
+
+            icon_random_playlistmix.style.cursor = 'pointer'
+            var paths = icon_random_playlistmix.querySelectorAll('path')
+            paths.forEach(function(path) {
+                path.style.fill = 'rgb(0, 255, 213)'
+                path.style.cursor = 'pointer'
+            })
+
+            Random(Arraay_PlaylistMix, true, 'playlistmix')
+        }
+    }
+})
+
+const img_play_playlistmix = document.getElementById('img_play_playlistmix')
+img_play_playlistmix.addEventListener('click', () => {
+    if(playlistmix_ID != Pagina_Interna.ID) {
+        Desativar_Random()
+    }
+
+    console.log(icon_random_playlistmix)
+    icon_random_playlistmix.style.cursor = 'pointer'
+    var paths = icon_random_playlistmix.querySelectorAll('path')
+    paths.forEach(function(path) {
+        path.style.fill = '#fff'
+        path.style.cursor = 'pointer'
+    })
+
+    playlistmix_ID = `${formatarString(nome_daily)}-${Arraay_PlaylistMix[0].ID}`
+
+    Tocar_Musica(Arraay_PlaylistMix, Arraay_PlaylistMix[0])
+})

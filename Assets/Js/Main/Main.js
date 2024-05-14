@@ -1,5 +1,4 @@
 let TodasMusicas = []
-
 let Audio_Mutado = false
 
 let Listas_Prox = {
@@ -8,6 +7,12 @@ let Listas_Prox = {
     Lista_Musicas: [],
     Indice: undefined,
     A_Seguir: [],
+}
+
+let Pagina_Interna = {
+    Nome: '',
+    ID: null,
+    Lista: []
 }
 
 function Quantas_musicas() {
@@ -97,10 +102,9 @@ function atualizar_cor_progresso_input(inputElement) {
 let feito_musica_tocar = false
 let Tocando_Musica_A_Seguir = false
 
-function Tocar_Musica(Lista, MusicaAtual, Comando) {
+function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
     Listas_Prox.MusicaAtual = MusicaAtual
     Listas_Prox.Lista_Musicas = Lista
-    
     if(Listas_Prox.Indice == undefined) {
         for (let c = 0; c < Lista.length; c++) {
             if(Lista[c].ID == MusicaAtual.ID) {
@@ -127,6 +131,13 @@ function Tocar_Musica(Lista, MusicaAtual, Comando) {
 
     //! Checar se a música é uma curtida ou não
     Checar_Musica_Atual_Is_Curtida()
+
+    if(Qm_Chamou) {
+        Infos_Random.Nome = formatarString(Qm_Chamou)
+        // Pagina_Interna.Nome = formatarString(Qm_Chamou)
+        // Pagina_Interna.ID = IDPagina
+        // Pagina_Interna.Lista = [...Lista]
+    }
 
     //! Historico Salvar -------------------
     User.Historico.Musicas.push(MusicaAtual)
@@ -316,6 +327,8 @@ function Pausar() {
         element.src = 'Assets/Imgs/play_pc.svg'
     })
     audio_player.pause()
+
+    document.title = 'MeloWave - Home'
 }
 
 function Play() {
@@ -323,6 +336,8 @@ function Play() {
         element.src = 'Assets/Imgs/Pause.svg'
     })
     audio_player.play()
+
+    document.title = `${Listas_Prox.MusicaAtual.Nome} - ${Listas_Prox.MusicaAtual.Autor}`
 }
 
 let prox_ativo = false
@@ -523,7 +538,9 @@ function inverterArrayDeMusicas(arrayDeMusicas) {
     return new_array.reverse()
 }
 
-function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando) {
+let Array_Musica_Linha = []
+function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou = '') {
+    Array_Musica_Linha = []
     Local.innerHTML = ''
 
     let soma_ouvintes = 0
@@ -534,6 +551,7 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando) {
     }
 
     for (let c = 0; c < Musicas.length; c++) {
+        Array_Musica_Linha.push(Musicas[c])
         soma_ouvintes += parseInt(Musicas[c].Views)
 
         const musica_linha = document.createElement('div')
@@ -598,9 +616,61 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando) {
         musica_linha.addEventListener('click', (e) => {
             let Musicas_Recebidas = [...Musicas]
             let el = e.target.classList
+            let qm_chamou = formatarString(Qm_Chamou)
 
-            if(el.contains('musica_linha') || el.contains('Img_musica_linha') || el.contains('Nome_musica_linha')) {
-                Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
+            if(el.contains('musica_linha') || el.contains('Img_musica_linha') || el.contains('Nome_musica_linha') || el.contains('p_nomes_artistas')) {
+                console.log(qm_chamou)
+                console.log(Pagina_Interna.Nome)
+                console.log(Infos_Random.Nome)
+
+                console.log(Listas_Prox.Lista_Musicas.length > 0, Id_Paga_Artistas == Pagina_Interna.ID, playlistmix_ID == Pagina_Interna.ID, musica_curtidas_id_page == Pagina_Interna.ID)
+
+                if(Listas_Prox.Lista_Musicas.length > 0 && Id_Paga_Artistas == Pagina_Interna.ID || Listas_Prox.Lista_Musicas.length > 0 && playlistmix_ID == Pagina_Interna.ID || Listas_Prox.Lista_Musicas.length > 0 && '@#' == Pagina_Interna.ID) {
+                    console.log('Caiu no if')
+
+                    for (let y = 0; y < Listas_Prox.Lista_Musicas.length; y++) {
+                        if(Listas_Prox.Lista_Musicas[y].ID == Musicas_Recebidas[c].ID) {
+                            Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[y]
+                            Listas_Prox.Indice = y
+
+                            Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual, undefined, `${qm_chamou}-${Musicas_Recebidas[0].ID}`, qm_chamou)
+                            break
+                        }                        
+                    }
+
+                
+                } else {
+                    Desativar_Random()
+                    console.log('Caiu no else')
+                    Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c], undefined, `${qm_chamou}-${Musicas_Recebidas[0].ID}`, qm_chamou)
+
+                    console.log(qm_chamou);
+                    const icon_random = document.getElementById(`icon_random_${qm_chamou}`)
+                    console.log(icon_random);
+                    icon_random.style.cursor = 'pointer'
+                    var paths = icon_random.querySelectorAll('path')
+                    paths.forEach(function(path) {
+                        path.style.fill = '#fff'
+                        path.style.cursor = 'pointer'
+                    })
+
+                    if(qm_chamou == 'playlistmix') {
+                        playlistmix_ID = `${formatarString(nome_daily)}-${Musicas_Recebidas[0].ID}`
+                        // musica_playlistmix_random = true
+
+                    } else if(qm_chamou == 'artista') {
+                        Id_Paga_Artistas = `artista=${Musicas_Recebidas[0].ID}`
+                        // musicas_artista_random = true
+
+                    } else if(qm_chamou == 'musicascurtidas') {
+                        musica_curtidas_id_page = User.ID
+                        // musica_curtida_random = true
+                    }
+
+                    Infos_Random.Nome = qm_chamou
+                }
+
+                Listas_Prox.Nome_Album = Qm_Chamou
             }
         })
     }
@@ -624,4 +694,5 @@ function Execultar_Funcoes_Ao_Carregar() {
     }
 
     Retornar_Daily()
+    Retornar_Todas_Secoes()
 }

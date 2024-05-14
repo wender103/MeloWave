@@ -1,21 +1,27 @@
-let Array_Musicas_Playlist = []
-
-function Abrir_PLaylist_Mix(Array, Nome, svg) {
-    Array_Musicas_Playlist = Array
+function Abrir_PLaylistMix(Array, Nome, svg) {
+    let new_array = [...Array]
 
     document.getElementById('container_svg_mix_daily').style.display = 'flex'
-    document.getElementById('nome_mix_playlist').innerText = Nome
-    document.getElementById('contaier_svg_playlist').innerHTML = svg
-    document.getElementById('nome_playlist').innerText = Nome
-    document.getElementById('img_da_playlist').src = Array[Array.length -1].Img
-    document.getElementById('p_infos_playlist').innerHTML = `Feito para ${User.Nome} - ${Array.length} músicas`
+    document.getElementById('nome_mix_playlistmix').innerText = Nome
+    document.getElementById('contaier_svg_playlistmix').innerHTML = svg
+    document.getElementById('nome_playlistmix').innerText = Nome
+    document.getElementById('img_da_playlistmix').src = new_array[new_array.length - 1].Img
+    document.getElementById('p_infos_playlistmix').innerHTML = `Feito para ${User.Nome} - ${new_array.length} músicas`
 
-    Retornar_Musica_Linha(Array, document.getElementById('container_playlist'))
-    Abrir_Pagina('playlist')
-    Trocar_Background(Array[Array.length -1].Img, document.body)
+    Retornar_Musica_Linha(new_array.reverse(), document.getElementById('container_playlistmix'), null, 'PlaylistMix')
+    Abrir_Pagina('playlistmix')
+    Pagina_Interna.ID = `${formatarString(Nome)}-${new_array[new_array.length - 1].ID}`
+    Trocar_Background(new_array[0].Img, document.body)
+
+    if(playlistmix_ID != Pagina_Interna.ID) {
+        Desativar_Random('Não Zerar')
+    } else {
+        const icon_random_playlistmix = document.getElementById('icon_random_playlistmix')
+        icon_random_playlistmix.style.cursor = 'pointer'
+        var paths = icon_random_playlistmix.querySelectorAll('path')
+        paths.forEach(function(path) {
+            path.style.fill = 'rgb(0, 255, 213)'
+            path.style.cursor = 'pointer'
+        })
+    }
 }
-
-document.getElementById('img_play_playlist').addEventListener('click', () => {
-    Array_Musicas_Playlist = Array_Musicas_Playlist.reverse()
-    Tocar_Musica(Array_Musicas_Playlist, Array_Musicas_Playlist[0])
-})

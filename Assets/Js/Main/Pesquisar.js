@@ -20,6 +20,8 @@ function Pesquisar() {
 
 
     if(pesquisa.trim() != '') {
+        Pesquisar_Home.style.display = 'none'
+
         for (let c = 0; c < TodasMusicas.length; c++) {
             const nome_formatado = formatarString(TodasMusicas[c].Nome)
             const autor_formatado = formatarString(TodasMusicas[c].Autor)
@@ -75,6 +77,8 @@ function Pesquisar() {
         setTimeout(() => {
             melhor_resultado_encontrado = false
         }, 1000)
+    } else {
+        Pesquisar_Home.style.display = 'flex'
     }
 }
 
@@ -133,6 +137,8 @@ function Retornar_Musicas(Musicas_Recebidas, Local) {
         article.appendChild(musica_caixa)
 
         musica_caixa.addEventListener('click', (e) => {
+            Desativar_Random()
+            Infos_Random.Nome = 'musicascaixa'
             let Musicas_Recebidas = [...Musicas]
             let el = e.target.className
 
@@ -337,4 +343,48 @@ function Retornar_Melhor_Resultado(Musica, Tipo) {
     })
 
     Mostrar_Max_Musicas()
+}
+
+function Retornar_Todas_Secoes() {
+    let Todos_Os_Generos = []
+
+    for (let c = 0; c < TodasMusicas.length; c++) {
+        Todos_Os_Generos.push(...separarArtistas(TodasMusicas[c].Genero))
+    }
+
+    Todos_Os_Generos = ordenarNomesPorFrequencia(Todos_Os_Generos)
+    Todos_Os_Generos.sort()
+
+    for (let c = 0; c < Todos_Os_Generos.length; c++) {
+        let musica_encontrada = false
+        for (let b = 0; b < TodasMusicas.length; b++) {
+            if(!musica_encontrada) {
+                if(TodasMusicas[b].Genero.includes(Todos_Os_Generos[c]) || Todos_Os_Generos[c].includes(TodasMusicas[b].Genero)) {
+                    musica_encontrada = true
+    
+                    const container_genero_secao = document.createElement('div')
+                    const h1_genero = document.createElement('h1')
+                    const img = document.createElement('img')
+    
+                    container_genero_secao.className = 'container_genero_secao'
+                    container_genero_secao.style.background = gerarCorAleatoria(true, 0.7)
+    
+                    h1_genero.innerText = Todos_Os_Generos[c]
+                    img.src = TodasMusicas[b].Img
+    
+                    container_genero_secao.appendChild(h1_genero)
+                    container_genero_secao.appendChild(img)
+                    document.getElementById('container_todas_as_secoes').appendChild(container_genero_secao)
+
+                    container_genero_secao.addEventListener('click', () => {
+                        Trocar_Background(img.src, document.body)
+                        document.getElementById('input_pesquisar').value = h1_genero.innerText
+                        Pesquisar()
+                    })
+                }
+            } else { 
+                break
+            }
+        }
+    }
 }

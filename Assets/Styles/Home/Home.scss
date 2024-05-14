@@ -353,6 +353,60 @@ body {
                 section {
                     display: none;
 
+                    &#Pesquisar_Home {
+                        display: flex;
+                        flex-direction: column;
+
+                        h1#h1_buscas_recentes {
+                            display: none;
+                        }
+
+                        article#buscas_recentes {
+                            display:  none;
+                        }
+
+                        article#container_todas_as_secoes {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fill, minmax(208px, 1fr));
+                            gap: 24px;
+                            height: auto;
+                            
+                            div.container_genero_secao {
+                                min-width: 205px;
+                                height: 205px;
+                                display: flex;
+                                flex-direction: column;
+                                background-position: center;
+                                border-radius: 10px;
+                                overflow: hidden;
+                                background-color: #1e1e20;
+                                cursor: pointer;
+                                background-color: rgba(0, 255, 242, 0.274);
+                                position: relative;
+                                text-align: center;
+
+                                h1 {
+
+                                }
+
+                                img {
+                                    width: 150px;
+                                    height: 150px;
+                                    margin: auto;
+                                    overflow: hidden;
+                                    position: absolute;
+                                    rotate: 25deg;
+                                    right: -15px;
+                                    bottom: -15px;
+                                    border-radius: 22px;
+                                    display: block;
+                                    -o-object-fit: cover;
+                                    object-fit: cover;
+                                }
+                            }
+                        }
+                    }
+
                     &#container_melhor_resultado {
                         width: 100%;
                         display: none;
@@ -784,7 +838,7 @@ body {
                             align-items: center;
                             gap: 20px;
 
-                            img {
+                            img, svg {
                                 width: 30px;
                                 height: 30px;
                                 cursor: pointer;
@@ -825,18 +879,18 @@ body {
                 }
             }
 
-            &#Pagina_playlist {
-                article#container_header_playlist {
+            &#Pagina_playlistmix {   
+                article#container_header_playlistmix {
                     width: 100%;
                     display: flex;
                     flex-direction: column;
 
-                    div#container_infos_header_playlist {
+                    div#container_infos_header_playlistmix {
                         display: flex;
                         align-items: end;
                         gap: 20px;
 
-                        div#container_header_img_playlist {
+                        div#container_header_img_playlistmix {
                             width: 180px;
                             height: 180px;
                             overflow: hidden;
@@ -848,7 +902,7 @@ body {
 
                             img {
                                 width: 110%;
-                                height: 110%;
+                                height: 110%;        
                                 object-fit: cover;
                             }
 
@@ -880,7 +934,7 @@ body {
 
                         color: var(--white);
 
-                        div#container_infos_playlist {
+                        div#container_infos_playlistmix {
                             padding: 0;
                             // margin-bottom: -10px;
 
@@ -907,31 +961,31 @@ body {
                         }
                     }
 
-                    div#container_headers_btns_playlist {
+                    div#container_headers_btns_playlistmix {
                         width: 100%;
                         display: flex;
                         align-items: center;
                         margin-top: 25px;  
                         justify-content: space-between;
                         
-                        div#part1_btns_playlist {
+                        div#part1_btns_playlistmix {
                             display: flex;
                             align-items: center;
                             gap: 20px;
 
-                            img {
+                            img, svg {
                                 width: 30px;
                                 height: 30px;
                                 cursor: pointer;
     
-                                &#img_play_playlist {
+                                &#img_play_playlistmix {
                                     width: 70px;
                                     height: 70px;
                                 }
                             }
                         }
 
-                        div#container_pesquisar_playlist {
+                        div#container_pesquisar_playlistmix {
                             display: flex;
                             height: 32px;
                             background-color: var(--cor_qse_transparente_background);
@@ -945,7 +999,7 @@ body {
                     }
                 }
 
-                article#container_playlist {
+                article#container_playlistmix {
                     flex-direction: column;
                     margin-top: 20px;
                     padding-bottom: 0px;
@@ -986,7 +1040,7 @@ body {
             
             p#texto_fila {
                 margin-left: 8px;
-                text-decoration: underline rgb(0, 255, 213);
+                text-decoration: underline var(--verde_azul);
             }
     
             div.contanier_caixa_fila {
@@ -1015,7 +1069,7 @@ body {
 
                 &#container_musica_tocando_agora_fila {
                     p#nome_tocando_agora_fila {
-                        color: rgb(0, 255, 213);
+                        color: var(--verde_azul);
                     }
                 }
                 
