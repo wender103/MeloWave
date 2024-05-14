@@ -38,12 +38,32 @@ function Abrir_Perfil_Artista(Artista, Musica) {
     if(Id_Paga_Artistas != Pagina_Interna.ID) {
         Desativar_Random('Não Zerar')
     } else {
-        icon_random_artista.style.cursor = 'pointer'
-        var paths = icon_random_artista.querySelectorAll('path')
-        paths.forEach(function(path) {
-            path.style.fill = 'rgb(0, 255, 213)'
-            path.style.cursor = 'pointer'
-        })
+        if(musicas_artista_random) {
+            icon_random_artista.style.cursor = 'pointer'
+            var paths = icon_random_artista.querySelectorAll('path')
+            paths.forEach(function(path) {
+                path.style.fill = 'rgb(0, 255, 213)'
+                path.style.cursor = 'pointer'
+            })
+        } else {
+            if(Id_Paga_Artistas != Pagina_Interna.ID) {
+                icon_random_artista.style.cursor = 'pointer'
+                var paths = icon_random_artista.querySelectorAll('path')
+                icon_random_artista.style.cursor = 'not-allowed'
+                paths.forEach(function(path) {
+                    path.style.fill = 'rgba(255, 255, 255, 0.438)'
+                        path.style.cursor = 'not-allowed'
+                })
+
+            } else {
+                icon_random_artista.style.cursor = 'pointer'
+                var paths = icon_random_artista.querySelectorAll('path')
+                paths.forEach(function(path) {
+                    path.style.fill = '#fff'
+                    path.style.cursor = 'pointer'
+                })
+            }
+        }
     }
 
     document.getElementById('background_paginas_artista').style.backgroundImage = `url(${musica_escolhida.Img})`
@@ -95,7 +115,6 @@ img_play_musicas_artista.addEventListener('click', () => {
         path.style.cursor = 'pointer'
     })
 
-    console.log(Lsita_Musicas_Artista)
     Id_Paga_Artistas = `artista=${Lsita_Musicas_Artista[0].ID}`
 
     Tocar_Musica(Lsita_Musicas_Artista, Lsita_Musicas_Artista[0])

@@ -47,14 +47,11 @@ function Logar_Na_Conta() {
     auth.onAuthStateChanged((val) => {
         if(!User_logado && val.emailVerified) {
             User_logado = true
-            console.log(val)
-            console.log(Todos_Usuarios)
 
             let usuario_encontrado = false
             for (let c = 0; c < Todos_Usuarios.length; c++) {
                 if(Todos_Usuarios[c].Email == val.email) {
                     usuario_encontrado = true
-                    console.log('User recebendo algo');
                     User = Todos_Usuarios[c]
                     Fechar_Entrar()
                     Atualizar_User()

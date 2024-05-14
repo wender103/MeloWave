@@ -16,12 +16,15 @@ function Abrir_PLaylistMix(Array, Nome, svg) {
     if(playlistmix_ID != Pagina_Interna.ID) {
         Desativar_Random('Não Zerar')
     } else {
-        const icon_random_playlistmix = document.getElementById('icon_random_playlistmix')
-        icon_random_playlistmix.style.cursor = 'pointer'
-        var paths = icon_random_playlistmix.querySelectorAll('path')
-        paths.forEach(function(path) {
-            path.style.fill = 'rgb(0, 255, 213)'
-            path.style.cursor = 'pointer'
-        })
+
+        if(musica_playlistmix_random) {
+            const icon_random_playlistmix = document.getElementById('icon_random_playlistmix')
+            icon_random_playlistmix.style.cursor = 'pointer'
+            var paths = icon_random_playlistmix.querySelectorAll('path')
+            paths.forEach(function(path) {
+                path.style.fill = 'rgb(0, 255, 213)'
+                path.style.cursor = 'pointer'
+            })
+        }
     }
 }

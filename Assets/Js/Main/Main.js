@@ -132,6 +132,9 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
     //! Checar se a música é uma curtida ou não
     Checar_Musica_Atual_Is_Curtida()
 
+    //! Vai salvar a view do Artista
+    Adicionar_View_Musica(MusicaAtual)
+
     if(Qm_Chamou) {
         Infos_Random.Nome = formatarString(Qm_Chamou)
         // Pagina_Interna.Nome = formatarString(Qm_Chamou)
@@ -450,10 +453,10 @@ const ultimoVolumeSalvo = localStorage.getItem('Volume_Melo_Wave')
 if(ultimoVolumeSalvo) {
     Volume_Atual = parseInt(ultimoVolumeSalvo)
     input_volume_pc.value = parseInt(ultimoVolumeSalvo)
+    Volume(parseInt(ultimoVolumeSalvo), input_volume_pc)
     input_volume_pc_fullscreen.value = parseInt(ultimoVolumeSalvo)
     atualizar_cor_progresso_input(input_volume_pc)
     atualizar_cor_progresso_input(input_volume_pc_fullscreen)
-    Volume(parseInt(ultimoVolumeSalvo))
 }
 
 input_volume_pc.onmouseenter = function() {
@@ -619,14 +622,8 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
             let qm_chamou = formatarString(Qm_Chamou)
 
             if(el.contains('musica_linha') || el.contains('Img_musica_linha') || el.contains('Nome_musica_linha') || el.contains('p_nomes_artistas')) {
-                console.log(qm_chamou)
-                console.log(Pagina_Interna.Nome)
-                console.log(Infos_Random.Nome)
-
-                console.log(Listas_Prox.Lista_Musicas.length > 0, Id_Paga_Artistas == Pagina_Interna.ID, playlistmix_ID == Pagina_Interna.ID, musica_curtidas_id_page == Pagina_Interna.ID)
-
+        
                 if(Listas_Prox.Lista_Musicas.length > 0 && Id_Paga_Artistas == Pagina_Interna.ID || Listas_Prox.Lista_Musicas.length > 0 && playlistmix_ID == Pagina_Interna.ID || Listas_Prox.Lista_Musicas.length > 0 && '@#' == Pagina_Interna.ID) {
-                    console.log('Caiu no if')
 
                     for (let y = 0; y < Listas_Prox.Lista_Musicas.length; y++) {
                         if(Listas_Prox.Lista_Musicas[y].ID == Musicas_Recebidas[c].ID) {
@@ -641,12 +638,10 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
                 
                 } else {
                     Desativar_Random()
-                    console.log('Caiu no else')
                     Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c], undefined, `${qm_chamou}-${Musicas_Recebidas[0].ID}`, qm_chamou)
 
-                    console.log(qm_chamou);
                     const icon_random = document.getElementById(`icon_random_${qm_chamou}`)
-                    console.log(icon_random);
+
                     icon_random.style.cursor = 'pointer'
                     var paths = icon_random.querySelectorAll('path')
                     paths.forEach(function(path) {
@@ -695,4 +690,12 @@ function Execultar_Funcoes_Ao_Carregar() {
 
     Retornar_Daily()
     Retornar_Todas_Secoes()
+}
+
+function Adicionar_View_Musica(Musica) {
+    for (let c = 0; c < TodasMusicas.length; c++) {
+        if(TodasMusicas[c].ID == Musica.ID) {
+            TodasMusicas[c].Views = parseInt(TodasMusicas[c].Views) + 1
+        }
+    }
 }

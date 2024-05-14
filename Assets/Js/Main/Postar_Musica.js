@@ -6,7 +6,7 @@ async function Postar_Musica() {
         let downloadURL
 
         // Verifica se está rodando localmente
-        if (window.location.href.includes('http://127.0.0.1:5501/?Page=pesquisar')) {
+        if (window.location.href.includes('http://127.0.0.1:')) {
             downloadURL = 'http://localhost:3000/download'
         } else if (window.location.href.includes('https://wender103.github.io/MeloWave/')) {
             downloadURL = 'https://molewaveapibaixarmusica.onrender.com/download'

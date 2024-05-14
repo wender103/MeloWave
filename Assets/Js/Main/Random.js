@@ -47,6 +47,13 @@ function Desativar_Random(Comando='Zerar') {
         playlistmix_ID = undefined
         Id_Paga_Artistas = undefined
         musicas_caixa_random = false
+
+        random_barra_musicas.style.cursor = 'pointer'
+        var paths = random_barra_musicas.querySelectorAll('path')
+        paths.forEach(function(path) {
+            path.style.fill = '#fff'
+            path.style.cursor = 'pointer'
+        })
     }
 
     const icon_random = document.querySelectorAll('.icon_random')
@@ -58,19 +65,17 @@ function Desativar_Random(Comando='Zerar') {
             path.style.cursor = 'not-allowed'
         })
     })
-
-    random_barra_musicas.style.cursor = 'pointer'
-    var paths = random_barra_musicas.querySelectorAll('path')
-    paths.forEach(function(path) {
-        path.style.fill = '#fff'
-        path.style.cursor = 'pointer'
-    })
 }
 
 let musicas_caixa_random = false
 let array_musicas_caixa = []
 random_barra_musicas.addEventListener('click', () => {
-    let nome_fomatado = formatarString(Infos_Random.Nome)
+    let nome_fomatado = formatarString(Pagina_Interna.Nome)
+    
+    if(Infos_Random.Nome != undefined) {
+        nome_fomatado = formatarString(Infos_Random.Nome)
+    }
+
     let modo_ativo = false
 
     if(nome_fomatado == 'playlistmix') {

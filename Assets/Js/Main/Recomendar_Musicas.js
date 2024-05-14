@@ -85,6 +85,7 @@ function Retornar_Feito_Para_Voce() {
         }
 
         array_generos_historico = ordenarNomesPorFrequencia(array_generos_historico)
+        Todos_Os_Generos_Historico = array_generos_historico
 
         let array_recomendacoes = []
         let Array_Todas_Musicas_Embaralhado = [...TodasMusicas]
@@ -175,8 +176,8 @@ function Retornar_Daily() {
 
                 //! Valores
                 img.src = array_daily[array_daily.length -1].Img
-                p.innerText = `Seu Mix Diário ${qts_vezes_chamadaS_feito_pra_voce}`
-                p_daily.innerText = `Mix Diário ${qts_vezes_chamadaS_feito_pra_voce}`
+                p.innerText = `Seu Mix ${Todos_Os_Generos_Historico[qts_vezes_chamadaS_feito_pra_voce - 1]}`
+                p_daily.innerText = `Mix ${Todos_Os_Generos_Historico[qts_vezes_chamadaS_feito_pra_voce - 1]}`
 
                 const p_container_span = document.createElement('p')
                 for (let h = 0; h < resultado.Autores_Presentes.length; h++) {
@@ -284,9 +285,7 @@ let musica_playlistmix_random = false
 let playlistmix_ID = undefined
 const icon_random_playlistmix = document.getElementById('icon_random_playlistmix')
 icon_random_playlistmix.addEventListener('click', () => {
-    console.log(icon_random_playlistmix.style.cursor == 'pointer', playlistmix_ID == Pagina_Interna.ID);
     if(icon_random_playlistmix.style.cursor == 'pointer' && playlistmix_ID == Pagina_Interna.ID) { 
-        console.log('Uai');
         if(musica_playlistmix_random) {
             musica_playlistmix_random = false
             icon_random_playlistmix.style.cursor = 'pointer'
@@ -320,7 +319,6 @@ img_play_playlistmix.addEventListener('click', () => {
         Desativar_Random()
     }
 
-    console.log(icon_random_playlistmix)
     icon_random_playlistmix.style.cursor = 'pointer'
     var paths = icon_random_playlistmix.querySelectorAll('path')
     paths.forEach(function(path) {
