@@ -67,6 +67,8 @@ function Abrir_Pagina(Pagina) {
                     path.style.cursor = 'pointer'
                 })
             }
+        } else if(Pagina == 'notificacao') {
+            document.getElementById('bolinha_icone_noficacao').style.display = 'none'
         }
     }
 
@@ -438,4 +440,30 @@ function shuffleArray(array) {
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+}
+
+function verificarDataDepois(data1, data2) {
+    // Converte as strings de data para objetos Date
+    const partesData1 = data1.split('/');
+    const partesData2 = data2.split('/');
+    const dataObjeto1 = new Date(partesData1[2], partesData1[1] - 1, partesData1[0]); // Mês é 0-indexado
+    const dataObjeto2 = new Date(partesData2[2], partesData2[1] - 1, partesData2[0]); // Mês é 0-indexado
+    
+    // Verifica se a segunda data é depois da primeira
+    if (dataObjeto2 > dataObjeto1) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function organizarPorDataDescendente(array) {
+    return array.sort((a, b) => {
+        // Converte as datas para objetos Date
+        const dataA = new Date(a.Data.split('/').reverse().join('/'));
+        const dataB = new Date(b.Data.split('/').reverse().join('/'));
+        
+        // Compara as datas para ordenar do mais recente para o mais antigo
+        return dataB - dataA;
+    });
 }

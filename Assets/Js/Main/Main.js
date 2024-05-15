@@ -79,6 +79,7 @@ function Mostrar_Max_Musicas() {
     })
 } Mostrar_Max_Musicas()
 
+let Execultar_Funcoes_Ao_Carregar_execultado = false
 function Pegar_Todas_Musicas() {
     db.collection('Musicas').get().then((snapshot) => {
         snapshot.docs.forEach(Musicas => {
@@ -86,6 +87,7 @@ function Pegar_Todas_Musicas() {
         })
 
         Execultar_Funcoes_Ao_Carregar()
+        Checar_Notificacao_Artista_Seguindo()
     })
 } Pegar_Todas_Musicas()
 
@@ -134,6 +136,32 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
 
     //! Vai salvar a view do Artista
     Adicionar_View_Musica(MusicaAtual)
+
+    //! Vai adicionar a música na parte de música ouvidas do artista
+    let user_artistas_seguindo = User.Social.Artistas
+    let ja_tem_a_musica = false
+    for (let c = 0; c < user_artistas_seguindo.length; c++) {
+        if(MusicaAtual.Autor.includes(user_artistas_seguindo[c].Autor) && !ja_tem_a_musica) {           
+            for (let a = 0; a < user_artistas_seguindo[c].Musicas_Ouvidas.length; a++) {
+                if(user_artistas_seguindo[c].Musicas_Ouvidas[a].ID == MusicaAtual.ID) {
+                    ja_tem_a_musica = true
+                    break
+                }
+            }
+        } else {
+            break
+        }
+    }
+
+    if(!ja_tem_a_musica) {
+        for (let c = 0; c < user_artistas_seguindo.length; c++) {
+            if(MusicaAtual.Autor.includes(user_artistas_seguindo[c].Autor)) {  
+                user_artistas_seguindo[c].Musicas_Ouvidas.push(MusicaAtual.ID)
+                Salvar_Musicas_Ouvidas_Artista_Seguindo(user_artistas_seguindo)
+                break
+            }
+        }
+    }
 
     if(Qm_Chamou) {
         Infos_Random.Nome = formatarString(Qm_Chamou)
@@ -345,11 +373,10 @@ function Play() {
 
 let prox_ativo = false
 function Proxima_Musica() {
-    if(!prox_ativo) {
+    if(!prox_ativo && !repetir_musicas) {
         prox_ativo = true
 
         audio_player.currentTime = 0
-        let musica_encontrada = false
 
         if(Listas_Prox.A_Seguir.length <= 0) {
             if(Tocando_Musica_A_Seguir) {
@@ -407,6 +434,11 @@ function Proxima_Musica() {
         setTimeout(() => {
             prox_ativo = false
         }, 1000)
+
+    } else if(repetir_musicas) {
+        audio_player.currentTime = 0
+        feito_musica_tocar = false
+        Play()
     }
 }
 
@@ -693,9 +725,23 @@ function Execultar_Funcoes_Ao_Carregar() {
 }
 
 function Adicionar_View_Musica(Musica) {
-    for (let c = 0; c < TodasMusicas.length; c++) {
-        if(TodasMusicas[c].ID == Musica.ID) {
-            TodasMusicas[c].Views = parseInt(TodasMusicas[c].Views) + 1
-        }
-    }
+    let feito = false
+    db.collection('Musicas').get().then((snapshot) => {
+        snapshot.docs.forEach(Musicas => {
+            TodasMusicas = Musicas.data().Musicas
+
+            if(!feito) {
+                feito = true
+
+                for (let c = 0; c < TodasMusicas.length; c++) {
+                    if(TodasMusicas[c].ID == Musica.ID) {
+                        TodasMusicas[c].Views = parseInt(TodasMusicas[c].Views) + 1
+            
+                        db.collection('Musicas').doc(Musicas.id).update({Musicas: TodasMusicas})
+                        break
+                    }
+                }
+            }
+        })
+    })
 }

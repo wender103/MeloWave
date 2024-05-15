@@ -289,4 +289,15 @@ div.daily_caixa div.texto_musica span p span:hover {
 }
 .icon_random path {
   fill: rgba(255, 255, 255, 0.438);
+}
+
+.bolinbha_notificacao {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--verde_azul);
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  display: none;
 }/*# sourceMappingURL=Geral.css.map */

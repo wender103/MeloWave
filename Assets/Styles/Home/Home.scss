@@ -167,19 +167,21 @@ body {
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;
-                overflow: hidden;
+                // overflow: hidden;
+                position: relative;  
 
                 &#user_email_icon {
                     img {
                         width: 100%;
                         height: 100%;
-                        object-fit: cover;
+                        object-fit: cover;  
+                        border-radius: 4px;
                     }
                 }
             }
         }
 
-        div#btns_cadastro {
+        div#btns_cadastro { 
             button {
                 height: 32px;
                 background-color: var(--padrao2);
@@ -189,7 +191,7 @@ body {
                 justify-content: center;
                 border: none;
                 border-radius: 4px;
-                cursor: pointer;
+                cursor: pointer; 
             }
         }
     }
@@ -1013,6 +1015,67 @@ body {
                     }
                 }
             }
+
+            &#Pagina_notificacao {
+                color: var(--white);
+
+                h1 {
+                    margin: 0;
+                    font-size: 25px;
+                }
+
+                p#p_notificacao {
+                    font-size: 14px;
+                    margin-bottom: 70px; 
+                    color: var(--fonte_meio_transparente);
+                }
+
+                h2 {
+                    display: none;
+                    margin-top: 70px;
+                    font-size: 23px;
+                }
+                
+                article#container_novos_lancamentos_dos_artistas, article#container_antigos_lancamentos_dos_artistas {
+                    width: 100%;
+                    display: none;
+                    margin-top: 20px;
+
+                    section {
+                        width: 100%;
+                        margin-bottom: 50px;
+
+                        h1 {
+                            font-size: 16px;
+                            color: var(--verde_azul);
+                        }
+                        
+                        article {
+                            width: 100%;
+                            display: flex;
+                            gap: 12px;
+                            flex-direction: column;
+                            margin-top: 20px;
+                            padding-bottom: 0px;
+
+                            div.musica_linha {
+                                background-color: transparent;
+
+                                &:hover {
+                                    background-color: var(--black_transparent);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                h1#nehuma_novidade {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
         }
     }
     
@@ -1605,7 +1668,7 @@ body {
             border-radius: 8px;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: center; 
             justify-content: center;
 
             p {
