@@ -50,8 +50,10 @@ function Fechar_Entrar() {
     document.getElementById('Container_Cadastro').style.display = 'none'
 }
 
+let user_fez_login = false
 function Login() {
     auth.signInWithPopup(provider)
+    user_fez_login = true
     Logar_Na_Conta()
 }
 
@@ -59,6 +61,10 @@ function Logar_Na_Conta() {
     User_logado = false
     auth.onAuthStateChanged((val) => {
         if(val) {
+            if(user_fez_login) {
+                location.reload()
+            }
+
             if(!User_logado && val.emailVerified) {
                 User_logado = true
     

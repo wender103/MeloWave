@@ -1,7 +1,14 @@
+let notificado_que_esta_modo_anonimo = false
 function Carregar_Perfil_Anonimo_User() {
     let memoria = JSON.parse(localStorage.getItem('Perfil_Anonimo_User'))
     if(memoria) {
         User = memoria
+
+        if(!notificado_que_esta_modo_anonimo) {
+            notificado_que_esta_modo_anonimo = true
+            Notificar_Infos('⚠️ Você está usando o site sem se cadastrar. Suas informações serão salvas apenas neste navegador e permanecerão no localStorage. Se você limpar os dados do navegador ou usar outro dispositivo, suas informações serão perdidas.')
+        }
+
     } else {
         User = {
             Email: 'anonimo@gmail.com',
