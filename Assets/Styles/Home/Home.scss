@@ -1727,6 +1727,10 @@ body {
                 cursor: pointer;
                 margin-bottom: 20px;
                 text-align: center;
+
+                &#btn_confirmar_notificacao_infos {
+                    display: none;
+                }
             }
         }
     }

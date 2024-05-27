@@ -16,16 +16,21 @@ function Checar_Fora_Do_Ar() {
             let email_igual = false
             console.log(Admin_Infos)
             for (let c = 0; c < Admin_Infos.Admins.length; c++) {
-            if(Admin_Infos.Admins[c] == email_user) {
-                email_igual = true
-            }
+                if(Admin_Infos.Admins[c] == email_user) {
+                    email_igual = true
+                }
             }
     
-            if(!email_igual && Admin_Infos.Fora_Do_Ar && !location.href.includes('fora_do_ar.html')) {
-            location.href = 'fora_do_ar.html'
-    
-            } else if(email_igual && location.href.includes('fora_do_ar.html')) {
-            location.href = 'index.html'
+            if(!Admin_Infos.Fora_Do_Ar && location.href.includes('fora_do_ar.html')) {
+                location.href = 'index.html'
+
+            } else {
+                if(!email_igual && Admin_Infos.Fora_Do_Ar && !location.href.includes('fora_do_ar.html')) {
+                location.href = 'fora_do_ar.html'
+        
+                } else if(email_igual && location.href.includes('fora_do_ar.html')) {
+                location.href = 'index.html'
+                }
             }
         },
         (error) => {
@@ -33,3 +38,11 @@ function Checar_Fora_Do_Ar() {
         }
     )
 } Checar_Fora_Do_Ar()
+
+function fazer_login() {
+    auth.signInWithPopup(provider)
+
+    auth.onAuthStateChanged((val) => {
+        Checar_Fora_Do_Ar()
+    })
+}

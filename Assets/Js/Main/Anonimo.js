@@ -6,7 +6,7 @@ function Carregar_Perfil_Anonimo_User() {
 
         if(!notificado_que_esta_modo_anonimo) {
             notificado_que_esta_modo_anonimo = true
-            Notificar_Infos('⚠️ Você está usando o site sem se cadastrar. Suas informações serão salvas apenas neste navegador e permanecerão no localStorage. Se você limpar os dados do navegador ou usar outro dispositivo, suas informações serão perdidas.')
+            Notificar_Infos('⚠️ Você está usando o site sem se cadastrar. Suas informações serão salvas apenas neste navegador e ficarão no localStorage. 🔒 Limpar os dados do navegador ou usar outro dispositivo vai fazer você perder essas informações. 🚨')
         }
 
     } else {

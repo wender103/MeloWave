@@ -1724,6 +1724,9 @@ body section#container_notificacao_infos article button {
   margin-bottom: 20px;
   text-align: center;
 }
+body section#container_notificacao_infos article button#btn_confirmar_notificacao_infos {
+  display: none;
+}
 body section#Container_Cadastro {
   width: 100%;
   height: 100vh;
