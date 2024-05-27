@@ -112,7 +112,13 @@ function Seguir_Artista(Artista=null, Comando=null) {
             }
         }
 
-        db.collection('Users').doc(User.ID).update({ Social: User.Social })
+        if(User.Estado_Da_Conta != 'Anônima') {
+            db.collection('Users').doc(User.ID).update({ Social: User.Social })
+            
+        } else {
+            Salvar_Perfil_Anonimo_User()
+        }
+        
 
         Carreagr_Artistas_Seguindo()
     }
@@ -370,6 +376,11 @@ function Checar_Notificacao_Artista_Seguindo() {
 }
 
 function Salvar_Musicas_Ouvidas_Artista_Seguindo(infos_artistas) {
-    User.Social.Artistas = infos_artistas
-    db.collection('Users').doc(User.ID).update({ Social: User.Social })
+    User.Social.Artistas = infos_artistas   
+    if(User.Estado_Da_Conta != 'Anônima') {
+        db.collection('Users').doc(User.ID).update({ Social: User.Social })
+
+    } else {
+        Salvar_Perfil_Anonimo_User()
+    }
 }

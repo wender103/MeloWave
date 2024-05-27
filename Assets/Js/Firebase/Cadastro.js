@@ -1,3 +1,16 @@
+
+function getDataAtualCadastro() {
+    var data = new Date()
+    var dia = data.getDate()
+    var mes = data.getMonth() + 1 // Os meses em JavaScript são baseados em zero, então adicionamos 1
+    var ano = data.getFullYear()
+
+    // Formata a data para 'dd/mm/aaaa'
+    var dataFormatada = (dia < 10 ? '0' : '') + dia + '/' + (mes < 10 ? '0' : '') + mes + '/' + ano
+
+    return dataFormatada
+}
+
 let Todos_Usuarios = []
 let User_logado = false
 let User
@@ -45,71 +58,79 @@ function Login() {
 function Logar_Na_Conta() {
     User_logado = false
     auth.onAuthStateChanged((val) => {
-        if(!User_logado && val.emailVerified) {
-            User_logado = true
-
-            let usuario_encontrado = false
-            for (let c = 0; c < Todos_Usuarios.length; c++) {
-                if(Todos_Usuarios[c].Email == val.email) {
-                    usuario_encontrado = true
-                    User = Todos_Usuarios[c]
-                    Fechar_Entrar()
-                    Atualizar_User()
+        if(val) {
+            if(!User_logado && val.emailVerified) {
+                User_logado = true
+    
+                let usuario_encontrado = false
+                for (let c = 0; c < Todos_Usuarios.length; c++) {
+                    if(Todos_Usuarios[c].Email == val.email) {
+                        usuario_encontrado = true
+                        User = Todos_Usuarios[c]
+                        Fechar_Entrar()
+                        Atualizar_User()
+                    }
                 }
-            }
-
-            //? Vai cricar a conta do usuário
-            if(!usuario_encontrado) {
-                console.log('usuário não encontrado')
-
-                const New_User = {
-                    Email: val.email,
-                    Nome: val.displayName,
-                    Musicas_Curtidas: [],
-                    Social: {
-                        Seguindo: [],
-                        Seguidores: [],
-                        Amigos: {
-                            Pendentes: [],
-                            Recusados: [],
-                            Aceitos: []
+    
+                //? Vai cricar a conta do usuário
+                if(!usuario_encontrado) {
+                    console.log('usuário não encontrado')
+    
+                    const New_User = {
+                        Email: val.email,
+                        Nome: val.displayName,
+                        Musicas_Curtidas: [],
+                        Social: {
+                            Seguindo: [],
+                            Seguidores: [],
+                            Amigos: {
+                                Pendentes: [],
+                                Recusados: [],
+                                Aceitos: []
+                            },
+                            Artistas: [],
+                            Playlists_Curtidas: []
                         },
-                        Artistas: [],
-                        Playlists_Curtidas: []
-                    },
-                    Gosto_Musical: {
-                        Generos: [],
-                        Artistas: [],
-                    },
-                    Historico: {
-                        Musicas: [],
-                        Playlists: [],
-                        Users: [],
-                        Artistas: [],
-                        Pesquisa: [],
-                    },
-                    Dispositivos: {
-                        Todos: [],
-                        Atual: []
-                    },
-                    Estado_Da_Conta: 'Ativa',
-                    Notificacao: [],
-                    Perfil: {
-                        Img_Perfil: val.photoURL,
-                        Img_Background: null,
-                        Ouvintes: 0,
-                        Horas_Ouvindo: 0,
-                        Data_Criacao_Conta: getDataAtual()
-                    },
-                }
+                        Gosto_Musical: {
+                            Generos: [],
+                            Artistas: [],
+                        },
+                        Historico: {
+                            Musicas: [],
+                            Playlists: [],
+                            Users: [],
+                            Artistas: [],
+                            Pesquisa: [],
+                        },
+                        Dispositivos: {
+                            Todos: [],
+                            Atual: []
+                        },
+                        Estado_Da_Conta: 'Ativa',
+                        Notificacao: [],
+                        Perfil: {
+                            Img_Perfil: val.photoURL,
+                            Img_Background: null,
+                            Ouvintes: 0,
+                            Horas_Ouvindo: 0,
+                            Data_Criacao_Conta: getDataAtual()
+                        },
+                    }
+    
+                    db.collection('Users').add(New_User).then(() => {
+                        Fechar_Entrar()
+                        Atualizar_User()
 
-                db.collection('Users').add(New_User).then(() => {
-                    Fechar_Entrar()
-                    Atualizar_User()
-                })
+                        setTimeout(() => {
+                            location.reload()
+                        }, 500)
+                    })
+                }
+            } else if(!val.emailVerified) {
+                alert('Este email não é um email verificado!')
             }
-        } else if(!val.emailVerified) {
-            alert('Este email não é um email verificado!')
+        } else {
+            Carregar_Perfil_Anonimo_User()
         }
     })
 }

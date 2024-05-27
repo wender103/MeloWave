@@ -81,7 +81,6 @@ function Pegar_Todas_Musicas() {
         })
 
         Execultar_Funcoes_Ao_Carregar()
-        Checar_Notificacao_Artista_Seguindo()
     })
 } Pegar_Todas_Musicas()
 
@@ -679,22 +678,24 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
 
 function Adicionar_View_Musica(Musica) {
     let feito = false
-    db.collection('Musicas').get().then((snapshot) => {
-        snapshot.docs.forEach(Musicas => {
-            TodasMusicas = Musicas.data().Musicas
-
-            if(!feito) {
-                feito = true
-
-                for (let c = 0; c < TodasMusicas.length; c++) {
-                    if(TodasMusicas[c].ID == Musica.ID) {
-                        TodasMusicas[c].Views = parseInt(TodasMusicas[c].Views) + 1
-            
-                        db.collection('Musicas').doc(Musicas.id).update({Musicas: TodasMusicas})
-                        break
+    if(User.Estado_Da_Conta != 'Anônima') {
+        db.collection('Musicas').get().then((snapshot) => {
+            snapshot.docs.forEach(Musicas => {
+                TodasMusicas = Musicas.data().Musicas
+    
+                if(!feito) {
+                    feito = true
+    
+                    for (let c = 0; c < TodasMusicas.length; c++) {
+                        if(TodasMusicas[c].ID == Musica.ID) {
+                            TodasMusicas[c].Views = parseInt(TodasMusicas[c].Views) + 1
+                
+                            db.collection('Musicas').doc(Musicas.id).update({Musicas: TodasMusicas})
+                            break
+                        }
                     }
                 }
-            }
+            })
         })
-    })
+    }
 }

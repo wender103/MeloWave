@@ -134,7 +134,12 @@ function Salvar_Musica_Curtida(Comando) {
     })
 
     if(Comando != 'Não Salvar') {
-        db.collection('Users').doc(User.ID).update({ Musicas_Curtidas: IDs_Musicas_Curtidas })
+        if(User.Estado_Da_Conta != 'Anônima') {
+            db.collection('Users').doc(User.ID).update({ Musicas_Curtidas: IDs_Musicas_Curtidas })
+
+        } else {
+            Salvar_Perfil_Anonimo_User()
+        }
     }
 }
 

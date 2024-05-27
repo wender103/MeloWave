@@ -1764,6 +1764,7 @@ body section#Container_Cadastro article button {
   border-radius: 8px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 20px;
   cursor: pointer;
   margin-bottom: 20px;

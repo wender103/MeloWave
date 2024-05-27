@@ -48,7 +48,12 @@ function Salvar_Historico() {
 
     new_Historico.Musicas = Musicas
 
-    db.collection('Users').doc(User.ID).update({ Historico: new_Historico })
+    if(User.Estado_Da_Conta != 'Anônima') {
+        db.collection('Users').doc(User.ID).update({ Historico: new_Historico })
+
+    } else {
+        Salvar_Perfil_Anonimo_User()
+    }
 }
 
 function Salvar_GostoMusical() {
@@ -61,7 +66,12 @@ function Salvar_GostoMusical() {
         User.Gosto_Musical.Generos.splice(0, User.Gosto_Musical.Generos.length - maximo_infos_salvas)
     }
 
-    db.collection('Users').doc(User.ID).update({ Gosto_Musical: User.Gosto_Musical })
+    if(User.Estado_Da_Conta != 'Anônima') {
+        db.collection('Users').doc(User.ID).update({ Gosto_Musical: User.Gosto_Musical })
+
+    } else {
+        Salvar_Perfil_Anonimo_User()
+    }
 }
 
 //! Recomendar Músicas Para o User
