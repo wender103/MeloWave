@@ -281,52 +281,12 @@ function Retornar_Daily() {
     }
 }
 
-let musica_playlistmix_random = false
-let playlistmix_ID = undefined
+//! Random -------------------------------------------
 const icon_random_playlistmix = document.getElementById('icon_random_playlistmix')
 icon_random_playlistmix.addEventListener('click', () => {
-    if(icon_random_playlistmix.style.cursor == 'pointer' && playlistmix_ID == Pagina_Interna.ID) { 
-        if(musica_playlistmix_random) {
-            musica_playlistmix_random = false
-            icon_random_playlistmix.style.cursor = 'pointer'
-            var paths = icon_random_playlistmix.querySelectorAll('path')
-            paths.forEach(function(path) {
-                path.style.fill = '#fff'
-                path.style.cursor = 'pointer'
-            })
-
-            Random(Arraay_PlaylistMix, false)
-
-
-        } else {
-            musica_playlistmix_random = true
-
-            icon_random_playlistmix.style.cursor = 'pointer'
-            var paths = icon_random_playlistmix.querySelectorAll('path')
-            paths.forEach(function(path) {
-                path.style.fill = 'rgb(0, 255, 213)'
-                path.style.cursor = 'pointer'
-            })
-
-            Random(Arraay_PlaylistMix, true, 'playlistmix')
-        }
-    }
 })
 
 const img_play_playlistmix = document.getElementById('img_play_playlistmix')
 img_play_playlistmix.addEventListener('click', () => {
-    if(playlistmix_ID != Pagina_Interna.ID) {
-        Desativar_Random()
-    }
-
-    icon_random_playlistmix.style.cursor = 'pointer'
-    var paths = icon_random_playlistmix.querySelectorAll('path')
-    paths.forEach(function(path) {
-        path.style.fill = '#fff'
-        path.style.cursor = 'pointer'
-    })
-
-    playlistmix_ID = `${formatarString(nome_daily)}-${Arraay_PlaylistMix[0].ID}`
-
     Tocar_Musica(Arraay_PlaylistMix, Arraay_PlaylistMix[0])
 })

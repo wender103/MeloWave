@@ -19,7 +19,14 @@ li_icon.forEach(li => {
     })
 
     li.addEventListener('click', () => {
-        Abrir_Pagina(formatarString(li.querySelector('p').innerText))
+        let nomes = formatarString(li.querySelector('p').innerText)
+        if(nomes == 'musicascurtidas') {
+            Abrir_Pagina(formatarString(li.querySelector('p').innerText), `musicascurtidas=${User.ID}`)
+
+        } else {
+
+            Abrir_Pagina(formatarString(li.querySelector('p').innerText))
+        }
     })
 })
 

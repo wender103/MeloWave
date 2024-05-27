@@ -35,22 +35,51 @@ function Atualizar_Fullscreen() {
     document.getElementById('nome_musica_fullscreen').innerText = Listas_Prox.MusicaAtual.Nome
     document.getElementById('nome_autor_fullscreen').innerText = Listas_Prox.MusicaAtual.Autor
 
-    let outra_musica_encotrada = false
+    // let outra_musica_encotrada = false
+    // for (let c = 0; c < TodasMusicas.length; c++) {
+    //     let autor_formatado = formatarString(TodasMusicas[c].Autor)
+    //     let Artista_formatado = formatarString(Listas_Prox.MusicaAtual.Autor)
+    //     if(!outra_musica_encotrada && TodasMusicas[c].ID != Listas_Prox.MusicaAtual.ID){
+    //         if(autor_formatado.includes(Artista_formatado) || Artista_formatado.includes(autor_formatado)) {
+    //             outra_musica_encotrada = true
+    //             Trocar_Background(TodasMusicas[c].Img, document.getElementById('background_fullscreen'))
+    //         }
+    //     }
+    // }
+
+    // if(!outra_musica_encotrada) {
+    //     Trocar_Background(Listas_Prox.MusicaAtual.Img, document.getElementById('background_fullscreen'))
+
+    // }
+
+    let musica_escolhida = Listas_Prox.MusicaAtual
+    let musica_encontrada = false
+    let musicas_do_autor = []
     for (let c = 0; c < TodasMusicas.length; c++) {
+        let Artista_formatado = formatarString(separarArtistas(Listas_Prox.MusicaAtual.Autor)[0])
         let autor_formatado = formatarString(TodasMusicas[c].Autor)
-        let Artista_formatado = formatarString(Listas_Prox.MusicaAtual.Autor)
-        if(!outra_musica_encotrada && TodasMusicas[c].ID != Listas_Prox.MusicaAtual.ID){
-            if(autor_formatado.includes(Artista_formatado) || Artista_formatado.includes(autor_formatado)) {
-                outra_musica_encotrada = true
-                Trocar_Background(TodasMusicas[c].Img, document.getElementById('background_fullscreen'))
-            }
+        if(Artista_formatado == autor_formatado) {
+            musica_encontrada = true
+            musicas_do_autor.push(TodasMusicas[c])
         }
     }
 
-    if(!outra_musica_encotrada) {
-        Trocar_Background(Listas_Prox.MusicaAtual.Img, document.getElementById('background_fullscreen'))
-
+    if(!musica_encontrada) {
+        for (let c = 0; c < TodasMusicas.length; c++) {
+            let Artista_formatado = formatarString(separarArtistas(Listas_Prox.MusicaAtual.Autor)[0])
+            let autor_formatado = formatarString(TodasMusicas[c].Autor)
+            if(Artista_formatado.includes(autor_formatado) && TodasMusicas[c].ID != Musica.ID || autor_formatado.includes(Artista_formatado) && TodasMusicas[c].ID != Musica.ID) {
+                musicas_do_autor.push(TodasMusicas[c])
+            }
+            
+        }
     }
+
+    if(musicas_do_autor.length > 0) {
+        musica_escolhida = musicas_do_autor.sort((a, b) => b.Views - a.Views)[1]
+    }
+
+    Trocar_Background(musica_escolhida.Img, document.getElementById('background_fullscreen'))
 }
 
 function Destivar_Fullscreen() {
@@ -79,3 +108,21 @@ input_volume_pc_fullscreen.onmouseleave = function() {
     cor_input_agora = '#fff'
     atualizar_cor_progresso_input(this)
 }
+
+const container_input_volume_fullscreen = document.getElementById('container_input_volume_fullscreen')
+
+let pd_diminuir_volume_full_screen = false
+container_input_volume_fullscreen.addEventListener('mouseenter', () => {
+    pd_diminuir_volume_full_screen = false
+    input_volume_pc_fullscreen.style.width = '100%'
+})
+
+container_input_volume_fullscreen.addEventListener('mouseleave', () => {
+    pd_diminuir_volume_full_screen = true
+
+    setTimeout(() => {
+        if(pd_diminuir_volume_full_screen) {
+            input_volume_pc_fullscreen.style.width = '0%'
+        }
+    }, 500)
+})

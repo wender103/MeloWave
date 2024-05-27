@@ -50,7 +50,7 @@ div.musica_linha {
   gap: 20px;
 }
 div.musica_linha div.primeira_parte_musica_linha {
-  width: 85%;
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -66,9 +66,6 @@ div.musica_linha div.primeira_parte_musica_linha img {
   border-radius: 4px;
   -o-object-fit: cover;
      object-fit: cover;
-}
-div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha {
-  width: 66%;
 }
 div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha p {
   font-size: 14px;
@@ -91,9 +88,17 @@ div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha span p s
   text-decoration: underline;
   cursor: pointer;
 }
+div.musica_linha p.Views_Musica_Linha {
+  flex: none;
+  font-size: 12px;
+  text-align: center;
+  color: var(--fonte_meio_transparente);
+}
 div.musica_linha div.segunda_parte_musica_linha {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: end;
   gap: 30px;
 }
 div.musica_linha div.segunda_parte_musica_linha p {
@@ -285,10 +290,10 @@ div.daily_caixa div.texto_musica span p span:hover {
 }
 
 .icon_random {
-  cursor: not-allowed;
+  cursor: pointer;
 }
 .icon_random path {
-  fill: rgba(255, 255, 255, 0.438);
+  fill: rgb(255, 255, 255);
 }
 
 .bolinbha_notificacao {

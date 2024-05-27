@@ -137,14 +137,16 @@ function Retornar_Musicas(Musicas_Recebidas, Local) {
         article.appendChild(musica_caixa)
 
         musica_caixa.addEventListener('click', (e) => {
-            Desativar_Random()
-            Infos_Random.Nome = 'musicascaixa'
             let Musicas_Recebidas = [...Musicas]
             let el = e.target.className
 
             if(el == 'musica_caixa' || el == 'Nome_musicas_caixa' || el == 'Img_musica_caixa') {
                 Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
             }
+        })
+        musica_caixa.addEventListener('contextmenu', (event) => {
+            Ativar_Opcoes_Click_Direita('Músicas Caixa', Musicas_Recebidas[c], c)
+            posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
         })
     }
 

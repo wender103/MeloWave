@@ -55,7 +55,7 @@ body {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px;
+            gap: 15px;
             background-color: var(--cor_qse_transparente_background); 
             // backdrop-filter: blur($blur);
             padding: 18px 0;
@@ -64,6 +64,32 @@ body {
 
             &#ul_artistas_seguindo { 
                 flex: 1;
+
+                div#container_artistas_seguindo {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 15px;
+                }
+
+                li {
+                
+                    &.li_seguindo {
+                        width: 48px;
+                        height: 48px;
+                        overflow: hidden;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    &.li_artista_seguindo {
+                        border-radius: 50%;
+                    }
+                }
             }
 
             li {
@@ -458,7 +484,7 @@ body {
                                     flex-direction: column;
                                     max-height: 252px;
 
-                                    div.musica_linha {
+                                    div.musica_linha {        
                                         background-color: transparent;
 
                                         &:hover {
@@ -1038,7 +1064,7 @@ body {
                 
                 article#container_novos_lancamentos_dos_artistas, article#container_antigos_lancamentos_dos_artistas {
                     width: 100%;
-                    display: none;
+                    display: none; 
                     margin-top: 20px;
 
                     section {
@@ -1088,7 +1114,7 @@ body {
         z-index: 2;
         color: var(--white);
         padding: 16px;
-        background-color: var(--padrao1);
+        background-image: linear-gradient(to bottom, transparent, var(--padrao15));
         backdrop-filter: blur($blur);
         border-radius: 8px;
         transition: 500ms right ease-in-out;
@@ -1240,7 +1266,8 @@ body {
         bottom: -300px;
         z-index: 5;
         transition: 500ms bottom ease-in-out;
-        background-color: var(--padrao1);
+        background-image: linear-gradient(to left, var(--padrao15), transparent, var(--padrao15));
+        background-color: var(--cor_qse_transparente_background);
         backdrop-filter: blur($blur);
         border-radius: 8px;
         padding: 8px;
@@ -1252,6 +1279,7 @@ body {
             justify-content: space-between;
 
             div#infos_musica_barra_musica {
+                flex: 1;
                 display: flex;
                 align-items: center;
                 color: var(--white);
@@ -1298,8 +1326,9 @@ body {
             }
 
             div#container_controles_musica_barra_musica {
-                width: 90%;
+                width: 40%;
                 max-width: 700px;
+                flex: none;
                 display: flex;
                 flex-direction: column;
 
@@ -1361,15 +1390,17 @@ body {
             }
 
             div#container_opcoes_barra_musica {
+                flex: 1;
                 display: flex;
                 align-items: center;
+                justify-content: end;
                 gap: 15px;
 
                 svg, img {
                     cursor: pointer;
                 }
 
-                div#container_icon_som {
+                div.container_icon_som {
                     display: flex;
                     align-items: center;
                     gap: 10px;
@@ -1391,7 +1422,7 @@ body {
                         border: none;
                         border-radius: 8px;
                         height: 5px;
-                        width: 100%;
+                        // width: 100%;
                         outline: none;
                         transition: background 450ms ease-in;
                         -webkit-appearance: none;
@@ -1531,6 +1562,7 @@ body {
                 transition: 1s opacity ease-in-out;
 
                 div#part1_controles_fullscreen {
+                    flex: 1;
                     img {
                         width: 20px;
                         height: 20px;
@@ -1539,6 +1571,7 @@ body {
                 }
 
                 div#part2_controles_fullscreen {
+                    flex: none;
                     display: flex;
                     align-items: center;
                     gap: 30px;
@@ -1549,17 +1582,20 @@ body {
                 }
 
                 div#part3_controles_fullscreen {
+                    flex: 1;
                     display: flex;
                     align-items: center;
-                    gap: 30px;
+                    justify-content: end;
+                    gap: 10px;
                     
                     svg, img {
                         cursor: pointer;
                     }
 
-                    div {
+                    div#container_input_volume_fullscreen {
                         display: flex;
                         align-items: center;
+                        justify-content: end;
                         gap: 10px;
 
                         img {
@@ -1576,6 +1612,8 @@ body {
                             transition: background 450ms ease-in;
                             -webkit-appearance: none;
                             cursor: pointer;
+                            width: 0%;
+                            transition: 0.5s width ease-in-out;
                         }
                         
                         /* Hides the thumb (slider handle) */

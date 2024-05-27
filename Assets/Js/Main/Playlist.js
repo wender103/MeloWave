@@ -9,22 +9,6 @@ function Abrir_PLaylistMix(Array, Nome, svg) {
     document.getElementById('p_infos_playlistmix').innerHTML = `Feito para ${User.Nome} - ${new_array.length} músicas`
 
     Retornar_Musica_Linha(new_array.reverse(), document.getElementById('container_playlistmix'), null, 'PlaylistMix')
-    Abrir_Pagina('playlistmix')
-    Pagina_Interna.ID = `${formatarString(Nome)}-${new_array[new_array.length - 1].ID}`
+    Abrir_Pagina('playlistmix', `${formatarString(Nome)}-${new_array[new_array.length - 1].ID}`)
     Trocar_Background(new_array[0].Img, document.body)
-
-    if(playlistmix_ID != Pagina_Interna.ID) {
-        Desativar_Random('Não Zerar')
-    } else {
-
-        if(musica_playlistmix_random) {
-            const icon_random_playlistmix = document.getElementById('icon_random_playlistmix')
-            icon_random_playlistmix.style.cursor = 'pointer'
-            var paths = icon_random_playlistmix.querySelectorAll('path')
-            paths.forEach(function(path) {
-                path.style.fill = 'rgb(0, 255, 213)'
-                path.style.cursor = 'pointer'
-            })
-        }
-    }
 }

@@ -8,26 +8,28 @@ repeat_icons.forEach(repeat => {
 
 let repetir_musicas = false
 function Repetir_Musica(Repetir=null) {
-    if(!Repetir) {
-        if(!repetir_musicas) {
-            repetir_musicas = true
+    if(Repetir != null) {
+        repetir_musicas = !Repetir
+    }
 
-            repeat_icons.forEach(element => {
-                var paths = element.querySelectorAll('path')
-                paths.forEach(function(path) {
-                    path.style.fill = 'rgb(0, 255, 213)'
-                })
-            });
+    if(!repetir_musicas) {
+        repetir_musicas = true
 
-        } else {
-            repetir_musicas = false
-
-            repeat_icons.forEach(element => {
-                var paths = element.querySelectorAll('path')
-                paths.forEach(function(path) {
-                    path.style.fill = '#fff'
-                })
+        repeat_icons.forEach(element => {
+            var paths = element.querySelectorAll('path')
+            paths.forEach(function(path) {
+                path.style.fill = 'rgb(0, 255, 213)'
             })
-        }
+        })
+
+    } else {
+        repetir_musicas = false
+
+        repeat_icons.forEach(element => {
+            var paths = element.querySelectorAll('path')
+            paths.forEach(function(path) {
+                path.style.fill = '#fff'
+            })
+        })
     }
 }

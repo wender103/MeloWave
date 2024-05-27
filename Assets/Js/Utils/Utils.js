@@ -15,77 +15,6 @@ function formatarString(str) {
     return str
 }
 
-let Infos_Pagina = {
-    Pagina: {
-        Nome: '',
-        ID: null
-    },
-    Musica: null
-}
-
-function Abrir_Pagina(Pagina) {
-    if(Listas_Prox.MusicaAtual.Img) {
-        Trocar_Background(Listas_Prox.MusicaAtual.Img, document.body)
-    }
-
-    atualizarURL(Pagina)
-
-    const Paginas = document.querySelectorAll('.Paginas')
-
-    Paginas.forEach(Pagina_especifica => {
-        if(Pagina_especifica.style.opacity = 1 && Pagina_especifica.id != `Pagina_${Pagina}`) {
-            Pagina_especifica.style.opacity = 0
-
-            setTimeout(() => {
-                Pagina_especifica.classList.remove('Pagina_Aberta')
-                document.getElementById(`Pagina_${Pagina}`).classList.add('Pagina_Aberta')
-
-                setTimeout(() => {
-                    document.getElementById(`Pagina_${Pagina}`).style.opacity = 1
-                }, 200) 
-            }, 500)
-        }
-    })
-
-    if(Pagina == 'pesquisar') {
-        document.getElementById('input_pesquisa').style.display = 'flex'
-    } else {
-        document.getElementById('input_pesquisa').style.display = 'none'
-
-        if(Pagina == 'home') {
-            Mostrar_Max_Musicas()
-        } else if(Pagina == 'musicascurtidas') {
-            Pagina_Interna.ID = User.ID
-            Retornar_Musicas_Curtidas()
-
-            if(musica_curtida_random) {
-                const icon_random_musicascurtidas = document.getElementById('icon_random_musicascurtidas')
-                icon_random_musicascurtidas.style.cursor = 'pointer'
-                var paths = icon_random_musicascurtidas.querySelectorAll('path')
-                paths.forEach(function(path) {
-                    path.style.fill = 'rgb(0, 255, 213)'
-                    path.style.cursor = 'pointer'
-                })
-            }
-        } else if(Pagina == 'notificacao') {
-            document.getElementById('bolinha_icone_noficacao').style.display = 'none'
-        }
-    }
-
-    Pagina_Interna.Nome = Pagina
-
-    if(Infos_Random.Nome == 'musicascaixa') {
-        if(musicas_caixa_random) {
-            random_barra_musicas.style.cursor = 'pointer'
-            var paths = random_barra_musicas.querySelectorAll('path')
-            paths.forEach(function(path) {
-                path.style.fill = 'rgb(0, 255, 213)'
-                path.style.cursor = 'pointer'
-            })
-        }
-    }
-}
-
 function formatarTermoPesquisa(musica, cantor) {
     // Remove acentos e caracteres especiais
     const removerAcentos = (str) => {
@@ -352,7 +281,7 @@ function Retornar_Artistas_Da_Musica(Musica) {
     return p
 }
 
-function posicionarElemento(event, elemento, array_classes) {
+function posicionarElemento(event, elemento, array_classes=array_locais_opcoes) {
     elemento.style.display = 'block' // Mostra o elemento
 
     var mouseX = event.clientX
@@ -466,4 +395,13 @@ function organizarPorDataDescendente(array) {
         // Compara as datas para ordenar do mais recente para o mais antigo
         return dataB - dataA;
     });
+}
+
+function palavraNoArray(array, palavra) {
+    // Verifica se alguma das strings no array contém a palavra
+    if (array.some(str => str.includes(palavra))) {
+        return true;
+    } else {
+        return false;
+    }
 }

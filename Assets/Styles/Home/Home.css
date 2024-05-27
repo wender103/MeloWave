@@ -51,7 +51,7 @@ div.musica_linha {
   gap: 20px;
 }
 div.musica_linha div.primeira_parte_musica_linha {
-  width: 85%;
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -67,9 +67,6 @@ div.musica_linha div.primeira_parte_musica_linha img {
   border-radius: 4px;
   -o-object-fit: cover;
      object-fit: cover;
-}
-div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha {
-  width: 66%;
 }
 div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha p {
   font-size: 14px;
@@ -92,9 +89,17 @@ div.musica_linha div.primeira_parte_musica_linha div.texto_musica_linha span p s
   text-decoration: underline;
   cursor: pointer;
 }
+div.musica_linha p.Views_Musica_Linha {
+  flex: none;
+  font-size: 12px;
+  text-align: center;
+  color: var(--fonte_meio_transparente);
+}
 div.musica_linha div.segunda_parte_musica_linha {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: end;
   gap: 30px;
 }
 div.musica_linha div.segunda_parte_musica_linha p {
@@ -286,10 +291,10 @@ div.daily_caixa div.texto_musica span p span:hover {
 }
 
 .icon_random {
-  cursor: not-allowed;
+  cursor: pointer;
 }
 .icon_random path {
-  fill: rgba(255, 255, 255, 0.438);
+  fill: rgb(255, 255, 255);
 }
 
 .bolinbha_notificacao {
@@ -345,13 +350,33 @@ body nav ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 15px;
   background-color: var(--cor_qse_transparente_background);
   padding: 18px 0;
   border-radius: 8px;
 }
 body nav ul#ul_artistas_seguindo {
   flex: 1;
+}
+body nav ul#ul_artistas_seguindo div#container_artistas_seguindo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+body nav ul#ul_artistas_seguindo li.li_seguindo {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+}
+body nav ul#ul_artistas_seguindo li.li_seguindo img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body nav ul#ul_artistas_seguindo li.li_artista_seguindo {
+  border-radius: 50%;
 }
 body nav ul li {
   position: relative;
@@ -1173,7 +1198,7 @@ body section#container_fila {
   z-index: 2;
   color: var(--white);
   padding: 16px;
-  background-color: var(--padrao1);
+  background-image: linear-gradient(to bottom, transparent, var(--padrao15));
   -webkit-backdrop-filter: blur(0px);
           backdrop-filter: blur(0px);
   border-radius: 8px;
@@ -1298,7 +1323,8 @@ body section#container_barra_musica {
   bottom: -300px;
   z-index: 5;
   transition: 500ms bottom ease-in-out;
-  background-color: var(--padrao1);
+  background-image: linear-gradient(to left, var(--padrao15), transparent, var(--padrao15));
+  background-color: var(--cor_qse_transparente_background);
   -webkit-backdrop-filter: blur(0px);
           backdrop-filter: blur(0px);
   border-radius: 8px;
@@ -1311,6 +1337,7 @@ body section#container_barra_musica article {
   justify-content: space-between;
 }
 body section#container_barra_musica article div#infos_musica_barra_musica {
+  flex: 1;
   display: flex;
   align-items: center;
   color: var(--white);
@@ -1347,8 +1374,9 @@ body section#container_barra_musica article div#infos_musica_barra_musica div#te
   cursor: pointer;
 }
 body section#container_barra_musica article div#container_controles_musica_barra_musica {
-  width: 90%;
+  width: 40%;
   max-width: 700px;
+  flex: none;
   display: flex;
   flex-direction: column;
 }
@@ -1402,41 +1430,42 @@ body section#container_barra_musica article div#container_controles_musica_barra
   opacity: 1; /* torna visível ao passar o mouse ou focar */
 }
 body section#container_barra_musica article div#container_opcoes_barra_musica {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: end;
   gap: 15px;
 }
 body section#container_barra_musica article div#container_opcoes_barra_musica svg, body section#container_barra_musica article div#container_opcoes_barra_musica img {
   cursor: pointer;
 }
-body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som {
+body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som {
   display: flex;
   align-items: center;
   gap: 10px;
   /* Hides the thumb (slider handle) */
 }
-body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som div#container_icon_volume {
+body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som div#container_icon_volume {
   width: 25px;
   height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som div#container_icon_volume img {
+body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som div#container_icon_volume img {
   transition: all 5s ease-in-out;
 }
-body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som input {
+body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som input {
   background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
   border: none;
   border-radius: 8px;
   height: 5px;
-  width: 100%;
   outline: none;
   transition: background 450ms ease-in;
   -webkit-appearance: none;
   cursor: pointer;
 }
-body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som input::-webkit-slider-thumb {
+body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som input::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 10px; /* ajuste conforme necessário */
   height: 10px; /* ajuste conforme necessário */
@@ -1446,8 +1475,8 @@ body section#container_barra_musica article div#container_opcoes_barra_musica di
   transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
   opacity: 0; /* inicia invisível */
 }
-body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som input:hover::-webkit-slider-thumb,
-body section#container_barra_musica article div#container_opcoes_barra_musica div#container_icon_som input:focus::-webkit-slider-thumb {
+body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som input:hover::-webkit-slider-thumb,
+body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som input:focus::-webkit-slider-thumb {
   opacity: 1; /* torna visível ao passar o mouse ou focar */
 }
 body section#container_fullscreen {
@@ -1550,12 +1579,16 @@ body section#container_fullscreen article#container_barra_musica_fullscreen div#
   opacity: 1;
   transition: 1s opacity ease-in-out;
 }
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part1_controles_fullscreen {
+  flex: 1;
+}
 body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part1_controles_fullscreen img {
   width: 20px;
   height: 20px;
   cursor: pointer;
 }
 body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part2_controles_fullscreen {
+  flex: none;
   display: flex;
   align-items: center;
   gap: 30px;
@@ -1564,23 +1597,26 @@ body section#container_fullscreen article#container_barra_musica_fullscreen div#
   cursor: pointer;
 }
 body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen {
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 30px;
+  justify-content: end;
+  gap: 10px;
 }
 body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen svg, body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen img {
   cursor: pointer;
 }
-body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div {
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div#container_input_volume_fullscreen {
   display: flex;
   align-items: center;
+  justify-content: end;
   gap: 10px;
   /* Hides the thumb (slider handle) */
 }
-body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div img {
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div#container_input_volume_fullscreen img {
   cursor: pointer;
 }
-body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div input {
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div#container_input_volume_fullscreen input {
   background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
   border: none;
   border-radius: 8px;
@@ -1590,8 +1626,10 @@ body section#container_fullscreen article#container_barra_musica_fullscreen div#
   transition: background 450ms ease-in;
   -webkit-appearance: none;
   cursor: pointer;
+  width: 0%;
+  transition: 0.5s width ease-in-out;
 }
-body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div input::-webkit-slider-thumb {
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div#container_input_volume_fullscreen input::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 10px; /* ajuste conforme necessário */
   height: 10px; /* ajuste conforme necessário */
@@ -1601,8 +1639,8 @@ body section#container_fullscreen article#container_barra_musica_fullscreen div#
   transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
   opacity: 0; /* inicia invisível */
 }
-body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div input:hover::-webkit-slider-thumb,
-body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div input:focus::-webkit-slider-thumb {
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div#container_input_volume_fullscreen input:hover::-webkit-slider-thumb,
+body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div#container_input_volume_fullscreen input:focus::-webkit-slider-thumb {
   opacity: 1; /* torna visível ao passar o mouse ou focar */
 }
 body section#opcoes_click_direito {

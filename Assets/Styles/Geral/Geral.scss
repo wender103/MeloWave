@@ -54,7 +54,8 @@ div.musica_linha {
     gap: 20px;
 
     div.primeira_parte_musica_linha {
-        width: 85%;
+        // width: 85%;
+        flex: 1;
         display: flex;
         align-items: center;
         gap: 10px;
@@ -73,7 +74,7 @@ div.musica_linha {
         }
 
         div.texto_musica_linha {
-            width: 66%;
+            // width: 66%;
 
             p {
                 font-size: 14px;
@@ -106,9 +107,19 @@ div.musica_linha {
         }
     }
 
+    p.Views_Musica_Linha {
+        flex: none;
+        // width: 30px;
+        font-size: 12px;
+        text-align: center;
+        color: var(--fonte_meio_transparente);
+    }
+
     div.segunda_parte_musica_linha {
+        flex: 1;
         display: flex;
         align-items: center;
+        justify-content: end;
         gap: 30px;
 
         p {
@@ -327,10 +338,10 @@ div.daily_caixa {
 }
 
 .icon_random {
-    cursor: not-allowed;
+    cursor: pointer;
 
     path {
-        fill: rgba(255, 255, 255, 0.438);
+        fill: rgb(255, 255, 255);
     }
 }
 

@@ -55,7 +55,7 @@ function Atualizar_Likes_Musica(Musica, Comando) {
         }  
     })
 
-    if(Pagina_Interna.Nome == 'musicascurtidas' && Comando != 'Não Atualizar') {
+    if(Pagina_Atual.Nome == 'musicascurtidas' && Comando != 'Não Atualizar') {
         if(Comando == 'Descurtir') {
             Descurtir_Remover_Da_Tela(Musica)
         } else {
@@ -200,12 +200,5 @@ icon_random_musicascurtidas.addEventListener('click', () => {
 const img_play_musicas_curtidas = document.getElementById('img_play_musicas_curtidas')
 img_play_musicas_curtidas.addEventListener('click', () => {
     let new_arrey = [...Musicas_Curtidas_Array]
-    icon_random_musicascurtidas.style.cursor = 'pointer'
-    var paths = icon_random_musicascurtidas.querySelectorAll('path')
-    paths.forEach(function(path) {
-        path.style.fill = '#fff'
-        path.style.cursor = 'pointer'
-    })
-
-    Tocar_Musica(new_arrey.reverse(), Musicas_Curtidas_Array[0])
+    Tocar_Musica(new_arrey.reverse(), Musicas_Curtidas_Array[Musicas_Curtidas_Array.length - 1])
 })
