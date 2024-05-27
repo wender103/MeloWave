@@ -13,3 +13,20 @@ const provider = new firebase.auth.GoogleAuthProvider()
 const auth = firebase.auth()
 const db = firebase.firestore()
 const storage = firebase.storage()
+
+function Checar_Fora_Do_Ar() {
+  let Admin_Infos
+  let feito = false
+
+  db.collection('Admin').get().then((snapshot) => {
+    snapshot.docs.forEach(Admin => {
+      Admin_Infos = Admin.data()
+    })
+
+    if(!feito) {
+      feito = true
+      location.href = 'fora_do_ar.html'
+    }
+  })
+
+} Checar_Fora_Do_Ar()
