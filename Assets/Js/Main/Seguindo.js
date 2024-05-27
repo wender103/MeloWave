@@ -4,7 +4,7 @@ function Carreagr_Artistas_Seguindo() {
     let musica_escolhida
     document.getElementById('container_artistas_seguindo').innerHTML = ''
 
-    for (let a = 0; a < Artistas_Seguindo.length; a++) {
+    for (let a = Artistas_Seguindo.length - 1; a >= 0; a--) {
         musica_alternativa = undefined
         musica_escolhida = undefined
 

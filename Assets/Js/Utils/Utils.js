@@ -94,13 +94,33 @@ function Confetes() {
 
 let comemorar = false
 function Notificar_Infos(info, comando) {
-    document.getElementById('texto_notificacao_infos').innerText = info
-    document.getElementById('container_notificacao_infos').style.display = 'flex'
+    return new Promise((resolve) => {
+        document.getElementById('texto_notificacao_infos').innerText = info
+        document.getElementById('container_notificacao_infos').style.display = 'flex'
+        const btn_confirmar_notificacao_infos = document.getElementById('btn_confirmar_notificacao_infos')
+        const btn_fechar_notificacao_infos = document.getElementById('btn_fechar_notificacao_infos')
 
-    if(comando == 'Comemorar') {
-        comemorar = true
-        Comemorar()
-    }
+        if (comando == 'Comemorar') {
+            comemorar = true
+            Comemorar()
+        }
+
+        btn_confirmar_notificacao_infos.addEventListener('click', () => {
+            Fechar_Notificacao_Infos()
+            resolve(true)  // Resolve a promise com true quando o botão de confirmar for clicado
+        })
+
+        btn_fechar_notificacao_infos.addEventListener('click', () => {
+            Fechar_Notificacao_Infos()
+            resolve(false)  // Resolve a promise com false se o botão de fechar for clicado
+        })
+
+        if (comando.includes('Confirmar')) {
+            btn_confirmar_notificacao_infos.style.display = 'block'
+        } else {
+            btn_confirmar_notificacao_infos.style.display = 'none'
+        }
+    })
 }
 
 function Fechar_Notificacao_Infos() {

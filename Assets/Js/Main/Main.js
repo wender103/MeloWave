@@ -75,9 +75,17 @@ function Mostrar_Max_Musicas() {
 
 let Execultar_Funcoes_Ao_Carregar_execultado = false
 function Pegar_Todas_Musicas() {
+    TodasMusicas = []
+
     db.collection('Musicas').get().then((snapshot) => {
         snapshot.docs.forEach(Musicas => {
-            TodasMusicas = Musicas.data().Musicas
+            let AllMusics = Musicas.data().Musicas
+
+            for (let c = 0; c < AllMusics.length; c++) {
+                if(AllMusics[c].Estado != 'Pendente') {
+                    TodasMusicas.push(AllMusics[c])
+                }
+            }
         })
 
         Execultar_Funcoes_Ao_Carregar()
@@ -98,6 +106,7 @@ let feito_musica_tocar = false
 let Tocando_Musica_A_Seguir = false
 
 function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
+    console.log(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou)
     if(Listas_Prox.MusicaAtual != MusicaAtual) {
         Repetir_Musica(false)
     }
@@ -132,7 +141,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
     Checar_Musica_Atual_Is_Curtida()
 
     //! Vai salvar a view do Artista
-    Adicionar_View_Musica(MusicaAtual)
+    // Adicionar_View_Musica(MusicaAtual)
 
     //! Vai adicionar a música na parte de música ouvidas do artista
     let user_artistas_seguindo = User.Social.Artistas
@@ -363,12 +372,11 @@ function Play() {
 
 let prox_ativo = false
 function Proxima_Musica(Chamado_Por) {
+    console.log('Poroxjaiasdf');
     if(!prox_ativo && !repetir_musicas || !prox_ativo && Chamado_Por != 'fim_do_audio') {
         prox_ativo = true
 
         audio_player.currentTime = 0
-
-        Repetir_Musica(false)
 
         if(Listas_Prox.A_Seguir.length <= 0) {
             if(Tocando_Musica_A_Seguir) {
@@ -402,12 +410,6 @@ function Proxima_Musica(Chamado_Por) {
             
             Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual)
             Atualizar_Fila()
-
-            // if(!musica_encontrada) {
-            //     Listas_Prox.Indice = Listas_Prox.Indice + 1
-            //     Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[Listas_Prox.Indice]
-            //     Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual)
-            // }
 
         } else {
             Tocando_Musica_A_Seguir = true
@@ -679,12 +681,20 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
 function Adicionar_View_Musica(Musica) {
     let feito = false
     if(User.Estado_Da_Conta != 'Anônima') {
+        TodasMusicas = []
+
         db.collection('Musicas').get().then((snapshot) => {
             snapshot.docs.forEach(Musicas => {
-                TodasMusicas = Musicas.data().Musicas
-    
+                let AllMusics = Musicas.data().Musicas
+
+                
                 if(!feito) {
                     feito = true
+                    for (let c = 0; c < AllMusics.length; c++) {
+                        if(AllMusics[c].Estado != 'Pendente') {
+                            TodasMusicas.push(AllMusics[c])
+                        }
+                    }
     
                     for (let c = 0; c < TodasMusicas.length; c++) {
                         if(TodasMusicas[c].ID == Musica.ID) {

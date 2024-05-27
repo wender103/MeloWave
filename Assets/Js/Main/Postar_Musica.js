@@ -3,71 +3,101 @@ async function Postar_Musica() {
     if(User.Estado_Da_Conta != 'Anônima') {
         const input_add_musica = document.getElementById('input_add_musica').value
         document.getElementById('input_add_musica').value = ''
-        if(input_add_musica.startsWith('https://music.youtube.com')) {
-            let downloadURL
-    
-            // Verifica se está rodando localmente
-            if (window.location.href.includes('http://127.0.0.1:')) {
-                downloadURL = 'http://localhost:3000/download'
-            } else if (window.location.href.includes('https://wender103.github.io/MeloWave/')) {
-                downloadURL = 'https://molewaveapibaixarmusica.onrender.com/download'
-            } else {
-                // Caso a URL não corresponda a nenhum dos casos anteriores
-                console.error('URL não reconhecida')
+
+        //! Vai checar se a música já foi adicionada anteriormente
+        let AllMusics
+        db.collection('Musicas').get().then((snapshot) => {
+            snapshot.docs.forEach(Musicas => {
+                AllMusics = Musicas.data().Musicas
+            })
+        })
+
+        let musica_ja_adicionada_anteriormente = false
+        for (let c = 0; c < AllMusics.length; c++) {
+            if(AllMusics[c].VideoURL == input_add_musica) {
+                musica_ja_adicionada_anteriormente = AllMusics[c]
+                break
             }
-    
-            try {
-                const response = await fetch(downloadURL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ 
-                        videoURL: input_add_musica,
-                        userEmail: User.Email,
-                    })
-                })
-                const data = await response.json()
-                infos_musica_postada = data
-    
-                let img_carregada = false
-    
-                function Carregar_Musica() {
-                    carregarImagem(data.thumbnailUrl, function(imgThumb) {
-        
-                        function Carregar_infos() {
-                            img_carregada = true
-                            // Aqui dentro você atualiza os elementos na página
-                            document.getElementById('input_add_musica_nome').value = data.videoTitle;
-                            document.getElementById('input_add_musica_autor').value = data.channelName;
-                            document.getElementById('img_musica_postada').src = data.thumbnailUrl;
-                            document.getElementById('primeira_parte_postar_musica').style.display = 'none'
-                            document.getElementById('segunda_parte_postar_musica').style.display = 'flex'
-                            //! Gerar link
-                            document.getElementById('btn_pesquisar_genero').href = `https://www.google.com/search?q=${formatarTermoPesquisa('genero da musica ' + data.videoTitle, ' ' + data.channelName)}`
-                        }
-    
-                        if(imgThumb) {
-                            Carregar_infos()
-                        } else{
-                            setTimeout(() => {
-                                Carregar_Musica()
-                            }, 1000)
-                        }
-                    })
-                } Carregar_Musica()
-    
-    
-    
-                
-            } catch (error) {
-                console.error("Erro na requisição: ", error);
-                alert('Erro: ' + error.message);
-            }
-    
-        } else {
-            Notificar_Infos('Por favor, utilize apenas links do YouTube Music para adicionar músicas.')
         }
+
+        if(!musica_ja_adicionada_anteriormente) {
+            if(input_add_musica.startsWith('https://music.youtube.com')) {
+                let downloadURL
+        
+                // Verifica se está rodando localmente
+                if (window.location.href.includes('http://127.0.0.1:')) {
+                    downloadURL = 'http://localhost:3000/download'
+                } else if (window.location.href.includes('https://wender103.github.io/MeloWave/')) {
+                    downloadURL = 'https://molewaveapibaixarmusica.onrender.com/download'
+                } else {
+                    // Caso a URL não corresponda a nenhum dos casos anteriores
+                    console.error('URL não reconhecida')
+                }
+        
+                try {
+                    const response = await fetch(downloadURL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ 
+                            videoURL: input_add_musica,
+                            userEmail: User.Email,
+                        })
+                    })
+                    const data = await response.json()
+                    infos_musica_postada = data
+        
+                    let img_carregada = false
+        
+                    function Carregar_Musica() {
+                        carregarImagem(data.thumbnailUrl, function(imgThumb) {
+            
+                            function Carregar_infos() {
+                                img_carregada = true
+                                // Aqui dentro você atualiza os elementos na página
+                                document.getElementById('input_add_musica_nome').value = data.videoTitle;
+                                document.getElementById('input_add_musica_autor').value = data.channelName;
+                                document.getElementById('img_musica_postada').src = data.thumbnailUrl;
+                                document.getElementById('primeira_parte_postar_musica').style.display = 'none'
+                                document.getElementById('segunda_parte_postar_musica').style.display = 'flex'
+                                //! Gerar link
+                                document.getElementById('btn_pesquisar_genero').href = `https://www.google.com/search?q=${formatarTermoPesquisa('genero da musica ' + data.videoTitle, ' ' + data.channelName)}`
+                            }
+        
+                            if(imgThumb) {
+                                Carregar_infos()
+                            } else{
+                                setTimeout(() => {
+                                    Carregar_Musica()
+                                }, 1000)
+                            }
+                        })
+                    } Carregar_Musica()
+        
+        
+        
+                    
+                } catch (error) {
+                    console.error("Erro na requisição: ", error);
+                    alert('Erro: ' + error.message);
+                }
+        
+            } else if(input_add_musica.trim() != '') {
+                Notificar_Infos('Por favor, utilize apenas links do YouTube Music para adicionar músicas.')
+            } else {
+                Notificar_Infos('🚨 Opa! 🚨 Você esqueceu de colocar o link da música do YouTube Music no input 🎶. Sem isso, não dá pra postar a música 😢. Por favor, adicione o link e tente novamente! 👍')
+            }
+        } else {
+            Notificar_Infos('⚠️ Essa música já foi adicionada antes! 🎵 Quer ouvir agora? 🎧', 'Confirmar').then((confirmed) => {
+                if (confirmed) {
+                    Tocar_Musica([musica_ja_adicionada_anteriormente], musica_ja_adicionada_anteriormente)
+                    Abrir_Perfil_Artista(separarArtistas(musica_ja_adicionada_anteriormente.Autor)[0], musica_ja_adicionada_anteriormente)
+                }
+            })
+        }
+
+
     } else {
         Abrir_Entrar()
     }
@@ -94,7 +124,7 @@ function Finalizar_Postar() {
     
                             db.collection('Musicas').doc(Musicas.id).update({Musicas: TodasMusicas}).then(() => {
                                 Limpar_add_Musica()
-                                Notificar_Infos('Parabéns pela escolha da música! 🎶 É incrível como uma simples melodia pode nos transportar para tantos lugares e momentos especiais. Obrigado por compartilhá-la conosco!', 'Comemorar')
+                                Notificar_Infos('🎉 Parabéns pela escolha da música! 🎶 É incrível como ela nos transporta! 🌟 Obrigado por compartilhar! 🙌', 'Comemorar')
                             })
                         }
                     }
