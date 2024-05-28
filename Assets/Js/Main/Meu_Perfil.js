@@ -181,14 +181,14 @@ function Pesquisar_Musicas_Meu_Perfil(Pesquisa) {
     musicas_meu_perfil_pesquisa = []
 
     if(pesquisa_formadata.trim() != '') {
-        let M_Curtidas = User.Musicas_Curtidas
-        for (let c = 0; c < M_Curtidas.length; c++) {
-            let nome = formatarString(M_Curtidas[c].Nome)
-            let autor = formatarString(M_Curtidas[c].Autor)
-            let genero = formatarString(M_Curtidas[c].Genero)
+        let M_pesquisar = [...musicas_meu_perfil]
+        for (let c = 0; c < M_pesquisar.length; c++) {
+            let nome = formatarString(M_pesquisar[c].Nome)
+            let autor = formatarString(M_pesquisar[c].Autor)
+            let genero = formatarString(M_pesquisar[c].Genero)
 
             if(pesquisa_formadata.includes(nome) || pesquisa_formadata.includes(autor) || pesquisa_formadata.includes(genero) || nome.includes(pesquisa_formadata) || autor.includes(pesquisa_formadata) || genero.includes(pesquisa_formadata)) {
-                array_musicas_encontradas.push(M_Curtidas[c])
+                array_musicas_encontradas.push(M_pesquisar[c])
             }
         }
 
