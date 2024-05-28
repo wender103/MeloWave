@@ -104,11 +104,11 @@ function atualizar_cor_progresso_input(inputElement) {
 
 let feito_musica_tocar = false
 let Tocando_Musica_A_Seguir = false
-
+let tmp_ouvindo_musica = 0
 function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
-    console.log(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou)
     if(Listas_Prox.MusicaAtual != MusicaAtual) {
         Repetir_Musica(false)
+        tmp_ouvindo_musica = 0
     }
 
     Listas_Prox.MusicaAtual = MusicaAtual
@@ -139,9 +139,6 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
 
     //! Checar se a música é uma curtida ou não
     Checar_Musica_Atual_Is_Curtida()
-
-    //! Vai salvar a view do Artista
-    // Adicionar_View_Musica(MusicaAtual)
 
     //! Vai adicionar a música na parte de música ouvidas do artista
     let user_artistas_seguindo = User.Social.Artistas
@@ -238,55 +235,81 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
     //! ---------------- Fim Navegador ----------------------------------
 
     //! ---------------- Audio ------------------------------------------
-    // Função para exibir o tempo atual em segundos enquanto o áudio está tocando
-    function updateTime() {
-        const currentTimeInSeconds = Math.floor(audio_player.currentTime);
-        const minutes = Math.floor(currentTimeInSeconds / 60)
-        const seconds = Math.floor(currentTimeInSeconds % 60)
-        const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
-        document.getElementById('contador_segundos_musica').innerText = formattedDuration
-        document.getElementById('contador_segundos_musica_fullscreen').innerText = formattedDuration
-    }
-
-    // Evento que é acionado enquanto o áudio está tocando
+    audio_player.removeEventListener('timeupdate', updateTime)
     audio_player.addEventListener('timeupdate', updateTime)
 
-    audio_player.addEventListener('loadedmetadata', function() {
-        const durationInSeconds = audio_player.duration;
-        const minutes = Math.floor(durationInSeconds / 60)
-        const seconds = Math.floor(durationInSeconds % 60)
-        const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
-        document.getElementById('tempo_max_musica').innerText = formattedDuration
-        document.getElementById('tempo_max_musica_fullscreen').innerText = formattedDuration
-    })
+    //? Vai atualizar a barra de progresso da música
+    let input_range_musica_pc = document.getElementById('input_range_musica_pc') //? Progresso barra para pc
+    let input_range_musica_pc_fullscreen = document.getElementById('input_range_musica_pc_fullscreen') //? Progresso barra para pc
 
-    audio_player.addEventListener('ended', function() {
+    // Função para exibir o tempo atual em segundos enquanto o áudio está tocando
+    let adicionar_view_musica = false
+    function updateTime() {
+        let feito = false
+        if(!feito) {
+            feito = true
+
+            const percentProgress = (audio_player.currentTime / audio_player.duration) * 100
+            input_range_musica_pc.value = percentProgress
+            atualizar_cor_progresso_input(input_range_musica_pc)
+    
+            input_range_musica_pc_fullscreen.value = percentProgress
+            atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+    
+            const currentTimeInSeconds = Math.floor(audio_player.currentTime);
+            const minutes = Math.floor(currentTimeInSeconds / 60)
+            const seconds = Math.floor(currentTimeInSeconds % 60)
+            const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
+            document.getElementById('contador_segundos_musica').innerText = formattedDuration
+            document.getElementById('contador_segundos_musica_fullscreen').innerText = formattedDuration
+    
+            tmp_ouvindo_musica += 1
+    
+            //! Vai adicionar a view a música
+            if(!adicionar_view_musica && tmp_ouvindo_musica > 80) {
+                console.log(currentTimeInSeconds)
+                console.log('View adicionada')
+                adicionar_view_musica = true
+    
+                Adicionar_View_Musica(MusicaAtual)
+            }
+        }
+    }
+
+    audio_player.removeEventListener('loadedmetadata', carregar_metadados_audio)
+    audio_player.addEventListener('loadedmetadata', carregar_metadados_audio)
+
+    function carregar_metadados_audio() {
+        let feito = false
+        if(!feito) {
+            feito = true
+
+            const durationInSeconds = audio_player.duration;
+            const minutes = Math.floor(durationInSeconds / 60)
+            const seconds = Math.floor(durationInSeconds % 60)
+            const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
+            document.getElementById('tempo_max_musica').innerText = formattedDuration
+            document.getElementById('tempo_max_musica_fullscreen').innerText = formattedDuration
+        }
+    }
+
+    audio_player.removeEventListener('ended', fim_audio)
+    audio_player.addEventListener('ended', fim_audio)
+    
+    function fim_audio() {
         if(!feito_musica_tocar) {
             feito_musica_tocar = true
             Proxima_Musica('fim_do_audio')
             //! Resolver ---------------------------------------------------------------------------------------------------------
             //* Está repetindo a chamada
         }
-    })
+    }
 
     setTimeout(() => {
         feito_musica_tocar = false
     }, 1000)
 
     //! ---------------- Fim Audio ----------------------------------
-
-    //? Vai atualizar a barra de progresso da música
-    let input_range_musica_pc = document.getElementById('input_range_musica_pc') //? Progresso barra para pc
-    let input_range_musica_pc_fullscreen = document.getElementById('input_range_musica_pc_fullscreen') //? Progresso barra para pc
-
-    audio_player.addEventListener('timeupdate', function() {
-        const percentProgress = (audio_player.currentTime / audio_player.duration) * 100
-        input_range_musica_pc.value = percentProgress
-        atualizar_cor_progresso_input(input_range_musica_pc)
-
-        input_range_musica_pc_fullscreen.value = percentProgress
-        atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
-    })
 
     input_range_musica_pc.addEventListener('input', function() {
         const newTime = (input_range_musica_pc.value / 100) * audio_player.duration
@@ -681,23 +704,15 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
 function Adicionar_View_Musica(Musica) {
     let feito = false
     if(User.Estado_Da_Conta != 'Anônima') {
-        TodasMusicas = []
-
+    
         db.collection('Musicas').get().then((snapshot) => {
             snapshot.docs.forEach(Musicas => {
-                let AllMusics = Musicas.data().Musicas
-
+                TodasMusicas = Musicas.data().Musicas
                 
                 if(!feito) {
-                    feito = true
-                    for (let c = 0; c < AllMusics.length; c++) {
-                        if(AllMusics[c].Estado != 'Pendente') {
-                            TodasMusicas.push(AllMusics[c])
-                        }
-                    }
-    
                     for (let c = 0; c < TodasMusicas.length; c++) {
-                        if(TodasMusicas[c].ID == Musica.ID) {
+                        if(TodasMusicas[c].ID == Musica.ID && feito != true) {
+                            feito = true
                             TodasMusicas[c].Views = parseInt(TodasMusicas[c].Views) + 1
                 
                             db.collection('Musicas').doc(Musicas.id).update({Musicas: TodasMusicas})

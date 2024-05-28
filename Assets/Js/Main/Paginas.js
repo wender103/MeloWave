@@ -11,6 +11,8 @@ function Abrir_Pagina(Pagina, ID) {
     if(Listas_Prox.MusicaAtual.Img) {
         Trocar_Background(Listas_Prox.MusicaAtual.Img, document.body)
     }
+    
+    document.getElementById('bnt_editar_meu_perfil').style.display = 'none'
 
     atualizarURL(Pagina)
 
@@ -31,6 +33,7 @@ function Abrir_Pagina(Pagina, ID) {
         }
     })
 
+    let desativar_blur = false
     if(Pagina == 'pesquisar') {
         document.getElementById('input_pesquisa').style.display = 'flex'
     } else {
@@ -43,6 +46,17 @@ function Abrir_Pagina(Pagina, ID) {
 
         } else if(Pagina == 'notificacao') {
             document.getElementById('bolinha_icone_noficacao').style.display = 'none'
+
+        } else if(Pagina == 'meuperfil') {
+            Carregar_Meu_Perfil()
+        } else if(Pagina == 'artista') {
+            desativar_blur = true
         }
+    }
+
+    if(desativar_blur) {
+        decreaseBlur()
+    } else {
+        increaseBlur()
     }
 }

@@ -68,15 +68,18 @@ function Atualizar_Fullscreen() {
         for (let c = 0; c < TodasMusicas.length; c++) {
             let Artista_formatado = formatarString(separarArtistas(Listas_Prox.MusicaAtual.Autor)[0])
             let autor_formatado = formatarString(TodasMusicas[c].Autor)
-            if(Artista_formatado.includes(autor_formatado) && TodasMusicas[c].ID != Musica.ID || autor_formatado.includes(Artista_formatado) && TodasMusicas[c].ID != Musica.ID) {
+            if(Artista_formatado.includes(autor_formatado) && TodasMusicas[c].ID != Listas_Prox.MusicaAtual.ID || autor_formatado.includes(Artista_formatado) && TodasMusicas[c].ID != Listas_Prox.MusicaAtual.ID) {
                 musicas_do_autor.push(TodasMusicas[c])
             }
-            
         }
     }
 
-    if(musicas_do_autor.length > 0) {
+    if(musicas_do_autor.length > 1) {
+        console.log('tem mais de 0 músicas')
+        console.log(musica_escolhida)
         musica_escolhida = musicas_do_autor.sort((a, b) => b.Views - a.Views)[1]
+        console.log(musicas_do_autor)
+        console.log(musica_escolhida)
     }
 
     Trocar_Background(musica_escolhida.Img, document.getElementById('background_fullscreen'))

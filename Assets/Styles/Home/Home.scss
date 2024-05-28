@@ -8,6 +8,7 @@ body {
     width: 100vw;
     min-height: 100vh;
     // filter: contrast(50%) saturate(70%) brightness(120%);
+    background-color: black;
     background-image: url('../../Imgs/thumbnail.jpg');
     background-position: center calc(50% - 20%);
     background-repeat: no-repeat;
@@ -57,10 +58,23 @@ body {
             align-items: center;
             gap: 15px;
             background-color: var(--cor_qse_transparente_background); 
-            // backdrop-filter: blur($blur);
+            backdrop-filter: blur($blur);
             padding: 18px 0;
             border-radius: 8px;
             // background-image: linear-gradient(to bottom, transparent, var(--padrao15));
+
+            li#li_icon_perfil_user_nav {
+               width: 25px;
+               height: 25px;
+               border-radius: 4px;
+               overflow: hidden;
+               
+               img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+               }
+            }
 
             &#ul_artistas_seguindo { 
                 flex: 1;
@@ -196,6 +210,15 @@ body {
                 // overflow: hidden;
                 position: relative;  
 
+                &#bnt_editar_meu_perfil {
+                    display: none;
+                }
+
+                img {
+                    width: 16px;
+                    height: 16px;
+                }
+
                 &#user_email_icon {
                     img {
                         width: 100%;
@@ -222,6 +245,77 @@ body {
         }
     }
 
+    //! Add foto de perfil no meu perfil
+    div#container_add_nova_img_meu_perfil {
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        z-index: 5;
+        background-color: var(--background_black);
+
+        div#container2_add_nova_img_meu_perfil {
+            width: 95%;
+            max-width: 450px;
+            padding: 20px;
+            background-color: #000000a2;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            // align-items: center; 
+            justify-content: center;
+
+            input {
+                width: 100%;
+                border-radius: 4px;
+                border: none;
+                color: var(--white);
+                background-color: var(--cor_qse_transparente_background);
+                background-color: rgba(57, 65, 71, 0.7019607843);
+                padding: 15px 15px;
+
+                &::placeholder {
+                    color: var(--white);
+                }
+            }
+    
+            div#container_btns_adicionar_foto_meu_perfil {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+
+                button {
+                    width: 100%;
+                    height: 44px;
+                    padding: 10px 15px;
+                    background-color: var(--cor_qse_transparente_background);
+                    background-color: rgba(57, 65, 71, 0.7019607843);
+                    color: var(--white);
+                    font-weight: bold;
+                    font-size: 15px;
+                    border: none;
+                    border-radius: 8px; 
+                    cursor: pointer;
+                    margin-bottom: 20px;
+                    text-align: center;
+    
+                    &#btn_confirmar_notificacao_infos {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+    }
+
     //! Main
     main {
         width: calc(100vw - 96px);
@@ -232,7 +326,7 @@ body {
         left: 88px;
         z-index: 2;
         // background-color: var(--padrao1);
-        // backdrop-filter: blur($blur);
+        backdrop-filter: blur($blur);
         border-radius: 8px;
         padding: 22px;
         overflow: auto;
@@ -325,6 +419,137 @@ body {
             }
 
             //! -------------- Paginas # ---------------------------
+            &#Pagina_meuperfil {
+                article#container_header_meu_perfil {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 22px;
+
+                    div#contaier_infos_e_img_meu_perfil {
+                        width: 100%;
+                        display: flex;
+                        align-items: end;
+                        gap: 20px;
+    
+                        div#container_img_meu_perfil {
+                            width: 200px;
+                            height: 200px;
+                            border-radius: 8px;
+                            background-color: var(--black_transparent);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            overflow: hidden;
+                            cursor: pointer;
+                            position: relative;
+
+                            &:hover > div#container_img_editar_foto_meu_perfil {
+                                opacity: 1;
+                            }
+    
+                            img {
+                                width: 50%;
+                                height: 50%;
+                                object-fit: cover;
+
+                                &.foto_de_perfil_meu_perfil {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+
+                            div#container_img_editar_foto_meu_perfil {
+                                width: 100%;
+                                height: 100%;
+                                position: absolute;
+                                background-color: var(--background_black);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                overflow: hidden;
+                                transition: 0.3s opacity ease-out;
+                                opacity: 0;
+
+                                input#nova_img_meu_perfil {
+                                    display: none;
+                                }
+
+                                img {
+                                    width: 48px;
+                                    height: 48px;
+                                    object-fit: cover;
+                                }
+                            }
+                        }
+    
+                        div#container_infos_meu_perfil {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 5px;
+                            color: var(--white);
+    
+                            p, span {
+                                font-size: 12px;
+                            }
+    
+                            h1 {
+                                margin: 0;
+                                font-size: 4vw;
+                            }
+                        }
+                    }
+
+                    div#container_btns_meu_perfil {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-top: 31px;
+
+                        div#container_play_meu_perfil {
+                            display: flex;
+                            align-items: center;
+                            gap: 17px;
+    
+                            img {
+                                width: 68px;
+                                height: 68px;
+                                cursor: pointer;
+                            }
+                        }
+
+                        div#container_pesquisar_musicas_meu_perfil {
+                            display: flex;
+                            height: 32px;
+                            background-color: var(--cor_qse_transparente_background);
+                        }
+                    }
+
+                    hr {
+                        border-color: rgba(180, 180, 180, 0.24);
+                        margin: 10px 0;
+                    }
+                }
+
+                h1 {
+                    margin-top: 60px;
+                }
+
+                article#container_musicas_meu_perfil {
+                    width: 100%;
+                    margin: 0 auto;
+                    flex-direction: column;
+                    padding-bottom: 20px;
+
+                    div.musica_linha {
+                        background-color: transparent;
+
+                        &:hover {
+                            background-color: var(--black_transparent);
+                        }
+                    }
+                }
+            }
+
             &#Pagina_home {
 
                 &.Pagina_Aberta {
@@ -586,7 +811,7 @@ body {
 
                     button {
                         background-color: var(--cor_qse_transparente_background);
-                        // backdrop-filter: blur($blur);
+                        backdrop-filter: blur($blur);
                         cursor: pointer;
                         border-radius: 4px;
                         height: 60px;
@@ -1701,7 +1926,8 @@ body {
             width: 95%;
             max-width: 450px;
             padding: 20px;
-            background-color: var(--padrao4);
+            // background-color: var(--padrao4);
+            background-color: #000000a2;
             color: var(--white);
             border-radius: 8px;
             display: flex;
@@ -1714,24 +1940,33 @@ body {
                 margin: 30px 0;
             }
 
-            button {
+            div {
                 width: 100%;
-                height: 44px;
-                padding: 10px 15px;
-                background-color: var(--white);
-                color: var(--black);
-                font-weight: bold;
-                font-size: 15px;
-                border: none;
-                border-radius: 8px;
-                cursor: pointer;
-                margin-bottom: 20px;
-                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
 
-                &#btn_confirmar_notificacao_infos {
-                    display: none;
+                button {
+                    width: 100%;
+                    height: 44px;
+                    padding: 10px 15px;
+                    background-color: #394147b3;
+                    color: var(--white);
+                    font-weight: bold;
+                    font-size: 15px;
+                    border: none;
+                    border-radius: 8px; 
+                    cursor: pointer;
+                    margin-bottom: 20px;
+                    text-align: center;
+    
+                    &#btn_confirmar_notificacao_infos {
+                        display: none;
+                    }
                 }
             }
+
         }
     }
 

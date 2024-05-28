@@ -57,7 +57,7 @@ div.musica_linha div.primeira_parte_musica_linha {
   overflow: hidden;
 }
 div.musica_linha div.primeira_parte_musica_linha p.p_contador_musica_curtida {
-  width: 30px;
+  min-width: 30px;
   font-size: 12px;
 }
 div.musica_linha div.primeira_parte_musica_linha img {

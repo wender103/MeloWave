@@ -58,7 +58,7 @@ div.musica_linha div.primeira_parte_musica_linha {
   overflow: hidden;
 }
 div.musica_linha div.primeira_parte_musica_linha p.p_contador_musica_curtida {
-  width: 30px;
+  min-width: 30px;
   font-size: 12px;
 }
 div.musica_linha div.primeira_parte_musica_linha img {
@@ -311,6 +311,7 @@ div.daily_caixa div.texto_musica span p span:hover {
 body {
   width: 100vw;
   min-height: 100vh;
+  background-color: black;
   background-image: url("../../Imgs/thumbnail.jpg");
   background-position: center 30%;
   background-repeat: no-repeat;
@@ -352,8 +353,22 @@ body nav ul {
   align-items: center;
   gap: 15px;
   background-color: var(--cor_qse_transparente_background);
+  -webkit-backdrop-filter: blur(0px);
+          backdrop-filter: blur(0px);
   padding: 18px 0;
   border-radius: 8px;
+}
+body nav ul li#li_icon_perfil_user_nav {
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+body nav ul li#li_icon_perfil_user_nav img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 body nav ul#ul_artistas_seguindo {
   flex: 1;
@@ -441,6 +456,13 @@ body div#nav_main div#btns_direita button {
   cursor: pointer;
   position: relative;
 }
+body div#nav_main div#btns_direita button#bnt_editar_meu_perfil {
+  display: none;
+}
+body div#nav_main div#btns_direita button img {
+  width: 16px;
+  height: 16px;
+}
 body div#nav_main div#btns_direita button#user_email_icon img {
   width: 100%;
   height: 100%;
@@ -459,6 +481,70 @@ body div#nav_main div#btns_cadastro button {
   border-radius: 4px;
   cursor: pointer;
 }
+body div#container_add_nova_img_meu_perfil {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  z-index: 5;
+  background-color: var(--background_black);
+}
+body div#container_add_nova_img_meu_perfil div#container2_add_nova_img_meu_perfil {
+  width: 95%;
+  max-width: 450px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.6352941176);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+body div#container_add_nova_img_meu_perfil div#container2_add_nova_img_meu_perfil input {
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  color: var(--white);
+  background-color: var(--cor_qse_transparente_background);
+  background-color: rgba(57, 65, 71, 0.7019607843);
+  padding: 15px 15px;
+}
+body div#container_add_nova_img_meu_perfil div#container2_add_nova_img_meu_perfil input::-moz-placeholder {
+  color: var(--white);
+}
+body div#container_add_nova_img_meu_perfil div#container2_add_nova_img_meu_perfil input::placeholder {
+  color: var(--white);
+}
+body div#container_add_nova_img_meu_perfil div#container2_add_nova_img_meu_perfil div#container_btns_adicionar_foto_meu_perfil {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+body div#container_add_nova_img_meu_perfil div#container2_add_nova_img_meu_perfil div#container_btns_adicionar_foto_meu_perfil button {
+  width: 100%;
+  height: 44px;
+  padding: 10px 15px;
+  background-color: var(--cor_qse_transparente_background);
+  background-color: rgba(57, 65, 71, 0.7019607843);
+  color: var(--white);
+  font-weight: bold;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  text-align: center;
+}
+body div#container_add_nova_img_meu_perfil div#container2_add_nova_img_meu_perfil div#container_btns_adicionar_foto_meu_perfil button#btn_confirmar_notificacao_infos {
+  display: none;
+}
 body main {
   width: calc(100vw - 96px);
   position: fixed;
@@ -466,6 +552,8 @@ body main {
   top: 8px;
   left: 88px;
   z-index: 2;
+  -webkit-backdrop-filter: blur(0px);
+          backdrop-filter: blur(0px);
   border-radius: 8px;
   padding: 22px;
   overflow: auto;
@@ -542,6 +630,116 @@ body main section.Paginas article div.artista_caixa div.texto_musica span {
   font-size: 13px;
   color: var(--fonte_meio_transparente);
   cursor: pointer;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil {
+  width: 100%;
+  display: flex;
+  align-items: end;
+  gap: 20px;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_img_meu_perfil {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  background-color: var(--black_transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_img_meu_perfil:hover > div#container_img_editar_foto_meu_perfil {
+  opacity: 1;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_img_meu_perfil img {
+  width: 50%;
+  height: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_img_meu_perfil img.foto_de_perfil_meu_perfil {
+  width: 100%;
+  height: 100%;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_img_meu_perfil div#container_img_editar_foto_meu_perfil {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: var(--background_black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: 0.3s opacity ease-out;
+  opacity: 0;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_img_meu_perfil div#container_img_editar_foto_meu_perfil input#nova_img_meu_perfil {
+  display: none;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_img_meu_perfil div#container_img_editar_foto_meu_perfil img {
+  width: 48px;
+  height: 48px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_infos_meu_perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--white);
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_infos_meu_perfil p, body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_infos_meu_perfil span {
+  font-size: 12px;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#contaier_infos_e_img_meu_perfil div#container_infos_meu_perfil h1 {
+  margin: 0;
+  font-size: 4vw;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#container_btns_meu_perfil {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 31px;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#container_btns_meu_perfil div#container_play_meu_perfil {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#container_btns_meu_perfil div#container_play_meu_perfil img {
+  width: 68px;
+  height: 68px;
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil div#container_btns_meu_perfil div#container_pesquisar_musicas_meu_perfil {
+  display: flex;
+  height: 32px;
+  background-color: var(--cor_qse_transparente_background);
+}
+body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil hr {
+  border-color: rgba(180, 180, 180, 0.24);
+  margin: 10px 0;
+}
+body main section.Paginas#Pagina_meuperfil h1 {
+  margin-top: 60px;
+}
+body main section.Paginas#Pagina_meuperfil article#container_musicas_meu_perfil {
+  width: 100%;
+  margin: 0 auto;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+body main section.Paginas#Pagina_meuperfil article#container_musicas_meu_perfil div.musica_linha {
+  background-color: transparent;
+}
+body main section.Paginas#Pagina_meuperfil article#container_musicas_meu_perfil div.musica_linha:hover {
+  background-color: var(--black_transparent);
 }
 body main section.Paginas#Pagina_home.Pagina_Aberta {
   display: block;
@@ -765,6 +963,8 @@ body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_
 }
 body main section.Paginas#Pagina_adicionarmusicas article#primeira_parte_postar_musica button {
   background-color: var(--cor_qse_transparente_background);
+  -webkit-backdrop-filter: blur(0px);
+          backdrop-filter: blur(0px);
   cursor: pointer;
   border-radius: 4px;
   height: 60px;
@@ -1698,7 +1898,7 @@ body section#container_notificacao_infos article {
   width: 95%;
   max-width: 450px;
   padding: 20px;
-  background-color: var(--padrao4);
+  background-color: rgba(0, 0, 0, 0.6352941176);
   color: var(--white);
   border-radius: 8px;
   display: flex;
@@ -1710,12 +1910,19 @@ body section#container_notificacao_infos article p {
   text-align: justify;
   margin: 30px 0;
 }
-body section#container_notificacao_infos article button {
+body section#container_notificacao_infos article div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+body section#container_notificacao_infos article div button {
   width: 100%;
   height: 44px;
   padding: 10px 15px;
-  background-color: var(--white);
-  color: var(--black);
+  background-color: rgba(57, 65, 71, 0.7019607843);
+  color: var(--white);
   font-weight: bold;
   font-size: 15px;
   border: none;
@@ -1724,7 +1931,7 @@ body section#container_notificacao_infos article button {
   margin-bottom: 20px;
   text-align: center;
 }
-body section#container_notificacao_infos article button#btn_confirmar_notificacao_infos {
+body section#container_notificacao_infos article div button#btn_confirmar_notificacao_infos {
   display: none;
 }
 body section#Container_Cadastro {

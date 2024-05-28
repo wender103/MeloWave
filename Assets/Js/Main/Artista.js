@@ -263,9 +263,9 @@ function Checar_Notificacao_Artista_Seguindo() {
 
             musica_linha.addEventListener('click', (e) => {
                 let Musicas_Recebidas = [...array_novidades[c].Musicas]
-                let el = e.target.classList
+                let el = e.target.className
     
-                if(el.contains('musica_linha') || el.contains('Img_musica_linha') || el.contains('Nome_musica_linha') || el.contains('p_nomes_artistas')) {
+                if(el != 'span_nomes_artistas' && el != 'like_musicas_linha') {
                     Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[b], undefined, `${'notificacao'}-${Musicas_Recebidas[0].ID}`, 'notificacao')
                 }
             })
@@ -354,9 +354,9 @@ function Checar_Notificacao_Artista_Seguindo() {
 
             musica_linha.addEventListener('click', (e) => {
                 let Musicas_Recebidas = [...array_antiguidades[c].Musicas]
-                let el = e.target.classList
-    
-                if(el.contains('musica_linha') || el.contains('Img_musica_linha') || el.contains('Nome_musica_linha') || el.contains('p_nomes_artistas')) {
+                let el = e.target.className
+
+                if(el != 'span_nomes_artistas' && el != 'like_musicas_linha') {
                     Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[b], undefined, `${'notificacao'}-${Musicas_Recebidas[0].ID}`, 'notificacao')
                 }
             })

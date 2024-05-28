@@ -93,11 +93,12 @@ function Confetes() {
 }
 
 let comemorar = false
-function Notificar_Infos(info, comando) {
+function Notificar_Infos(info, comando='', Texto_Btn='Sim!') {
     return new Promise((resolve) => {
         document.getElementById('texto_notificacao_infos').innerText = info
         document.getElementById('container_notificacao_infos').style.display = 'flex'
         const btn_confirmar_notificacao_infos = document.getElementById('btn_confirmar_notificacao_infos')
+        btn_confirmar_notificacao_infos.innerText = Texto_Btn
         const btn_fechar_notificacao_infos = document.getElementById('btn_fechar_notificacao_infos')
 
         if (comando == 'Comemorar') {
@@ -118,7 +119,7 @@ function Notificar_Infos(info, comando) {
         if (comando.includes('Confirmar')) {
             btn_confirmar_notificacao_infos.style.display = 'block'
         } else {
-            btn_confirmar_notificacao_infos.style.display = 'none'
+            btn_confirmar_notificacao_infos.style.display = 'none'  
         }
     })
 }
@@ -129,7 +130,7 @@ function Fechar_Notificacao_Infos() {
     document.getElementById('container_notificacao_infos').style.display = 'none'
 }
 
-function Comemorar() {
+function Comemorar() { 
     if(comemorar) {
         Confetes()
         setTimeout(() => {

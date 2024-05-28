@@ -1,11 +1,11 @@
 let infos_musica_postada
 async function Postar_Musica() {
+    let AllMusics = []
     if(User.Estado_Da_Conta != 'Anônima') {
         const input_add_musica = document.getElementById('input_add_musica').value
         document.getElementById('input_add_musica').value = ''
 
         //! Vai checar se a música já foi adicionada anteriormente
-        let AllMusics
         db.collection('Musicas').get().then((snapshot) => {
             snapshot.docs.forEach(Musicas => {
                 AllMusics = Musicas.data().Musicas
