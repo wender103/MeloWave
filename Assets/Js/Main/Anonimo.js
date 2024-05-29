@@ -43,7 +43,7 @@ function Carregar_Perfil_Anonimo_User() {
             Estado_Da_Conta: 'Anônima',
             Notificacao: [],
             Perfil: {
-                Img_Perfil: 'Assets/Imgs/user_anonimo.jpg',
+                Img_Perfil: 'Assets/Imgs/user_anonimo.png',
                 Img_Background: null,
                 Ouvintes: 0,
                 Horas_Ouvindo: 0,
