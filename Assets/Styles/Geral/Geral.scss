@@ -126,6 +126,24 @@ div.musica_linha {
             width: 30px;
             font-size: 14px;
         }
+
+        button {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            background-color: var(--cor_qse_transparente_background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+
+            img {
+                width: 20px;
+                height: 20px;
+                object-fit: cover;
+            }
+        }
     }
 }
 

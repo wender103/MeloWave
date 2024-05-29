@@ -106,6 +106,23 @@ div.musica_linha div.segunda_parte_musica_linha p {
   width: 30px;
   font-size: 14px;
 }
+div.musica_linha div.segunda_parte_musica_linha button {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: var(--cor_qse_transparente_background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+div.musica_linha div.segunda_parte_musica_linha button img {
+  width: 20px;
+  height: 20px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 
 div.container_inputs_pesquisar {
   width: 95%;
@@ -480,6 +497,44 @@ body div#nav_main div#btns_cadastro button {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+body div#container_config_email {
+  position: fixed;
+  z-index: 5;
+  display: none;
+  min-width: 270px;
+  color: var(--white);
+  background-color: var(--padrao15);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.404);
+  right: 8px;
+  top: 70px;
+}
+body div#container_config_email ul {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+body div#container_config_email ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+body div#container_config_email ul li:hover {
+  background-color: var(--padrao15);
+}
+body div#container_config_email ul li img {
+  width: 17px;
+  height: 17px;
+}
+body div#container_config_email ul li p {
+  font-size: 14px;
 }
 body div#container_add_nova_img_meu_perfil {
   width: 100%;

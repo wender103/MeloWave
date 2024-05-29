@@ -52,19 +52,28 @@ function Fechar_Entrar() {
 
 let user_fez_login = false
 function Login() {
-    auth.signInWithPopup(provider)
+    auth.signInWithPopup(provider).then(() => {
+        location.reload()
+    })
     user_fez_login = true
-    Logar_Na_Conta()
+}
+
+function logout() {
+    auth.signOut()
+      .then(() => {
+        console.log('Deslogado com sucesso!') // Mensagem de sucesso
+        // Aqui você pode redirecionar o usuário para uma página de login, por exemplo
+        location.reload()
+      })
+      .catch((error) => {
+        console.error('Erro ao deslogar:', error) // Mensagem de erro
+      })
 }
 
 function Logar_Na_Conta() {
     User_logado = false
     auth.onAuthStateChanged((val) => {
         if(val) {
-            if(user_fez_login) {
-                location.reload()
-            }
-
             if(!User_logado && val.emailVerified) {
                 User_logado = true
 

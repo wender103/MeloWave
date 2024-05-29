@@ -1,3 +1,5 @@
+let Paginas_Nao_Trocar_Background = ['meuperfil', 'artista']
+
 let Pagina_Atual = {
     Nome: 'home',
     ID: undefined,

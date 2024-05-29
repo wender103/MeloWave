@@ -119,6 +119,23 @@
             <button onclick="Abrir_Entrar()">Entrar</button>
         </div>
     </div>
+
+    <div id="container_config_email">
+        <ul>
+            <li onclick="Abrir_Pagina('meuperfil', `meuperfil_${User.ID}`)" id="btn_nav_meu_perfil">
+                <img src="Assets/Imgs/user_anonimo.png">
+                <p>Meu Perfil</p>
+            </li>
+            <li onclick="Login()">
+                <img src="Assets/Imgs/change_user.png">
+                <p>Trocar de Conta</p>
+            </li>
+            <li onclick="logout()">
+                <img src="Assets/Imgs/exit.png" alt="">
+                <p id="p_sair_dessa_conta">Sair Dessa Conta</p>
+            </li>
+        </ul>
+    </div>
     <!--! Fim Div Nav -->
 
     <!--* Adicionar nova foto de perfil no meu perfil -->

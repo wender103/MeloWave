@@ -125,7 +125,19 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
     audio_player.src = MusicaAtual.Audio
     Play()
     document.title = `${MusicaAtual.Nome} - ${MusicaAtual.Autor}`
-    Trocar_Background(MusicaAtual.Img, document.body)
+
+    //! Vai trocar o background apenas se não for as páginas bloqueadas
+    let pagina_igual = false
+    for (let c = 0; c < Paginas_Nao_Trocar_Background.length; c++) {
+        if(Paginas_Nao_Trocar_Background[c] == Pagina_Atual.Nome) {
+            pagina_igual = true
+            break
+        }
+    }
+
+    if(!pagina_igual) {
+        Trocar_Background(MusicaAtual.Img, document.body)
+    }
 
     Ativar_Musica(MusicaAtual)
 
@@ -613,10 +625,14 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
         const texto_musica_linha = document.createElement('div')
         const p = document.createElement('p')
         const span = document.createElement('span')
+        const views = document.createElement('p')
         const segunda_parte_musica_linha = document.createElement('div')
         const like = document.createElement('img')
         const tempo = document.createElement('p')
-        const views = document.createElement('p')
+        const btn_trash = document.createElement('button')
+        const img_trash = document.createElement('img')
+        const btn_editar_musica = document.createElement('button')
+        const img_pen = document.createElement('img')
 
         //! Classes
         musica_linha.classList.add('musica_linha')
@@ -629,12 +645,18 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
         p_contador.className = 'p_contador_musica_curtida'
         like.className = 'like_musicas_linha'
         views.className = 'Views_Musica_Linha'
+        btn_trash.className = 'btn_trash'
+        btn_editar_musica.className = 'btn_editar_musica'
+        img_trash.className = 'img_trash'
+        img_pen.className = 'img_pen'
 
         //! Valores
         img.src = Musicas[c].Img
         p.innerText = Musicas[c].Nome
         span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
         p_contador.innerText = c + 1
+        img_trash.src = 'Assets/Imgs/pen.png'
+        img_pen.src = 'Assets/Imgs/trash-bin.png'
 
         if(Musicas[c].Views < 10) {
             views.innerText = `0${Musicas[c].Views}`
@@ -662,8 +684,19 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
         texto_musica_linha.appendChild(p)
         texto_musica_linha.appendChild(span)
         primeira_parte_musica_linha.appendChild(texto_musica_linha)
-        segunda_parte_musica_linha.appendChild(like)
-        segunda_parte_musica_linha.appendChild(tempo)
+
+        btn_trash.appendChild(img_trash)
+        btn_editar_musica.appendChild(img_pen)
+
+        if(Comando == 'Editar') {
+            segunda_parte_musica_linha.appendChild(btn_trash)
+            segunda_parte_musica_linha.appendChild(btn_editar_musica)
+
+        } else {
+            segunda_parte_musica_linha.appendChild(like)
+            segunda_parte_musica_linha.appendChild(tempo)
+        }
+
         musica_linha.appendChild(primeira_parte_musica_linha)
 
         if(Qm_Chamou.includes('artista')) {
@@ -684,9 +717,8 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
             let el = e.target.className
             let qm_chamou = formatarString(Qm_Chamou)
 
-            if(el != 'span_nomes_artistas' && el != 'like_musicas_linha') {
+            if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen') {
                 Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
-
                 Listas_Prox.Nome_Album = Qm_Chamou
             }
         })

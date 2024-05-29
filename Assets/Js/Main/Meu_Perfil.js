@@ -64,7 +64,7 @@ function Carregar_Meu_Perfil() {
 
     document.getElementById('numero_seguidores_meu_perfil').innerText = qtns_seguidores_infos
 
-    Retornar_Musica_Linha(musicas_meu_perfil, document.getElementById('container_musicas_meu_perfil'))
+    Retornar_Musica_Linha(musicas_meu_perfil, document.getElementById('container_musicas_meu_perfil'), 'Editar', 'meuperfil')
 }
 
 document.getElementById('img_play_musicas_meu_perfil').addEventListener('click', () => {
@@ -86,6 +86,8 @@ function Abrir_Add_Nova_Img_Meu_Perfil() {
     if(User.Perfil.Img_Perfil) {
         link_nova_img_meu_perfil.value = User.Perfil.Img_Perfil
     }
+
+    input_nome_user_meu_perfil.value = User.Nome
 
     document.getElementById('container_add_nova_img_meu_perfil').style.display = 'flex'
 }
@@ -192,11 +194,11 @@ function Pesquisar_Musicas_Meu_Perfil(Pesquisa) {
             }
         }
 
-        Retornar_Musica_Linha(array_musicas_encontradas, document.getElementById('container_musicas_meu_perfil'), null, 'meuperfil')
+        Retornar_Musica_Linha(array_musicas_encontradas, document.getElementById('container_musicas_meu_perfil'), 'Editar', 'meuperfil')
         musicas_meu_perfil_pesquisa = [...array_musicas_encontradas]
 
     } else {
         musicas_meu_perfil_pesquisa = [...musicas_meu_perfil]
-        Retornar_Musica_Linha(musicas_meu_perfil, document.getElementById('container_musicas_meu_perfil'), null, 'meuperfil')
+        Retornar_Musica_Linha(musicas_meu_perfil, document.getElementById('container_musicas_meu_perfil'), 'Editar', 'meuperfil')
     }
 }

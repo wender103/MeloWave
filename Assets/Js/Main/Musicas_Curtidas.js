@@ -85,7 +85,8 @@ function Retornar_Musicas_Curtidas(Array_Musicas = undefined, Comando = undefine
     }
 
     if(Comando != 'Não Atualizar') {
-        document.getElementById('p_infos_musicas_curtidas').innerHTML = `${User.Nome} - <span id="quantidade_musicas_playlist_musicas_curtidas">${Array_Musicas.length} ${name_msuicas}</span>`
+        document.getElementById('p_infos_musicas_curtidas').innerText = `${User.Nome}`
+        document.getElementById('p_infos_musicas_curtidas').innerHTML += ` - <span id="quantidade_musicas_playlist_musicas_curtidas">${Array_Musicas.length} ${name_msuicas}</span>`
     }
 
     Musicas_Curtidas_Array = [...Array_Musicas]
