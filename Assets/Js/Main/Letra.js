@@ -301,6 +301,7 @@ function Salvar_Letra() {
                                 db.collection('Users').doc(User.ID).update({ Loja: User.Loja }).then(() => {
                                     Fechar_Add_Letra()
                                     Notificar_Infos(`Parabéns! 🎉 Você adicionou uma nova letra de música 🎶 e ganhou ${Pontos_Por_Atividade.Adicionar_Letra} pontos na sua conta! ✨ Esses pontos poderão ser trocados por brindes na loja 🛍️ futuramente. Continue assim! 🏆🙌`, 'Emojis:💸, 🏆, 🙌, 🛍️')
+                                    Atualizar_Infos_Perfil_Loja()
                                 })
                             })
 

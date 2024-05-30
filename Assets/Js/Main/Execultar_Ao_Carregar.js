@@ -37,7 +37,7 @@ function Execultar_Funcoes_Ao_Carregar() {
         } catch{}
 
         try {
-            Carregar_Infos_Perfil_Loja()
+            Atualizar_Infos_Perfil_Loja()
         } catch{}
 
         if(Pagina_Atual.Nome == 'home') {

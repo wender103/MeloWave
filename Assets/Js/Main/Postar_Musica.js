@@ -65,7 +65,7 @@ async function Postar_Musica() {
                                 document.getElementById('primeira_parte_postar_musica').style.display = 'none'
                                 document.getElementById('segunda_parte_postar_musica').style.display = 'flex'
                                 //! Gerar link
-                                btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('genero da musica ' + data.videoTitle, ' ' + data.channelName)}`
+                                btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('"genêro" da musica ' + data.videoTitle, ' "' + data.channelName + '"')}`
                                 btn_pesquisar_genero.addEventListener('click', () => {
                                     sairDaTelaCheia()
                                 })
@@ -133,6 +133,7 @@ function Finalizar_Postar() {
                                 db.collection('Users').doc(User.ID).update({ Loja: User.Loja }).then(() => {
                                     Limpar_add_Musica()
                                     Notificar_Infos(`🎉 Parabéns por postar essa música! 🎶 Você ganhou ${Pontos_Por_Atividade.Adicionar_Musica} pontos com isso! 🌟 Obrigado por compartilhar! 🙌`, 'Comemorar')
+                                    Atualizar_Infos_Perfil_Loja()
                                     pd_postar_outra_musica = true
                                 })
                             })
