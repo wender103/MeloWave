@@ -683,139 +683,141 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
     }
 
     for (let c = 0; c < Musicas.length; c++) {
-        Array_Musica_Linha.push(Musicas[c])
-        soma_ouvintes += parseInt(Musicas[c].Views)
-
-        const musica_linha = document.createElement('div')
-        const primeira_parte_musica_linha = document.createElement('div')
-        const img = document.createElement('img')
-        const p_contador = document.createElement('p')
-        const texto_musica_linha = document.createElement('div')
-        const p = document.createElement('p')
-        const span = document.createElement('span')
-        const views = document.createElement('p')
-        const segunda_parte_musica_linha = document.createElement('div')
-        const like = document.createElement('img')
-        const tempo = document.createElement('p')
-        const btn_letra_editar = document.createElement('button')
-        const img_mic_editar = document.createElement('img')
-        const btn_editar_musica = document.createElement('button')
-        const img_pen = document.createElement('img')
-        const btn_trash = document.createElement('button')
-        const img_trash = document.createElement('img')
-
-        //! Classes
-        musica_linha.classList.add('musica_linha')
-        musica_linha.classList.add('Musica_Linha_' + Musicas[c].ID)
-        primeira_parte_musica_linha.className = 'primeira_parte_musica_linha'
-        texto_musica_linha.className = 'texto_musica_linha'
-        segunda_parte_musica_linha.className = 'segunda_parte_musica_linha'
-        img.className = 'Img_musica_linha'
-        p.className = 'Nome_musica_linha'
-        p_contador.className = 'p_contador_musica_curtida'
-        like.className = 'like_musicas_linha'
-        views.className = 'Views_Musica_Linha'
-        span.className = 'Autor_Musica_Linha'
-        btn_letra_editar.className = 'btn_letra_editar'
-        img_mic_editar.className = 'img_mic_editar'
-        btn_editar_musica.className = 'btn_editar_musica'
-        img_pen.className = 'img_pen'
-        btn_trash.className = 'btn_trash'
-        img_trash.className = 'img_trash'
-
-        //! Valores
-        img.src = Musicas[c].Img
-        p.innerText = Musicas[c].Nome
-        span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
-        p_contador.innerText = c + 1
-        img_pen.src = 'Assets/Imgs/pen.png'
-        img_trash.src = 'Assets/Imgs/trash-bin.png'
-        img_mic_editar.src = 'Assets/Imgs/Mic.svg'
-
-        if(Musicas[c].Views < 10) {
-            views.innerText = `0${Musicas[c].Views}`
-
-        } else {
-            views.innerText = Musicas[c].Views
-        }
-
-        Curtir_Musica_Descurtir(Musicas[c], like, 'Checar')
-
-        const audio = new Audio(Musicas[c].Audio)
-
-        audio.addEventListener('loadedmetadata', function() {
-            const durationInSeconds = audio.duration;
-            const minutes = Math.floor(durationInSeconds / 60)
-            const seconds = Math.floor(durationInSeconds % 60)
-            const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
-            tempo.innerText = formattedDuration
-        })
-
-
-        //! AppendChild
-        primeira_parte_musica_linha.appendChild(p_contador)
-        primeira_parte_musica_linha.appendChild(img)
-        texto_musica_linha.appendChild(p)
-        texto_musica_linha.appendChild(span)
-        primeira_parte_musica_linha.appendChild(texto_musica_linha)
-
-        btn_letra_editar.appendChild(img_mic_editar)
-        btn_trash.appendChild(img_trash)
-        btn_editar_musica.appendChild(img_pen)
-
-        if(Comando == 'Editar') {
-            if(!Array.isArray(Musicas[c].Letra)) {
-                segunda_parte_musica_linha.appendChild(btn_letra_editar)
+        if(Musicas[c].Estado == 'Ativo') {
+            Array_Musica_Linha.push(Musicas[c])
+            soma_ouvintes += parseInt(Musicas[c].Views)
+    
+            const musica_linha = document.createElement('div')
+            const primeira_parte_musica_linha = document.createElement('div')
+            const img = document.createElement('img')
+            const p_contador = document.createElement('p')
+            const texto_musica_linha = document.createElement('div')
+            const p = document.createElement('p')
+            const span = document.createElement('span')
+            const views = document.createElement('p')
+            const segunda_parte_musica_linha = document.createElement('div')
+            const like = document.createElement('img')
+            const tempo = document.createElement('p')
+            const btn_letra_editar = document.createElement('button')
+            const img_mic_editar = document.createElement('img')
+            const btn_editar_musica = document.createElement('button')
+            const img_pen = document.createElement('img')
+            const btn_trash = document.createElement('button')
+            const img_trash = document.createElement('img')
+    
+            //! Classes
+            musica_linha.classList.add('musica_linha')
+            musica_linha.classList.add('Musica_Linha_' + Musicas[c].ID)
+            primeira_parte_musica_linha.className = 'primeira_parte_musica_linha'
+            texto_musica_linha.className = 'texto_musica_linha'
+            segunda_parte_musica_linha.className = 'segunda_parte_musica_linha'
+            img.className = 'Img_musica_linha'
+            p.className = 'Nome_musica_linha'
+            p_contador.className = 'p_contador_musica_curtida'
+            like.className = 'like_musicas_linha'
+            views.className = 'Views_Musica_Linha'
+            span.className = 'Autor_Musica_Linha'
+            btn_letra_editar.className = 'btn_letra_editar'
+            img_mic_editar.className = 'img_mic_editar'
+            btn_editar_musica.className = 'btn_editar_musica'
+            img_pen.className = 'img_pen'
+            btn_trash.className = 'btn_trash'
+            img_trash.className = 'img_trash'
+    
+            //! Valores
+            img.src = Musicas[c].Img
+            p.innerText = Musicas[c].Nome
+            span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
+            p_contador.innerText = c + 1
+            img_pen.src = 'Assets/Imgs/pen.png'
+            img_trash.src = 'Assets/Imgs/trash-bin.png'
+            img_mic_editar.src = 'Assets/Imgs/Mic.svg'
+    
+            if(Musicas[c].Views < 10) {
+                views.innerText = `0${Musicas[c].Views}`
+    
+            } else {
+                views.innerText = Musicas[c].Views
             }
-
-            segunda_parte_musica_linha.appendChild(btn_editar_musica)
-            segunda_parte_musica_linha.appendChild(btn_trash)
-
-        } else {
-            segunda_parte_musica_linha.appendChild(like)
-            segunda_parte_musica_linha.appendChild(tempo)
-        }
-
-        musica_linha.appendChild(primeira_parte_musica_linha)
-
-        if(Qm_Chamou.includes('artista')) {
-            musica_linha.appendChild(views)
-        }
-
-        musica_linha.appendChild(segunda_parte_musica_linha)
-        Local.appendChild(musica_linha)
-
-        //! Funções de click
-        like.addEventListener('click', () => {
-            let Musicas_Recebidas = [...Musicas]
-            Curtir_Musica_Descurtir(Musicas_Recebidas[c], like)
-        })
-
-        btn_letra_editar.addEventListener('click', () => {
-            musica_editando_meu_perfil = Musicas[c]
-            Abrir_Pagina('adicionarletra', `adicionarletra_${Musicas[c].ID}`)
-        })
-
-        btn_editar_musica.addEventListener('click', () => {
-            Abrir_Container_Editar_Musicas(Musicas[c])
-        })
-
-        musica_linha.addEventListener('click', (e) => {
-            let Musicas_Recebidas = [...Musicas]
-            let el = e.target.className
-            let qm_chamou = formatarString(Qm_Chamou)
-
-            if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar') {
-                Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
-                Listas_Prox.Nome_Album = Qm_Chamou
+    
+            Curtir_Musica_Descurtir(Musicas[c], like, 'Checar')
+    
+            const audio = new Audio(Musicas[c].Audio)
+    
+            audio.addEventListener('loadedmetadata', function() {
+                const durationInSeconds = audio.duration;
+                const minutes = Math.floor(durationInSeconds / 60)
+                const seconds = Math.floor(durationInSeconds % 60)
+                const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
+                tempo.innerText = formattedDuration
+            })
+    
+    
+            //! AppendChild
+            primeira_parte_musica_linha.appendChild(p_contador)
+            primeira_parte_musica_linha.appendChild(img)
+            texto_musica_linha.appendChild(p)
+            texto_musica_linha.appendChild(span)
+            primeira_parte_musica_linha.appendChild(texto_musica_linha)
+    
+            btn_letra_editar.appendChild(img_mic_editar)
+            btn_trash.appendChild(img_trash)
+            btn_editar_musica.appendChild(img_pen)
+    
+            if(Comando == 'Editar') {
+                if(!Array.isArray(Musicas[c].Letra)) {
+                    segunda_parte_musica_linha.appendChild(btn_letra_editar)
+                }
+    
+                segunda_parte_musica_linha.appendChild(btn_editar_musica)
+                segunda_parte_musica_linha.appendChild(btn_trash)
+    
+            } else {
+                segunda_parte_musica_linha.appendChild(like)
+                segunda_parte_musica_linha.appendChild(tempo)
             }
-        })
-
-        musica_linha.addEventListener('contextmenu', (event) => {
-            let Musicas_Recebidas = [...Musicas]
-            Ativar_Opcoes_Click_Direita('Músicas Linha', Musicas_Recebidas[c], c)
-            posicionarElemento(event, document.getElementById('opcoes_click_direito'))
-        })
+    
+            musica_linha.appendChild(primeira_parte_musica_linha)
+    
+            if(Qm_Chamou.includes('artista')) {
+                musica_linha.appendChild(views)
+            }
+    
+            musica_linha.appendChild(segunda_parte_musica_linha)
+            Local.appendChild(musica_linha)
+    
+            //! Funções de click
+            like.addEventListener('click', () => {
+                let Musicas_Recebidas = [...Musicas]
+                Curtir_Musica_Descurtir(Musicas_Recebidas[c], like)
+            })
+    
+            btn_letra_editar.addEventListener('click', () => {
+                musica_editando_meu_perfil = Musicas[c]
+                Abrir_Pagina('adicionarletra', `adicionarletra_${Musicas[c].ID}`)
+            })
+    
+            btn_editar_musica.addEventListener('click', () => {
+                Abrir_Container_Editar_Musicas(Musicas[c])
+            })
+    
+            musica_linha.addEventListener('click', (e) => {
+                let Musicas_Recebidas = [...Musicas]
+                let el = e.target.className
+                let qm_chamou = formatarString(Qm_Chamou)
+    
+                if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar') {
+                    Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
+                    Listas_Prox.Nome_Album = Qm_Chamou
+                }
+            })
+    
+            musica_linha.addEventListener('contextmenu', (event) => {
+                let Musicas_Recebidas = [...Musicas]
+                Ativar_Opcoes_Click_Direita('Músicas Linha', Musicas_Recebidas[c], c)
+                posicionarElemento(event, document.getElementById('opcoes_click_direito'))
+            })
+        }
     }
 
     document.getElementById('ouvintes_artista').innerText = `${soma_ouvintes} ouvintes mensais`

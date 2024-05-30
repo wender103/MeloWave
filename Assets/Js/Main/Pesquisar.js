@@ -109,45 +109,48 @@ function Retornar_Musicas(Musicas_Recebidas, Local) {
     let Musicas = Musicas_Recebidas.reverse()
 
     for (let c = 0; c < Musicas.length; c++) {
-        const musica_caixa = document.createElement('div')
-        const container_img_musica = document.createElement('div')
-        const img = document.createElement('img')
-        const texto_musica = document.createElement('div')
-        const p = document.createElement('p')
-        const span = document.createElement('span')
+        if(Musicas[c].Estado == 'Ativo') {
+            const musica_caixa = document.createElement('div')
+            const container_img_musica = document.createElement('div')
+            const img = document.createElement('img')
+            const texto_musica = document.createElement('div')
+            const p = document.createElement('p')
+            const span = document.createElement('span')
+    
+            //! Classes
+            musica_caixa.classList.add('musica_caixa')
+            container_img_musica.classList.add('container_img_musica')
+            texto_musica.classList.add('texto_musica')
+            p.className = 'Nome_musicas_caixa'
+            img.className = 'Img_musica_caixa'
+    
+            //! Valores
+            img.src = Musicas[c].Img
+            p.innerText = Musicas[c].Nome
+            span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
+    
+            //! AppendChild
+            container_img_musica.appendChild(img)
+            texto_musica.appendChild(p)
+            texto_musica.appendChild(span)
+            musica_caixa.appendChild(container_img_musica)
+            musica_caixa.appendChild(texto_musica)
+            article.appendChild(musica_caixa)
+    
+            musica_caixa.addEventListener('click', (e) => {
+                let Musicas_Recebidas = [...Musicas]
+                let el = e.target.className
+    
+                if(el == 'musica_caixa' || el == 'Nome_musicas_caixa' || el == 'Img_musica_caixa') {
+                    Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
+                }
+            })
+            musica_caixa.addEventListener('contextmenu', (event) => {
+                Ativar_Opcoes_Click_Direita('Músicas Caixa', Musicas_Recebidas[c], c)
+                posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+            })
+        }
 
-        //! Classes
-        musica_caixa.classList.add('musica_caixa')
-        container_img_musica.classList.add('container_img_musica')
-        texto_musica.classList.add('texto_musica')
-        p.className = 'Nome_musicas_caixa'
-        img.className = 'Img_musica_caixa'
-
-        //! Valores
-        img.src = Musicas[c].Img
-        p.innerText = Musicas[c].Nome
-        span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
-
-        //! AppendChild
-        container_img_musica.appendChild(img)
-        texto_musica.appendChild(p)
-        texto_musica.appendChild(span)
-        musica_caixa.appendChild(container_img_musica)
-        musica_caixa.appendChild(texto_musica)
-        article.appendChild(musica_caixa)
-
-        musica_caixa.addEventListener('click', (e) => {
-            let Musicas_Recebidas = [...Musicas]
-            let el = e.target.className
-
-            if(el == 'musica_caixa' || el == 'Nome_musicas_caixa' || el == 'Img_musica_caixa') {
-                Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
-            }
-        })
-        musica_caixa.addEventListener('contextmenu', (event) => {
-            Ativar_Opcoes_Click_Direita('Músicas Caixa', Musicas_Recebidas[c], c)
-            posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
-        })
     }
 
     if(article.innerHTML != '') {
@@ -271,72 +274,74 @@ function Retornar_Melhor_Resultado(Musica, Tipo) {
     let Musicas = TodasMusicas.reverse()
 
     for (let c = 0; c < Musicas.length; c++) {
-        let Autor = formatarString(Musicas[c].Autor)
-        let pesquisa = formatarString(resultado.nomeMaisProximo)
-        
-        if(Autor.includes(pesquisa) && contador < max || pesquisa.includes(Autor) && contador < max) {
-            contador++
-            const musica_linha = document.createElement('div')
-            const primeira_parte_musica_linha = document.createElement('div')
-            const img = document.createElement('img')
-            const texto_musica_linha = document.createElement('div')
-            const p = document.createElement('p')
-            const span = document.createElement('span')
-            const segunda_parte_musica_linha = document.createElement('div')
-            const like = document.createElement('img')
-            const tempo = document.createElement('p')
-
-            //! Classes
-            musica_linha.classList.add('musica_linha')
-            musica_linha.classList.add('Musica_Linha_' + Musicas[c].ID)
-            primeira_parte_musica_linha.className = 'primeira_parte_musica_linha'
-            texto_musica_linha.className = 'texto_musica_linha'
-            segunda_parte_musica_linha.className = 'segunda_parte_musica_linha'
-            like.className = 'like_musicas_linha'
-
-            //! Valores
-            img.src = Musicas[c].Img
-            p.innerText = Musicas[c].Nome
-            span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
-
-            Curtir_Musica_Descurtir(Musicas[c], like, 'Checar')
-
-            const audio = new Audio(Musicas[c].Audio)
-
-            audio.addEventListener('loadedmetadata', function() {
-                const durationInSeconds = audio.duration;
-                const minutes = Math.floor(durationInSeconds / 60)
-                const seconds = Math.floor(durationInSeconds % 60)
-                const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
-                tempo.innerText = formattedDuration
-            })
-
-
-            //! AppendChild
-            primeira_parte_musica_linha.appendChild(img)
-            texto_musica_linha.appendChild(p)
-            texto_musica_linha.appendChild(span)
-            primeira_parte_musica_linha.appendChild(texto_musica_linha)
-            segunda_parte_musica_linha.appendChild(like)
-            segunda_parte_musica_linha.appendChild(tempo)
-            musica_linha.appendChild(primeira_parte_musica_linha)
-            musica_linha.appendChild(segunda_parte_musica_linha)
-            document.getElementById('musicas_linha_melhor_resultado').appendChild(musica_linha)
-
-            //! Funções de click
-            like.addEventListener('click', () => {
-                let Musicas_Recebidas = [...Musicas]
-                    Curtir_Musica_Descurtir(Musicas_Recebidas[c], like)
-            })
-
-            musica_linha.addEventListener('click', (e) => {
-                let Musicas_Recebidas = [...Musicas]
-                let el = e.target.classList
-                if(el.contains('musica_linha')) {
-                    Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
-                }
-            })
-        }    
+        if(Musicas[c].Estado == 'Ativo') {
+            let Autor = formatarString(Musicas[c].Autor)
+            let pesquisa = formatarString(resultado.nomeMaisProximo)
+            
+            if(Autor.includes(pesquisa) && contador < max || pesquisa.includes(Autor) && contador < max) {
+                contador++
+                const musica_linha = document.createElement('div')
+                const primeira_parte_musica_linha = document.createElement('div')
+                const img = document.createElement('img')
+                const texto_musica_linha = document.createElement('div')
+                const p = document.createElement('p')
+                const span = document.createElement('span')
+                const segunda_parte_musica_linha = document.createElement('div')
+                const like = document.createElement('img')
+                const tempo = document.createElement('p')
+    
+                //! Classes
+                musica_linha.classList.add('musica_linha')
+                musica_linha.classList.add('Musica_Linha_' + Musicas[c].ID)
+                primeira_parte_musica_linha.className = 'primeira_parte_musica_linha'
+                texto_musica_linha.className = 'texto_musica_linha'
+                segunda_parte_musica_linha.className = 'segunda_parte_musica_linha'
+                like.className = 'like_musicas_linha'
+    
+                //! Valores
+                img.src = Musicas[c].Img
+                p.innerText = Musicas[c].Nome
+                span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
+    
+                Curtir_Musica_Descurtir(Musicas[c], like, 'Checar')
+    
+                const audio = new Audio(Musicas[c].Audio)
+    
+                audio.addEventListener('loadedmetadata', function() {
+                    const durationInSeconds = audio.duration;
+                    const minutes = Math.floor(durationInSeconds / 60)
+                    const seconds = Math.floor(durationInSeconds % 60)
+                    const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
+                    tempo.innerText = formattedDuration
+                })
+    
+    
+                //! AppendChild
+                primeira_parte_musica_linha.appendChild(img)
+                texto_musica_linha.appendChild(p)
+                texto_musica_linha.appendChild(span)
+                primeira_parte_musica_linha.appendChild(texto_musica_linha)
+                segunda_parte_musica_linha.appendChild(like)
+                segunda_parte_musica_linha.appendChild(tempo)
+                musica_linha.appendChild(primeira_parte_musica_linha)
+                musica_linha.appendChild(segunda_parte_musica_linha)
+                document.getElementById('musicas_linha_melhor_resultado').appendChild(musica_linha)
+    
+                //! Funções de click
+                like.addEventListener('click', () => {
+                    let Musicas_Recebidas = [...Musicas]
+                        Curtir_Musica_Descurtir(Musicas_Recebidas[c], like)
+                })
+    
+                musica_linha.addEventListener('click', (e) => {
+                    let Musicas_Recebidas = [...Musicas]
+                    let el = e.target.classList
+                    if(el.contains('musica_linha')) {
+                        Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
+                    }
+                })
+            }    
+        }
     }
 
     document.getElementById('article_melhor_resultado').addEventListener('click', () => {
@@ -360,7 +365,7 @@ function Retornar_Todas_Secoes() {
     for (let c = 0; c < Todos_Os_Generos.length; c++) {
         let musica_encontrada = false
         for (let b = 0; b < TodasMusicas.length; b++) {
-            if(!musica_encontrada) {
+            if(!musica_encontrada && TodasMusicas.Estado == 'Ativo') {
                 if(TodasMusicas[b].Genero.includes(Todos_Os_Generos[c]) || Todos_Os_Generos[c].includes(TodasMusicas[b].Genero)) {
                     musica_encontrada = true
     
@@ -384,7 +389,7 @@ function Retornar_Todas_Secoes() {
                         Pesquisar()
                     })
                 }
-            } else { 
+            } else if(musica_encontrada) { 
                 break
             }
         }

@@ -276,22 +276,15 @@ document.addEventListener('keydown', (key) => {
 
 function Salvar_Letra() {
     if(pode_salvar_letra) {
-        let AllMusics = []
-        TodasMusicas = []
         let feito = false
         let letra_add = false
 
         db.collection('Musicas').get().then((snapshot) => {
             snapshot.docs.forEach(Musicas_firebase => {
-                AllMusics = Musicas_firebase.data().Musicas
+                TodasMusicas = Musicas_firebase.data().Musicas
     
                 if(!feito) {
                     feito = true
-                    for (let c = 0; c < AllMusics.length; c++) {
-                        if(AllMusics[c].Estado != 'Pendente') {
-                            TodasMusicas.push(AllMusics[c])
-                        }
-                    }
 
                     for (let c = 0; c < TodasMusicas.length; c++) {
                         if(TodasMusicas[c].ID == musica_editando_meu_perfil.ID && !letra_add) {
@@ -302,7 +295,6 @@ function Salvar_Letra() {
                                 Data: getDataAtual()
                             }
 
-                            console.log(TodasMusicas[c])
                             User.Loja.Pontos += Pontos_Por_Atividade.Adicionar_Letra
 
                             db.collection('Musicas').doc(Musicas_firebase.id).update({Musicas: TodasMusicas}).then(() => {

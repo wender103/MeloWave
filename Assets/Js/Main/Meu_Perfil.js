@@ -237,22 +237,15 @@ function Checar_Pode_Salvar_Musica_Editada() {
 }
 
 function Salvar_Edicao_Musica() {
-    let AllMusics = []
-    let TodasMusicas = []
     let feito = false
     if(img_musicas_sendo_editada.src != musica_editando_meu_perfil.Img || input_autor_musica_sendo_editada.value != musica_editando_meu_perfil.Autor || input_nome_musica_sendo_editada.value != musica_editando_meu_perfil.Nome || input_genero_musica_sendo_editada.value != musica_editando_meu_perfil.Genero) {
         if(User.Estado_Da_Conta != 'Anônima') {
             db.collection('Musicas').get().then((snapshot) => {
                 snapshot.docs.forEach(Musicas_firebase => {
-                    AllMusics = Musicas_firebase.data().Musicas
+                    TodasMusicas = Musicas_firebase.data().Musicas
         
                     if(!feito) {
                         feito = true
-                        for (let c = 0; c < AllMusics.length; c++) {
-                            if(AllMusics[c].Estado != 'Pendente') {
-                                TodasMusicas.push(AllMusics[c])
-                            }
-                        }
 
                         for (let c = 0; c < TodasMusicas.length; c++) {
                             if(TodasMusicas[c].ID == musica_editando_meu_perfil.ID) {
