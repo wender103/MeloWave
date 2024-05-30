@@ -365,6 +365,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou) {
 
     //! ---------------- Fim Audio ----------------------------------
 
+    let debounceTimeout1
     input_range_musica_pc.addEventListener('input', function() {
         const newTime = (input_range_musica_pc.value / 100) * audio_player.duration
         audio_player.currentTime = newTime
@@ -373,9 +374,13 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou) {
         audio_player.currentTime = newTime
         atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
 
-        Atualizar_Linha_Letra_Input()
+        clearTimeout(debounceTimeout1)
+        debounceTimeout1 = setTimeout(function() {
+            Atualizar_Linha_Letra_Input()
+        }, 300)
     })
 
+    let debounceTimeout2
     input_range_musica_pc_fullscreen.addEventListener('input', function() {
         const newTime = (input_range_musica_pc_fullscreen.value / 100) * audio_player.duration
         audio_player.currentTime = newTime
@@ -384,7 +389,10 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou) {
         audio_player.currentTime = newTime
         atualizar_cor_progresso_input(input_range_musica_pc)
 
-        Atualizar_Linha_Letra_Input()
+        clearTimeout(debounceTimeout2)
+        debounceTimeout2 = setTimeout(function() {
+            Atualizar_Linha_Letra_Input()
+        }, 300)
     })
 }
 

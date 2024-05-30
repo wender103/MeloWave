@@ -1534,7 +1534,7 @@ body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra 
   border: none;
   color: var(--fonte_transparente);
   outline: none;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   overflow: auto;
   font-weight: bold;
   padding-bottom: 500px;
@@ -1548,7 +1548,7 @@ body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra 
 body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra pre span.linha_pre_em_destaque_add_letra {
   color: var(--white);
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
-  font-size: 1.2em;
+  font-size: 1.8rem !important;
 }
 body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_contagem_regressiva_add_letra {
   position: fixed;
@@ -1651,7 +1651,7 @@ body main section.Paginas#Pagina_verletra article#container_letra_verletra pre {
   border: none;
   color: var(--fonte_transparente);
   outline: none;
-  font-size: 1.5em;
+  font-size: 1.5rem;
   overflow: auto;
   font-weight: bold;
   padding: 0px 10px 500px;
@@ -1665,12 +1665,12 @@ body main section.Paginas#Pagina_verletra article#container_letra_verletra pre s
 body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span.linha_pre_em_destaque_add_letra {
   color: var(--white);
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
-  font-size: 1.2em;
+  font-size: 1.8rem !important;
 }
 body main section.Paginas#Pagina_verletra article#container_letra_verletra pre h1 {
   color: var(--white);
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
-  font-size: 1.2em;
+  font-size: 1.5rem;
 }
 body div#container_editar_musica {
   width: 100%;

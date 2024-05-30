@@ -33,6 +33,8 @@ function Abrir_Fila() {
     
             nav_main.style.transition = '500ms width ease-in-out'
             nav_main.style.width = 'calc(100vw - 386px)'
+
+            container_fila.style.transition = '500ms right ease-in-out'
     
             container_fila.style.right = '8px'
     

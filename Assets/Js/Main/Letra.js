@@ -338,7 +338,11 @@ function Destacar_linhas() {
             } else if(c < linha_atual) {
                 linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
             } else {
-                linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+                if(c == 0) {
+                    linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_ver_letra">` + letra_pre_ver_letra[c] + '</span>'
+                } else {
+                    linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+                }
             }
         }
 
@@ -438,15 +442,21 @@ function Atualizar_Letra_PC() {
     }
 }
 
+let atualizando_linha_dnv = false
 function Atualizar_Linha_Letra_Input() {
+    let time_atual = audio_player.currentTime
     let Tempo = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado
+
     for (let c = 0; c < Tempo.length; c++) {
-        if(audio_player.currentTime + 0.30 >= Tempo[c] && audio_player.currentTime < Tempo[c + 1]) {
-            console.log('caiu aki')
+        if(time_atual + 0.30 >= Tempo[c] && time_atual < Tempo[c + 1]) {
             linha_atual = c
             Destacar_linhas()
             document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
             break
+        } else if(time_atual + 0.30 < Tempo[c] && time_atual < Tempo[c + 1]) {
+            linha_atual = -1
+            Destacar_linhas()
+            document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
         }
     }
 }
