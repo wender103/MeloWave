@@ -227,6 +227,14 @@ body {
                         border-radius: 4px;
                     }
                 }
+
+                &#btn_pontos_nav {
+                    width: auto;
+                    display: flex;
+                    gap: 10px;
+                    color: var(--white);
+                    padding: 10px;
+                }
             }
         }
 
@@ -1621,6 +1629,25 @@ body {
                             font-size: 1.5rem;
                         }
                     }
+                }
+            }
+
+            &#Pagina_loja {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: var(--white);
+
+                h1 {
+                    font-size: 5em;
+                }
+
+                p {
+                    width: 90%;
+                    max-width: 450px;
+                    font-size: 1.1em;
                 }
             }
         }

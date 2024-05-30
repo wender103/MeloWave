@@ -290,7 +290,7 @@ function Salvar_Letra() {
                         if(TodasMusicas[c].ID == musica_editando_meu_perfil.ID && !letra_add) {
                             letra_add = true
                             TodasMusicas[c].Letra = {
-                                Lerta_Musica: text_area_add_letra.value,
+                                Letra_Musica: text_area_add_letra.value,
                                 Tempo_Sincronizado: array_tempo_letra_sincronizar,
                                 Data: getDataAtual()
                             }
@@ -326,7 +326,7 @@ function Voltar_Letra_Ver_Musica(index) {
 }
 
 function Destacar_linhas() {
-    pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Lerta_Musica
+    pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
     letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
     let linhas = pre_letra_da_musica.innerHTML.split('\n')
     
@@ -381,7 +381,7 @@ function Abrir_Ver_Letra_PC() {
         pd_atualizar_letra_pc = true
 
         if(!Array.isArray(Listas_Prox.MusicaAtual.Letra)) {
-            pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Lerta_Musica
+            pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
             letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
 
             if(linha_atual == -1) {

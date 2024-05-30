@@ -129,9 +129,12 @@ function Finalizar_Postar() {
                             TodasMusicas[c].Estado = 'Ativo'
     
                             db.collection('Musicas').doc(Musicas.id).update({Musicas: TodasMusicas}).then(() => {
-                                Limpar_add_Musica()
-                                Notificar_Infos('🎉 Parabéns pela escolha da música! 🎶 É incrível como ela nos transporta! 🌟 Obrigado por compartilhar! 🙌', 'Comemorar')
-                                pd_postar_outra_musica = true
+                                User.Loja.Pontos += Pontos_Por_Atividade.Adicionar_Musica
+                                db.collection('Users').doc(User.ID).update({ Loja: User.Loja }).then(() => {
+                                    Limpar_add_Musica()
+                                    Notificar_Infos(`🎉 Parabéns por postar essa música! 🎶 Você ganhou ${Pontos_Por_Atividade.Adicionar_Musica} pontos com isso! 🌟 Obrigado por compartilhar! 🙌`, 'Comemorar')
+                                    pd_postar_outra_musica = true
+                                })
                             })
                         }
                     }

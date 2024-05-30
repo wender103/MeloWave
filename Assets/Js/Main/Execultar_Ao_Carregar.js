@@ -36,6 +36,10 @@ function Execultar_Funcoes_Ao_Carregar() {
             Carregar_Banimento()
         } catch{}
 
+        try {
+            Carregar_Infos_Perfil_Loja()
+        } catch{}
+
         if(Pagina_Atual.Nome == 'home') {
             if(User.Perfil.Img_Background) {
                 Trocar_Background(User.Perfil.Img_Background, document.querySelector('body'))

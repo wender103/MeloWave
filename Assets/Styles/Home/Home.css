@@ -498,6 +498,13 @@ body div#nav_main div#btns_direita button#user_email_icon img {
      object-fit: cover;
   border-radius: 4px;
 }
+body div#nav_main div#btns_direita button#btn_pontos_nav {
+  width: auto;
+  display: flex;
+  gap: 10px;
+  color: var(--white);
+  padding: 10px;
+}
 body div#nav_main div#btns_cadastro button {
   height: 32px;
   background-color: var(--padrao2);
@@ -1671,6 +1678,22 @@ body main section.Paginas#Pagina_verletra article#container_letra_verletra pre h
   color: var(--white);
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
   font-size: 1.5rem;
+}
+body main section.Paginas#Pagina_loja {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--white);
+}
+body main section.Paginas#Pagina_loja h1 {
+  font-size: 5em;
+}
+body main section.Paginas#Pagina_loja p {
+  width: 90%;
+  max-width: 450px;
+  font-size: 1.1em;
 }
 body div#container_editar_musica {
   width: 100%;

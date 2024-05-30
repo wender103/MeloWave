@@ -1,4 +1,4 @@
-let Paginas_Nao_Trocar_Background = ['meuperfil', 'artista', 'adicionarletra', 'verletra']
+let Paginas_Nao_Trocar_Background = ['meuperfil', 'artista', 'adicionarletra']
 
 let Pagina_Atual = {
     Nome: 'home',
@@ -68,7 +68,7 @@ function Abrir_Pagina(Pagina, ID) {
             desativar_blur = true
         } else if(Pagina == 'adicionarletra') {
             if(!Array.isArray(musica_editando_meu_perfil.Letra)) {
-                text_area_add_letra.value = musica_editando_meu_perfil.Letra.Lerta_Musica
+                text_area_add_letra.value = musica_editando_meu_perfil.Letra.Letra_Musica
             } else {
                 text_area_add_letra.value = ''
             }

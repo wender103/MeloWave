@@ -142,7 +142,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou) {
     }
 
     if(!Array.isArray(MusicaAtual.Letra)) {
-        pre_letra_da_musica.innerHTML = MusicaAtual.Letra.Lerta_Musica
+        pre_letra_da_musica.innerHTML = MusicaAtual.Letra.Letra_Musica
         letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
         linha_atual = -1
         Destacar_linhas()
@@ -712,6 +712,8 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
             const img_pen = document.createElement('img')
             const btn_trash = document.createElement('button')
             const img_trash = document.createElement('img')
+            const bnt_carrinho_editar = document.createElement('button')
+            const img_carrinho_editar = document.createElement('img')
     
             //! Classes
             musica_linha.classList.add('musica_linha')
@@ -731,6 +733,8 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
             img_pen.className = 'img_pen'
             btn_trash.className = 'btn_trash'
             img_trash.className = 'img_trash'
+            bnt_carrinho_editar.className = 'bnt_carrinho_editar'
+            img_carrinho_editar.className = 'img_carrinho_editar'
     
             //! Valores
             img.src = Musicas[c].Img
@@ -740,6 +744,7 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
             img_pen.src = 'Assets/Imgs/pen.png'
             img_trash.src = 'Assets/Imgs/trash-bin.png'
             img_mic_editar.src = 'Assets/Imgs/Mic.svg'
+            img_carrinho_editar.src = 'Assets/Imgs/carrinho-de-compras.png'
     
             if(Musicas[c].Views < 10) {
                 views.innerText = `0${Musicas[c].Views}`
@@ -767,7 +772,8 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
             texto_musica_linha.appendChild(p)
             texto_musica_linha.appendChild(span)
             primeira_parte_musica_linha.appendChild(texto_musica_linha)
-    
+        
+            bnt_carrinho_editar.appendChild(img_carrinho_editar)
             btn_letra_editar.appendChild(img_mic_editar)
             btn_trash.appendChild(img_trash)
             btn_editar_musica.appendChild(img_pen)
@@ -777,6 +783,7 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
                     segunda_parte_musica_linha.appendChild(btn_letra_editar)
                 }
     
+                segunda_parte_musica_linha.appendChild(bnt_carrinho_editar)
                 segunda_parte_musica_linha.appendChild(btn_editar_musica)
                 segunda_parte_musica_linha.appendChild(btn_trash)
     
@@ -803,18 +810,26 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
             btn_letra_editar.addEventListener('click', () => {
                 musica_editando_meu_perfil = Musicas[c]
                 Abrir_Pagina('adicionarletra', `adicionarletra_${Musicas[c].ID}`)
+                btn_pesquisar_letra_add.href = `https://www.musixmatch.com/es/busqueda?query=${`${Separar_Por_Virgula(Musicas[c].Autor)[0]} ${Musicas[c].Nome}`}`
+                btn_pesquisar_letra_add.addEventListener('click', () => {
+                    sairDaTelaCheia()
+                })
             })
     
             btn_editar_musica.addEventListener('click', () => {
                 Abrir_Container_Editar_Musicas(Musicas[c])
             })
     
+            bnt_carrinho_editar.addEventListener('click', () => {
+                Iniciar_Loja(Musicas[c])
+            })
+
             musica_linha.addEventListener('click', (e) => {
                 let Musicas_Recebidas = [...Musicas]
                 let el = e.target.className
                 let qm_chamou = formatarString(Qm_Chamou)
     
-                if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar') {
+                if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar' && el != 'bnt_carrinho_editar' && el != 'img_carrinho_editar') {
                     Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
                     Listas_Prox.Nome_Album = Qm_Chamou
                 }
