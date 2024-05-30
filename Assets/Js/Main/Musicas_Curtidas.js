@@ -68,7 +68,6 @@ function Atualizar_Likes_Musica(Musica, Comando) {
 let Musicas_Curtidas_Array = []
 let musicas_curtidas_convertidas = false
 function Retornar_Musicas_Curtidas(Array_Musicas = undefined, Comando = undefined) {
-
     Musicas_Curtidas_Array = [...User.Musicas_Curtidas]
 
     if(!Array_Musicas) {

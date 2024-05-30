@@ -2,6 +2,7 @@ window.addEventListener('resize', () => {
     Mostrar_Max_Musicas()
 })
 
+//! Formata a string
 function formatarString(str) {
     // Remove acentos e caracteres especiais
     str = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
@@ -15,6 +16,7 @@ function formatarString(str) {
     return str
 }
 
+//! Formata a pesquisa
 function formatarTermoPesquisa(musica, cantor) {
     // Remove acentos e caracteres especiais
     const removerAcentos = (str) => {
@@ -34,6 +36,7 @@ function formatarTermoPesquisa(musica, cantor) {
     return formatarTexto(musicaFormatada) + "+" + formatarTexto(cantorFormatado);
 }
 
+//! Vai atualizar a URL
 function atualizarURL(parametro) {
     // Obtém a URL atual da página
     var url = window.location.href
@@ -51,6 +54,7 @@ function atualizarURL(parametro) {
     window.history.pushState({path: url}, '', url)
 }
 
+//! Vai pegar a data atual
 function getDataAtual() {
     var data = new Date()
     var dia = data.getDate()
@@ -63,6 +67,7 @@ function getDataAtual() {
     return dataFormatada
 }
 
+//! Vai carregar uma imagem
 function carregarImagem(src, callback) {
     var img = new Image()
     img.onload = function() {
@@ -74,6 +79,7 @@ function carregarImagem(src, callback) {
     img.src = src
 }
 
+//! Vai jogar confetes na tela
 function Confetes() {
     let params = {
         particleCount: 500, // Quantidade de confetes
@@ -92,6 +98,7 @@ function Confetes() {
     confetti(params);
 }
 
+//! Vai notificar alguma coisa
 let comemorar = false
 function Notificar_Infos(info, comando='', Texto_Btn='Sim!') {
     return new Promise((resolve) => {
@@ -104,15 +111,20 @@ function Notificar_Infos(info, comando='', Texto_Btn='Sim!') {
         if (comando == 'Comemorar') {
             comemorar = true
             Comemorar()
+
+        } else if(comando.includes('Emojis')) {
+            let emojis = Separar_Por_Virgula(comando.replace('Emojis:', ''))
+            console.log(emojis)
+            startEmojiRain(emojis)
         }
 
         btn_confirmar_notificacao_infos.addEventListener('click', () => {
-            Fechar_Notificacao_Infos()
+            Fechar_Notificacao_Infos(comando)
             resolve(true)  // Resolve a promise com true quando o botão de confirmar for clicado
         })
 
         btn_fechar_notificacao_infos.addEventListener('click', () => {
-            Fechar_Notificacao_Infos()
+            Fechar_Notificacao_Infos(comando)
             resolve(false)  // Resolve a promise com false se o botão de fechar for clicado
         })
 
@@ -124,12 +136,23 @@ function Notificar_Infos(info, comando='', Texto_Btn='Sim!') {
     })
 }
 
-function Fechar_Notificacao_Infos() {
+//! Vai fechar a notificação
+function Fechar_Notificacao_Infos(comando) {
     comemorar = false
-    Comemorar()
+    if(comando.includes('Comemorar')) {
+        Comemorar()        
+
+    } else if(comando.includes('Emojis')) {
+        stopEmojiRain()
+
+    } else if(comando.includes('Imgs')) {
+        stopImageRain()
+    }
+
     document.getElementById('container_notificacao_infos').style.display = 'none'
 }
 
+//! Vai comemorar alguma coisa
 function Comemorar() { 
     if(comemorar) {
         Confetes()
@@ -139,7 +162,8 @@ function Comemorar() {
     }
 }
 
-function separarArtistas(stringDeArtistas) {
+//! Vai separar os artistas por uma virgula
+function Separar_Por_Virgula(stringDeArtistas) {
     // Verifica se a string não está vazia
     if (stringDeArtistas.trim() === "") {
         return [];
@@ -154,6 +178,7 @@ function separarArtistas(stringDeArtistas) {
     return artistasLimpos;
 }
 
+//! Vai encontrar o artista
 function encontrarArtistas(arrayDeArtistas, nomeProcurado) {
     if (arrayDeArtistas.length === 0) {
         return [];
@@ -191,6 +216,8 @@ function encontrarArtistas(arrayDeArtistas, nomeProcurado) {
 const artistas = ['Hulvey', 'Forrest Frank'];
 const resultado = encontrarArtistas(artistas, 'forrest');
 
+
+//! calcula a distância de Levenshtein entre duas strings, a e b
 function calcularDistanciaLevenshtein(a, b) {
     if (a.length === 0) return b.length;
     if (b.length === 0) return a.length;
@@ -223,6 +250,7 @@ function calcularDistanciaLevenshtein(a, b) {
     return matrix[b.length][a.length];
 }
 
+//! Vai remover os nomes duplicados
 function removerNomesDuplicados(arrayDeNomes) {
     // Criar um conjunto vazio para armazenar os nomes únicos
     const nomesUnicos = new Set();
@@ -242,10 +270,11 @@ function removerNomesDuplicados(arrayDeNomes) {
     return nomesUnicosArray;
 }
 
+//! tem o objetivo de extrair e listar os nomes de todos os artistas presentes em uma coleção de músicas
 function Nome_Artistas() {
     let TodosArtistas = []
     for (let c = 0; c < TodasMusicas.length; c++) {
-        const resultado = separarArtistas(TodasMusicas[c].Autor)
+        const resultado = Separar_Por_Virgula(TodasMusicas[c].Autor)
 
         resultado.forEach(element => {
             TodosArtistas.push(element)
@@ -255,6 +284,7 @@ function Nome_Artistas() {
     return TodosArtistas
 }
 
+//! Vai entrar em tela cheia
 function entrarEmTelaCheia() {
     if (document.documentElement.requestFullscreen) {
         document.documentElement.requestFullscreen();
@@ -267,22 +297,16 @@ function entrarEmTelaCheia() {
     }
 }
 
-function sairDaTelaCheia() {
-    if (document.exitFullscreen) {
-        document.exitFullscreen()
-    } else if (document.mozCancelFullScreen) { /* Firefox */
-        document.mozCancelFullScreen()
-    } else if (document.webkitExitFullscreen) { /* Chrome, Safari e Opera */
-        document.webkitExitFullscreen()
-    } else if (document.msExitFullscreen) { /* Internet Explorer e Edge */
-        document.msExitFullscreen()
-    }
+//! Vai sair do modo tela cheia
+function sairTelaCheia() {
+    
 }
 
+//! Vai retornar os artistas da musica
 function Retornar_Artistas_Da_Musica(Musica) {
     const p = document.createElement('p')
     p.className = 'p_nomes_artistas'
-    let artistas = separarArtistas(Musica.Autor)
+    let artistas = Separar_Por_Virgula(Musica.Autor)
     for (let c = 0; c < artistas.length; c++) {
         if(c < artistas.length -1) {
             p.innerHTML += `<span class="span_nomes_artistas">${artistas[c]}</span>, `
@@ -302,6 +326,7 @@ function Retornar_Artistas_Da_Musica(Musica) {
     return p
 }
 
+//! Vai reposicionar um elemento HTML na tela com base na posição do cursor do mouse
 function posicionarElemento(event, elemento, array_classes=array_locais_opcoes) {
     elemento.style.display = 'block' // Mostra o elemento
 
@@ -345,6 +370,7 @@ function posicionarElemento(event, elemento, array_classes=array_locais_opcoes) 
     })
 }
 
+//! Vai ordenar os nomes que aparecem mais dos que aparencem menos
 function ordenarNomesPorFrequencia(nomes) {
     // Cria um objeto para contar a frequência de cada nome
     const frequencia = {};
@@ -368,6 +394,7 @@ document.addEventListener('contextmenu', function(event) {
     event.preventDefault()
 })
 
+//! Vai gerar uma cor aleatória
 function gerarCorAleatoria(clara = true, transparencia = 1) {
     if (clara) {
         // Gerar uma cor clara
@@ -384,6 +411,7 @@ function gerarCorAleatoria(clara = true, transparencia = 1) {
     return `rgb(${r}, ${g}, ${b}, ${transparencia})`;
 }
 
+//! Esta função denominada `shuffleArray` 🌟 tem o propósito de embaralhar um array 🎲 de forma aleatória 🌀.
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -392,8 +420,8 @@ function shuffleArray(array) {
     return array;
 }
 
+//! Converte as strings de data para objetos Date
 function verificarDataDepois(data1, data2) {
-    // Converte as strings de data para objetos Date
     const partesData1 = data1.split('/');
     const partesData2 = data2.split('/');
     const dataObjeto1 = new Date(partesData1[2], partesData1[1] - 1, partesData1[0]); // Mês é 0-indexado
@@ -407,9 +435,9 @@ function verificarDataDepois(data1, data2) {
     }
 }
 
+//! Converte as datas para objetos Date
 function organizarPorDataDescendente(array) {
     return array.sort((a, b) => {
-        // Converte as datas para objetos Date
         const dataA = new Date(a.Data.split('/').reverse().join('/'));
         const dataB = new Date(b.Data.split('/').reverse().join('/'));
         
@@ -418,11 +446,151 @@ function organizarPorDataDescendente(array) {
     });
 }
 
+//! Verifica se alguma das strings no array contém a palavra
 function palavraNoArray(array, palavra) {
-    // Verifica se alguma das strings no array contém a palavra
     if (array.some(str => str.includes(palavra))) {
         return true;
     } else {
         return false;
     }
+}
+
+//! Chover emojis
+let intervalId; // Variável global para armazenar o ID do intervalo
+
+function emojiRain(emoji) {
+    function animateEmoji(emojiElement) {
+        const speed = Math.random() * 4 + 2; // Velocidade de queda (ajuste conforme necessário)
+        const drift = (Math.random() - 0.5) * 2; // Desvio horizontal para adicionar efeito de movimento
+
+        emojiElement.style.top = (parseFloat(emojiElement.style.top) + speed) + 'px';
+        emojiElement.style.left = (parseFloat(emojiElement.style.left) + drift) + 'px';
+
+        if (parseFloat(emojiElement.style.top) > window.innerHeight + 100) {
+            emojiElement.remove(); // Remove o emoji quando ele cai abaixo da tela
+            return;
+        }
+
+        requestAnimationFrame(() => animateEmoji(emojiElement));
+    }
+
+    const emojiElement = document.createElement('div');
+    emojiElement.innerHTML = emoji;
+    emojiElement.style.position = 'absolute';
+    emojiElement.style.zIndex = '6';
+    emojiElement.style.fontSize = '24px'; // Tamanho do emoji (ajuste conforme necessário)
+    emojiElement.style.left = Math.random() * (window.innerWidth - 50) + 'px'; // Posição inicial X
+    emojiElement.style.top = '-50px'; // Posição inicial Y
+    document.body.appendChild(emojiElement);
+
+    animateEmoji(emojiElement);
+}
+
+//! Vai começar a chuva de emojis
+function startEmojiRain(emojis, interval = 50) {
+    intervalId = setInterval(() => {
+        const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        emojiRain(randomEmoji); // Chama a função emojiRain para criar um emoji aleatório
+    }, interval);
+}
+
+//! Vai parar a chuva de imagens
+function stopEmojiRain() {
+    clearInterval(intervalId)
+}
+
+//! Chover imgs
+let intervalId_imgs_rain; // Variável global para armazenar o ID do intervalo
+
+function imageRain(imageUrl) {
+    function animateImage(imageElement) {
+        const speed = Math.random() * 4 + 2; // Velocidade de queda (ajuste conforme necessário)
+        // const rotation = Math.random() * 360; // Rotação aleatória da imagem
+        // const rotateDir = Math.random() < 0.5 ? -1 : 1; // Direção da rotação (aleatório)
+        const drift = (Math.random() - 0.5) * 2; // Desvio horizontal para adicionar efeito de movimento
+
+        // imageElement.style.transform = `rotate(${rotation * rotateDir}deg)`;
+        imageElement.style.top = (parseFloat(imageElement.style.top) + speed) + 'px';
+        imageElement.style.left = (parseFloat(imageElement.style.left) + drift) + 'px';
+
+        if (parseFloat(imageElement.style.top) > window.innerHeight) {
+            imageElement.remove(); // Remove a imagem quando ela cai abaixo da tela
+            return;
+        }
+
+        requestAnimationFrame(() => animateImage(imageElement));
+    }
+
+    let tamanho_img = 50
+    const imageElement = document.createElement('img');
+    imageElement.src = imageUrl;
+    imageElement.style.zIndex = '6'
+    imageElement.style.borderRadius = '50%'
+    imageElement.style.objectFit = 'cover'
+    imageElement.style.position = 'absolute';
+    imageElement.style.width = `${tamanho_img}px`; // Tamanho da imagem
+    imageElement.style.height = `${tamanho_img}px`; // Tamanho da imagem
+    imageElement.style.left = Math.random() * (window.innerWidth - 50) + 'px'; // Posição inicial X
+    imageElement.style.top = '-50px'; // Posição inicial Y
+    document.body.appendChild(imageElement);
+
+    animateImage(imageElement);
+}
+
+//! Vai chamar a função imageRain para criar uma imagem
+function startImageRain(imageUrl, interval = 100) {
+    intervalId_imgs_rain = setInterval(() => {
+        imageRain(imageUrl); 
+    }, interval);
+}
+
+//! Vai limpar o intervalo
+function stopImageRain() {
+    clearInterval(intervalId_imgs_rain);
+}
+
+//! Vai trocar a cor de fundo de forma animada
+function animateBackgroundColor(color, elements, duration = 2000) {
+    elements.forEach(element => {
+        element.style.transition = `background-color ${duration}ms linear`
+        element.style.backgroundColor = color
+    })
+}
+
+//! Vai remover as palavras do texto
+function removerPalavras(palavras, texto) {
+    // Cria uma expressão regular que corresponde a qualquer uma das palavras, ignorando maiúsculas/minúsculas
+    const regex = new RegExp(`\\b(${palavras.join('|')})\\b`, 'gi');
+    
+    // Substitui as palavras encontradas por uma string vazia
+    const textoLimpo = texto.replace(regex, '').replace(/\s+/g, ' ').trim();
+    
+    return textoLimpo;
+}
+
+//! Vai remover a palavra só
+function removerPalavrasSozinha(palavras, texto) {
+    // Divide o texto em linhas
+    const linhas = texto.split('\n');
+    
+    // Percorre cada linha e aplica as regras de remoção
+    const linhasFiltradas = linhas.map((linha, index, arr) => {
+        const linhaTrim = linha.trim();
+        if (palavras.includes(linhaTrim)) {
+            const linhaAnterior = arr[index - 1] && arr[index - 1].trim();
+            const linhaSeguinte = arr[index + 1] && arr[index + 1].trim();
+            
+            if (linhaAnterior && linhaSeguinte) {
+                return ''; // Deixa uma linha vazia se estiver entre duas linhas com texto
+            } else {
+                return null; // Remove a linha completamente se não estiver entre duas linhas com texto
+            }
+        }
+        return linha; // Mantém a linha inalterada se não corresponder à palavra
+    }).filter(linha => linha !== null); // Remove as linhas que foram definidas como null
+
+    // Junta as linhas filtradas de volta em um único texto
+    const textoFiltrado = linhasFiltradas.join('\n');
+    
+    return textoFiltrado;
 }

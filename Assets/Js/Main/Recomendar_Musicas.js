@@ -91,7 +91,7 @@ function Retornar_Feito_Para_Voce() {
         let array_autores_historico = ordenarNomesPorFrequencia(User.Historico.Artistas)
 
         for (let c = 0; c < Historico_Musicas.length; c++) {
-            array_generos_historico.push(...separarArtistas(Historico_Musicas[c].Genero))
+            array_generos_historico.push(...Separar_Por_Virgula(Historico_Musicas[c].Genero))
         }
 
         array_generos_historico = ordenarNomesPorFrequencia(array_generos_historico)
@@ -116,7 +116,7 @@ function Retornar_Feito_Para_Voce() {
             let array_autores = []
     
             for (let c = 0; c < array_recomendacoes.length; c++) {
-                array_autores.push(...separarArtistas(array_recomendacoes[c].Autor))
+                array_autores.push(...Separar_Por_Virgula(array_recomendacoes[c].Autor))
             }
     
             array_autores = ordenarNomesPorFrequencia(array_autores)
@@ -213,7 +213,7 @@ function Retornar_Daily() {
                     element.addEventListener('click', () => {
                         let autor_encontrado = false
                         for (let c = 0; c < TodasMusicas.length; c++) {
-                            const autor_formatado = separarArtistas(formatarString(TodasMusicas[c].Autor))
+                            const autor_formatado = Separar_Por_Virgula(formatarString(TodasMusicas[c].Autor))
                             const Autor2_formatado = formatarString(element.innerText)
 
                             if(!autor_encontrado) {

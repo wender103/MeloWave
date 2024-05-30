@@ -35,28 +35,11 @@ function Atualizar_Fullscreen() {
     document.getElementById('nome_musica_fullscreen').innerText = Listas_Prox.MusicaAtual.Nome
     document.getElementById('nome_autor_fullscreen').innerText = Listas_Prox.MusicaAtual.Autor
 
-    // let outra_musica_encotrada = false
-    // for (let c = 0; c < TodasMusicas.length; c++) {
-    //     let autor_formatado = formatarString(TodasMusicas[c].Autor)
-    //     let Artista_formatado = formatarString(Listas_Prox.MusicaAtual.Autor)
-    //     if(!outra_musica_encotrada && TodasMusicas[c].ID != Listas_Prox.MusicaAtual.ID){
-    //         if(autor_formatado.includes(Artista_formatado) || Artista_formatado.includes(autor_formatado)) {
-    //             outra_musica_encotrada = true
-    //             Trocar_Background(TodasMusicas[c].Img, document.getElementById('background_fullscreen'))
-    //         }
-    //     }
-    // }
-
-    // if(!outra_musica_encotrada) {
-    //     Trocar_Background(Listas_Prox.MusicaAtual.Img, document.getElementById('background_fullscreen'))
-
-    // }
-
     let musica_escolhida = Listas_Prox.MusicaAtual
     let musica_encontrada = false
     let musicas_do_autor = []
     for (let c = 0; c < TodasMusicas.length; c++) {
-        let Artista_formatado = formatarString(separarArtistas(Listas_Prox.MusicaAtual.Autor)[0])
+        let Artista_formatado = formatarString(Separar_Por_Virgula(Listas_Prox.MusicaAtual.Autor)[0])
         let autor_formatado = formatarString(TodasMusicas[c].Autor)
         if(Artista_formatado == autor_formatado) {
             musica_encontrada = true
@@ -66,7 +49,7 @@ function Atualizar_Fullscreen() {
 
     if(!musica_encontrada) {
         for (let c = 0; c < TodasMusicas.length; c++) {
-            let Artista_formatado = formatarString(separarArtistas(Listas_Prox.MusicaAtual.Autor)[0])
+            let Artista_formatado = formatarString(Separar_Por_Virgula(Listas_Prox.MusicaAtual.Autor)[0])
             let autor_formatado = formatarString(TodasMusicas[c].Autor)
             if(Artista_formatado.includes(autor_formatado) && TodasMusicas[c].ID != Listas_Prox.MusicaAtual.ID || autor_formatado.includes(Artista_formatado) && TodasMusicas[c].ID != Listas_Prox.MusicaAtual.ID) {
                 musicas_do_autor.push(TodasMusicas[c])

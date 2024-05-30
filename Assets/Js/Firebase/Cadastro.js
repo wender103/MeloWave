@@ -38,16 +38,20 @@ function Abrir_Entrar() {
     document.getElementById('Container_Cadastro').style.display = 'flex'
 }
 
-document.getElementById('Container_Cadastro').addEventListener('click', (e) => {
-    let el = e.target.id
-
-    if(el == 'Container_Cadastro') {
-        Fechar_Entrar()
-    }
-})
+try {
+    document.getElementById('Container_Cadastro').addEventListener('click', (e) => {
+        let el = e.target.id
+    
+        if(el == 'Container_Cadastro') {
+            Fechar_Entrar()
+        }
+    })
+} catch{}
 
 function Fechar_Entrar() {
-    document.getElementById('Container_Cadastro').style.display = 'none'
+    try {
+        document.getElementById('Container_Cadastro').style.display = 'none'
+    } catch{}
 }
 
 let user_fez_login = false
@@ -77,7 +81,9 @@ function Logar_Na_Conta() {
             if(!User_logado && val.emailVerified) {
                 User_logado = true
 
-                document.getElementById('img_perfil_emial').src = val.photoURL
+                try {
+                    document.getElementById('img_perfil_emial').src = val.photoURL
+                } catch{}
     
                 let usuario_encontrado = false
                 for (let c = 0; c < Todos_Usuarios.length; c++) {
@@ -86,6 +92,10 @@ function Logar_Na_Conta() {
                         User = Todos_Usuarios[c]
                         Fechar_Entrar()
                         Atualizar_User()
+
+                        if(location.href.includes('aviso')) {
+                            Execultar_Funcoes_Ao_Carregar()
+                        }
                     }
                 }
     
@@ -97,6 +107,9 @@ function Logar_Na_Conta() {
                         Email: val.email,
                         Nome: val.displayName,
                         Musicas_Curtidas: [],
+                        Loja: {
+                            Pontos: 0,
+                        },
                         Social: {
                             Seguindo: [],
                             Seguidores: [],
@@ -153,6 +166,8 @@ function Logar_Na_Conta() {
 }
 
 function Atualizar_User() {
-    document.getElementById('btns_cadastro').style.display = 'none'
-    document.getElementById('btns_direita').style.display = 'flex'
+    try {
+        document.getElementById('btns_cadastro').style.display = 'none'
+        document.getElementById('btns_direita').style.display = 'flex'
+    } catch{}
 }

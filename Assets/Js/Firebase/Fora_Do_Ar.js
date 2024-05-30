@@ -14,7 +14,6 @@ function Checar_Fora_Do_Ar() {
             // console.log('Admin_Infos atualizado:', Admin_Infos);
 
             let email_igual = false
-            console.log(Admin_Infos)
             for (let c = 0; c < Admin_Infos.Admins.length; c++) {
                 if(Admin_Infos.Admins[c] == email_user) {
                     email_igual = true

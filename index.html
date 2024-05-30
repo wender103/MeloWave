@@ -7,6 +7,7 @@
 
     <!-- <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css"> -->
     <link rel="stylesheet" href="Assets/Styles/Home/Home.css">
+    <link rel="stylesheet" href="Assets/Styles/Home/Responsivo/Home_Responsivo.css">
 </head>
 <body>
     <div id="background_blur"></div>
@@ -293,7 +294,7 @@
 
                     <div id="btns_postar_musica">
                         <button onclick="Finalizar_Postar()">Finalizar</button>
-                        <a id="btn_pesquisar_genero" target="_blank">Pesquisar gênero musical</button>
+                        <a id="btn_pesquisar_genero" target="_blank">Pesquisar gênero musical</a> 
                     </div>
                 </div>
             </article>
@@ -416,8 +417,60 @@
             <article id="container_antigos_lancamentos_dos_artistas">
             </article>
         </section>
+
+        <section class="Paginas" id="Pagina_adicionarletra">
+            <article id="primeira_parte_add_letra">
+                <textarea placeholder="Adicione a letra da música aqui" spellcheck="false" id="text_area_add_letra" oninput="Checar_Proximo_Add_Letra()"></textarea>
+
+                <div id="container_btns_add_letra_primeira_parte">
+                    <button onclick="Fechar_Add_Letra()">Cancelar</button>
+                    <a target="_blank" id="btn_pesquisar_letra_add">Pesquisar a Letra</a>
+                    <button onclick="Proximo_Passo_Add_Letra()" class="btn_bloqueado" id="Btn_Proximo_aAdd_Letra">Proximo</button>
+                </div>
+            </article>
+
+            <article id="segunda_parte_add_letra">
+                <pre id="local_letra_musica_sincronizar"></pre>
+
+                <div id="container_contagem_regressiva_add_letra">
+                    <h1 id="h1_contagem_regressiva_add_letra">3</h1>
+                </div>
+
+                <div id="container_btn_comecar_sincronizar_letra">
+                    <button id="btn_iniciar_sincronizar">Iniciar</button>
+                </div>
+
+                <div id="container_btns_add_letra_segunda_parte">
+                    <button onclick="Voltar_Editar_Letra()">Voltar</button>
+                    <button id="btn_up_sincronizar"><img src="Assets/Imgs/uiw_left.svg"></button>
+                    <button id="btn_down_sincronizar"><img src="Assets/Imgs/uiw_left.svg"></button>
+                    <button onclick="Salvar_Letra()" class="btn_bloqueado" id="bnt_salvar_letra">Salvar Letra</button>
+                </div>
+            </article>
+        </section>
+
+        <section class="Paginas" id="Pagina_verletra">
+            <article id="container_letra_verletra">
+                <pre id="pre_letra_da_musica"></pre>
+            </article>
+        </section>
     </main>
     <!--! Fim Main -->
+
+    <div id="container_editar_musica">
+        <div id="container_conteudo_editar_musica">
+            <img src="Assets/Imgs/music1.png" id="img_musicas_sendo_editada">
+            <input type="text" placeholder="Autor da música" autocomplete="off" id="input_autor_musica_sendo_editada" oninput="Checar_Pode_Salvar_Musica_Editada()">
+            <input type="text" placeholder="Nome da música" autocomplete="off" id="input_nome_musica_sendo_editada" oninput="Checar_Pode_Salvar_Musica_Editada()">
+            <input type="text" placeholder="Gênero da música" autocomplete="off" id="input_genero_musica_sendo_editada" oninput="Checar_Pode_Salvar_Musica_Editada()">
+
+            <div id="container_btns_editar_musica_sendo_editada">
+                <button onclick="Salvar_Edicao_Musica()" id="btn_salvar_musica_editando" class="btn_bloqueado">Salvar</button>
+                <button id="btn_adicionar_letra_musica_sendo_editada" onclick="Abrir_Pagina('adicionarletra', `adicionarletra_${musica_editando_meu_perfil.ID}`)">Letra</button>
+                <button onclick="Fechar_Container_Editar_Musicas()">Cancelar</button>
+            </div>
+        </div>
+    </div>
 
     <section id="container_fila">
         <article>
@@ -494,7 +547,7 @@
             </div>
 
             <div id="container_opcoes_barra_musica">
-                <img src="Assets/Imgs/Mic.svg">
+                <img src="Assets/Imgs/Mic.svg" onclick="Abrir_Ver_Letra_PC()" class="img_btn_mic_letra">
                 <img src="Assets/Imgs/Fila.svg" onclick="Abrir_Fila()">
                 <img src="Assets/Imgs/Pc.svg">
 
@@ -645,8 +698,10 @@
     <script src="Assets/Js/Main/Anonimo.js"></script>
     <script src="Assets/Js/Main/Blur.js"></script>
     <script src="Assets/Js/Main/Meu_Perfil.js"></script>
+    <script src="Assets/Js/Main/Letra.js"></script>
+    <script src="Assets/Js/Main/Pontos.js"></script>
 
-    <!--? Testes -->
-    <script src="Assets/Js/Teste.js"></script>
+    <!--* Banimento -->
+    <script src="Assets/Js/Banimento/Banimento.js"></script>
 </body>
 </html>

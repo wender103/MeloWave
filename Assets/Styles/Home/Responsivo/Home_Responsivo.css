@@ -1,0 +1,11 @@
+@media screen and (max-width: 1350px) {
+  pre {
+    font-size: 1.8vw !important;
+  }
+  pre span.linha_pre_em_destaque_add_letra {
+    font-size: 2.5vw !important;
+  }
+  textarea#text_area_add_letra {
+    font-size: 1.8vw !important;
+  }
+}/*# sourceMappingURL=Home_Responsivo.css.map */

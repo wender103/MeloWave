@@ -189,9 +189,6 @@ function Checar_Notificacao_Artista_Seguindo() {
 
         array_antiguidades.push(antiguidade)
     }
-
-    console.log(array_antiguidades);
-    console.log(array_novidades);
     
     for (let c = 0; c < array_novidades.length; c++) {
         const section = document.createElement('section')

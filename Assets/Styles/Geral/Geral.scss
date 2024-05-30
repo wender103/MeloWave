@@ -7,6 +7,7 @@
 
     //! Cores ----------
     --white: #fff;
+    --white_pouco_transparent: #ffffff9c;
     --white_transparent: #ffffff8a;
     --black: #000;
     --black_transparent: #0000001a;
@@ -18,6 +19,7 @@
     --background: rgba(82, 87, 90, 0.77);
     --cor_qse_transparente_background: #2e31333f;
     --background_black: hsla(0, 0%, 0%, 0.643);
+    --background_black2:rgba(0, 0, 0, 0.411);
     --fonte_transparente: rgba(255, 255, 255, 0.23);
     --fonte_meio_transparente: rgba(255, 255, 255, 0.555);
     --verde_azul: rgb(0, 255, 213);
@@ -38,6 +40,15 @@
 input:focus {
     outline: none;
     box-shadow: 0 0 0 0;
+}
+
+button {
+    outline: none !important;
+}
+
+.btn_bloqueado {
+    cursor: not-allowed !important;
+    color: var(--fonte_transparente) !important;
 }
 
 //! Música Linha -----------------------------

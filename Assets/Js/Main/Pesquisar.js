@@ -170,7 +170,7 @@ function Retornar_Artistas(Artista, Local, min) {
     for (let c = 0; c < TodasMusicas.length; c++) {
         let autor_formatado = formatarString(TodasMusicas[c].Autor)
         if(autor_formatado.includes(Artista_formatado) || Artista_formatado.includes(autor_formatado)) {
-            let resultado = separarArtistas(TodasMusicas[c].Autor)
+            let resultado = Separar_Por_Virgula(TodasMusicas[c].Autor)
 
             resultado.forEach(element => {
                 let element_formatado = formatarString(element)
@@ -224,7 +224,7 @@ function Retornar_Artistas(Artista, Local, min) {
                         let formatado_artista = formatarString(TodosArtistas[d])
     
                         if(formatado_artista.includes(artistas_complo[b]) || artistas_complo[b].includes(formatado_artista)) {
-                            let nome_autor = encontrarArtistas(separarArtistas(TodasMusicas[c].Autor), TodosArtistas[d])
+                            let nome_autor = encontrarArtistas(Separar_Por_Virgula(TodasMusicas[c].Autor), TodosArtistas[d])
                             p.innerText = nome_autor.nomeMaisProximo
                         }
                         
@@ -263,7 +263,7 @@ function Retornar_Melhor_Resultado(Musica, Tipo) {
     document.getElementById('container_melhor_resultado').style.display = 'flex'
     document.getElementById('musicas_linha_melhor_resultado').innerHTML = ''
 
-    const resultado = encontrarArtistas(separarArtistas(Musica.Autor), input_pesquisar.value)
+    const resultado = encontrarArtistas(Separar_Por_Virgula(Musica.Autor), input_pesquisar.value)
     document.getElementById('img_melhor_resultado').src = Musica.Img
     document.getElementById('nome_melhor_resultado').innerText = resultado.nomeMaisProximo
     document.getElementById('tipo_melhor_resultado').innerText = Tipo
@@ -351,7 +351,7 @@ function Retornar_Todas_Secoes() {
     let Todos_Os_Generos = []
 
     for (let c = 0; c < TodasMusicas.length; c++) {
-        Todos_Os_Generos.push(...separarArtistas(TodasMusicas[c].Genero))
+        Todos_Os_Generos.push(...Separar_Por_Virgula(TodasMusicas[c].Genero))
     }
 
     Todos_Os_Generos = ordenarNomesPorFrequencia(Todos_Os_Generos)

@@ -7,6 +7,9 @@ li_icon.forEach(li => {
         if(nomes == 'musicascurtidas') {
             Abrir_Pagina(formatarString(li.title), `musicascurtidas=${User.ID}`)
 
+        } else if(nomes == 'meuperfil') {
+            Abrir_Pagina('meuperfil', `meuperfil_${User.ID}`)
+
         } else {
             Abrir_Pagina(formatarString(li.title))
         }

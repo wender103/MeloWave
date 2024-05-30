@@ -238,7 +238,7 @@ function Remover_Da_Fila(Modo, ID) {
 function Ir_Para_Artista_Opcoes_Click_Direito(ID) {
     for (let c = 0; c < TodasMusicas.length; c++) {
         if(ID == TodasMusicas[c].ID) {
-            Abrir_Perfil_Artista(separarArtistas(TodasMusicas[c].Autor)[0], TodasMusicas[c])
+            Abrir_Perfil_Artista(Separar_Por_Virgula(TodasMusicas[c].Autor)[0], TodasMusicas[c])
         }
     }
 }

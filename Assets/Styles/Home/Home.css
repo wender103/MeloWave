@@ -5,6 +5,7 @@
   --fonte_inter: "Inter", sans-serif;
   --fonte_khmer: "Khmer", sans-serif;
   --white: #fff;
+  --white_pouco_transparent: #ffffff9c;
   --white_transparent: #ffffff8a;
   --black: #000;
   --black_transparent: #0000001a;
@@ -16,6 +17,7 @@
   --background: rgba(82, 87, 90, 0.77);
   --cor_qse_transparente_background: #2e31333f;
   --background_black: hsla(0, 0%, 0%, 0.643);
+  --background_black2:rgba(0, 0, 0, 0.411);
   --fonte_transparente: rgba(255, 255, 255, 0.23);
   --fonte_meio_transparente: rgba(255, 255, 255, 0.555);
   --verde_azul: rgb(0, 255, 213);
@@ -36,6 +38,15 @@
 input:focus {
   outline: none;
   box-shadow: 0 0 0 0;
+}
+
+button {
+  outline: none !important;
+}
+
+.btn_bloqueado {
+  cursor: not-allowed !important;
+  color: var(--fonte_transparente) !important;
 }
 
 div.musica_linha {
@@ -1049,9 +1060,12 @@ body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_m
   border-radius: 8px;
 }
 body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica img {
-  max-width: 70%;
+  width: 100%;
+  height: 400px;
   margin: 0 auto 30px;
   border-radius: 8px;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 body main section.Paginas#Pagina_adicionarmusicas article#segunda_parte_postar_musica div#container_nova_musica input {
   width: 100%;
@@ -1444,6 +1458,285 @@ body main section.Paginas#Pagina_notificacao h1#nehuma_novidade {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+body main section.Paginas#Pagina_adicionarletra {
+  height: calc(100vh - 192px);
+  min-height: 0px !important;
+  position: relative;
+  overflow: hidden;
+}
+body main section.Paginas#Pagina_adicionarletra article#primeira_parte_add_letra {
+  overflow: hidden;
+  height: 100%;
+}
+body main section.Paginas#Pagina_adicionarletra article#primeira_parte_add_letra textarea#text_area_add_letra {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  color: var(--white);
+  outline: none;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+body main section.Paginas#Pagina_adicionarletra article#primeira_parte_add_letra textarea#text_area_add_letra::-moz-placeholder {
+  color: var(--white);
+}
+body main section.Paginas#Pagina_adicionarletra article#primeira_parte_add_letra textarea#text_area_add_letra::placeholder {
+  color: var(--white);
+}
+body main section.Paginas#Pagina_adicionarletra article#primeira_parte_add_letra div#container_btns_add_letra_primeira_parte {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
+body main section.Paginas#Pagina_adicionarletra article#primeira_parte_add_letra div#container_btns_add_letra_primeira_parte a {
+  color: var(--white);
+  text-decoration: none;
+  width: 100%;
+  padding: 15px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--padrao15);
+  border: none;
+  text-align: center;
+  font-size: 12px;
+  white-space: nowrap;
+}
+body main section.Paginas#Pagina_adicionarletra article#primeira_parte_add_letra div#container_btns_add_letra_primeira_parte a:hover {
+  text-decoration: underline;
+}
+body main section.Paginas#Pagina_adicionarletra article#primeira_parte_add_letra div#container_btns_add_letra_primeira_parte button {
+  width: 100%;
+  padding: 15px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--padrao15);
+  border: none;
+  text-align: center;
+  white-space: nowrap;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra {
+  overflow: hidden;
+  height: 100%;
+  display: none;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra pre {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  color: var(--fonte_transparente);
+  outline: none;
+  font-size: 1.5em;
+  overflow: auto;
+  font-weight: bold;
+  padding-bottom: 500px;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra pre span {
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra pre span.linha_pre_anterior_add_letra {
+  color: var(--fonte_meio_transparente);
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra pre span.linha_pre_em_destaque_add_letra {
+  color: var(--white);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
+  font-size: 1.2em;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_contagem_regressiva_add_letra {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_contagem_regressiva_add_letra h1 {
+  font-size: 10em;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_btn_comecar_sincronizar_letra {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  transition: 0.7s bottom ease-in-out;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_btn_comecar_sincronizar_letra button {
+  width: 100%;
+  padding: 15px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--padrao15);
+  border: none;
+  text-align: center;
+  white-space: nowrap;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_btns_add_letra_segunda_parte {
+  position: fixed;
+  bottom: -100vh;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  transition: 0.7s bottom ease-in-out;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_btns_add_letra_segunda_parte a {
+  color: var(--white);
+  text-decoration: none;
+  width: 100%;
+  padding: 15px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--padrao15);
+  border: none;
+  text-align: center;
+  font-size: 12px;
+  white-space: nowrap;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_btns_add_letra_segunda_parte a:hover {
+  text-decoration: underline;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_btns_add_letra_segunda_parte button {
+  width: 100%;
+  padding: 15px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--padrao15);
+  border: none;
+  text-align: center;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_btns_add_letra_segunda_parte button#btn_up_sincronizar img {
+  transform: rotate(90deg);
+}
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_btns_add_letra_segunda_parte button#btn_down_sincronizar img {
+  transform: rotate(-90deg);
+}
+body main section.Paginas#Pagina_verletra {
+  height: 100vh;
+  min-height: 0px !important;
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgb(0, 0, 0) 50%, rgb(0, 0, 0));
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgb(0, 0, 0) 50%, rgb(0, 0, 0));
+}
+body main section.Paginas#Pagina_verletra article#container_letra_verletra {
+  overflow: hidden;
+  height: 100%;
+}
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  color: var(--fonte_transparente);
+  outline: none;
+  font-size: 1.5em;
+  overflow: auto;
+  font-weight: bold;
+  padding: 0px 10px 500px;
+}
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span {
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span.linha_pre_anterior_add_letra {
+  color: var(--white_pouco_transparent);
+}
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span.linha_pre_em_destaque_add_letra {
+  color: var(--white);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
+  font-size: 1.2em;
+}
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre h1 {
+  color: var(--white);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
+  font-size: 1.2em;
+}
+body div#container_editar_musica {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--background_black);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+}
+body div#container_editar_musica div#container_conteudo_editar_musica {
+  width: 95%;
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--white);
+  background-color: var(--padrao1);
+  padding: 20px;
+  border-radius: 8px;
+}
+body div#container_editar_musica div#container_conteudo_editar_musica img#img_musicas_sendo_editada {
+  width: 100%;
+  height: 400px;
+  margin: 0 auto 30px;
+  border-radius: 8px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body div#container_editar_musica div#container_conteudo_editar_musica input {
+  width: 100%;
+  height: 20px;
+  background-color: transparent;
+  font-size: 16px;
+  border: transparent;
+  outline: none;
+  color: var(--white);
+  margin-bottom: 15px;
+}
+body div#container_editar_musica div#container_conteudo_editar_musica input#input_autor_musica_sendo_editada, body div#container_editar_musica div#container_conteudo_editar_musica input#input_genero_musica_sendo_editada {
+  font-size: 16px;
+  font-weight: bold;
+}
+body div#container_editar_musica div#container_conteudo_editar_musica input#input_nome_musica_sendo_editada {
+  font-size: 25px;
+  font-weight: bold;
+}
+body div#container_editar_musica div#container_conteudo_editar_musica div#container_btns_editar_musica_sendo_editada {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+body div#container_editar_musica div#container_conteudo_editar_musica div#container_btns_editar_musica_sendo_editada button {
+  width: 100%;
+  padding: 15px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--white);
+  background-color: var(--padrao15);
+  border: none;
+  text-align: center;
 }
 body section#container_fila {
   width: 282px;

@@ -105,7 +105,13 @@ function atualizar_cor_progresso_input(inputElement) {
 let feito_musica_tocar = false
 let Tocando_Musica_A_Seguir = false
 let tmp_ouvindo_musica = 0
-function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
+const img_btn_mic_letra = document.querySelectorAll('.img_btn_mic_letra')
+
+function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou) {
+    if(Comando == null || Comando == undefined) {
+        Comando = ''
+    }
+
     if(Listas_Prox.MusicaAtual != MusicaAtual) {
         Repetir_Musica(false)
         tmp_ouvindo_musica = 0
@@ -135,11 +141,30 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
         }
     }
 
-    if(!pagina_igual) {
-        Trocar_Background(MusicaAtual.Img, document.body)
+    if(!Array.isArray(MusicaAtual.Letra)) {
+        pre_letra_da_musica.innerHTML = MusicaAtual.Letra.Lerta_Musica
+        letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
+        linha_atual = -1
+        Destacar_linhas()
     }
 
-    Ativar_Musica(MusicaAtual)
+    //! Vai remover o icone do mic caso a música não tenha letra
+    img_btn_mic_letra.forEach(element => {
+        if(!Array.isArray(MusicaAtual.Letra)) {
+            element.style.display = 'block'
+
+        } else if(!pd_atualizar_letra_pc) {
+            element.style.display = 'none'
+        }
+    })
+    
+    if(!Comando.includes('Não Ativar Música')) {
+        Ativar_Musica(MusicaAtual)
+
+        if(!pagina_igual) {
+            Trocar_Background(MusicaAtual.Img, document.body)
+        }
+    }
 
     if(fullscreen_aberta) {
         Atualizar_Fullscreen()
@@ -180,7 +205,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
 
     //! Historico Salvar -------------------
     User.Historico.Musicas.push(MusicaAtual)
-    User.Historico.Artistas.push(...separarArtistas(MusicaAtual.Autor))
+    User.Historico.Artistas.push(...Separar_Por_Virgula(MusicaAtual.Autor))
 
     Salvar_Historico()
 
@@ -202,23 +227,31 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
 
     // Manipulador para avançar para a próxima faixa de áudio
     navigator.mediaSession.setActionHandler('nexttrack', function() {
-        RepetirMusica = false
-        Proxima_Musica()
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            RepetirMusica = false
+            Proxima_Musica()
+        }
     })
 
     // Manipulador para retroceder para a faixa de áudio anterior
     navigator.mediaSession.setActionHandler('previoustrack', function() {
-        Musica_Anterior()
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            Musica_Anterior()
+        }
     })
 
     // Manipulador para avançar a reprodução em 10 segundos
     navigator.mediaSession.setActionHandler('seekforward', function() {
-        audio_player.currentTime += 10 // Avança 10 segundos
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            audio_player.currentTime += 10 // Avança 10 segundos
+        }
     })
 
     // Manipulador para retroceder a reprodução em 10 segundos
     navigator.mediaSession.setActionHandler('seekbackward', function() {
-        audio_player.currentTime -= 10 // Retrocede 10 segundos
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            audio_player.currentTime -= 10 // Retrocede 10 segundos
+        }
     })
 
     // Manipulador para iniciar a reprodução da mídia
@@ -233,14 +266,18 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
 
     // Manipulador para parar a reprodução da mídia e reiniciar para o início
     navigator.mediaSession.setActionHandler('stop', function() {
-        Pausar() // Pausa a reprodução do áudio
-        audio_player.currentTime = 0 // Reinicia a reprodução para o início
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            Pausar() // Pausa a reprodução do áudio
+            audio_player.currentTime = 0 // Reinicia a reprodução para o início
+        }
     })
 
     // Manipulador para alterar a posição de reprodução para um tempo específico
     navigator.mediaSession.setActionHandler('seekto', function(details) {
-        if (details.fastSeek && 'seekable' in audio_player) {
-            audio_player.currentTime = details.seekTime // Altera a posição de reprodução para o tempo especificado
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            if (details.fastSeek && 'seekable' in audio_player) {
+                audio_player.currentTime = details.seekTime // Altera a posição de reprodução para o tempo especificado
+            }
         }
     })
 
@@ -283,8 +320,11 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
                 console.log('View adicionada')
                 adicionar_view_musica = true
     
-                Adicionar_View_Musica(MusicaAtual)
+                // Adicionar_View_Musica(MusicaAtual)
             }
+
+            //! Vai atualizar a letra
+            Atualizar_Letra_PC()
         }
     }
 
@@ -309,11 +349,13 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
     audio_player.addEventListener('ended', fim_audio)
     
     function fim_audio() {
-        if(!feito_musica_tocar) {
-            feito_musica_tocar = true
-            Proxima_Musica('fim_do_audio')
-            //! Resolver ---------------------------------------------------------------------------------------------------------
-            //* Está repetindo a chamada
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            if(!feito_musica_tocar) {
+                feito_musica_tocar = true
+                Proxima_Musica('fim_do_audio')
+                //! Resolver ---------------------------------------------------------------------------------------------------------
+                //* Está repetindo a chamada
+            }
         }
     }
 
@@ -330,6 +372,8 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
 
         audio_player.currentTime = newTime
         atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+
+        Atualizar_Linha_Letra_Input()
     })
 
     input_range_musica_pc_fullscreen.addEventListener('input', function() {
@@ -339,6 +383,8 @@ function Tocar_Musica(Lista, MusicaAtual, Comando, IDPagina, Qm_Chamou) {
 
         audio_player.currentTime = newTime
         atualizar_cor_progresso_input(input_range_musica_pc)
+
+        Atualizar_Linha_Letra_Input()
     })
 }
 
@@ -350,10 +396,16 @@ function Ativar_Musica(Musica) {
 
     const main = document.querySelector('main')
     main.classList.add('Musica_On')
+
+    main.style.transition = '500ms height ease-in-out'
+    nav.style.transition = '500ms height ease-in-out'
+    nav.style.height = 'calc(100vh - 112px)'
+    main.style.height = 'calc(100vh - 112px)'
     
+    const container_barra_musica = document.querySelector('#container_barra_musica')
+    container_barra_musica.style.bottom = '8px'
+
     setTimeout(() => {
-        nav.style.height = 'calc(100vh - 112px)'
-        main.style.height = 'calc(100vh - 112px)'
         main.classList.remove('Musica_On')
         nav.classList.remove('Musica_On')
     }, 1000)
@@ -363,14 +415,30 @@ function Ativar_Musica(Musica) {
     autor_musica_barra_musica.innerHTML = ''
     autor_musica_barra_musica.appendChild(Retornar_Artistas_Da_Musica(Musica))
     document.getElementById('img_musica_barra_musica').src = Musica.Img
+}
+
+function Desativar_Musica() {
+    Pausar()
+    Fehcar_Fila()
+    const nav = document.querySelector('nav')
+    nav.classList.add('Musica_On')
+
+    const main = document.querySelector('main')
+    main.classList.add('Musica_On')
 
     const container_barra_musica = document.querySelector('#container_barra_musica')
-    container_barra_musica.style.bottom = '8px'
+    container_barra_musica.style.bottom = '-300px'
 
-    // Retornar_Musica_Linha(Pegar_Musicas(span.innerText, 'Artista'), document.getElementById('container_musicas_pag_artista'))
-    //         document.getElementById('background_paginas_artista').style.backgroundImage = `url(${Musicas[c].Img})`
-    //         document.getElementById('nome_artista').innerText = span.innerText
-    //         Abrir_Pagina('artista')
+    main.style.transition = '500ms height ease-in-out'
+    nav.style.transition = '500ms height ease-in-out'
+
+    nav.style.height = 'calc(100vh - 16px)'
+    main.style.height = 'calc(100vh - 16px)'
+
+    setTimeout(() => {
+        main.classList.remove('Musica_On')
+        nav.classList.remove('Musica_On')
+    }, 1000)
 }
 
 //! -------------------------------- Funções do audio --------------------------------
@@ -629,10 +697,12 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
         const segunda_parte_musica_linha = document.createElement('div')
         const like = document.createElement('img')
         const tempo = document.createElement('p')
-        const btn_trash = document.createElement('button')
-        const img_trash = document.createElement('img')
+        const btn_letra_editar = document.createElement('button')
+        const img_mic_editar = document.createElement('img')
         const btn_editar_musica = document.createElement('button')
         const img_pen = document.createElement('img')
+        const btn_trash = document.createElement('button')
+        const img_trash = document.createElement('img')
 
         //! Classes
         musica_linha.classList.add('musica_linha')
@@ -645,18 +715,22 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
         p_contador.className = 'p_contador_musica_curtida'
         like.className = 'like_musicas_linha'
         views.className = 'Views_Musica_Linha'
-        btn_trash.className = 'btn_trash'
+        span.className = 'Autor_Musica_Linha'
+        btn_letra_editar.className = 'btn_letra_editar'
+        img_mic_editar.className = 'img_mic_editar'
         btn_editar_musica.className = 'btn_editar_musica'
-        img_trash.className = 'img_trash'
         img_pen.className = 'img_pen'
+        btn_trash.className = 'btn_trash'
+        img_trash.className = 'img_trash'
 
         //! Valores
         img.src = Musicas[c].Img
         p.innerText = Musicas[c].Nome
         span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
         p_contador.innerText = c + 1
-        img_trash.src = 'Assets/Imgs/pen.png'
-        img_pen.src = 'Assets/Imgs/trash-bin.png'
+        img_pen.src = 'Assets/Imgs/pen.png'
+        img_trash.src = 'Assets/Imgs/trash-bin.png'
+        img_mic_editar.src = 'Assets/Imgs/Mic.svg'
 
         if(Musicas[c].Views < 10) {
             views.innerText = `0${Musicas[c].Views}`
@@ -685,12 +759,17 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
         texto_musica_linha.appendChild(span)
         primeira_parte_musica_linha.appendChild(texto_musica_linha)
 
+        btn_letra_editar.appendChild(img_mic_editar)
         btn_trash.appendChild(img_trash)
         btn_editar_musica.appendChild(img_pen)
 
         if(Comando == 'Editar') {
-            segunda_parte_musica_linha.appendChild(btn_trash)
+            if(!Array.isArray(Musicas[c].Letra)) {
+                segunda_parte_musica_linha.appendChild(btn_letra_editar)
+            }
+
             segunda_parte_musica_linha.appendChild(btn_editar_musica)
+            segunda_parte_musica_linha.appendChild(btn_trash)
 
         } else {
             segunda_parte_musica_linha.appendChild(like)
@@ -712,12 +791,21 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
             Curtir_Musica_Descurtir(Musicas_Recebidas[c], like)
         })
 
+        btn_letra_editar.addEventListener('click', () => {
+            musica_editando_meu_perfil = Musicas[c]
+            Abrir_Pagina('adicionarletra', `adicionarletra_${Musicas[c].ID}`)
+        })
+
+        btn_editar_musica.addEventListener('click', () => {
+            Abrir_Container_Editar_Musicas(Musicas[c])
+        })
+
         musica_linha.addEventListener('click', (e) => {
             let Musicas_Recebidas = [...Musicas]
             let el = e.target.className
             let qm_chamou = formatarString(Qm_Chamou)
 
-            if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen') {
+            if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar') {
                 Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
                 Listas_Prox.Nome_Album = Qm_Chamou
             }
