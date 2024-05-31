@@ -84,8 +84,7 @@ function Retornar_Musicas_Curtidas(Array_Musicas = undefined, Comando = undefine
     }
 
     if(Comando != 'Não Atualizar') {
-        document.getElementById('p_infos_musicas_curtidas').innerText = `${User.Nome}`
-        document.getElementById('p_infos_musicas_curtidas').innerHTML += ` - <span id="quantidade_musicas_playlist_musicas_curtidas">${Array_Musicas.length} ${name_msuicas}</span>`
+        Atualizar_Infos_Pagina_Musicas_Curtidas('Não Atualizar As Músicas')
     }
 
     Musicas_Curtidas_Array = [...Array_Musicas]
@@ -104,8 +103,56 @@ function Descurtir_Remover_Da_Tela(Musica) {
             m_linha.remove()
         }  
     })
-
     Atualizar_Likes_Musica(Musica, 'Não Atualizar')
+    Atualizar_Infos_Pagina_Musicas_Curtidas()
+}
+
+function Atualizar_Infos_Pagina_Musicas_Curtidas(Comando='') {
+    if(!Comando.includes('Não Atualizar As Músicas')) {
+        let contador_musicas_linha_curtidas = 0
+        const Local = document.getElementById('container_musicas_curtidas')
+        Local.querySelectorAll('.musica_linha').forEach(m_linha => {
+            contador_musicas_linha_curtidas++
+            m_linha.querySelector('.primeira_parte_musica_linha').querySelector('.p_contador_musica_curtida').innerText = contador_musicas_linha_curtidas
+        })
+    }
+
+    let musicas_curtidas_atualizadas = User.Musicas_Curtidas
+    
+    somarTempos(musicas_curtidas_atualizadas).then((Tempo) => {
+        let resultado = ''
+
+        if(Tempo.Horas > 0) {
+            resultado += `${Tempo.Horas} horas`
+        }
+
+        if(Tempo.Minutos > 0) {
+            if(resultado != '') {
+                resultado += `, ${Tempo.Minutos} min`
+
+            } else {
+                resultado += `${Tempo.Minutos} min`
+            }
+        }
+
+        if(Tempo.Segundos > 0) {
+            if(resultado != '') {
+                resultado += ` e ${Tempo.Segundos} s`
+
+            } else {
+                resultado += `${Tempo.Segundos} s`
+            }
+        }
+
+        let name_msuicas = 'músicas'
+        if(musicas_curtidas_atualizadas.length == 1) {
+            name_msuicas = 'música'
+        }
+
+        const p_infos_musicas_curtidas = document.getElementById('p_infos_musicas_curtidas')
+        p_infos_musicas_curtidas.innerText = `${User.Nome}`
+        p_infos_musicas_curtidas.innerHTML += ` - <span id="quantidade_musicas_playlist_musicas_curtidas">${musicas_curtidas_atualizadas.length} ${name_msuicas}, ${resultado}</span>`
+    })
 }
 
 const icons_like_barra_musica = document.querySelectorAll('.icons_like_barra_musica')

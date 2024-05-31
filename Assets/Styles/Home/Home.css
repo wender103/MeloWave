@@ -1263,7 +1263,7 @@ body main section.Paginas#Pagina_musicascurtidas article#container_header_musica
 }
 body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_infos_header_musicas_curtidas div#container_infos_musicas_curtidas p span {
   font-weight: normal;
-  color: var(--fonte_meio_transparente);
+  color: var(--white_pouco_transparent);
   font-size: 12px;
 }
 body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas {
@@ -1372,7 +1372,7 @@ body main section.Paginas#Pagina_playlistmix article#container_header_playlistmi
 }
 body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_infos_header_playlistmix div#container_infos_playlistmix p span {
   font-weight: normal;
-  color: var(--fonte_meio_transparente);
+  color: var(--white_pouco_transparent);
   font-size: 12px;
 }
 body main section.Paginas#Pagina_playlistmix article#container_header_playlistmix div#container_headers_btns_playlistmix {

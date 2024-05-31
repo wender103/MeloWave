@@ -70,6 +70,7 @@ function Voltar_Editar_Letra() {
     array_tempo_letra_sincronizar = []
     array_historico_keys_add_letra = []
     Pausar()
+    Volume(Volume_Antigo, input_volume_pc)
 }
 
 //! Sincronizar
@@ -121,13 +122,18 @@ const Texto_Info_Add_Letra = `<h1>🎉 Bem-vindo ao Tutorial de Sincronização 
 `
 
 
-function Iniciar_Sincronizar_Letra() {
-    if(info_add_letra.Visto == true) {
+function Iniciar_Sincronizar_Letra(Iniciar_Sem_Perguntar = false) {
+    if(info_add_letra.Visto == true || Iniciar_Sem_Perguntar) {
         container_btn_comecar_sincronizar_letra.style.bottom = '-100vh'
         container_btns_add_letra_segunda_parte.style.bottom = '30px'
         adicionando_letra_na_musica = true
     
         Contagem_Regressiva()
+        Volume_Antigo = Volume_Atual
+
+        if(Volume_Antigo < 20) {
+            Volume(100, input_volume_pc)
+        }
 
     } else if(info_add_letra.Visto == false || info_add_letra == null) {
         Notificar_Infos(Texto_Info_Add_Letra, 'Informação, Confirmar', 'Entendi').then(()=> {
@@ -139,6 +145,11 @@ function Iniciar_Sincronizar_Letra() {
             adicionando_letra_na_musica = true
         
             Contagem_Regressiva()
+            Volume_Antigo = Volume_Atual
+
+            if(Volume_Antigo < 20) {
+                Volume(100, input_volume_pc)
+            }
         })
     }
 }
@@ -153,7 +164,7 @@ btn_iniciar_sincronizar.addEventListener('keydown', (event) => {
 
 const container_contagem_regressiva_add_letra = document.getElementById('container_contagem_regressiva_add_letra')
 const h1_contagem_regressiva_add_letra = document.getElementById('h1_contagem_regressiva_add_letra')
-let volume_antigo = 100
+let Volume_Antigo = Volume_Atual
 function Contagem_Regressiva(Comando = 'Tocar') {
     return new Promise((resolve, reject) => {
         let contador = 3
@@ -175,12 +186,6 @@ function Contagem_Regressiva(Comando = 'Tocar') {
 
                     if(Comando == 'Tocar') {
                         setTimeout(() => {
-                            volume_antigo = Volume_Atual
-
-                            if(volume_antigo < 20) {
-                                Volume(100)
-                            }
-
                             Tocar_Musica([musica_editando_meu_perfil], musica_editando_meu_perfil, 'Não Ativar Música, Pausar Ao Finalizar', `adicionarletra${musica_editando_meu_perfil.ID}`, 'adicionarletra')
 
                             resolve(true)
@@ -235,7 +240,7 @@ function Destacar_linhas_Sincronizar() {
         } catch{}
         
         linha_atual_sincronizar++
-        if (linha_atual_sincronizar > linhas.length) {
+        if (linha_atual_sincronizar >= linhas.length) {
             bnt_salvar_letra.classList.remove('btn_bloqueado')
             pode_salvar_letra = true
         } else {
@@ -261,7 +266,14 @@ let array_historico_keys_add_letra = []
 function Voltar_Uma_Linha() {
     let linhas = preElemento.innerText.split('\n')
 
-    if(array_historico_keys_add_letra[array_historico_keys_add_letra.length - 1] == 'Shift' && linhas[linha_atual_sincronizar - 2].trim() == '') {
+    if(array_tempo_letra_sincronizar.length <= 1) {
+        linha_atual_sincronizar = -1
+        array_historico_keys_add_letra = []
+        array_tempo_letra_sincronizar = []
+        Pausar()
+        Iniciar_Sincronizar_Letra(true)
+
+    } else if(array_historico_keys_add_letra[array_historico_keys_add_letra.length - 1] == 'Shift' && linhas[linha_atual_sincronizar - 2].trim() == '') {
         linha_atual_sincronizar = linha_atual_sincronizar - 3
         array_tempo_letra_sincronizar.pop()
         array_tempo_letra_sincronizar.pop()
@@ -319,7 +331,6 @@ function Avancar_Uma_Linha(Key_Press) {
 
 document.addEventListener('keydown', (key) => {
     if(adicionando_letra_na_musica) {
-        console.log(key.key);
 
         if(key.key == 'Enter') {
             Avancar_Uma_Linha('Enter')
@@ -360,6 +371,7 @@ function Salvar_Letra() {
                             db.collection('Musicas').doc(Musicas_firebase.id).update({Musicas: TodasMusicas}).then(() => {
                                 db.collection('Users').doc(User.ID).update({ Loja: User.Loja }).then(() => {
                                     Notificar_Infos(`Parabéns! 🎉 Você adicionou uma nova letra de música 🎶 e ganhou ${pontos} pontos na sua conta! ✨ Esses pontos poderão ser trocados por brindes na loja 🛍️ futuramente. Continue assim! 🏆🙌`, 'Emojis:💸, 🏆, 🙌, 🛍️')
+                                    Volume(Volume_Antigo, input_volume_pc)
                                     Atualizar_Infos_Perfil_Loja()
                                     Fechar_Add_Letra()
                                 })

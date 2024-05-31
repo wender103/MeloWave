@@ -592,13 +592,16 @@ function removerPalavras(palavras, texto) {
 
 //! Vai remover a palavra só
 function removerPalavrasSozinha(palavras, texto) {
+    // Cria um conjunto de expressões regulares para corresponder as palavras variáveis
+    const regexes = palavras.map(palavra => new RegExp(`\\[${palavra}\\s*\\d*\\]`, 'i'));
+    
     // Divide o texto em linhas
     const linhas = texto.split('\n');
     
     // Percorre cada linha e aplica as regras de remoção
     const linhasFiltradas = linhas.map((linha, index, arr) => {
         const linhaTrim = linha.trim();
-        if (palavras.includes(linhaTrim)) {
+        if (regexes.some(regex => regex.test(linhaTrim))) {
             const linhaAnterior = arr[index - 1] && arr[index - 1].trim();
             const linhaSeguinte = arr[index + 1] && arr[index + 1].trim();
             
@@ -615,4 +618,29 @@ function removerPalavrasSozinha(palavras, texto) {
     const textoFiltrado = linhasFiltradas.join('\n');
     
     return textoFiltrado;
+}
+
+//! Vai somar os tempos do audios
+async function somarTempos(Musicas) {
+    let totalSegundos = 0
+  
+    for (let musica of Musicas) {
+      const audio = new Audio(musica.Audio)
+      await new Promise((resolve) => {
+        audio.addEventListener('loadedmetadata', () => {
+          totalSegundos += audio.duration
+          resolve()
+        })
+      })
+    }
+  
+    let horas = Math.floor(totalSegundos / 3600)
+    let minutos = Math.floor((totalSegundos % 3600) / 60)
+    let segundos = Math.floor(totalSegundos % 3600 % 60)
+  
+    return {
+      Horas: horas,
+      Minutos: minutos,
+      Segundos: segundos
+    }
 }

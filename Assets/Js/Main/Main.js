@@ -316,8 +316,8 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou) {
     
             //! Vai adicionar a view a música
             if(!adicionar_view_musica && tmp_ouvindo_musica > 80) {
-                console.log(currentTimeInSeconds)
-                console.log('View adicionada')
+                // console.log(currentTimeInSeconds)
+                // console.log('View adicionada')
                 adicionar_view_musica = true
     
                 // Adicionar_View_Musica(MusicaAtual)
@@ -483,7 +483,6 @@ function Play() {
 
 let prox_ativo = false
 function Proxima_Musica(Chamado_Por) {
-    console.log('Poroxjaiasdf');
     if(!prox_ativo && !repetir_musicas || !prox_ativo && Chamado_Por != 'fim_do_audio') {
         prox_ativo = true
 
@@ -614,6 +613,8 @@ input_volume_pc.onmouseleave = function() {
 }
 
 function Volume(volume = 0, input = undefined) {
+    volume = parseInt(volume)
+
     let volume_porcentagem = volume / 100
     //? Vai mudar o volume de acordo com o input
     audio_player.volume = volume_porcentagem
@@ -626,6 +627,8 @@ function Volume(volume = 0, input = undefined) {
     if(volume > 0) {
         Audio_Mutado = false
     } 
+
+    Volume_Atual = parseInt(volume)
     
     let img_icone_som
     if(volume > 0 && volume < 50) {

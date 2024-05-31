@@ -217,7 +217,6 @@ function Adicionar_a_Fila(ID) {
 
 function Remover_Da_Fila(Modo, ID) {
     if (Modo == 'Fila Próximas') {
-        console.log('Caiu no prox');
         for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
             if(Listas_Prox.Lista_Musicas[c].ID == ID) {
                 Animacao_Adicionando_Lista('Remover Próximas', c)
@@ -225,7 +224,6 @@ function Remover_Da_Fila(Modo, ID) {
             }
         }
     } else if (Modo == 'Fila a Seguir') {
-        console.log('caiu no a seguir');
         for (let c = 0; c < Listas_Prox.A_Seguir.length; c++) {
             if(Listas_Prox.A_Seguir[c].ID == ID) {
                 Animacao_Adicionando_Lista('Remover a Seguir', c)
