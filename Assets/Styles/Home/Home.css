@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Khmer&display=swap");
 :root {
   --fonte_inter: "Inter", sans-serif;
@@ -47,6 +46,52 @@ button {
 .btn_bloqueado {
   cursor: not-allowed !important;
   color: var(--fonte_transparente) !important;
+}
+
+div.div_container_perfil_usuario {
+  width: 160px;
+  min-width: 150px;
+  height: 245px;
+  border-radius: 8px;
+  background-color: var(--cor_qse_transparente_background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 10px;
+  color: var(--white);
+}
+div.div_container_perfil_usuario div.div_container_img {
+  width: 95%;
+  height: 57%;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: 2px;
+}
+div.div_container_perfil_usuario div.div_container_img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center;
+  object-position: center;
+}
+div.div_container_perfil_usuario div.div_container_texto {
+  width: 100%;
+  height: 43%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+}
+div.div_container_perfil_usuario div.div_container_texto p {
+  font-size: 1rem;
+  font-weight: bold;
+}
+div.div_container_perfil_usuario div.div_container_texto span {
+  font-size: 0.9rem;
+  color: var(--fonte_meio_transparente);
 }
 
 div.musica_linha {
@@ -954,6 +999,11 @@ body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado se
 body main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte2_melhor_resultado article#musicas_linha_melhor_resultado div.musica_linha:hover {
   background-color: var(--black_transparent);
 }
+body main section.Paginas#Pagina_pesquisar section#container_perfis {
+  width: 100%;
+  overflow: hidden;
+  gap: 12px;
+}
 body main section.Paginas#Pagina_pesquisar div#pesquisa_nao_encontrada {
   width: 70%;
   position: absolute;
@@ -1703,6 +1753,98 @@ body main section.Paginas#Pagina_loja p {
   max-width: 450px;
   font-size: 1.1em;
 }
+body main section.Paginas#Pagina_perfil article#container_header_perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#contaier_infos_e_img_perfil {
+  width: 100%;
+  display: flex;
+  align-items: end;
+  gap: 20px;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#contaier_infos_e_img_perfil div#container_img_perfil {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  background-color: var(--black_transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#contaier_infos_e_img_perfil div#container_img_perfil:hover > div#container_img_editar_foto_perfil {
+  opacity: 1;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#contaier_infos_e_img_perfil div#container_img_perfil img {
+  width: 50%;
+  height: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#contaier_infos_e_img_perfil div#container_img_perfil img.foto_de_perfil {
+  width: 100%;
+  height: 100%;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#contaier_infos_e_img_perfil div#container_infos_perfil {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--white);
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#contaier_infos_e_img_perfil div#container_infos_perfil p, body main section.Paginas#Pagina_perfil article#container_header_perfil div#contaier_infos_e_img_perfil div#container_infos_perfil span {
+  font-size: 12px;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#contaier_infos_e_img_perfil div#container_infos_perfil span#numero_seguidores_perfil span#quantidade_musicas_perfil {
+  color: var(--white_pouco_transparent);
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#contaier_infos_e_img_perfil div#container_infos_perfil h1 {
+  margin: 0;
+  font-size: 4vw;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#container_btns_perfil {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 31px;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#container_btns_perfil div#container_play_perfil {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#container_btns_perfil div#container_play_perfil img {
+  width: 68px;
+  height: 68px;
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil div#container_btns_perfil div#container_pesquisar_musicas_perfil {
+  display: flex;
+  height: 32px;
+  background-color: var(--cor_qse_transparente_background);
+}
+body main section.Paginas#Pagina_perfil article#container_header_perfil hr {
+  border-color: rgba(180, 180, 180, 0.24);
+  margin: 10px 0;
+}
+body main section.Paginas#Pagina_perfil h1 {
+  margin-top: 60px;
+}
+body main section.Paginas#Pagina_perfil article#container_musicas_perfil {
+  width: 100%;
+  margin: 0 auto;
+  flex-direction: column;
+  padding-bottom: 20px;
+}
+body main section.Paginas#Pagina_perfil article#container_musicas_perfil div.musica_linha {
+  background-color: transparent;
+}
+body main section.Paginas#Pagina_perfil article#container_musicas_perfil div.musica_linha:hover {
+  background-color: var(--black_transparent);
+}
 body div#container_editar_musica {
   width: 100%;
   height: 100vh;
@@ -1768,6 +1910,37 @@ body div#container_editar_musica div#container_conteudo_editar_musica div#contai
   background-color: var(--padrao15);
   border: none;
   text-align: center;
+}
+body #container_img_perfil_zoom {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--background_black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+body #container_img_perfil_zoom.active {
+  opacity: 1;
+}
+body #container_img_perfil_zoom img#img_perfil_zoom {
+  width: 95%;
+  max-width: 600px;
+  height: 95vh;
+  max-height: 600px;
+  border-radius: 8px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transform: scale(0);
+  transition: transform 0.5s ease;
+}
+body #container_img_perfil_zoom.active img#img_perfil_zoom {
+  transform: scale(1);
 }
 body section#container_fila {
   width: 282px;

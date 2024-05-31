@@ -697,7 +697,7 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
     let soma_ouvintes = 0
     let Musicas = inverterArrayDeMusicas(Musicas_Recebidas)
 
-    if(Comando == 'Não Inverter') {
+    if(Comando.includes('Não Inverter')) {
         Musicas = Musicas_Recebidas
     }
 
@@ -789,7 +789,7 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
             btn_trash.appendChild(img_trash)
             btn_editar_musica.appendChild(img_pen)
     
-            if(Comando == 'Editar') {
+            if(Comando.includes('Editar')) {
                 if(!Array.isArray(Musicas[c].Letra)) {
                     segunda_parte_musica_linha.appendChild(btn_letra_editar)
                 }
@@ -805,7 +805,7 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou
     
             musica_linha.appendChild(primeira_parte_musica_linha)
     
-            if(Qm_Chamou.includes('artista')) {
+            if(Comando.includes('View')) {
                 musica_linha.appendChild(views)
             }
     

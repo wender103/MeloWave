@@ -18,27 +18,39 @@ function Execultar_Funcoes_Ao_Carregar() {
 
         try {
             Retornar_Daily()
-        } catch{}
+        } catch(e){
+            console.warn(e)
+        }
 
         try {
             Retornar_Todas_Secoes()
-        } catch{}
+        } catch(e){
+            console.warn(e)
+        }
 
         try {
             Carreagr_Artistas_Seguindo()
-        } catch{}
+        } catch(e){
+            console.warn(e)
+        }
 
         try {
             Checar_Notificacao_Artista_Seguindo()
-        } catch{}
+        } catch(e){
+            console.warn(e)
+        }
 
         try {
             Carregar_Banimento()
-        } catch{}
+        } catch(e){
+            // console.warn(e)
+        }
 
         try {
             Atualizar_Infos_Perfil_Loja()
-        } catch{}
+        } catch(e){
+            // console.warn(e)
+        }
 
         if(Pagina_Atual.Nome == 'home') {
             if(User.Perfil.Img_Background) {

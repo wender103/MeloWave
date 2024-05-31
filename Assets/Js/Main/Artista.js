@@ -3,7 +3,7 @@ let Id_Paga_Artistas = undefined
 function Abrir_Perfil_Artista(Artista, Musica) {
     Lsita_Musicas_Artista = Pegar_Musicas(Artista, 'Artista').reverse()
     Lsita_Musicas_Artista = Lsita_Musicas_Artista.reverse()
-    Retornar_Musica_Linha(Lsita_Musicas_Artista, document.getElementById('container_musicas_pag_artista'), 'Não Inverter', 'artista')
+    Retornar_Musica_Linha(Lsita_Musicas_Artista, document.getElementById('container_musicas_pag_artista'), 'Não Inverter, View', 'artista')
 
     let musica_escolhida = Musica
     let musica_encontrada = false

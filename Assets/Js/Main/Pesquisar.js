@@ -21,12 +21,12 @@ function Pesquisar() {
 
     if(pesquisa.trim() != '') {
         Pesquisar_Home.style.display = 'none'
+        const pesquisa_formatada = formatarString(pesquisa)
 
         for (let c = 0; c < TodasMusicas.length; c++) {
             const nome_formatado = formatarString(TodasMusicas[c].Nome)
             const autor_formatado = formatarString(TodasMusicas[c].Autor)
             const genero_formatado = formatarString(TodasMusicas[c].Genero)
-            const pesquisa_formatada = formatarString(pesquisa)
 
             //? Pesquisar Por Nome Da Música
             if(pesquisa_formatada.includes(nome_formatado) || nome_formatado.includes(pesquisa_formatada) || pesquisa_formatada.includes(autor_formatado) || autor_formatado.includes(pesquisa_formatada) || pesquisa_formatada.includes(genero_formatado) || genero_formatado.includes(pesquisa_formatada)) {
@@ -38,7 +38,16 @@ function Pesquisar() {
             if(pesquisa_formatada.includes(autor_formatado) || autor_formatado.includes(pesquisa_formatada)) {
                 pesquisa_encotrada = true
                 array_artistas_pesquisa.push(TodasMusicas[c])
-            } 
+            }
+
+        }
+        
+        for (let c = 0; c < Todos_Usuarios.length; c++) {       
+            let nome_user_formatado = formatarString(Todos_Usuarios[c].Nome)
+            if(pesquisa_formatada.includes(nome_user_formatado) || nome_user_formatado.includes(pesquisa_formatada)) {
+                array_perfis_pesquisa.push(Todos_Usuarios[c])
+                pesquisa_encotrada = true
+            }
         }
 
         if(pesquisa_encotrada) {
@@ -362,10 +371,11 @@ function Retornar_Todas_Secoes() {
     Todos_Os_Generos = ordenarNomesPorFrequencia(Todos_Os_Generos)
     Todos_Os_Generos.sort()
 
+    
     for (let c = 0; c < Todos_Os_Generos.length; c++) {
         let musica_encontrada = false
         for (let b = 0; b < TodasMusicas.length; b++) {
-            if(!musica_encontrada && TodasMusicas.Estado == 'Ativo') {
+            if(!musica_encontrada && TodasMusicas[b].Estado == 'Ativo') {
                 if(TodasMusicas[b].Genero.includes(Todos_Os_Generos[c]) || Todos_Os_Generos[c].includes(TodasMusicas[b].Genero)) {
                     musica_encontrada = true
     
@@ -394,4 +404,39 @@ function Retornar_Todas_Secoes() {
             }
         }
     }
+}
+
+function Retornar_Perfis(Lista, Local) {
+    for (let c = 0; c < Lista.length; c++) {
+        const div_container_perfil_usuario = document.createElement('div')
+        const div_container_img = document.createElement('div')
+        const img = document.createElement('img')
+        const div_container_texto = document.createElement('div')
+        const nome_user = document.createElement('p')
+        const span = document.createElement('span')
+
+        //! Classes
+        div_container_perfil_usuario.className = 'div_container_perfil_usuario'
+        div_container_img.className = 'div_container_img'
+        div_container_texto.className = 'div_container_texto'
+
+        //! Valores
+        nome_user.innerText = Lista[c].Nome
+        span.innerText = 'Perfil'
+        img.src = Lista[c].Perfil.Img_Perfil
+
+        //! AppendChild
+        div_container_img.appendChild(img)
+        div_container_texto.appendChild(span)
+        div_container_texto.appendChild(nome_user)
+        div_container_perfil_usuario.appendChild(div_container_img)
+        div_container_perfil_usuario.appendChild(div_container_texto)
+        Local.querySelector('article').appendChild(div_container_perfil_usuario)
+
+        div_container_perfil_usuario.addEventListener('click', () => {
+            Carregar_Perfil(Lista[c])
+        })
+    }
+
+    Local.style.display = 'block'
 }

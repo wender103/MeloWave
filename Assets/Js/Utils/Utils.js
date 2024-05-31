@@ -114,7 +114,6 @@ function Notificar_Infos(info, comando='', Texto_Btn='Sim!') {
             div_notificacao_infos.innerHTML = info
             div_notificacao_infos.style.display = 'block'
             texto_notificacao_infos.style.display = 'none'
-            console.log('caiu no pre');
 
         } else {
             notificacao_infos.classList.remove('Informacao')
@@ -122,7 +121,6 @@ function Notificar_Infos(info, comando='', Texto_Btn='Sim!') {
             texto_notificacao_infos.innerHTML = info
             div_notificacao_infos.style.display = 'none'
             texto_notificacao_infos.style.display = 'block'
-            console.log('caiu no paragrafo')
         }
 
         document.getElementById('container_notificacao_infos').style.display = 'flex'
@@ -136,7 +134,6 @@ function Notificar_Infos(info, comando='', Texto_Btn='Sim!') {
         
         if(comando.includes('Emojis')) {
             let emojis = Separar_Por_Virgula(comando.replace('Emojis:', ''))
-            console.log(emojis)
             startEmojiRain(emojis)
         }
 
@@ -392,7 +389,7 @@ function posicionarElemento(event, elemento, array_classes=array_locais_opcoes) 
     })
 }
 
-//! Vai ordenar os nomes que aparecem mais dos que aparencem menos
+//! Vai ordenar dos nomes que aparecem mais para os que aparencem menos
 function ordenarNomesPorFrequencia(nomes) {
     // Cria um objeto para contar a frequência de cada nome
     const frequencia = {};

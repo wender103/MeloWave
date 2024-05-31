@@ -141,6 +141,7 @@ function Logar_Na_Conta() {
                         Perfil: {
                             Img_Perfil: val.photoURL,
                             Img_Background: null,
+                            Img_Email: val.photoURL,
                             Ouvintes: 0,
                             Horas_Ouvindo: 0,
                             Data_Criacao_Conta: getDataAtual()

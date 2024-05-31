@@ -773,6 +773,12 @@ body {
                         }
 
                     }
+
+                    &#container_perfis {
+                        width: 100%;
+                        overflow: hidden;
+                        gap: 12px; 
+                    }
                 }
 
                 div#pesquisa_nao_encontrada {
@@ -1659,6 +1665,121 @@ body {
                     font-size: 1.1em;
                 }
             }
+
+            &#Pagina_perfil {
+                article#container_header_perfil {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 22px;
+
+                    div#contaier_infos_e_img_perfil {
+                        width: 100%;
+                        display: flex;
+                        align-items: end;
+                        gap: 20px;
+    
+                        div#container_img_perfil {
+                            width: 200px;
+                            height: 200px;
+                            border-radius: 8px;
+                            background-color: var(--black_transparent);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            overflow: hidden;
+                            cursor: pointer;
+                            position: relative;
+
+                            &:hover > div#container_img_editar_foto_perfil {
+                                opacity: 1;
+                            }
+    
+                            img {
+                                width: 50%;
+                                height: 50%;
+                                object-fit: cover;
+
+                                &.foto_de_perfil {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+                            }
+                        }
+    
+                        div#container_infos_perfil {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 5px;
+                            color: var(--white);
+    
+                            p, span {
+                                font-size: 12px;
+                            }
+
+                            span#numero_seguidores_perfil {
+                                
+                                span#quantidade_musicas_perfil {
+                                    color: var(--white_pouco_transparent);
+                                }
+                            }
+    
+                            h1 {
+                                margin: 0;
+                                font-size: 4vw;
+                            }
+                        }
+                    }
+
+                    div#container_btns_perfil {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-top: 31px;
+
+                        div#container_play_perfil {
+                            display: flex;
+                            align-items: center;
+                            gap: 17px;
+    
+                            img {
+                                width: 68px;
+                                height: 68px;
+                                cursor: pointer;
+                            }
+                        }
+
+                        div#container_pesquisar_musicas_perfil {
+                            display: flex;
+                            height: 32px;
+                            background-color: var(--cor_qse_transparente_background);
+                        }
+                    }
+
+                    hr {
+                        border-color: rgba(180, 180, 180, 0.24);
+                        margin: 10px 0;
+                    }
+                }
+
+                h1 {
+                    margin-top: 60px;
+                }
+
+                article#container_musicas_perfil {
+                    width: 100%;
+                    margin: 0 auto;
+                    flex-direction: column;
+                    padding-bottom: 20px;
+
+                    div.musica_linha {
+                        background-color: transparent;
+
+                        &:hover {
+                            background-color: var(--black_transparent);
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -1735,6 +1856,40 @@ body {
         }
     }
     
+    #container_img_perfil_zoom {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: var(--background_black);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 4;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    
+        &.active {
+            opacity: 1;
+        }
+    
+        img#img_perfil_zoom {
+            width: 95%;
+            max-width: 600px;
+            height: 95vh;
+            max-height: 600px;
+            border-radius: 8px;
+            object-fit: cover;
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+    
+        &.active img#img_perfil_zoom {
+            transform: scale(1);
+        }
+    }
+
     //! Section Fila
     section#container_fila {
         width: 282px;
