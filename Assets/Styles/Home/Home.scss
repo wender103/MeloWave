@@ -1633,12 +1633,15 @@ body {
             }
 
             &#Pagina_loja {
-                display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 text-align: center;
                 color: var(--white);
+
+                &.Pagina_Aberta {
+                    display: flex;
+                }
 
                 h1 {
                     font-size: 5em;
@@ -2317,10 +2320,17 @@ body {
         display: none;
         align-items: center;
         justify-content: center;
+        overflow: auto;
 
         article {
             width: 95%;
             max-width: 450px;
+
+            &.Informacao {
+                height: 100vh;
+                max-height: 850px;
+            }
+            
             padding: 20px;
             // background-color: var(--padrao4);
             background-color: #000000a2;
@@ -2330,6 +2340,77 @@ body {
             flex-direction: column;
             align-items: center; 
             justify-content: center;
+            overflow: hidden;
+
+            pre#pre_notificacao_infos {
+                width: 100%;
+                display: none;
+                font-family: var(--fonte_inter);
+                color: var(--white);
+                overflow: auto;
+                
+                ul {
+                    li {
+                        list-style: disc !important;
+                    }
+                }
+            }
+
+            #div_notificacao_infos {
+                width: 100%;
+                display: none;
+                font-family: var(--fonte_inter);
+                color: var(--white);
+                background-color: var(--background-color); /* Ajuste a cor de fundo conforme necessário */
+                white-space: pre-wrap; /* Faz as linhas quebrarem, mantendo os espaços em branco */
+                word-wrap: break-word; /* Quebra as palavras longas para evitar a rolagem horizontal */
+                padding: 10px; /* Espaçamento interno */
+                // line-height: 1.5; /* Espaçamento entre linhas */
+                overflow: auto; /* Permite rolagem se o conteúdo for maior que a div */
+
+                h1 {
+                    font-size: 25px;
+                    margin-bottom: 30px !important;
+                }
+
+                h1 {
+                    text-align: center;
+                }
+
+                h3 {
+                    margin-left: 15px;
+                }
+            
+                & h1, 
+                & h2, 
+                & h3 {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    // line-height: 1.2; /* Ajusta a altura da linha dos títulos */
+                }
+                
+                & p, 
+                & ul, 
+                & li {
+                    margin-top: 0;
+                    margin-bottom: 0;
+                    // line-height: 1.5; /* Ajusta a altura da linha */
+                }
+                
+                & ul {
+                    padding-left: 20px; /* Espaçamento à esquerda das listas */
+                    list-style: disc;
+
+                    &.li_primeira_parte_infos_add_letra {
+                        margin-left: 25px;
+                    }
+                }
+                
+                & ul li {
+                    list-style: disc; /* Marcador de lista padrão */
+                    margin-bottom: 5px; /* Espaçamento entre os itens da lista */
+                }              
+            }
 
             p {
                 text-align: justify;

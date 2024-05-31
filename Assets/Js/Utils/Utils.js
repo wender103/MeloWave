@@ -102,17 +102,39 @@ function Confetes() {
 let comemorar = false
 function Notificar_Infos(info, comando='', Texto_Btn='Sim!') {
     return new Promise((resolve) => {
-        document.getElementById('texto_notificacao_infos').innerText = info
-        document.getElementById('container_notificacao_infos').style.display = 'flex'
+        const div_notificacao_infos = document.getElementById('div_notificacao_infos')
+        const texto_notificacao_infos = document.getElementById('texto_notificacao_infos')
         const btn_confirmar_notificacao_infos = document.getElementById('btn_confirmar_notificacao_infos')
-        btn_confirmar_notificacao_infos.innerText = Texto_Btn
         const btn_fechar_notificacao_infos = document.getElementById('btn_fechar_notificacao_infos')
+        const notificacao_infos = document.getElementById('notificacao_infos')
 
-        if (comando == 'Comemorar') {
+        if(comando.includes('Informação')) {
+            notificacao_infos.classList.add('Informacao')
+            notificacao_infos.style.maxWidth = '800px'
+            div_notificacao_infos.innerHTML = info
+            div_notificacao_infos.style.display = 'block'
+            texto_notificacao_infos.style.display = 'none'
+            console.log('caiu no pre');
+
+        } else {
+            notificacao_infos.classList.remove('Informacao')
+            notificacao_infos.style.maxWidth = '450px'
+            texto_notificacao_infos.innerHTML = info
+            div_notificacao_infos.style.display = 'none'
+            texto_notificacao_infos.style.display = 'block'
+            console.log('caiu no paragrafo')
+        }
+
+        document.getElementById('container_notificacao_infos').style.display = 'flex'
+        btn_confirmar_notificacao_infos.innerText = Texto_Btn
+
+        if (comando.includes('Comemorar')) {
             comemorar = true
             Comemorar()
 
-        } else if(comando.includes('Emojis')) {
+        }
+        
+        if(comando.includes('Emojis')) {
             let emojis = Separar_Por_Virgula(comando.replace('Emojis:', ''))
             console.log(emojis)
             startEmojiRain(emojis)

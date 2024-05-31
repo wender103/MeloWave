@@ -6,6 +6,7 @@ const Btn_Proximo_aAdd_Letra = document.getElementById('Btn_Proximo_aAdd_Letra')
 let adicionando_letra_na_musica = false
 let pode_salvar_letra = false
 const lista_elementos_mudar_cor_letra = [document.querySelector('main'), document.getElementById('container_fila'), document.getElementById('container_barra_musica')]
+const lista_palavras_remover_add_letra = ['verse', 'pre-chorus', 'chorus', 'hook', 'verse', 'pre-chorus', 'outro', 'intro', 'bridge']
 
 let linha_atual_sincronizar = 0 
 let array_tempo_letra_sincronizar = []
@@ -36,8 +37,7 @@ function Fechar_Add_Letra(Comando='') {
 }
 
 function Checar_Proximo_Add_Letra() {
-    const lista_palavras_remover = ['verse', 'pre-chorus', 'chorus', 'hook', 'verse', 'pre-chorus', 'outro']
-    text_area_add_letra.value = removerPalavrasSozinha(lista_palavras_remover, text_area_add_letra.value)
+    text_area_add_letra.value = removerPalavrasSozinha(lista_palavras_remover_add_letra, text_area_add_letra.value)
 
     if(text_area_add_letra.value.trim() != '') {
         Btn_Proximo_aAdd_Letra.classList.remove('btn_bloqueado')
@@ -76,12 +76,71 @@ function Voltar_Editar_Letra() {
 const container_btn_comecar_sincronizar_letra = document.getElementById('container_btn_comecar_sincronizar_letra')
 const btn_iniciar_sincronizar = document.getElementById('btn_iniciar_sincronizar')
 
-function Iniciar_Sincronizar_Letra() {
-    container_btn_comecar_sincronizar_letra.style.bottom = '-100vh'
-    container_btns_add_letra_segunda_parte.style.bottom = '30px'
-    adicionando_letra_na_musica = true
+let info_add_letra = null
+if(localStorage.getItem('Infos_Add_Letra')) {
+    info_add_letra = JSON.parse(localStorage.getItem('Infos_Add_Letra'))
+} else {
+    info_add_letra = {
+        Visto: false,
+    }
+    localStorage.setItem('Infos_Add_Letra', JSON.stringify(info_add_letra))
+}
 
-    Contagem_Regressiva()
+const Texto_Info_Add_Letra = `<h1>🎉 Bem-vindo ao Tutorial de Sincronização de Letras! 🎉</h1>
+<h3>🔑 Tecla Enter: Avançar uma Linha</h3>
+<ul class="li_primeira_parte_infos_add_letra">
+  <li><strong>Quando usar?</strong> Use a tecla <strong>Enter</strong> para avançar uma linha da letra quando a música chegar na próxima linha.</li>
+  <li><strong>Como funciona?</strong> Cada vez que você pressionar <strong>Enter</strong>, a linha atual será destacada e você passará para a próxima linha.</li>
+  <li><strong>Exemplo:</strong> Quando o cantor termina de cantar uma linha e começa a próxima, pressione <strong>Enter</strong> para acompanhar.</li>
+</ul>
+<h3>🔑 Tecla Shift: Avançar Condicionalmente</h3>
+<ul class="li_primeira_parte_infos_add_letra">
+  <li><strong>Quando usar?</strong> Use a tecla <strong>Shift</strong> quando você quiser avançar uma linha, mas com uma condição especial.</li>
+  <li><strong>Como funciona?</strong> Pressionar <strong>Shift</strong> faz você avançar uma linha, mas se a próxima linha estiver vazia, você avança duas linhas.</li>
+  <li><strong>Exemplo:</strong> Se a letra tem um espaço em branco entre os versos e você quer pular direto para a próxima linha com texto, pressione <strong>Shift</strong>.</li>
+</ul>
+<h3>🔑 Tecla Backspace: Retroceder uma Linha</h3>
+<ul class="li_primeira_parte_infos_add_letra">
+  <li><strong>Quando usar?</strong> Use a tecla <strong>Backspace</strong> para corrigir um erro de sincronização, retrocedendo uma linha.</li>
+  <li><strong>Como funciona?</strong> Pressionar <strong>Backspace</strong> faz você voltar uma linha, permitindo ajustar a sincronização.</li>
+  <li><strong>Exemplo:</strong> Se você avançou acidentalmente para a próxima linha antes da hora, pressione <strong>Backspace</strong> para voltar e corrigir.</li>
+</ul>
+<h2>Resumo Rápido</h2>
+<ul>
+  <li><strong>Enter</strong> ➡️ Avança uma linha.</li>
+  <li><strong>Shift</strong> ⬇️ Avança uma linha, ou duas se a próxima estiver vazia.</li>
+  <li><strong>Backspace</strong> ⬅️ Retrocede uma linha.</li>
+</ul>
+<h2>Dicas de Uso</h2>
+<ul>
+  <li><strong>Pratique Antes:</strong> Tente usar as teclas algumas vezes para pegar o jeito antes de sincronizar com a música real.</li>
+  <li><strong>Fique Atento ao Ritmo:</strong> Preste atenção no ritmo da música e nas mudanças de linha para manter a sincronização perfeita.</li>
+  <li><strong>Ajuste Sempre que Precisar:</strong> Não tenha medo de usar o <strong>Backspace</strong> se errar. É melhor corrigir do que deixar fora de sincronia.</li>
+</ul>
+<p>Pronto! Agora você está preparado para sincronizar a letra da música como um profissional 🎶✨. Se divirta e qualquer dúvida, estamos aqui para ajudar! 🎵😊</p>
+`
+
+
+function Iniciar_Sincronizar_Letra() {
+    if(info_add_letra.Visto == true) {
+        container_btn_comecar_sincronizar_letra.style.bottom = '-100vh'
+        container_btns_add_letra_segunda_parte.style.bottom = '30px'
+        adicionando_letra_na_musica = true
+    
+        Contagem_Regressiva()
+
+    } else if(info_add_letra.Visto == false || info_add_letra == null) {
+        Notificar_Infos(Texto_Info_Add_Letra, 'Informação, Confirmar', 'Entendi').then(()=> {
+            info_add_letra.Visto = true
+            localStorage.setItem('Infos_Add_Letra', JSON.stringify(info_add_letra))
+
+            container_btn_comecar_sincronizar_letra.style.bottom = '-100vh'
+            container_btns_add_letra_segunda_parte.style.bottom = '30px'
+            adicionando_letra_na_musica = true
+        
+            Contagem_Regressiva()
+        })
+    }
 }
 
 btn_iniciar_sincronizar.addEventListener('click', () => {
@@ -295,13 +354,14 @@ function Salvar_Letra() {
                                 Data: getDataAtual()
                             }
 
-                            User.Loja.Pontos += Pontos_Por_Atividade.Adicionar_Letra
+                            let pontos = text_area_add_letra.value.split('\n').length
+                            User.Loja.Pontos += pontos
 
                             db.collection('Musicas').doc(Musicas_firebase.id).update({Musicas: TodasMusicas}).then(() => {
                                 db.collection('Users').doc(User.ID).update({ Loja: User.Loja }).then(() => {
-                                    Fechar_Add_Letra()
-                                    Notificar_Infos(`Parabéns! 🎉 Você adicionou uma nova letra de música 🎶 e ganhou ${Pontos_Por_Atividade.Adicionar_Letra} pontos na sua conta! ✨ Esses pontos poderão ser trocados por brindes na loja 🛍️ futuramente. Continue assim! 🏆🙌`, 'Emojis:💸, 🏆, 🙌, 🛍️')
+                                    Notificar_Infos(`Parabéns! 🎉 Você adicionou uma nova letra de música 🎶 e ganhou ${pontos} pontos na sua conta! ✨ Esses pontos poderão ser trocados por brindes na loja 🛍️ futuramente. Continue assim! 🏆🙌`, 'Emojis:💸, 🏆, 🙌, 🛍️')
                                     Atualizar_Infos_Perfil_Loja()
+                                    Fechar_Add_Letra()
                                 })
                             })
 

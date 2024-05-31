@@ -1680,12 +1680,14 @@ body main section.Paginas#Pagina_verletra article#container_letra_verletra pre h
   font-size: 1.5rem;
 }
 body main section.Paginas#Pagina_loja {
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: var(--white);
+}
+body main section.Paginas#Pagina_loja.Pagina_Aberta {
+  display: flex;
 }
 body main section.Paginas#Pagina_loja h1 {
   font-size: 5em;
@@ -2264,6 +2266,7 @@ body section#container_notificacao_infos {
   display: none;
   align-items: center;
   justify-content: center;
+  overflow: auto;
 }
 body section#container_notificacao_infos article {
   width: 95%;
@@ -2276,6 +2279,61 @@ body section#container_notificacao_infos article {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+body section#container_notificacao_infos article.Informacao {
+  height: 100vh;
+  max-height: 850px;
+}
+body section#container_notificacao_infos article pre#pre_notificacao_infos {
+  width: 100%;
+  display: none;
+  font-family: var(--fonte_inter);
+  color: var(--white);
+  overflow: auto;
+}
+body section#container_notificacao_infos article pre#pre_notificacao_infos ul li {
+  list-style: disc !important;
+}
+body section#container_notificacao_infos article #div_notificacao_infos {
+  width: 100%;
+  display: none;
+  font-family: var(--fonte_inter);
+  color: var(--white);
+  background-color: var(--background-color); /* Ajuste a cor de fundo conforme necessário */
+  white-space: pre-wrap; /* Faz as linhas quebrarem, mantendo os espaços em branco */
+  word-wrap: break-word; /* Quebra as palavras longas para evitar a rolagem horizontal */
+  padding: 10px; /* Espaçamento interno */
+  overflow: auto; /* Permite rolagem se o conteúdo for maior que a div */
+}
+body section#container_notificacao_infos article #div_notificacao_infos h1 {
+  font-size: 25px;
+  margin-bottom: 30px !important;
+}
+body section#container_notificacao_infos article #div_notificacao_infos h1 {
+  text-align: center;
+}
+body section#container_notificacao_infos article #div_notificacao_infos h3 {
+  margin-left: 15px;
+}
+body section#container_notificacao_infos article #div_notificacao_infos h1, body section#container_notificacao_infos article #div_notificacao_infos h2, body section#container_notificacao_infos article #div_notificacao_infos h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+body section#container_notificacao_infos article #div_notificacao_infos p, body section#container_notificacao_infos article #div_notificacao_infos ul, body section#container_notificacao_infos article #div_notificacao_infos li {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+body section#container_notificacao_infos article #div_notificacao_infos ul {
+  padding-left: 20px; /* Espaçamento à esquerda das listas */
+  list-style: disc;
+}
+body section#container_notificacao_infos article #div_notificacao_infos ul.li_primeira_parte_infos_add_letra {
+  margin-left: 25px;
+}
+body section#container_notificacao_infos article #div_notificacao_infos ul li {
+  list-style: disc; /* Marcador de lista padrão */
+  margin-bottom: 5px; /* Espaçamento entre os itens da lista */
 }
 body section#container_notificacao_infos article p {
   text-align: justify;

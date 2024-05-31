@@ -1,3 +1,7 @@
+const Pontos_Por_Atividade = {
+    Adicionar_Musica: 50
+}
+
 function Iniciar_Loja(Musica) {
     Abrir_Pagina('loja', `loja_${Musica.ID}`)
 }
