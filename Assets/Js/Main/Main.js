@@ -463,6 +463,7 @@ icone_play_pc.forEach(element => {
     })  
 })
 
+let Musica_Pausada = true
 function Pausar() {
     icone_play_pc.forEach(element => {
         element.src = 'Assets/Imgs/play_pc.svg'
@@ -470,6 +471,9 @@ function Pausar() {
     audio_player.pause()
 
     document.title = 'MeloWave - Home'
+    Musica_Pausada = true
+    btn_pausar_letra_sincronizar.querySelector('img').src = 'Assets/Imgs/botao_play_sem_fundo.png'
+    btn_pausar_letra_sincronizar.title = 'Play'
 }
 
 function Play() {
@@ -479,6 +483,10 @@ function Play() {
     audio_player.play()
 
     document.title = `${Listas_Prox.MusicaAtual.Nome} - ${Listas_Prox.MusicaAtual.Autor}`
+    Musica_Pausada = false
+    btn_pausar_letra_sincronizar.querySelector('img').src = 'Assets/Imgs/pausa_icon_sem_fundo.png'
+    btn_pausar_letra_sincronizar.title = 'Pausar'
+
 }
 
 let prox_ativo = false

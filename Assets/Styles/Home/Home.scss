@@ -1568,6 +1568,12 @@ body {
                             align-items: center;
                             justify-content: center;
 
+                            img {
+                                width: 24px;
+                                height: 24px;
+                                object-fit: contain;
+                            }
+
                             &#btn_up_sincronizar {
                                 img {
                                     transform: rotate(90deg);

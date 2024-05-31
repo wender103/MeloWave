@@ -253,6 +253,19 @@ function Destacar_linhas_Sincronizar() {
     }
 }
 
+const btn_comecar_dnv_letra_sincronizar = document.getElementById('btn_comecar_dnv_letra_sincronizar')
+btn_comecar_dnv_letra_sincronizar.addEventListener('click', () => {
+    linha_atual_sincronizar = -1
+    array_historico_keys_add_letra = []
+    array_tempo_letra_sincronizar = []
+    Pausar()
+    Iniciar_Sincronizar_Letra(true)
+})
+
+btn_comecar_dnv_letra_sincronizar.addEventListener('keydown', (key) => {
+    key.preventDefault()
+})
+
 const btn_up_sincronizar = document.getElementById('btn_up_sincronizar')
 btn_up_sincronizar.addEventListener('click', () => {
     Voltar_Uma_Linha()
@@ -294,6 +307,28 @@ function Voltar_Uma_Linha() {
     })
 
 }
+
+const btn_pausar_letra_sincronizar = document.getElementById('btn_pausar_letra_sincronizar')
+btn_pausar_letra_sincronizar.addEventListener('click', () => {
+    if(!Musica_Pausada) {
+        Pausar()
+    } else {
+        Play()
+    }
+})
+
+btn_pausar_letra_sincronizar.addEventListener('keydown', (key) => {
+    key.preventDefault()
+})
+
+const btn_duplo_down_sincronizar = document.getElementById('btn_duplo_down_sincronizar')
+btn_duplo_down_sincronizar.addEventListener('click', () => {
+    Avancar_Uma_Linha('Shift')
+})
+
+btn_duplo_down_sincronizar.addEventListener('keydown', (key) => {
+    key.preventDefault()
+})
 
 
 const btn_down_sincronizar = document.getElementById('btn_down_sincronizar')

@@ -1633,6 +1633,12 @@ body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra 
   align-items: center;
   justify-content: center;
 }
+body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_btns_add_letra_segunda_parte button img {
+  width: 24px;
+  height: 24px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_btns_add_letra_segunda_parte button#btn_up_sincronizar img {
   transform: rotate(90deg);
 }
