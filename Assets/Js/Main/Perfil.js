@@ -128,10 +128,24 @@ function Atualizar_Perfil(User_Carregar) {
             name_msuicas = 'música'
         }
 
-        numero_seguidores_perfil.innerHTML = `${qtns_seguidores_infos}<span id="quantidade_musicas_perfil">${array_postadas_pelo_user_carregar.length} ${name_msuicas}, ${resultado}</span>`
+        if(qtns_seguidores_infos != '') {
+            numero_seguidores_perfil.innerHTML = `${qtns_seguidores_infos}<span id="quantidade_musicas_perfil">${array_postadas_pelo_user_carregar.length} ${name_msuicas}, ${resultado}</span>`
+        } else {
+            numero_seguidores_perfil.innerHTML = `${qtns_seguidores_infos}<span id="quantidade_musicas_perfil">${array_postadas_pelo_user_carregar.length} ${name_msuicas} ${resultado}</span>`
+        }
     })
+    
+    document.getElementById('container_musicas_perfil').innerHTML = ''
 
-    Retornar_Musica_Linha(array_postadas_pelo_user_carregar, document.getElementById('container_musicas_perfil'), 'View', 'perfil')
+    if(array_postadas_pelo_user_carregar.length <= 0 ) {
+        document.getElementById('h1_postadas_por_perfil').innerText = 'Nehuma música ainda...'
+        document.getElementById('h1_postadas_por_perfil').classList.add('h1_nehuma_musica_perfil')
+    } else {
+        document.getElementById('h1_postadas_por_perfil').classList.remove('h1_nehuma_musica_perfil')
+        document.getElementById('h1_postadas_por_perfil').innerHTML = 'Postadas Por: <span id="nome_user_musicas_postadas_perfil"></span>'
+        document.getElementById('nome_user_musicas_postadas_perfil').innerText = User_Carregar.Nome
+        Retornar_Musica_Linha(array_postadas_pelo_user_carregar, document.getElementById('container_musicas_perfil'), 'View', 'perfil')
+    }
 }
 
 img_foto_perfil.addEventListener('click', () => {

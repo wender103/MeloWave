@@ -1765,6 +1765,15 @@ body {
 
                 h1 {
                     margin-top: 60px;
+
+                    &.h1_nehuma_musica_perfil {
+                        // text-align: center;
+                        color: var(--white_pouco_transparent);
+                    }
+
+                    span#nome_user_musicas_postadas_perfil {
+                        color: var(--verde_azul);
+                    }
                 }
 
                 article#container_musicas_perfil {

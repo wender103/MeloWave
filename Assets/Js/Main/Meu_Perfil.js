@@ -61,7 +61,9 @@ function Carregar_Meu_Perfil() {
 
     document.getElementById('numero_seguidores_meu_perfil').innerText = qtns_seguidores_infos
 
-    Retornar_Musica_Linha(musicas_meu_perfil, document.getElementById('container_musicas_meu_perfil'), 'Editar', 'meuperfil')
+    let new_aray = [...musicas_meu_perfil]
+    new_aray.reverse()
+    Retornar_Musica_Linha(new_aray.reverse(), document.getElementById('container_musicas_meu_perfil'), 'Editar', 'meuperfil')
 }
 
 document.getElementById('img_play_musicas_meu_perfil').addEventListener('click', () => {
@@ -104,7 +106,6 @@ function Adicionar_Nova_img_Meu_Perfil() {
                 if(imgPerfil) {
                     validateImage(link_nova_img_meu_perfil.value)
                     .then(imageInfo => {
-                        console.log(imageInfo)
                         if (imageInfo.isValid && imageInfo.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
                             arrox = imageInfo
     
@@ -139,7 +140,6 @@ function Adicionar_Nova_img_Meu_Perfil() {
                         if(imgBackground) {
                             validateImage(link_novo_background_meu_perfil.value)
                             .then(imgBackground_safe => {
-                                console.log(imgBackground_safe)
                                 if (imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
                                     arrox = imgBackground_safe
     
@@ -311,8 +311,6 @@ function Salvar_Edicao_Musica() {
                                 TodasMusicas[c].Nome = input_nome_musica_sendo_editada.value
                                 TodasMusicas[c].Genero = input_genero_musica_sendo_editada.value
 
-                                console.log(TodasMusicas[c])
-
                                 db.collection('Musicas').doc(Musicas_firebase.id).update({Musicas: TodasMusicas}).then(() => {
                                     Fechar_Container_Editar_Musicas()
                                     Notificar_Infos('Música editada com sucesso! 🎶✅✨🔥🙌', 'Comemorar')
@@ -323,7 +321,6 @@ function Salvar_Edicao_Musica() {
                                     if(element.classList.contains(`Musica_Linha_${musica_editando_meu_perfil.ID}`)) {
                                         const primeira_parte = element.querySelector('.primeira_parte_musica_linha')
                                         const texto_musica_linha = primeira_parte.querySelector('.texto_musica_linha')
-                                        console.log(primeira_parte)
                                         primeira_parte.querySelector('.Img_musica_linha').src = TodasMusicas[c].Img
                                         texto_musica_linha.querySelector('.Nome_musica_linha').innerText = TodasMusicas[c].Nome
                                         texto_musica_linha.querySelector('.Autor_Musica_Linha').innerHTML = ''

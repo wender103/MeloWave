@@ -112,7 +112,6 @@ function Confetes() {
 //! Vai notificar alguma coisa
 let comemorar = false
 function Notificar_Infos(info, comando='', Texto_Btn='Sim!', Link) {
-    console.log(info, comando, Texto_Btn, Link)
     return new Promise((resolve) => {
         const div_notificacao_infos = document.getElementById('div_notificacao_infos')
         const texto_notificacao_infos = document.getElementById('texto_notificacao_infos')
@@ -141,10 +140,7 @@ function Notificar_Infos(info, comando='', Texto_Btn='Sim!', Link) {
             link_notificar_infos.href = Link
 
             if(Texto_Btn != 'Sim!') {
-                console.log('Dentro do if do sim')
-
                 link_notificar_infos.innerText = Texto_Btn
-
             } else {
                 link_notificar_infos.innerText = 'Ver'
             }
@@ -686,7 +682,6 @@ function validateImage(imageUrl) {
     })
     .then(response => response.json())
     .then(result => {
-        console.log(result);
         if (result && result.result && result.result.categories) {
             let safeConfidence = 0;
             const safeCategory = result.result.categories.find(category => category.name.en === 'safe');
@@ -694,11 +689,8 @@ function validateImage(imageUrl) {
                 safeConfidence = safeCategory.confidence;
             }
 
-            console.log(safeConfidence);
-
             const unsafeCategories = ['nudity', 'adult', 'unsafe', 'nsfw', 'underwear']
             const containsUnsafeCategory = result.result.categories.some(category => unsafeCategories.includes(category.name.en));
-            console.log(containsUnsafeCategory)
 
             let safe_maior = true
             let nivel_ban1 = false
