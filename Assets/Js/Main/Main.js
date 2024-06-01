@@ -690,7 +690,11 @@ function inverterArrayDeMusicas(arrayDeMusicas) {
 }
 
 let Array_Musica_Linha = []
-function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando=null, Qm_Chamou = '') {
+function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou = '') {
+    if(Comando == null || Comando == undefined) {
+        Comando = ''
+    }
+
     Array_Musica_Linha = []
     Local.innerHTML = ''
 
