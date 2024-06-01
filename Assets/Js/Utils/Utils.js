@@ -4,7 +4,7 @@ window.addEventListener('resize', () => {
 
 //! Formata a string
 function formatarString(str) {
-    // Remove acentos e caracteres especiais
+    // Remove acentos e caractesres especiais
     str = str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
 
     // Converte para minúsculas
@@ -111,13 +111,15 @@ function Confetes() {
 
 //! Vai notificar alguma coisa
 let comemorar = false
-function Notificar_Infos(info, comando='', Texto_Btn='Sim!') {
+function Notificar_Infos(info, comando='', Texto_Btn='Sim!', Link) {
+    console.log(info, comando, Texto_Btn, Link)
     return new Promise((resolve) => {
         const div_notificacao_infos = document.getElementById('div_notificacao_infos')
         const texto_notificacao_infos = document.getElementById('texto_notificacao_infos')
         const btn_confirmar_notificacao_infos = document.getElementById('btn_confirmar_notificacao_infos')
         const btn_fechar_notificacao_infos = document.getElementById('btn_fechar_notificacao_infos')
         const notificacao_infos = document.getElementById('notificacao_infos')
+        const link_notificar_infos = document.getElementById('link_notificar_infos')
 
         if(comando.includes('Informação')) {
             notificacao_infos.classList.add('Informacao')
@@ -132,6 +134,22 @@ function Notificar_Infos(info, comando='', Texto_Btn='Sim!') {
             texto_notificacao_infos.innerHTML = info
             div_notificacao_infos.style.display = 'none'
             texto_notificacao_infos.style.display = 'block'
+        }
+
+        if(comando.includes('Link')) {
+            link_notificar_infos.style.display = 'block'
+            link_notificar_infos.href = Link
+
+            if(Texto_Btn != 'Sim!') {
+                console.log('Dentro do if do sim')
+
+                link_notificar_infos.innerText = Texto_Btn
+
+            } else {
+                link_notificar_infos.innerText = 'Ver'
+            }
+        } else {
+            link_notificar_infos.style.display = 'none'
         }
 
         document.getElementById('container_notificacao_infos').style.display = 'flex'

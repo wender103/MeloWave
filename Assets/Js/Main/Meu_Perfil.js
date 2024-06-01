@@ -115,7 +115,7 @@ function Adicionar_Nova_img_Meu_Perfil() {
     
                             Notificar_Infos(imageInfo.message, imageInfo.emojis)
                         } else if(!imageInfo.isValid && imageInfo.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
-                            Notificar_Infos(imageInfo.message, 'Confirmar', 'Entendi')
+                            Notificar_Infos(imageInfo.message, 'Link', 'Ver Regras', 'regras.html')
                         } else {
                             Notificar_Infos(imageInfo.message)
                         }
@@ -150,7 +150,8 @@ function Adicionar_Nova_img_Meu_Perfil() {
     
                                     Notificar_Infos(imgBackground_safe.message, imgBackground_safe.emojis)
                                 } else if(!imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
-                                    Notificar_Infos(imgBackground_safe.message, 'Confirmar', 'Entendi')
+                                    Notificar_Infos(imgBackground_safe.message, 'Link', 'Ver Regras', 'regras.html')
+
                                 } else {
                                     Notificar_Infos(imgBackground_safe.message)
                                 }
