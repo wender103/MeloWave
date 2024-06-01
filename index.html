@@ -147,14 +147,14 @@
     <div id="container_add_nova_img_meu_perfil">
         <div id="container2_add_nova_img_meu_perfil">
             <p>Link da img do perfil</p>
-            <input type="text" id="link_nova_img_meu_perfil" placeholder="Link da img 🖼️" autocomplete="off">
+            <input type="text" id="link_nova_img_meu_perfil" placeholder="Link da img 🖼️" autocomplete="off" oninput="Checar_Adicionar_Nova_Img_Meu_Perfil()">
             <p>Link da img do background</p>
-            <input type="text" id="link_novo_background_meu_perfil" placeholder="Link da img do background 📸🎴" autocomplete="off">
+            <input type="text" id="link_novo_background_meu_perfil" placeholder="Link da img do background 📸🎴" autocomplete="off" oninput="Checar_Adicionar_Nova_Img_Meu_Perfil()">
             <p>Nome de usuário</p>
-            <input type="text" id="input_nome_user_meu_perfil" placeholder="Nome do usuário Ⓜ🔤" autocomplete="off">
+            <input type="text" id="input_nome_user_meu_perfil" placeholder="Nome do usuário Ⓜ🔤" autocomplete="off" oninput="Checar_Adicionar_Nova_Img_Meu_Perfil()">
             <div id="container_btns_adicionar_foto_meu_perfil">
                 <button onclick="Fechar_Adicionar_Img_Meu_Perfil()">Cancelar</button>
-                <button onclick="Adicionar_Nova_img_Meu_Perfil()">Adicionar</button>
+                <button onclick="Adicionar_Nova_img_Meu_Perfil()" class="btn_bloqueado" id="btn_adicionar_nova_img_ao_meu_perfil">Adicionar</button>
             </div>
         </div>
     </div>

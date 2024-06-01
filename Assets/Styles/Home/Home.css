@@ -1595,6 +1595,7 @@ body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra 
   overflow: auto;
   font-weight: bold;
   padding-bottom: 500px;
+  white-space: pre-wrap;
 }
 body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra pre span {
   cursor: pointer;
@@ -1718,6 +1719,7 @@ body main section.Paginas#Pagina_verletra article#container_letra_verletra pre {
   overflow: auto;
   font-weight: bold;
   padding: 0px 10px 500px;
+  white-space: pre-wrap;
 }
 body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span {
   cursor: pointer;

@@ -89,6 +89,7 @@ function Abrir_Add_Nova_Img_Meu_Perfil() {
     document.getElementById('container_add_nova_img_meu_perfil').style.display = 'flex'
 }
 
+let arrox = {}
 function Adicionar_Nova_img_Meu_Perfil() {
     let pode_salvar = false
 
@@ -99,50 +100,84 @@ function Adicionar_Nova_img_Meu_Perfil() {
 
     if(link_nova_img_meu_perfil.value.trim() != '') {
         carregarImagem(link_nova_img_meu_perfil.value, function(imgPerfil) {
-            if(imgPerfil) {
-                Fechar_Adicionar_Img_Meu_Perfil()
-                console.log(imgPerfil)
-                document.getElementById('img_foto_meu_perfil').src = imgPerfil.src
-                document.getElementById('img_foto_meu_perfil').classList.add('foto_de_perfil_meu_perfil')
-                User.Perfil.Img_Perfil = imgPerfil.src
-
-            } else {
-                pode_salvar = false
-                Fechar_Adicionar_Img_Meu_Perfil()
-                Notificar_Infos('O link da img de perfil não está funcionando 🚫🔗. Por favor, tente outro link! 🔄📸✨', 'Confirmar', 'Tentar Outro').then((resolve) => {
-                    if(resolve) {
-                        Abrir_Add_Nova_Img_Meu_Perfil()
-                    }
-                })
+            if(link_nova_img_meu_perfil.value != User.Perfil.Img_Perfil) {
+                if(imgPerfil) {
+                    validateImage(link_nova_img_meu_perfil.value)
+                    .then(imageInfo => {
+                        console.log(imageInfo)
+                        if (imageInfo.isValid && imageInfo.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
+                            arrox = imageInfo
+    
+                            Fechar_Adicionar_Img_Meu_Perfil()
+                            document.getElementById('img_foto_meu_perfil').src = imgPerfil.src
+                            document.getElementById('img_foto_meu_perfil').classList.add('foto_de_perfil_meu_perfil')
+                            User.Perfil.Img_Perfil = imgPerfil.src
+    
+                            Notificar_Infos(imageInfo.message, imageInfo.emojis)
+                        } else if(!imageInfo.isValid && imageInfo.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
+                            Notificar_Infos(imageInfo.message, 'Confirmar', 'Entendi')
+                        } else {
+                            Notificar_Infos(imageInfo.message)
+                        }
+                    })
+    
+                } else {
+                    pode_salvar = false
+                    Fechar_Adicionar_Img_Meu_Perfil()
+                    Notificar_Infos('O link da img de perfil não está funcionando 🚫🔗. Por favor, tente outro link! 🔄📸✨', 'Confirmar', 'Tentar Outro').then((resolve) => {
+                        if(resolve) {
+                            Abrir_Add_Nova_Img_Meu_Perfil()
+                        }
+                    })
+                }
             }
 
-            if(link_novo_background_meu_perfil.value.trim() != '') {
-                carregarImagem(link_novo_background_meu_perfil.value, function(imgBackground) {
-                    link_novo_background_meu_perfil.value = ''
-                    Fechar_Adicionar_Img_Meu_Perfil()
-                    if(imgBackground) {
+            if(link_novo_background_meu_perfil.value != User.Perfil.Img_Background) {
+                if(link_novo_background_meu_perfil.value.trim() != '') {
+                    carregarImagem(link_novo_background_meu_perfil.value, function(imgBackground) {
                         Fechar_Adicionar_Img_Meu_Perfil()
-                        decreaseBlur()
-                        Trocar_Background(imgBackground.src, document.body)
-                        User.Perfil.Img_Background = imgBackground.src
-        
-                    } else {
-                        pode_salvar = false
+                        if(imgBackground) {
+                            validateImage(link_novo_background_meu_perfil.value)
+                            .then(imgBackground_safe => {
+                                console.log(imgBackground_safe)
+                                if (imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
+                                    arrox = imgBackground_safe
+    
+                                    Fechar_Adicionar_Img_Meu_Perfil()
+                                    decreaseBlur()
+                                    Trocar_Background(imgBackground.src, document.body)
+                                    User.Perfil.Img_Background = imgBackground.src
+    
+                                    Notificar_Infos(imgBackground_safe.message, imgBackground_safe.emojis)
+                                } else if(!imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
+                                    Notificar_Infos(imgBackground_safe.message, 'Confirmar', 'Entendi')
+                                } else {
+                                    Notificar_Infos(imgBackground_safe.message)
+                                }
+                            })
+            
+                        } else {
+                            pode_salvar = false
+                            link_novo_background_meu_perfil.value = ''
+                            Fechar_Adicionar_Img_Meu_Perfil()
+                            Notificar_Infos('O link da imagem de background 🌄 não está funcionando 🚫🔗. Por favor, tente outro! 🔄✨', 'Confirmar', 'Tentar Outro').then((resolve) => {
+                                if(resolve) {
+                                    Abrir_Add_Nova_Img_Meu_Perfil()
+                                }
+                            })
+                        }
+
                         link_novo_background_meu_perfil.value = ''
-                        Fechar_Adicionar_Img_Meu_Perfil()
-                        Notificar_Infos('O link da imagem de background 🌄 não está funcionando 🚫🔗. Por favor, tente outro! 🔄✨', 'Confirmar', 'Tentar Outro').then((resolve) => {
-                            if(resolve) {
-                                Abrir_Add_Nova_Img_Meu_Perfil()
-                            }
-                        })
-                    }
-                })
+                    })
+                }
             }
         })
 
         if(input_nome_user_meu_perfil.value.trim() != '') {
-            document.getElementById('nome_user_meu_perfil').innerText = input_nome_user_meu_perfil.value
-            User.Nome = input_nome_user_meu_perfil.value
+            if(input_nome_user_meu_perfil.value != User.Nome) {
+                document.getElementById('nome_user_meu_perfil').innerText = input_nome_user_meu_perfil.value
+                User.Nome = input_nome_user_meu_perfil.value
+            }
         }
 
         setTimeout(() => {
@@ -164,6 +199,28 @@ function Adicionar_Nova_img_Meu_Perfil() {
                 Abrir_Add_Nova_Img_Meu_Perfil()
             }
         })
+    }
+}
+
+function Checar_Adicionar_Nova_Img_Meu_Perfil() {
+    let algo_foi_atualizado = false
+
+    if(link_nova_img_meu_perfil.value != User.Perfil.Img_Perfil) {
+        algo_foi_atualizado = true
+    }
+
+    if(link_novo_background_meu_perfil.value != User.Perfil.Img_Background) {
+        algo_foi_atualizado = true
+    }
+
+    if(input_nome_user_meu_perfil.value != User.Nome) {
+        algo_foi_atualizado = true
+    }
+
+    if(!algo_foi_atualizado) {
+        document.getElementById('btn_adicionar_nova_img_ao_meu_perfil').classList.add('btn_bloqueado')
+    } else {
+        document.getElementById('btn_adicionar_nova_img_ao_meu_perfil').classList.remove('btn_bloqueado')
     }
 }
 

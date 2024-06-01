@@ -70,11 +70,11 @@ function calcularTempoRestante(data) {
 }
 
 function Carregar_Banimento() {
-    if(!location.href.includes('aviso') && User.Estado_Da_Conta.Estado == 'Banido' || !location.href.includes('aviso') && User.Estado_Da_Conta.Estado == 'Suspenso') {
+    if(!location.href.includes('aviso') && User.Estado_Da_Conta.Estado.includes('Banido') || !location.href.includes('aviso') && User.Estado_Da_Conta.Estado == 'Suspenso') {
         location.href = 'aviso.html'
 
     } else {
-        if (User.Estado_Da_Conta.Estado == 'Banido') {
+        if (User.Estado_Da_Conta.Estado.includes('Banido')) {
             emoji_do_banimento_e_supensao.innerText = '🚷'
             titulo_do_banimento_e_supensao.innerText = 'Você Foi Banido!'
             motivo_do_banomento_e_suspensao.innerHTML = `<strong>Motivo:</strong> ${User.Estado_Da_Conta.Motivo}`
@@ -84,7 +84,7 @@ function Carregar_Banimento() {
                 tempo_do_banimento_e_suspensao.innerHTML = '<strong>🚫 Você foi banido por:</strong> ' + calcularTempoRestante(User.Estado_Da_Conta.Tempo)
             }
     
-        } else if (User.Estado_Da_Conta.Estado == 'Suspenso') {
+        } else if (User.Estado_Da_Conta.Estado.includes('Suspenso')) {
             emoji_do_banimento_e_supensao.innerText = '⚠'
             titulo_do_banimento_e_supensao.innerText = 'Você Foi Suspenso!'
             motivo_do_banomento_e_suspensao.innerHTML = `<strong>Motivo:</strong> ${User.Estado_Da_Conta.Motivo}`

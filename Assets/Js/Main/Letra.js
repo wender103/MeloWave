@@ -15,7 +15,7 @@ document.getElementById('btn_adicionar_letra_musica_sendo_editada').addEventList
     Fechar_Container_Editar_Musicas()
     btn_pesquisar_letra_add.href = `https://www.musixmatch.com/es/busqueda?query=${`${Separar_Por_Virgula(musica_editando_meu_perfil.Autor)[0]} ${musica_editando_meu_perfil.Nome}`}`
     btn_pesquisar_letra_add.addEventListener('click', () => {
-        sairDaTelaCheia()
+        // sairDaTelaCheia()
     })
 })
 
@@ -255,11 +255,7 @@ function Destacar_linhas_Sincronizar() {
 
 const btn_comecar_dnv_letra_sincronizar = document.getElementById('btn_comecar_dnv_letra_sincronizar')
 btn_comecar_dnv_letra_sincronizar.addEventListener('click', () => {
-    linha_atual_sincronizar = -1
-    array_historico_keys_add_letra = []
-    array_tempo_letra_sincronizar = []
-    Pausar()
-    Iniciar_Sincronizar_Letra(true)
+    Voltar_Uma_Linha('Zerar')
 })
 
 btn_comecar_dnv_letra_sincronizar.addEventListener('keydown', (key) => {
@@ -276,35 +272,41 @@ btn_up_sincronizar.addEventListener('keydown', (key) => {
 })
 
 let array_historico_keys_add_letra = []
-function Voltar_Uma_Linha() {
+function Voltar_Uma_Linha(Comando='') {
     let linhas = preElemento.innerText.split('\n')
 
-    if(array_tempo_letra_sincronizar.length <= 1) {
+    if(array_tempo_letra_sincronizar.length <= 1 || Comando.includes('Zerar')) {
         linha_atual_sincronizar = -1
         array_historico_keys_add_letra = []
         array_tempo_letra_sincronizar = []
         Pausar()
+        Destacar_linhas_Sincronizar()
+        audio_player.currentTime = 0
         Iniciar_Sincronizar_Letra(true)
+        Contagem_Regressiva('Não Tocar')
 
-    } else if(array_historico_keys_add_letra[array_historico_keys_add_letra.length - 1] == 'Shift' && linhas[linha_atual_sincronizar - 2].trim() == '') {
-        linha_atual_sincronizar = linha_atual_sincronizar - 3
-        array_tempo_letra_sincronizar.pop()
-        array_tempo_letra_sincronizar.pop()
-        
     } else {
-        linha_atual_sincronizar = linha_atual_sincronizar - 2
-        array_tempo_letra_sincronizar.pop()
-    }
     
-    array_historico_keys_add_letra.pop()
+        if(array_historico_keys_add_letra[array_historico_keys_add_letra.length - 1] == 'Shift' && linhas[linha_atual_sincronizar - 2].trim() == '') {
+            linha_atual_sincronizar = linha_atual_sincronizar - 3
+            array_tempo_letra_sincronizar.pop()
+            array_tempo_letra_sincronizar.pop()
+            
+        } else {
+            linha_atual_sincronizar = linha_atual_sincronizar - 2
+            array_tempo_letra_sincronizar.pop()
+        }
+        
+        array_historico_keys_add_letra.pop()
 
-    Destacar_linhas_Sincronizar()
-    audio_player.currentTime = array_tempo_letra_sincronizar[array_tempo_letra_sincronizar.length - 1]
-    Pausar()
+        Destacar_linhas_Sincronizar()
+        audio_player.currentTime = array_tempo_letra_sincronizar[array_tempo_letra_sincronizar.length - 1]
+        Pausar()
+        Contagem_Regressiva('Não Tocar').then(() => {
+            Play()
+        })
+    }
 
-    Contagem_Regressiva('Não Tocar').then(() => {
-        Play()
-    })
 
 }
 

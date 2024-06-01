@@ -551,6 +551,7 @@ function Proxima_Musica(Chamado_Por) {
         audio_player.currentTime = 0
         feito_musica_tocar = false
         Play()
+        Atualizar_Linha_Letra_Input()
     }
 }
 

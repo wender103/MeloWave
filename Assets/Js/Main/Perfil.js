@@ -94,7 +94,9 @@ function Atualizar_Perfil(User_Carregar) {
     }
 
 
-    qtns_seguidores_infos.innerText += ' - '
+    if(qtns_seguidores_infos != '') {
+        qtns_seguidores_infos += ' - '
+    }
 
     somarTempos(array_postadas_pelo_user_carregar).then((Tempo) => {
         let resultado = ''

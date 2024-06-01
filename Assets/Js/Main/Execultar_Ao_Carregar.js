@@ -52,10 +52,12 @@ function Execultar_Funcoes_Ao_Carregar() {
             // console.warn(e)
         }
 
-        if(Pagina_Atual.Nome == 'home') {
-            if(User.Perfil.Img_Background) {
-                Trocar_Background(User.Perfil.Img_Background, document.querySelector('body'))
+        try {
+            if(Pagina_Atual.Nome == 'home') {
+                if(User.Perfil.Img_Background) {
+                    Trocar_Background(User.Perfil.Img_Background, document.querySelector('body'))
+                }
             }
-        }
+        } catch{}
     }
 }
