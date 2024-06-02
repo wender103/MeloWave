@@ -57,6 +57,10 @@ img_play_musicas_artista.addEventListener('click', () => {
 })
 
 function Seguir_Artista(Artista=null, Comando=null) {
+    if(Comando == null || Comando == undefined) {
+        Comando = ''
+    }
+
     const btn_seguir_user = document.getElementById('btn_seguir_user')
     let nome_artista = document.getElementById('nome_artista').innerText
 
@@ -67,14 +71,17 @@ function Seguir_Artista(Artista=null, Comando=null) {
     let user_seguindo_artista = false
     let num_artista_seguindo = null
     for (let c = 0; c < User.Social.Artistas.length; c++) {
-        if(User.Social.Artistas[c].Autor == nome_artista) {
+        let artista_formatado = formatarString(Artista)
+        let user_autor_formatado = formatarString(User.Social.Artistas[c].Autor)
+
+        if(user_autor_formatado == artista_formatado) {
             user_seguindo_artista = true
             num_artista_seguindo = c
             break
         }
     }
 
-    if(Comando == 'Checar') {
+    if(Comando.includes('Checar')) {
         if(!user_seguindo_artista) {
             return false
         } else {

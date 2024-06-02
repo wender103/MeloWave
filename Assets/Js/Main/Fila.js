@@ -18,6 +18,13 @@ document.getElementById('config_lista_prox_musica_tocando_agora').addEventListen
 
 function Abrir_Fila() {
     if(pd_abrir_lista) {
+        let time_esperar = 0
+
+        if(telca_tocando_agora_aberta) {
+            time_esperar = 600
+        }
+
+        Fechar_Tela_Tocando_Agora()
         pd_abrir_lista = false
 
         setTimeout(() => {
@@ -26,26 +33,27 @@ function Abrir_Fila() {
         }, 600)
 
         if(!fila_aberta) {
-            fila_aberta = true
-            main.style.transition = '500ms width ease-in-out'
-            main.style.width = 'calc(100vw - 386px)'
-
-    
-            nav_main.style.transition = '500ms width ease-in-out'
-            nav_main.style.width = 'calc(100vw - 386px)'
-
-            container_fila.style.transition = '500ms right ease-in-out'
-    
-            container_fila.style.right = '8px'
-    
             setTimeout(() => {
-                main.style.transition = 'none'
-                nav_main.style.transition = 'none'
-            }, 600)
+                fila_aberta = true
+                main.style.transition = '500ms width ease-in-out'
+                main.style.width = 'calc(100vw - 386px)'
+
+        
+                nav_main.style.transition = '500ms width ease-in-out'
+                nav_main.style.width = 'calc(100vw - 386px)'
+
+                container_fila.style.transition = '500ms right ease-in-out'
+        
+                container_fila.style.right = '8px'
+        
+                setTimeout(() => {
+                    main.style.transition = 'none'
+                    nav_main.style.transition = 'none'  
+                }, 600)
+            }, time_esperar)
     
         } else {
-            fila_aberta = false
-            Fehcar_Fila()
+            Fechar_Fila()
         }
 
         setTimeout(() => {
@@ -54,7 +62,8 @@ function Abrir_Fila() {
     }
 }
 
-function Fehcar_Fila() {
+function Fechar_Fila() {
+    fila_aberta = false
     main.style.transition = '500ms width ease-in-out'
     main.style.width = 'calc(100vw - 96px)'
     container_fila.style.right = '-282px'
@@ -130,7 +139,7 @@ function Atualizar_Fila(Info) {
                 const texto_musica_resulmo = document.createElement('div')
                 const p = document.createElement('p')
                 const span = document.createElement('span')
-                const config = document.createElement('span')
+                const config = document.createElement('p')
 
                 img.src = TodasMusicas[b].Img
                 musica_resulmo.className = 'musica_resulmo'
@@ -142,7 +151,7 @@ function Atualizar_Fila(Info) {
 
                 p.innerText = TodasMusicas[b].Nome
                 span.appendChild(Retornar_Artistas_Da_Musica(TodasMusicas[b]))
-                config.innerText = '...'
+                config.innerHTML = '<span>...</span>'
 
                 primeira_parte.appendChild(img)
                 texto_musica_resulmo.appendChild(p)

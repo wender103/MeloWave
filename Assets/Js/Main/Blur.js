@@ -8,6 +8,7 @@ function increaseBlur() {
     if (blurAmount < maxBlur) {
     blurAmount += 1
     main.style.backdropFilter = `blur(${blurAmount}px)`
+    container_tela_tocando_agora.style.backdropFilter = `blur(${blurAmount}px)`
     nav_ul.forEach(ul => {
         ul.style.backdropFilter = `blur(${blurAmount}px)`
     })
@@ -22,6 +23,7 @@ function decreaseBlur() {
     if (blurAmount > 0) {
     blurAmount -= 1
     main.style.backdropFilter = `blur(${blurAmount}px)`
+    container_tela_tocando_agora.style.backdropFilter = `blur(${blurAmount}px)`
     nav_ul.forEach(ul => {
         ul.style.backdropFilter = `blur(${blurAmount}px)`
     })

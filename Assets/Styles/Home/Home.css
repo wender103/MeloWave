@@ -48,6 +48,22 @@ button {
   color: var(--fonte_transparente) !important;
 }
 
+p.config_lista_prox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700 !important;
+  opacity: 0;
+  letter-spacing: 2px;
+  padding: 5px !important;
+  margin: 0 !important;
+}
+p.config_lista_prox span {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 div.div_container_perfil_usuario {
   width: 160px;
   min-width: 150px;
@@ -419,6 +435,7 @@ body nav {
   flex-direction: column;
   z-index: 4;
   gap: 8px;
+  overflow: hidden;
 }
 body nav ul {
   display: flex;
@@ -430,6 +447,7 @@ body nav ul {
           backdrop-filter: blur(0px);
   padding: 18px 0;
   border-radius: 8px;
+  overflow: auto;
 }
 body nav ul li#li_icon_perfil_user_nav {
   width: 25px;
@@ -1950,12 +1968,356 @@ body #container_img_perfil_zoom img#img_perfil_zoom {
 body #container_img_perfil_zoom.active img#img_perfil_zoom {
   transform: scale(1);
 }
+body section#container_tela_tocando_agora {
+  width: 282px;
+  height: calc(100vh - 112px);
+  position: fixed;
+  right: -282px;
+  z-index: 2;
+  top: 8px;
+  color: var(--white);
+  padding: 16px;
+  background-image: linear-gradient(to bottom, transparent, var(--padrao15));
+  -webkit-backdrop-filter: blur(0px);
+          backdrop-filter: blur(0px);
+  border-radius: 8px;
+  transition: 500ms right ease-in-out;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora p#p_nome_album_tela_tocando_agora {
+  font-weight: bold;
+}
+body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora div button {
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora div button img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora div button span {
+  width: 100%;
+  height: 80%;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  display: block;
+}
+body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora {
+  background-color: var(--black_transparent);
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#container_img_musica_tela_tocando_agora {
+  width: 100%;
+  height: 229px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#container_img_musica_tela_tocando_agora img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div {
+  display: flex;
+  flex-direction: column;
+}
+body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div p#nome_musica_tela_tocando_agora {
+  font-weight: bold;
+}
+body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div span {
+  font-size: 12px;
+  color: var(--white_transparent);
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div span p.p_nomes_artistas span.span_nomes_artistas:hover {
+  text-decoration: underline;
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--black_transparent);
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_mostrar_letra_tela_tocando_agora {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_mostrar_letra_tela_tocando_agora button {
+  background-color: transparent;
+  border: 1px solid var(--white);
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora {
+  width: calc(100% + 20px);
+  margin-left: -10px;
+  height: 0;
+  transition: height 0.5s ease-in-out;
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora.active {
+  height: 300px;
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora.active pre {
+  margin-top: 10px;
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  color: var(--fonte_transparente);
+  outline: none;
+  font-size: 1.1rem;
+  overflow: auto;
+  font-weight: bold;
+  white-space: pre-wrap;
+  padding: 0 10px;
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span {
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_anterior_add_letra {
+  color: var(--fonte_meio_transparente);
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_em_destaque_add_letra {
+  color: var(--white);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
+  font-size: 1.2rem;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora {
+  background-color: var(--black_transparent);
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora {
+  overflow: hidden;
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora p {
+  position: absolute;
+  font-weight: bold;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #carousel_telta_tocando_agora {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora {
+  min-width: 100%;
+  height: 229px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+  transform-origin: center;
+  border-radius: 6px;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora.active {
+  transform: scale(1);
+  width: 100%;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora.next {
+  transform: scale(0.3);
+  width: 80%;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #next_btn_telta_tocando_agora, body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #prev_btn_telta_tocando_agora {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--background_black);
+  border: none;
+  cursor: pointer;
+  padding: 10px 11px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #next_btn_telta_tocando_agora img, body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #prev_btn_telta_tocando_agora img {
+  width: 15px;
+  height: 15px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #next_btn_telta_tocando_agora {
+  right: 10px;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #prev_btn_telta_tocando_agora {
+  left: 10px;
+  display: none;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#texto_artista_tela_tocando_agora {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#texto_artista_tela_tocando_agora div p {
+  font-weight: bold;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#texto_artista_tela_tocando_agora div span {
+  font-size: 12px;
+  color: var(--white_transparent);
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora button {
+  background-color: transparent;
+  border: 1px solid var(--white);
+  color: var(--white);
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora {
+  background-color: var(--black_transparent);
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora div {
+  display: flex;
+  justify-content: space-between;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora div h1 {
+  font-size: 1.3em;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora div button {
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora div button img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora hr {
+  width: 100%;
+  border-color: rgba(180, 180, 180, 0.24);
+  margin: 10px 0;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora p {
+  font-size: 14px;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span#nome_qm_postou_creditos_tela_tocando_agora {
+  text-decoration: none;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span#nome_qm_postou_creditos_tela_tocando_agora.active:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  display: block;
+  margin: 5px 0 10px;
+  cursor: default;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span#nome_qm_postou_creditos.active:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span p {
+  font-size: 13px !important;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span p span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  margin: 0 !important;
+  display: inline;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span p span:first-child {
+  padding: 0;
+}
+body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span p span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#fila_tela_tocando_agora {
+  background-color: var(--black_transparent);
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+}
+body section#container_tela_tocando_agora div#fila_tela_tocando_agora div#primeira_parte_a_seguir_tela_tocando_agora {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body section#container_tela_tocando_agora div#fila_tela_tocando_agora div#primeira_parte_a_seguir_tela_tocando_agora h3 {
+  font-size: 1em;
+}
+body section#container_tela_tocando_agora div#fila_tela_tocando_agora div#primeira_parte_a_seguir_tela_tocando_agora p {
+  font-size: 13px;
+  color: var(--white_transparent);
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora div#fila_tela_tocando_agora div#contanier_fila_tela_tocando_agora {
+  margin-top: 20px;
+}
+body section#container_tela_tocando_agora div#fila_tela_tocando_agora div#contanier_fila_tela_tocando_agora div.musica_linha {
+  background-color: transparent;
+}
 body section#container_fila {
   width: 282px;
   height: calc(100vh - 112px);
   position: fixed;
   right: -282px;
   z-index: 2;
+  top: 8px;
   color: var(--white);
   padding: 16px;
   background-image: linear-gradient(to bottom, transparent, var(--padrao15));
@@ -2023,8 +2385,12 @@ body section#container_fila article div.contanier_caixa_fila div.contanier_caixa
 body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo:hover {
   background-color: var(--padrao15);
 }
-body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo:hover > span.config_lista_prox {
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo:hover > p.config_lista_prox {
   opacity: 1;
+}
+body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo p.config_lista_prox {
+  position: absolute;
+  right: 5px;
 }
 body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo div.primeira_parte_lista_prox {
   display: flex;
@@ -2181,6 +2547,8 @@ body section#container_barra_musica article div#infos_musica_barra_musica {
 body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica {
   width: 72px;
   height: 72px;
+  min-width: 72px;
+  min-height: 72px;
   border-radius: 4px;
 }
 body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica {
@@ -2202,7 +2570,7 @@ body section#container_barra_musica article div#infos_musica_barra_musica div#co
 }
 body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica:hover > button#btn_mostrar_img_musica_barra_maior {
   opacity: 1;
-  transition: 0.5s opacity ease-in-out;
+  transition: 0.2s opacity ease-in-out;
 }
 body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica button#btn_mostrar_img_musica_barra_maior {
   width: 30px;
@@ -2333,6 +2701,7 @@ body section#container_barra_musica article div#container_opcoes_barra_musica {
   gap: 15px;
 }
 body section#container_barra_musica article div#container_opcoes_barra_musica svg, body section#container_barra_musica article div#container_opcoes_barra_musica img {
+  height: 18px;
   cursor: pointer;
 }
 body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som {

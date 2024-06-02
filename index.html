@@ -525,6 +525,94 @@
         <img src="" id="img_perfil_zoom">
     </div>
 
+    <!--! Tela Tocando Agora -->
+    <section id="container_tela_tocando_agora">
+        <div id="nome_album_tela_tocando_agora">
+            <p id="p_nome_album_tela_tocando_agora">gavm!</p>
+            
+            <div>
+                <button>
+                    <span>...</span>
+                </button>
+    
+                <button>
+                    <img src="Assets/Imgs/x.svg" onclick="Fechar_Tela_Tocando_Agora()">
+                </button>
+            </div>
+        </div>
+
+        <div id="container_musica_tela_tocando_agora">
+            <div id="container_img_musica_tela_tocando_agora">
+                <img src="Assets/Imgs/music1.png" id="img_musica_tela_tocando_agora">
+            </div>
+
+            <div id="contanier_texto_tela_tocando_agora">
+                <div>
+                    <p id="nome_musica_tela_tocando_agora">Dolla</p>
+                    <span id="nome_artistas_tela_tocando_agora">Omy Alka</span>
+                </div>
+
+                <img src="./Assets/Imgs/Like_Vazio.svg" id="icon_like_tela_tocando_agora" class="icons_like_barra_musica">
+            </div>
+        </div>
+
+        <div id="container_letra_tela_tocando_agora">
+            <div id="container_mostrar_letra_tela_tocando_agora">
+                <p>Letra</p>
+                <button id="btn_mostrar_letra_tela_tocando_agora">Mostrar Letra</button>
+            </div>
+
+            <div id="container_letra_tocando_agora">
+                <pre id="pre_letra_tocando_agora"></pre>
+            </div>
+        </div>
+
+        <div id="container_artista_tela_tocando_agora">
+            <div id="contaier_img_tela_tocando_agora">
+                <p>Artista</p>
+                <div id="carousel_container_telta_tocando_agora">
+                    <div id="carousel_telta_tocando_agora">
+                    </div>
+                    <button id="prev_btn_telta_tocando_agora"><img src="Assets/Imgs/uiw_left.svg"></button>
+                    <button id="next_btn_telta_tocando_agora"><img src="Assets/Imgs/uiw_rigth.svg"></button>
+                </div>
+            </div>
+
+            <div id="texto_artista_tela_tocando_agora">
+                <div>
+                    <p id="nome_artista_tela_tocando_agora">gvan!</p>
+                    <span id="ouvintes_mensais_artista_tela_tocando_agora">1.234.545 ouvintes mensais</span>
+                </div>
+
+                <button id="btn_seguir_artista_tela_tocando_agora">Seguir</button>
+            </div>
+        </div>
+
+        <div id="container_creditos_tela_tocando_agora">
+            <div>
+                <h1>Créditos</h1>
+            </div>
+            <hr>
+            <p id="p_artista_creditos_tela_tocando_agora">Artistas:</p>
+            <span id="nome_artistas_credito_tela_tocando_agora">
+                <span>GHRARAM, Omy Alka, Connor</span>
+            </span>
+            <p>Nome da música:</p>
+            <span id="nome_musica_cretido_tela_tocando_agora">Dollar</span>
+            <p>Postada por:</p>
+            <span id="nome_qm_postou_creditos_tela_tocando_agora">Gabriel Rocha</span>
+        </div>
+
+        <div id="fila_tela_tocando_agora">
+            <div id="primeira_parte_a_seguir_tela_tocando_agora">
+                <h3>A seguir</h3>
+                <p onclick="Abrir_Fila()">Abrir fila</p>
+            </div>
+
+            <div id="contanier_fila_tela_tocando_agora"></div>
+        </div>
+    </section>
+
     <!--! Fila -->
     <section id="container_fila">
         <article>
@@ -545,7 +633,7 @@
                                 </div>
                             </div>
         
-                            <span class="config_lista_prox" id="config_lista_prox_musica_tocando_agora">...</span>
+                            <p class="config_lista_prox" id="config_lista_prox_musica_tocando_agora"><span>...</span></p>
                         </div>
                     </div>
                 </div>
@@ -628,6 +716,7 @@
 
             <div id="container_opcoes_barra_musica">
                 <img src="Assets/Imgs/Mic.svg" onclick="Abrir_Ver_Letra_PC()" class="img_btn_mic_letra">
+                <img src="Assets/Imgs/icon_tela_tocando_agora.png" class="img_btn_tela_tocando_agora" onclick="Abrir_Tela_Tocando_Agora()">
                 <img src="Assets/Imgs/Fila.svg" onclick="Abrir_Fila()">
                 <img src="Assets/Imgs/Pc.svg">
 

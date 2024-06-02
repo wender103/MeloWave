@@ -436,37 +436,74 @@ function Voltar_Letra_Ver_Musica(index) {
 }
 
 function Destacar_linhas() {
-    pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
-    letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
-    let linhas = pre_letra_da_musica.innerHTML.split('\n')
-    
-    if (linha_atual <= linhas.length) {
-        // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
-        for (let c = 0; c < linhas.length; c++) {
-            if(c == linha_atual) {
-                linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_ver_letra">' + letra_pre_ver_letra[c] + '</span>'
-            } else if(c < linha_atual) {
-                linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-            } else {
-                if(c == 0) {
-                    linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_ver_letra">` + letra_pre_ver_letra[c] + '</span>'
+    if(pd_atualizar_letra_pc) {
+        pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
+        letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
+        let linhas = pre_letra_da_musica.innerHTML.split('\n')
+        
+        if (linha_atual <= linhas.length) {
+            // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+            for (let c = 0; c < linhas.length; c++) {
+                if(c == linha_atual) {
+                    linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_ver_letra">' + letra_pre_ver_letra[c] + '</span>'
+                } else if(c < linha_atual) {
+                    linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
                 } else {
-                    linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+                    if(c == 0) {
+                        linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_ver_letra">` + letra_pre_ver_letra[c] + '</span>'
+                    } else {
+                        linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+                    }
                 }
             }
-        }
 
-        // Atualiza o conteúdo do <pre> com as linhas modificadas
-        pre_letra_da_musica.innerHTML = ''
-        for (let c = 0; c < linhas.length; c++) {
-            pre_letra_da_musica.innerHTML += linhas[c] + '\n'
+            // Atualiza o conteúdo do <pre> com as linhas modificadas
+            pre_letra_da_musica.innerHTML = ''
+            for (let c = 0; c < linhas.length; c++) {
+                pre_letra_da_musica.innerHTML += linhas[c] + '\n'
+                
+            }
+            //? Faz o scroll para a linha atual
+            try {
+                document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+            } catch{}
+        }
+    }
+
+    if(pode_atualizar_letra_tela_tocando_agora) {
+        console.log('Passou por aki');
+        pre_letra_tocando_agora.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
+        letra_pre_ver_letra = pre_letra_tocando_agora.innerText.split('\n')
+        let linhas = pre_letra_tocando_agora.innerHTML.split('\n')
+        
+        if (linha_atual <= linhas.length) {
+            // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+            for (let c = 0; c < linhas.length; c++) {
+                if(c == linha_atual) {
+                    linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_ver_letra_tocar_musica">' + letra_pre_ver_letra[c] + '</span>'
+                } else if(c < linha_atual) {
+                    linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+                } else {
+                    if(c == 0) {
+                        linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_ver_letra_tocar_musica">` + letra_pre_ver_letra[c] + '</span>'
+                    } else {
+                        linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+                    }
+                }
+            }
+
+            // Atualiza o conteúdo do <pre> com as linhas modificadas
+            pre_letra_tocando_agora.innerHTML = ''
+            for (let c = 0; c < linhas.length; c++) {
+                pre_letra_tocando_agora.innerHTML += linhas[c] + '\n'
+                
+            }
+            //? Faz o scroll para a linha atual
+            try {
+                document.getElementById('linha_atual_sincronizar_ver_letra_tocar_musica').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+            } catch{}
             
         }
-        //? Faz o scroll para a linha atual
-        try {
-            document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
-        } catch{}
-        
         linha_atual++
     }
 }
@@ -535,7 +572,7 @@ function Zerar_Ver_Letra_Pc() {
 let info_dada_nao_aprendi = false
 function Atualizar_Letra_PC() {
     if(!Array.isArray(Listas_Prox.MusicaAtual.Letra)) {
-        if(pd_atualizar_letra_pc) {
+        if(pd_atualizar_letra_pc || pode_atualizar_letra_tela_tocando_agora) {
             info_dada_nao_aprendi = false
             let Tempo = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado
     

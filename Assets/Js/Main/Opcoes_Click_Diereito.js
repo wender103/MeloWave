@@ -211,6 +211,19 @@ function Adicionar_a_Fila(ID) {
         if(TodasMusicas[c].ID == ID) {
             Listas_Prox.A_Seguir.push(TodasMusicas[c])
             Atualizar_Fila('Adicionando Fila a Seguir') 
+
+            let ja_tem_na_lista = false
+            for (let a = 0; a < Listas_Prox.Lista_Musicas.length; a++) {
+                if(Listas_Prox.Lista_Musicas[a].ID == ID) {
+                    ja_tem_na_lista = true
+                    break
+                }
+            }
+
+            if(!ja_tem_na_lista) {
+                Listas_Prox.Lista_Musicas.push(TodasMusicas[c])
+            }
+            break
         }
     }
 }
