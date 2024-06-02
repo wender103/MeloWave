@@ -5,7 +5,7 @@ const bnt_salvar_letra = document.getElementById('bnt_salvar_letra')
 const Btn_Proximo_aAdd_Letra = document.getElementById('Btn_Proximo_aAdd_Letra')
 let adicionando_letra_na_musica = false
 let pode_salvar_letra = false
-const lista_elementos_mudar_cor_letra = [document.querySelector('main'), document.getElementById('container_fila'), document.getElementById('container_barra_musica')]
+const lista_elementos_mudar_cor_letra = [document.querySelector('main'), document.getElementById('container_fila'), document.getElementById('container_barra_musica'), document.getElementById('container_tela_tocando_agora')]
 const lista_palavras_remover_add_letra = ['verse', 'pre-chorus', 'chorus', 'hook', 'verse', 'pre-chorus', 'outro', 'intro', 'bridge']
 
 let linha_atual_sincronizar = 0 
@@ -170,6 +170,7 @@ function Contagem_Regressiva(Comando = 'Tocar') {
         let contador = 3
         animateBackgroundColor('rgba(0, 0, 0, 0.411)', lista_elementos_mudar_cor_letra, 500)
         animateBackgroundColor('rgba(0, 0, 0, 0.411)', document.querySelector('nav').querySelectorAll('ul'), 500)
+        
         h1_contagem_regressiva_add_letra.innerText = contador
         container_contagem_regressiva_add_letra.style.display = 'flex'
 
