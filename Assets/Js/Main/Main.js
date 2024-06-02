@@ -974,6 +974,12 @@ function Fechar_Creditos() {
 }
 
 //! Tela Tocando Agora
+const next_btn_telta_tocando_agora = document.getElementById('next_btn_telta_tocando_agora')
+const prev_btn_telta_tocando_agora = document.getElementById('prev_btn_telta_tocando_agora')
+const carousel_telta_tocando_agora = document.getElementById('carousel_telta_tocando_agora')
+let currentIndex_tela_musica_tocando_agora = 0
+const btn_seguir_artista_tela_tocando_agora = document.getElementById('btn_seguir_artista_tela_tocando_agora')
+
 let infos_artistas_musica_tela_musica_tocando = []
 const container_tela_tocando_agora = document.getElementById('container_tela_tocando_agora')
 function Carregar_Tela_Tocando_Agora(Musica) {
@@ -1020,13 +1026,15 @@ function Carregar_Tela_Tocando_Agora(Musica) {
 
     let active_add = false
     for (let contador = 0; contador < array_artistas.length; contador++) {
-        let artista_formatado_atual = array_artistas[contador]
+        let artista_formatado_atual = formatarString(array_artistas[contador])
         let user_encontrado = false
+        const carousel_item_telta_tocando_agora = document.createElement('img')
+        let musica_artista_encontrada = false
         for (let contador2 = 0; contador2 < TodasMusicas.length; contador2++) {
-            let todasmusicas_artista_formatado = TodasMusicas[contador2].Autor
+            let todasmusicas_artista_formatado = formatarString(TodasMusicas[contador2].Autor)
             if(todasmusicas_artista_formatado == artista_formatado_atual) {
+                musica_artista_encontrada = true
                 user_encontrado = true
-                const carousel_item_telta_tocando_agora = document.createElement('img')
                 carousel_item_telta_tocando_agora.classList.add('carousel_item_telta_tocando_agora')
                 carousel_item_telta_tocando_agora.src = TodasMusicas[contador2].Img
 
@@ -1046,10 +1054,37 @@ function Carregar_Tela_Tocando_Agora(Musica) {
                 carousel_telta_tocando_agora.appendChild(carousel_item_telta_tocando_agora)
 
                 carousel_item_telta_tocando_agora.addEventListener('click', () => {
-                    Abrir_Perfil_Artista(new_infos.Artista, new_infos.Musica)
+                    Abrir_Perfil_Artista(infos_artistas_musica_tela_musica_tocando[contador].Artista, infos_artistas_musica_tela_musica_tocando[contador].Musica)
                 })
                 break
             }
+
+        }
+
+        if(!musica_artista_encontrada) {
+            musica_artista_encontrada = true
+            user_encontrado = true
+            carousel_item_telta_tocando_agora.classList.add('carousel_item_telta_tocando_agora')
+            carousel_item_telta_tocando_agora.src = Musica.Img
+
+            let new_infos = {
+                Artista: array_artistas[contador],
+                Musica: Musica
+            }
+            infos_artistas_musica_tela_musica_tocando.push(new_infos)
+
+            if(!active_add) {
+                active_add = true
+                carousel_item_telta_tocando_agora.classList.add('active')
+            } else {
+                carousel_item_telta_tocando_agora.classList.add('next')
+            }
+
+            carousel_telta_tocando_agora.appendChild(carousel_item_telta_tocando_agora)
+
+            carousel_item_telta_tocando_agora.addEventListener('click', () => {
+                Abrir_Perfil_Artista(infos_artistas_musica_tela_musica_tocando[contador].Artista, infos_artistas_musica_tela_musica_tocando[contador].Musica)
+            })
         }
 
         if(!user_encontrado) {
@@ -1074,6 +1109,8 @@ function Carregar_Tela_Tocando_Agora(Musica) {
         }
     }
 
+    carousel_telta_tocando_agora.style.transform = `translateX(0%)`
+    currentIndex_tela_musica_tocando_agora = 0
     update_lista_a_seguir()
     updateButtons()
 }
@@ -1104,12 +1141,6 @@ function update_lista_a_seguir() {
     }
     Retornar_Musica_Linha(array_sequencia_musica, document.getElementById('contanier_fila_tela_tocando_agora'), 'Resumido')
 }
-
-const next_btn_telta_tocando_agora = document.getElementById('next_btn_telta_tocando_agora')
-const prev_btn_telta_tocando_agora = document.getElementById('prev_btn_telta_tocando_agora')
-const carousel_telta_tocando_agora = document.getElementById('carousel_telta_tocando_agora')
-let currentIndex_tela_musica_tocando_agora = 0
-const btn_seguir_artista_tela_tocando_agora = document.getElementById('btn_seguir_artista_tela_tocando_agora')
 
 function updateButtons() {
     const carousel_item_telta_tocando_agora = document.querySelectorAll('.carousel_item_telta_tocando_agora')
