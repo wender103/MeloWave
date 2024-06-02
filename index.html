@@ -504,6 +504,7 @@
     </main>
     <!--! Fim Main -->
 
+    <!--! Editar Música -->
     <div id="container_editar_musica">
         <div id="container_conteudo_editar_musica">
             <img src="Assets/Imgs/music1.png" id="img_musicas_sendo_editada">
@@ -519,10 +520,12 @@
         </div>
     </div>
 
+    <!--! Img Zoom Perfil -->
     <div id="container_img_perfil_zoom" onclick="fecharImagemZoom()">
         <img src="" id="img_perfil_zoom">
     </div>
 
+    <!--! Fila -->
     <section id="container_fila">
         <article>
             <p id="texto_fila">Fila</p>
@@ -562,13 +565,39 @@
         </article>
     </section>
 
-    <!--! ----------------------------------------------------------------- -->
+    <!--! Creditos -->
+    <section id="contanier_creditos_musica">
+        <article>
+            <div>
+                <h1>Créditos</h1>
+                <button onclick="Fechar_Creditos()">
+                    <img src="Assets/Imgs/x.svg">
+                </button>
+            </div>
+            <hr>
+            <p id="p_artista_creditos">Artistas:</p>
+            <span id="nome_artistas_credito">
+                <span>GHRARAM, Omy Alka, Connor</span>
+            </span>
+            <p>Nome da música:</p>
+            <span id="nome_musica_cretido">Dollar</span>
+            <p>Postada por:</p>
+            <span id="nome_qm_postou_creditos">Gabriel Rocha</span>
+        </article>
+    </section>
 
     <!--! Container Barra Música -->
     <section id="container_barra_musica">
         <article>
             <div id="infos_musica_barra_musica">
-                <img src="" id="img_musica_barra_musica">
+                <div id="container_container_img_musica_barra_musica">
+                    <div id="container_img_musica_barra_musica" onclick="Ativar_img_maior_barra_musica()">
+                        <button id="btn_mostrar_img_musica_barra_maior">
+                            <img src="Assets/Imgs/uiw_left.svg">
+                        </button>
+                        <img src="" id="img_musica_barra_musica">
+                    </div>
+                </div>
                 <div id="texto_barra_musica">
                     <p id="nome_musica_barra_musica"></p>
                     <span id="autor_musica_barra_musica"></span>

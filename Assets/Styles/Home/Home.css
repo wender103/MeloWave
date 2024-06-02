@@ -1926,7 +1926,7 @@ body #container_img_perfil_zoom {
   top: 0;
   left: 0;
   background-color: var(--background_black);
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 4;
@@ -2076,6 +2076,82 @@ body section#container_fila article div.contanier_caixa_fila div.contanier_caixa
   position: absolute;
   right: 5px;
 }
+body section#contanier_creditos_musica {
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: var(--background_black);
+  color: var(--white);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+body section#contanier_creditos_musica article {
+  width: 90%;
+  max-width: 400px;
+  max-height: 400px;
+  border-radius: 8px;
+  padding: 30px;
+  background-color: var(--background_black);
+}
+body section#contanier_creditos_musica article div {
+  display: flex;
+  justify-content: space-between;
+}
+body section#contanier_creditos_musica article div h1 {
+  font-size: 2.4em;
+}
+body section#contanier_creditos_musica article div button {
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+body section#contanier_creditos_musica article div button img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+body section#contanier_creditos_musica article hr {
+  width: 100%;
+  border-color: rgba(180, 180, 180, 0.24);
+  margin: 10px 0;
+}
+body section#contanier_creditos_musica article p {
+  font-size: 14px;
+}
+body section#contanier_creditos_musica article span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  display: block;
+  margin: 5px 0 20px;
+  cursor: default;
+}
+body section#contanier_creditos_musica article span#nome_qm_postou_creditos.active:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+body section#contanier_creditos_musica article span p {
+  font-size: 13px !important;
+}
+body section#contanier_creditos_musica article span p span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  margin: 0 !important;
+  display: inline;
+}
+body section#contanier_creditos_musica article span p span:first-child {
+  padding: 0;
+}
+body section#contanier_creditos_musica article span p span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
 body section#container_barra_musica {
   width: calc(100vw - 16px);
   height: 88px;
@@ -2102,10 +2178,70 @@ body section#container_barra_musica article div#infos_musica_barra_musica {
   align-items: center;
   color: var(--white);
 }
-body section#container_barra_musica article div#infos_musica_barra_musica img#img_musica_barra_musica {
+body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica {
   width: 72px;
   height: 72px;
   border-radius: 4px;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica {
+  width: 72px;
+  height: 72px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  position: fixed;
+  bottom: 8px;
+  left: 8px;
+  transition: bottom 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out;
+  z-index: 5;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica.active {
+  width: 300px;
+  height: 300px;
+  bottom: 112px;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica:hover > button#btn_mostrar_img_musica_barra_maior {
+  opacity: 1;
+  transition: 0.5s opacity ease-in-out;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica button#btn_mostrar_img_musica_barra_maior {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  opacity: 0;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  padding: 5px;
+  background-color: var(--black_transparent);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 1s ease-in-out;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica button#btn_mostrar_img_musica_barra_maior img {
+  width: 90%;
+  height: 90%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transform: rotate(90deg);
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica button#btn_mostrar_img_musica_barra_maior.active {
+  top: 20px;
+  right: 20px;
+  transform: scale(1.5);
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica button#btn_mostrar_img_musica_barra_maior.active img {
+  transform: rotate(-90deg) !important;
+}
+body section#container_barra_musica article div#infos_musica_barra_musica div#container_container_img_musica_barra_musica div#container_img_musica_barra_musica img#img_musica_barra_musica {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 body section#container_barra_musica article div#infos_musica_barra_musica div#texto_barra_musica {
   margin: 0 26px 0 10px;
@@ -2238,6 +2374,56 @@ body section#container_barra_musica article div#container_opcoes_barra_musica di
 body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som input:hover::-webkit-slider-thumb,
 body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som input:focus::-webkit-slider-thumb {
   opacity: 1; /* torna visível ao passar o mouse ou focar */
+}
+body div#container_img_click_img_barra {
+  width: 72px;
+  height: 72px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  transition: bottom 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out;
+  z-index: 5;
+}
+body div#container_img_click_img_barra.active {
+  width: 300px;
+  height: 300px;
+  bottom: 112px;
+}
+body div#container_img_click_img_barra:hover > button#btn_img_click_img_barra {
+  opacity: 1;
+  transition: 0.5s opacity ease-in-out;
+}
+body div#container_img_click_img_barra button#btn_img_click_img_barra {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  opacity: 0;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px;
+  background-color: var(--padrao15);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+body div#container_img_click_img_barra button#btn_img_click_img_barra img {
+  width: 70%;
+  height: 90%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transform: rotate(-90deg);
+}
+body div#container_img_click_img_barra img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 body section#container_fullscreen {
   width: 100vw;

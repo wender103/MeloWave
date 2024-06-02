@@ -1874,7 +1874,7 @@ body {
         top: 0;
         left: 0;
         background-color: var(--background_black);
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         z-index: 4;
@@ -2054,6 +2054,99 @@ body {
         }
     }
 
+    //! Créditos
+    section#contanier_creditos_musica {
+        width: 100%;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        position: fixed;
+        background-color: var(--background_black);
+        color: var(--white);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+
+        article {
+            width: 90%;
+            // height: 90vh;
+            max-width: 400px;
+            max-height: 400px;
+            border-radius: 8px;
+            padding: 30px;
+            background-color: var(--background_black);
+
+            div {
+                display: flex;
+                justify-content: space-between;
+
+                h1 {
+                    font-size: 2.4em;
+                }
+
+                button {
+                    width: 50px;
+                    height: 50px;
+                    background-color: transparent;
+                    border: none;
+                    cursor: pointer;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
+            }
+
+            hr {
+                width: 100%;
+                border-color: rgba(180, 180, 180, 0.24);
+                margin: 10px 0;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            span {
+                font-size: 13px;
+                color: var(--fonte_meio_transparente);
+                display: block;
+                margin: 5px 0 20px;
+                cursor: default;
+
+                &#nome_qm_postou_creditos {
+                    &.active:hover {
+                        text-decoration: underline;
+                        cursor: pointer;
+                    }
+                }
+
+                p {
+                    font-size: 13px !important;
+
+                    span {
+                        font-size: 13px;
+                        color: var(--fonte_meio_transparente);
+                        margin: 0 !important;
+                        display: inline;
+
+                        &:first-child {
+                            padding: 0;
+                        }
+
+                        &:hover {
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     //! Container Barra Música
     section#container_barra_musica {
         width: calc(100vw - 16px);
@@ -2080,11 +2173,82 @@ body {
                 align-items: center;
                 color: var(--white);
 
-                img#img_musica_barra_musica {
+                div#container_container_img_musica_barra_musica {
                     width: 72px;
                     height: 72px;
                     border-radius: 4px;
+                    // border: 0.5px solid var(--fonte_transparente);
+
+                    div#container_img_musica_barra_musica {
+                        width: 72px;
+                        height: 72px;
+                        border-radius: 4px;
+                        overflow: hidden;
+                        cursor: pointer;
+                        position: fixed;
+                        bottom: 8px;
+                        left: 8px;
+                        transition: bottom 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out;
+                        z-index: 5;
+    
+                        &.active {
+                            width: 300px;
+                            height: 300px;
+                            bottom: 112px;
+                        }
+    
+                        &:hover > button#btn_mostrar_img_musica_barra_maior {
+                            opacity: 1;
+                            transition: 0.5s opacity ease-in-out;
+                        }
+    
+                        button#btn_mostrar_img_musica_barra_maior {
+                            $tmn: 30px;
+                            width: $tmn;
+                            height: $tmn;
+                            display: flex;
+                            opacity: 0;
+                            align-items: center;
+                            justify-content: center;
+                            position: absolute;
+                            top: 2px;
+                            right: 2px;
+                            padding: 5px;
+                            background-color: var(--black_transparent);
+                            border-radius: 50%;
+                            border: none;
+                            cursor: pointer;
+                            transform: scale(1);
+                            transition: transform 1s ease-in-out;
+
+                            img {
+                                // transition: transform 1s ease-in-out;
+                                width: 90%;
+                                height: 90%;
+                                object-fit: contain;
+                                transform: rotate(90deg);
+                            }
+                        
+
+                            &.active {
+                                top: 20px;
+                                right: 20px;
+                                transform: scale(1.5);
+
+                                img {
+                                    transform: rotate(-90deg) !important;
+                                }
+                            }
+                        }
+    
+                        img#img_musica_barra_musica {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
                 }
+
 
                 div#texto_barra_musica {
                     margin: 0 26px 0 10px;
@@ -2242,6 +2406,61 @@ body {
                     }
                 }
             }
+        }
+    }
+
+    div#container_img_click_img_barra {
+        width: 72px;
+        height: 72px;
+        border-radius: 4px;
+        overflow: hidden;
+        cursor: pointer;
+        position: fixed;
+        bottom: 16px;
+        left: 16px;
+        transition: bottom 1s ease-in-out, width 1s ease-in-out, height 1s ease-in-out;
+        z-index: 5;
+
+        &.active {
+            width: 300px;
+            height: 300px;
+            bottom: 112px;
+        }
+
+        &:hover > button#btn_img_click_img_barra {
+            opacity: 1;
+            transition: 0.5s opacity ease-in-out;
+        }
+
+        button#btn_img_click_img_barra {
+            $tmn: 50px;
+            width: $tmn;
+            height: $tmn;
+            display: flex;
+            opacity: 0;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px;
+            background-color: var(--padrao15);
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+
+            img {
+                width: 70%;
+                height: 90%;
+                object-fit: contain;
+                transform: rotate(-90deg);
+            }
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     }
 

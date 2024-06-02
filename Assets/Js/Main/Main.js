@@ -494,6 +494,10 @@ function Proxima_Musica(Chamado_Por) {
     if(!prox_ativo && !repetir_musicas || !prox_ativo && Chamado_Por != 'fim_do_audio') {
         prox_ativo = true
 
+        if(repetir_musicas) {
+            Repetir_Musica()
+        }
+
         audio_player.currentTime = 0
 
         if(Listas_Prox.A_Seguir.length <= 0) {
@@ -884,4 +888,76 @@ function Adicionar_View_Musica(Musica) {
             })
         })
     }
+}
+
+let img_barra_musica_aberta = false
+function Ativar_img_maior_barra_musica() {
+    const btn_mostrar_img_musica_barra_maior = document.getElementById('btn_mostrar_img_musica_barra_maior')
+    const tcontainer_img_musica_barra_musica = document.getElementById('container_img_musica_barra_musica')
+
+    if(!img_barra_musica_aberta) {
+        img_barra_musica_aberta = true
+        tcontainer_img_musica_barra_musica.classList.add('active')
+        btn_mostrar_img_musica_barra_maior.classList.add('active')
+    } else {
+        img_barra_musica_aberta = false
+        tcontainer_img_musica_barra_musica.classList.remove('active')
+        btn_mostrar_img_musica_barra_maior.classList.remove('active')
+    }
+
+    btn_mostrar_img_musica_barra_maior.style.display = 'none'
+
+    setTimeout(() => {
+        btn_mostrar_img_musica_barra_maior.style.display = 'flex'
+    }, 1000)
+}
+
+function Abrir_Creditos(ID_Musica) {
+    for (let c = 0; c < TodasMusicas.length; c++) {
+       if(TodasMusicas[c].ID == ID_Musica) {
+        document.getElementById('contanier_creditos_musica').style.display = 'flex'
+        document.getElementById('nome_artistas_credito').innerHTML = ''
+        document.getElementById('nome_artistas_credito').appendChild(Retornar_Artistas_Da_Musica((TodasMusicas[c])))
+        if(Separar_Por_Virgula(TodasMusicas[c].Autor).length > 0) {
+            document.getElementById('p_artista_creditos').innerText = 'Artistas:'
+
+        } else {
+            document.getElementById('p_artista_creditos').innerText = 'Artista:'
+        }
+
+        document.getElementById('nome_musica_cretido').innerText = TodasMusicas[c].Nome
+
+        let user_encontrado = false
+        const nome_qm_postou_creditos = document.getElementById('nome_qm_postou_creditos')
+        let usuario_carregado = undefined
+        for (let a = 0; a < Todos_Usuarios.length; a++) {
+            if(Todos_Usuarios[a].Email == TodasMusicas[c].Email) {
+                nome_qm_postou_creditos.innerText = Todos_Usuarios[a].Nome
+                nome_qm_postou_creditos.classList.add('active')
+                user_encontrado = true
+                usuario_carregado = Todos_Usuarios[a]
+                break
+            }
+        }
+
+        if(!user_encontrado) {
+            nome_qm_postou_creditos.classList.remove('active')
+            nome_qm_postou_creditos.innerText = 'Anônimo'
+        }
+
+        nome_qm_postou_creditos.addEventListener('click', () => {
+            if(nome_qm_postou_creditos.innerText != 'Anônimo') {
+                Carregar_Perfil(usuario_carregado)
+                Fechar_Creditos()
+            }
+        })
+
+        break
+       }
+        
+    }
+}
+
+function Fechar_Creditos() {
+    document.getElementById('contanier_creditos_musica').style.display = 'none'
 }

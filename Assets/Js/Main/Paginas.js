@@ -21,6 +21,7 @@ function Abrir_Pagina(Pagina, ID) {
     pd_atualizar_letra_pc = false
     animateBackgroundColor('transparent', lista_elementos_mudar_cor_letra, 1500)
     animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 1500)
+    Fechar_Creditos()
 
     if(Listas_Prox.MusicaAtual.Img && !pagina_igual) {
         Trocar_Background(Listas_Prox.MusicaAtual.Img, document.body)

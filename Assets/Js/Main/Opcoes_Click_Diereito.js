@@ -26,7 +26,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
 
     let Ir_Para_Artista = `<li onclick="Ir_Para_Artista_Opcoes_Click_Direito('${Musica.ID}')"<img src="Assets/Imgs/Ir_Para_Artista.svg"><p>Ir para  o artista</p></li>`
 
-    let About = `<li onclick="Creditos_Fila('${Musica.ID}')"<img src="Assets/Imgs/About.png"><p>Ver creditos</p></li>`
+    let About = `<li onclick="Abrir_Creditos('${Musica.ID}')"<img src="Assets/Imgs/About.png"><p>Ver creditos</p></li>`
 
     let Share = `<li onclick="Comapartilhar_Musica_Fila('${Musica.ID}')"<img src="Assets/Imgs/Share.svg"><p>Compartilhar</p></li>`
 
@@ -149,6 +149,10 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
         //* Musicas Curtidas
         opcoes_musica_ul.innerHTML += btn_musica_curtida()
         opcoes_musica_ul.innerHTML += '<hr>'
+
+        if(Musica.ID != Listas_Prox.MusicaAtual.ID) {
+            opcoes_fila_ul.innerHTML += Add_Fila
+        }
         
         let tem_na_fila = false
         for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
@@ -169,10 +173,6 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
                     break
                 }
             }
-        }
-
-        if(!tem_na_fila) {
-            opcoes_fila_ul.innerHTML += Add_Fila
         }
 
         opcoes_fila_ul.innerHTML += '<hr>'
