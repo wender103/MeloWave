@@ -472,7 +472,6 @@ function Destacar_linhas() {
     }
 
     if(pode_atualizar_letra_tela_tocando_agora) {
-        console.log('Passou por aki');
         pre_letra_tocando_agora.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
         letra_pre_ver_letra = pre_letra_tocando_agora.innerText.split('\n')
         let linhas = pre_letra_tocando_agora.innerHTML.split('\n')
@@ -481,12 +480,12 @@ function Destacar_linhas() {
             // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
             for (let c = 0; c < linhas.length; c++) {
                 if(c == linha_atual) {
-                    linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_ver_letra_tocar_musica">' + letra_pre_ver_letra[c] + '</span>'
+                    linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_aba_musica_tocando_agora">' + letra_pre_ver_letra[c] + '</span>'
                 } else if(c < linha_atual) {
                     linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
                 } else {
                     if(c == 0) {
-                        linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_ver_letra_tocar_musica">` + letra_pre_ver_letra[c] + '</span>'
+                        linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_aba_musica_tocando_agora">` + letra_pre_ver_letra[c] + '</span>'
                     } else {
                         linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
                     }
@@ -501,7 +500,7 @@ function Destacar_linhas() {
             }
             //? Faz o scroll para a linha atual
             try {
-                document.getElementById('linha_atual_sincronizar_ver_letra_tocar_musica').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+                document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
             } catch{}
             
         }
@@ -515,9 +514,13 @@ let pagina_anterior_ver_letra = {
     ID: ''
 }
 
+let reabrir_letra_aba_musica_tocando_agora = false
 function Abrir_Ver_Letra_PC() {
-    
     if(!pd_atualizar_letra_pc) {
+        if(pode_atualizar_letra_tela_tocando_agora) {
+            Fechar_Letra_Tela_Tocando_Agora('Reabrir')
+        }
+
         pagina_anterior_ver_letra.Nome = Pagina_Atual.Nome
         pagina_anterior_ver_letra.ID = Pagina_Atual.ID
         Abrir_Pagina('verletra', `verletra_${Listas_Prox.MusicaAtual.ID}`)
@@ -543,13 +546,21 @@ function Abrir_Ver_Letra_PC() {
             Zerar_Ver_Letra_Pc()
         }
 
+        setTimeout(() => {
+            Atualizar_Linha_Letra_Input()
+        }, 500)
+
     } else {
         pd_atualizar_letra_pc = false
         Fechar_Ver_Letra_PC()
     }
 }
 
-function Fechar_Ver_Letra_PC() {
+function Fechar_Ver_Letra_PC(Comando='') {
+    if(reabrir_letra_aba_musica_tocando_agora && !Comando.includes('Não Abrir Letra Tela Tocando Agora')) {
+        Mostrar_Letra_Tela_Tocando_Agora()
+    }
+
     Abrir_Pagina(pagina_anterior_ver_letra.Nome, pagina_anterior_ver_letra.ID)
     animateBackgroundColor('transparent', lista_elementos_mudar_cor_letra, 1500)
     animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 1500)
@@ -566,7 +577,9 @@ function Fechar_Ver_Letra_PC() {
 
 function Zerar_Ver_Letra_Pc() {
     pre_letra_da_musica.innerHTML = '<h1 id="linha_atual_sincronizar_ver_letra">Ainda não aprendi essa :(</h1>'
-    document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+    try {
+        document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+    } catch{}
     linha_atual = -1
 }
 
@@ -599,12 +612,16 @@ function Atualizar_Linha_Letra_Input() {
         if(time_atual + 0.30 >= Tempo[c] && time_atual < Tempo[c + 1]) {
             linha_atual = c
             Destacar_linhas()
-            document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+            try {
+                document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+            } catch{}
             break
         } else if(time_atual + 0.30 < Tempo[c] && time_atual < Tempo[c + 1]) {
             linha_atual = -1
             Destacar_linhas()
-            document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+            try {
+                document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+            } catch{}
         }
     }
 }

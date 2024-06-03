@@ -2097,6 +2097,7 @@ body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora
 }
 body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora.active pre {
   margin-top: 10px;
+  background-position: center;
 }
 body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre {
   width: 100%;
@@ -2173,7 +2174,7 @@ body section#container_tela_tocando_agora div#container_artista_tela_tocando_ago
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: var(--background_black);
+  background-color: rgba(0, 0, 0, 0.4196078431);
   border: none;
   cursor: pointer;
   padding: 10px 11px;

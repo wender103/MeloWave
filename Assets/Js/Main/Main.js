@@ -1291,18 +1291,30 @@ btn_mostrar_letra_tela_tocando_agora.addEventListener('click', () => {
 
 function Mostrar_Letra_Tela_Tocando_Agora() {
     if(!Array.isArray(Listas_Prox.MusicaAtual.Letra)) {
+        reabrir_letra_aba_musica_tocando_agora = true
+        if(pd_atualizar_letra_pc) {
+            Fechar_Ver_Letra_PC('Não Abrir Letra Tela Tocando Agora')
+        }
         pre_letra_tocando_agora.innerText = Listas_Prox.MusicaAtual.Letra.Letra_Musica
         btn_mostrar_letra_tela_tocando_agora.innerText = 'Fechar Letra'
         pode_atualizar_letra_tela_tocando_agora = true
         container_letra_tocando_agora.classList.add('active')
         container_letra_tela_tocando_agora.style.background = 'rgba(13, 17, 31, 0.192)'
         container_letra_tela_tocando_agora.style.backdropFilter = 'blur(20px)'
+
+        setTimeout(() => {
+            Atualizar_Linha_Letra_Input()
+        }, 500)
     } else {
         pre_letra_tocando_agora.innerText = 'Não aprendi essa ainda ;('
     }
 }
 
-function Fechar_Letra_Tela_Tocando_Agora() {
+function Fechar_Letra_Tela_Tocando_Agora(Comando = '') {
+    if(!Comando.includes('Reabrir')) {
+        reabrir_letra_aba_musica_tocando_agora = false
+    }
+
     const container_letra_tela_tocando_agora = document.getElementById('container_letra_tela_tocando_agora')
     pode_atualizar_letra_tela_tocando_agora = false 
     btn_mostrar_letra_tela_tocando_agora.innerText = 'Mostrar Letra'

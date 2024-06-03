@@ -2052,6 +2052,7 @@ body {
 
                     pre {
                         margin-top: 10px;
+                        background-position: center;
                     }
                 }
 
@@ -2141,7 +2142,7 @@ body {
                         position: absolute;
                         top: 50%;
                         transform: translateY(-50%);
-                        background-color: var(--background_black);
+                        background-color: #0000006b;
                         border: none;
                         cursor: pointer;
                         padding: 10px 11px;
