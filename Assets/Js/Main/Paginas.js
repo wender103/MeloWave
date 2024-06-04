@@ -18,10 +18,14 @@ function Abrir_Pagina(Pagina, ID) {
         }
     }
 
-    pd_atualizar_letra_pc = false
     animateBackgroundColor('transparent', lista_elementos_mudar_cor_letra, 1500)
     animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 1500)
     Fechar_Creditos()
+    
+    if(reabrir_letra_aba_musica_tocando_agora && Pagina != 'verletra') {
+        pd_atualizar_letra_pc = false
+        Mostrar_Letra_Tela_Tocando_Agora()
+    }
 
     if(Listas_Prox.MusicaAtual.Img && !pagina_igual) {
         Trocar_Background(Listas_Prox.MusicaAtual.Img, document.body)
