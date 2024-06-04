@@ -81,6 +81,7 @@ function Fechar_Fila() {
 const container_musicas_prox_fila = document.getElementById('container_musicas_prox_fila')
 const container_musicas_a_seguir_fila = document.getElementById('container_musicas_a_seguir_fila')
 function Atualizar_Fila(Info) {
+    console.log('Lista atualizada');
     const img_tocando_agora_fila = document.getElementById('img_tocando_agora_fila')
     const nome_tocando_agora_fila = document.getElementById('nome_tocando_agora_fila')
     const autor_tocando_agora_fila = document.getElementById('autor_tocando_agora_fila')
@@ -142,7 +143,14 @@ function Atualizar_Fila(Info) {
                 const config = document.createElement('p')
 
                 img.src = TodasMusicas[b].Img
-                musica_resulmo.className = 'musica_resulmo'
+                musica_resulmo.classList.add('musica_resulmo')
+
+                if(Modo.includes('Próximas')) {
+                    musica_resulmo.classList.add('musica_fila_proximas')
+                } else if(Modo.includes('Seguir')) {
+                    musica_resulmo.classList.add('musica_fila_a_seguir')
+
+                }
                 musica_resulmo.id = `Musica_Fila_${TodasMusicas[b].ID}`
                 texto_musica_resulmo.className = 'texto_musica_resulmo'
                 config.className = 'config_lista_prox'
@@ -171,7 +179,12 @@ function Atualizar_Fila(Info) {
                     let el = e.target.className
 
                     if(el != 'config_lista_prox' && el != 'nome_autor_fila_prox' && el != 'span_nomes_artistas' && el != 'p_nomes_artistas') {
-                        Tocar_Musica(Musicas_Recebidas, TodasMusicas[b])
+                        if(musica_resulmo.classList.contains('musica_fila_a_seguir')) {
+                            Removar_Varios_Fila(Musicas_Recebidas, TodasMusicas[b])
+                    
+                        } else {
+                            Tocar_Musica(Musicas_Recebidas, TodasMusicas[b])
+                        }
                     }
                 })
 
@@ -221,10 +234,11 @@ function Atualizar_Fila(Info) {
     if(Listas_Prox.A_Seguir.length > 0 && Info == 'Adicionando Fila a Seguir') {
         Animacao_Adicionando_Lista('Adicionar a Seguir')
     }
+
+    update_lista_a_seguir()
 }
 
 //! Animação Filha -----------------------
-let aaa = false
 function Animacao_Adicionando_Lista(Modo, Indice, Comando='') {
     let container_pai = document.getElementById('container_a_seguir_fila')
     let Lista = Listas_Prox.A_Seguir
@@ -262,7 +276,7 @@ function Animacao_Adicionando_Lista(Modo, Indice, Comando='') {
                     container_pai.querySelector('p').classList.add('Animation_Nova_Musica_Fila')
                 }
             })
-        }, 600)
+        }, 300)
 
     } else {
 
@@ -289,9 +303,11 @@ function Animacao_Adicionando_Lista(Modo, Indice, Comando='') {
                     setTimeout(() => {
                         container_pai.querySelector('p').style.position = 'static'
                         element.remove()
-                        Atualizar_Fila()
+                        if(!Comando.includes('Não Atualizar')) {
+                            Atualizar_Fila()
+                        }
                     }, 1000)
-                }, 500)
+                }, 400)
             }
         })
 
@@ -303,4 +319,47 @@ function Animacao_Adicionando_Lista(Modo, Indice, Comando='') {
             }
         }
     }
+}
+
+function Removar_Varios_Fila(Musicas_Recebidas, Musica_Clicada) {
+    Tocar_Musica(Musicas_Recebidas, Musica_Clicada, 'Não Atualizar')
+
+    const img_tocando_agora_fila = document.getElementById('img_tocando_agora_fila')
+    const nome_tocando_agora_fila = document.getElementById('nome_tocando_agora_fila')
+    const autor_tocando_agora_fila = document.getElementById('autor_tocando_agora_fila')
+
+    img_tocando_agora_fila.src = Musica_Clicada.Img
+    nome_tocando_agora_fila.innerText = Musica_Clicada.Nome
+    autor_tocando_agora_fila.innerHTML = ''
+    autor_tocando_agora_fila.appendChild(Retornar_Artistas_Da_Musica(Musica_Clicada))
+
+    let array_musicas_remover = []
+
+    for (let a = 0; a < Listas_Prox.A_Seguir.length; a++) {
+        if(Listas_Prox.A_Seguir[a].ID != Musica_Clicada.ID) {
+            array_musicas_remover.push(Listas_Prox.A_Seguir[a])
+        } else {
+            array_musicas_remover.push(Musica_Clicada)
+            break
+        }
+    }
+
+    let contador_remover = 0
+    function Remover() {
+        for (let j = 0; j < Listas_Prox.A_Seguir.length; j++) {
+            if(array_musicas_remover[contador_remover].ID == Listas_Prox.A_Seguir[j].ID) {
+                Animacao_Adicionando_Lista('Remover a Seguir', j, 'Não Atualizar')
+                break
+            }
+        }
+
+        contador_remover++
+        if(contador_remover < array_musicas_remover.length) {
+            setTimeout(() => {
+                Remover()
+            }, 1200)
+        } else {
+            update_lista_a_seguir('Indice Global')
+        }
+    } Remover()
 }

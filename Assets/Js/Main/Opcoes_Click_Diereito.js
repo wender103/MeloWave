@@ -110,6 +110,18 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
         //* Musicas Curtidas
         opcoes_musica_ul.innerHTML += btn_musica_curtida()
         opcoes_musica_ul.innerHTML += '<hr>'
+
+        let tem_no_a_seguir = false
+        for (let c = 0; c < Listas_Prox.A_Seguir.length; c++) {
+            if(Musica.ID == Listas_Prox.A_Seguir[c].ID) {
+                tem_no_a_seguir = true
+                break
+            }
+        }
+
+        if(Musica.ID != Listas_Prox.MusicaAtual.ID && !tem_no_a_seguir && Listas_Prox.Indice != undefined) {
+            opcoes_fila_ul.innerHTML += Add_Fila
+        }
         
         let tem_na_fila = false
         for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
@@ -132,11 +144,9 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
             }
         }
 
-        if(!tem_na_fila) {
-            opcoes_fila_ul.innerHTML += Add_Fila
+        if(opcoes_fila_ul.innerHTML != '') {
+            opcoes_fila_ul.innerHTML += '<hr>'
         }
-
-        opcoes_fila_ul.innerHTML += '<hr>'
 
         opcoes_musica2_ul.innerHTML += Ir_Para_Artista
         opcoes_musica2_ul.innerHTML += About
@@ -150,7 +160,15 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
         opcoes_musica_ul.innerHTML += btn_musica_curtida()
         opcoes_musica_ul.innerHTML += '<hr>'
 
-        if(Musica.ID != Listas_Prox.MusicaAtual.ID) {
+        let tem_no_a_seguir = false
+        for (let c = 0; c < Listas_Prox.A_Seguir.length; c++) {
+            if(Musica.ID == Listas_Prox.A_Seguir[c].ID) {
+                tem_no_a_seguir = true
+                break
+            }
+        }
+
+        if(Musica.ID != Listas_Prox.MusicaAtual.ID && !tem_no_a_seguir && Listas_Prox.Indice != undefined) {
             opcoes_fila_ul.innerHTML += Add_Fila
         }
         
@@ -175,7 +193,9 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
             }
         }
 
-        opcoes_fila_ul.innerHTML += '<hr>'
+        if(opcoes_fila_ul.innerHTML != '') {
+            opcoes_fila_ul.innerHTML += '<hr>'
+        }
 
         opcoes_musica2_ul.innerHTML += Ir_Para_Artista
         opcoes_musica2_ul.innerHTML += About
@@ -221,6 +241,7 @@ function Adicionar_a_Fila(ID) {
             }
 
             if(!ja_tem_na_lista) {
+                console.log('Adicionado a lista')
                 Listas_Prox.Lista_Musicas.push(TodasMusicas[c])
             }
             break

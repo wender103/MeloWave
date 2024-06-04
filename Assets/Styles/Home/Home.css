@@ -2358,7 +2358,7 @@ body section#container_fila article div.contanier_caixa_fila p {
   font-weight: 600;
   padding-left: 8px;
   margin-left: 282px;
-  transition: 500ms margin-left ease-in-out;
+  transition: 200ms margin-left ease-in-out;
 }
 body section#container_fila article div.contanier_caixa_fila#container_musica_tocando_agora_fila p#nome_tocando_agora_fila {
   color: var(--verde_azul);
@@ -2368,6 +2368,7 @@ body section#container_fila article div.contanier_caixa_fila div.contanier_caixa
   display: flex;
   flex-direction: column;
   position: relative;
+  justify-content: end;
 }
 body section#container_fila article div.contanier_caixa_fila div.contanier_caixa_fila2 div.musica_resulmo {
   width: 100%;
@@ -2378,7 +2379,7 @@ body section#container_fila article div.contanier_caixa_fila div.contanier_caixa
   border-radius: 4px;
   overflow: hidden;
   margin-left: 282px;
-  transition: 500ms margin-left ease-in-out;
+  transition: 200ms margin-left ease-in-out;
   display: flex;
   align-items: center;
   position: relative;

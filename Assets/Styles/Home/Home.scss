@@ -2366,7 +2366,7 @@ body {
                     font-weight: 600;
                     padding-left: 8px;
                     margin-left: 282px;
-                    transition: 500ms margin-left ease-in-out;
+                    transition: 200ms margin-left ease-in-out;
                 }
 
                 &#container_musica_tocando_agora_fila {
@@ -2381,7 +2381,7 @@ body {
                     display: flex;
                     flex-direction: column;
                     position: relative;
-                    // justify-content: space-between;
+                    justify-content: end;
                     
                     div.musica_resulmo {
                         width: 100%;
@@ -2392,7 +2392,7 @@ body {
                         border-radius: 4px;
                         overflow: hidden;
                         margin-left: 282px;
-                        transition: 500ms margin-left ease-in-out;
+                        transition: 200ms margin-left ease-in-out;
                         display: flex;
                         align-items: center;
                         position: relative;
