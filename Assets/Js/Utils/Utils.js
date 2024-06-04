@@ -643,14 +643,29 @@ function removerPalavrasSozinha(palavras, texto) {
 }
 
 //! Vai limpar a letra da musica ao colocar no add letra
-function limparLetraMusica(letra) {
-    const palavrasDesnecessarias = ["intro", "verse", "chorus", "outro", "bridge", "pre-chorus", "hook"];
-    const linhas = letra.split('\n');
-    const novaLetra = linhas.filter(linha => {
-        const palavras = linha.toLowerCase().split(' ');
-        return !palavras.some(palavra => palavrasDesnecessarias.includes(palavra));
-    });
-    return novaLetra.join('\n').trim();
+function limparLetraMusica(musica) {
+    // Array de palavras a serem removidas em várias línguas
+    const palavrasParaRemover = [
+        "intro", "verse", "chorus", "outro", "bridge", "pre-chorus", "hook", "coro", "ver",
+        "verso", "estrofe", "refrão", "ponte", "introdução", "final", "introduction", "end",
+        "verse 1", "verse 2", "vers 1", "vers 2", "chorus 1", "chorus 2", "verse one", "verse two"
+    ];
+
+    // Regex para identificar palavras para remover, considerando [] opcional
+    const regexRemover = new RegExp(`(^|\\[)(?:\\s*)(${palavrasParaRemover.join('|')})(?:\\s*)(?=\\]|$)`, 'gi');
+
+    // Remove palavras indesejadas apenas das linhas com uma ou duas palavras
+    let linhas = musica.split('\n');
+    for (let i = 0; i < linhas.length; i++) {
+        if (linhas[i].trim().split(/\s+/).length <= 2) {
+            linhas[i] = linhas[i].replace(regexRemover, '').trim();
+        }
+    }
+
+    // Adiciona linha vazia entre estrofes
+    let musicaLimpa = linhas.join('\n').replace(/\n{2,}/g, '\n\n');
+
+    return musicaLimpa;
 }
 
 //! Vai somar os tempos do audios
@@ -795,3 +810,77 @@ function validateImage(imageUrl) {
     });
 }
 
+//! Mostra o time da música
+function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'duration', atualizarInputs = false) {
+    return new Promise((resolve, reject) => {
+        if (!audioPlayer) {
+            return reject(new Error('Elemento de áudio não fornecido'))
+        }
+
+        const processTime = () => {
+            let durationInSeconds
+
+            if (tipo === 'currentTime') {
+                durationInSeconds = audioPlayer.currentTime
+            } else {
+                durationInSeconds = audioPlayer.duration
+            }
+
+            const hours = Math.floor(durationInSeconds / 3600)
+            const minutes = Math.floor((durationInSeconds % 3600) / 60)
+            const seconds = Math.floor(durationInSeconds % 60)
+
+            const durationObj = {
+                hours,
+                minutes,
+                seconds
+            }
+
+            if (formatado) {
+                const formattedDuration = hours > 0 
+                    ? `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` 
+                    : `${minutes}:${seconds.toString().padStart(2, '0')}`
+                resolve({ ...durationObj, formattedDuration })
+            } else {
+                resolve(durationObj)
+            }
+
+            if (atualizarInputs) {
+                const percentProgress = (audioPlayer.currentTime / audioPlayer.duration) * 100
+                const inputRangeMusicaPC = document.getElementById('input_range_musica_pc')
+                const inputRangeMusicaPCFullscreen = document.getElementById('input_range_musica_pc_fullscreen')
+                
+                if (inputRangeMusicaPC) {
+                    inputRangeMusicaPC.value = percentProgress
+                    atualizar_cor_progresso_input(inputRangeMusicaPC)
+                }
+                
+                if (inputRangeMusicaPCFullscreen) {
+                    inputRangeMusicaPCFullscreen.value = percentProgress
+                    atualizar_cor_progresso_input(inputRangeMusicaPCFullscreen)
+                }
+            }
+        }
+
+        if (tipo === 'currentTime') {
+            if (!audioPlayer.paused || audioPlayer.currentTime > 0) {
+                processTime()
+            } else {
+                audioPlayer.addEventListener('play', processTime, { once: true })
+                audioPlayer.play().then(() => {
+                    audioPlayer.pause()
+                }).catch(reject)
+            }
+        } else {
+            if (audioPlayer.duration) {
+                processTime()
+            } else {
+                audioPlayer.addEventListener('loadedmetadata', processTime, { once: true })
+            }
+        }
+
+        audioPlayer.addEventListener('error', (e) => {
+            reject(e)
+        })
+    })
+}

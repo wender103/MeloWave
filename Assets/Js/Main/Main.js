@@ -293,42 +293,9 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     //! ---------------- Fim Navegador ----------------------------------
 
     //! ---------------- Audio ------------------------------------------
-    audio_player.removeEventListener('timeupdate', updateTime)
-    audio_player.addEventListener('timeupdate', updateTime)
-
     //? Vai atualizar a barra de progresso da música
     let input_range_musica_pc = document.getElementById('input_range_musica_pc') //? Progresso barra para pc
     let input_range_musica_pc_fullscreen = document.getElementById('input_range_musica_pc_fullscreen') //? Progresso barra para pc
-
-    // Função para exibir o tempo atual em segundos enquanto o áudio está tocando
-    function updateTime() {
-        let feito = false
-        if(!feito) {
-            feito = true
-
-            const percentProgress = (audio_player.currentTime / audio_player.duration) * 100
-            input_range_musica_pc.value = percentProgress
-            atualizar_cor_progresso_input(input_range_musica_pc)
-    
-            input_range_musica_pc_fullscreen.value = percentProgress
-            atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
-    
-            const currentTimeInSeconds = Math.floor(audio_player.currentTime)
-            const hours = Math.floor(currentTimeInSeconds / 3600)
-            const minutes = Math.floor((currentTimeInSeconds % 3600) / 60)
-            const seconds = Math.floor(currentTimeInSeconds % 60)
-
-            const formattedDuration = hours > 0 
-                ? `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` 
-                : `${minutes}:${seconds.toString().padStart(2, '0')}`
-
-                document.getElementById('contador_segundos_musica').innerText = formattedDuration
-                document.getElementById('contador_segundos_musica_fullscreen').innerText = formattedDuration
-
-            //! Vai atualizar a letra
-            Atualizar_Letra_PC()
-        }
-    }
 
     audio_player.removeEventListener('loadedmetadata', carregar_metadados_audio)
     audio_player.addEventListener('loadedmetadata', carregar_metadados_audio)
@@ -338,18 +305,17 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         if(!feito) {
             feito = true
 
-            const durationInSeconds = audio_player.duration
+            console.log('Metadados do audio carregadoss');
 
-            const hours = Math.floor(durationInSeconds / 3600)
-            const minutes = Math.floor((durationInSeconds % 3600) / 60)
-            const seconds = Math.floor(durationInSeconds % 60)
-    
-            const formattedDuration = hours > 0 
-                ? `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` 
-                : `${minutes}:${seconds.toString().padStart(2, '0')}`
-    
-            document.getElementById('tempo_max_musica').innerText = formattedDuration
-            document.getElementById('tempo_max_musica_fullscreen').innerText = formattedDuration
+            obterDuracaoOuTempoAtualAudio(audio_player, true).then((resp) => {
+                document.getElementById('tempo_max_musica').innerText = resp.formattedDuration
+                document.getElementById('tempo_max_musica_fullscreen').innerText = resp.formattedDuration
+            })
+
+            obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
+                document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
+                document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
+            })
         }
     }
 
@@ -405,6 +371,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 }
 
 //! Adicionar view na música
+let interval_audio_tocando
 audio_player.addEventListener('play', () => {
     interval_view = setInterval(() => {
         if (!audio_player.paused && !audio_player.ended) {
@@ -415,10 +382,21 @@ audio_player.addEventListener('play', () => {
             }
         }
     }, 1000)
+
+    interval_audio_tocando = setInterval(() => {
+        obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
+            document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
+            document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
+        })
+
+        //! Vai atualizar a letra
+        Atualizar_Letra_PC()
+    }, 300)
 })
 
 audio_player.addEventListener('pause', () => {
     clearInterval(interval_view)
+    clearInterval(interval_audio_tocando)
 })
 
 // audio_player.addEventListener('seeked', () => {
