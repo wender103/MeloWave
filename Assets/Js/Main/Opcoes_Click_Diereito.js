@@ -241,7 +241,6 @@ function Adicionar_a_Fila(ID) {
             }
 
             if(!ja_tem_na_lista) {
-                console.log('Adicionado a lista')
                 Listas_Prox.Lista_Musicas.push(TodasMusicas[c])
             }
             break

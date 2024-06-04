@@ -81,7 +81,6 @@ function Fechar_Fila() {
 const container_musicas_prox_fila = document.getElementById('container_musicas_prox_fila')
 const container_musicas_a_seguir_fila = document.getElementById('container_musicas_a_seguir_fila')
 function Atualizar_Fila(Info) {
-    console.log('Lista atualizada');
     const img_tocando_agora_fila = document.getElementById('img_tocando_agora_fila')
     const nome_tocando_agora_fila = document.getElementById('nome_tocando_agora_fila')
     const autor_tocando_agora_fila = document.getElementById('autor_tocando_agora_fila')
