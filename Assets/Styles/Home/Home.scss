@@ -2740,7 +2740,16 @@ body {
                     margin: 5px 0 0;
 
                     p {
-                        width: 20px;
+                        min-width: 42px;
+                        width: 42px;
+
+                        &#contador_segundos_musica {
+                            text-align: end;
+                        }
+
+                        &#tempo_max_musica {
+                            text-align: start;
+                        }
                     }
 
                     input {

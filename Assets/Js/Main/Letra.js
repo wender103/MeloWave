@@ -604,23 +604,25 @@ function Atualizar_Letra_PC() {
 
 let atualizando_linha_dnv = false
 function Atualizar_Linha_Letra_Input() {
-    let time_atual = audio_player.currentTime
-    let Tempo = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado
-
-    for (let c = 0; c < Tempo.length; c++) {
-        if(time_atual + 0.30 >= Tempo[c] && time_atual < Tempo[c + 1]) {
-            linha_atual = c
-            Destacar_linhas()
-            try {
-                document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
-            } catch{}
-            break
-        } else if(time_atual + 0.30 < Tempo[c] && time_atual < Tempo[c + 1]) {
-            linha_atual = -1
-            Destacar_linhas()
-            try {
-                document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
-            } catch{}
+    if(!Array.isArray(Listas_Prox.MusicaAtual.Letra)) {
+        let time_atual = audio_player.currentTime
+        let Tempo = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado
+    
+        for (let c = 0; c < Tempo.length; c++) {
+            if(time_atual + 0.30 >= Tempo[c] && time_atual < Tempo[c + 1]) {
+                linha_atual = c
+                Destacar_linhas()
+                try {
+                    document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+                } catch{}
+                break
+            } else if(time_atual + 0.30 < Tempo[c] && time_atual < Tempo[c + 1]) {
+                linha_atual = -1
+                Destacar_linhas()
+                try {
+                    document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+                } catch{}
+            }
         }
     }
 }

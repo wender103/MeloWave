@@ -313,12 +313,17 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
             input_range_musica_pc_fullscreen.value = percentProgress
             atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
     
-            const currentTimeInSeconds = Math.floor(audio_player.currentTime);
-            const minutes = Math.floor(currentTimeInSeconds / 60)
+            const currentTimeInSeconds = Math.floor(audio_player.currentTime)
+            const hours = Math.floor(currentTimeInSeconds / 3600)
+            const minutes = Math.floor((currentTimeInSeconds % 3600) / 60)
             const seconds = Math.floor(currentTimeInSeconds % 60)
-            const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
-            document.getElementById('contador_segundos_musica').innerText = formattedDuration
-            document.getElementById('contador_segundos_musica_fullscreen').innerText = formattedDuration
+
+            const formattedDuration = hours > 0 
+                ? `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` 
+                : `${minutes}:${seconds.toString().padStart(2, '0')}`
+
+                document.getElementById('contador_segundos_musica').innerText = formattedDuration
+                document.getElementById('contador_segundos_musica_fullscreen').innerText = formattedDuration
 
             //! Vai atualizar a letra
             Atualizar_Letra_PC()
@@ -333,10 +338,16 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         if(!feito) {
             feito = true
 
-            const durationInSeconds = audio_player.duration;
-            const minutes = Math.floor(durationInSeconds / 60)
+            const durationInSeconds = audio_player.duration
+
+            const hours = Math.floor(durationInSeconds / 3600)
+            const minutes = Math.floor((durationInSeconds % 3600) / 60)
             const seconds = Math.floor(durationInSeconds % 60)
-            const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
+    
+            const formattedDuration = hours > 0 
+                ? `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` 
+                : `${minutes}:${seconds.toString().padStart(2, '0')}`
+    
             document.getElementById('tempo_max_musica').innerText = formattedDuration
             document.getElementById('tempo_max_musica_fullscreen').innerText = formattedDuration
         }

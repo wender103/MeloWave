@@ -2668,7 +2668,14 @@ body section#container_barra_musica article div#container_controles_musica_barra
   /* Hides the thumb (slider handle) */
 }
 body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_barra p {
-  width: 20px;
+  min-width: 42px;
+  width: 42px;
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_barra p#contador_segundos_musica {
+  text-align: end;
+}
+body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_barra p#tempo_max_musica {
+  text-align: start;
 }
 body section#container_barra_musica article div#container_controles_musica_barra_musica div#container_barra input {
   background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
