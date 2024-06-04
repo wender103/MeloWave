@@ -642,6 +642,17 @@ function removerPalavrasSozinha(palavras, texto) {
     return textoFiltrado;
 }
 
+//! Vai limpar a letra da musica ao colocar no add letra
+function limparLetraMusica(letra) {
+    const palavrasDesnecessarias = ["intro", "verse", "chorus", "outro", "bridge", "pre-chorus", "hook"];
+    const linhas = letra.split('\n');
+    const novaLetra = linhas.filter(linha => {
+        const palavras = linha.toLowerCase().split(' ');
+        return !palavras.some(palavra => palavrasDesnecessarias.includes(palavra));
+    });
+    return novaLetra.join('\n').trim();
+}
+
 //! Vai somar os tempos do audios
 async function somarTempos(Musicas) {
     let totalSegundos = 0

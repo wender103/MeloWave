@@ -6,7 +6,6 @@ const Btn_Proximo_aAdd_Letra = document.getElementById('Btn_Proximo_aAdd_Letra')
 let adicionando_letra_na_musica = false
 let pode_salvar_letra = false
 const lista_elementos_mudar_cor_letra = [document.querySelector('main'), document.getElementById('container_fila'), document.getElementById('container_barra_musica'), document.getElementById('container_tela_tocando_agora')]
-const lista_palavras_remover_add_letra = ['verse', 'pre-chorus', 'chorus', 'hook', 'verse', 'pre-chorus', 'outro', 'intro', 'bridge']
 
 let linha_atual_sincronizar = 0 
 let array_tempo_letra_sincronizar = []
@@ -37,7 +36,7 @@ function Fechar_Add_Letra(Comando='') {
 }
 
 function Checar_Proximo_Add_Letra() {
-    text_area_add_letra.value = removerPalavrasSozinha(lista_palavras_remover_add_letra, text_area_add_letra.value)
+    text_area_add_letra.value = limparLetraMusica(text_area_add_letra.value)
 
     if(text_area_add_letra.value.trim() != '') {
         Btn_Proximo_aAdd_Letra.classList.remove('btn_bloqueado')

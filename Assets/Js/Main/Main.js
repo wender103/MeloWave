@@ -105,6 +105,7 @@ function atualizar_cor_progresso_input(inputElement) {
 let feito_musica_tocar = false
 let Tocando_Musica_A_Seguir = false
 let tmp_ouvindo_musica = 0
+let interval_view
 const img_btn_mic_letra = document.querySelectorAll('.img_btn_mic_letra')
 
 function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {
@@ -118,8 +119,10 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     if(Listas_Prox.MusicaAtual != MusicaAtual) {
         Repetir_Musica(false)
-        tmp_ouvindo_musica = 0
     }
+
+    tmp_ouvindo_musica = 0
+    clearInterval(interval_view)
 
     Listas_Prox.MusicaAtual = MusicaAtual
     Listas_Prox.Lista_Musicas = Lista
@@ -298,7 +301,6 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     let input_range_musica_pc_fullscreen = document.getElementById('input_range_musica_pc_fullscreen') //? Progresso barra para pc
 
     // Função para exibir o tempo atual em segundos enquanto o áudio está tocando
-    let adicionar_view_musica = false
     function updateTime() {
         let feito = false
         if(!feito) {
@@ -317,17 +319,6 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
             const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
             document.getElementById('contador_segundos_musica').innerText = formattedDuration
             document.getElementById('contador_segundos_musica_fullscreen').innerText = formattedDuration
-    
-            tmp_ouvindo_musica += 1
-    
-            //! Vai adicionar a view a música
-            if(!adicionar_view_musica && tmp_ouvindo_musica > 80) {
-                // console.log(currentTimeInSeconds)
-                // console.log('View adicionada')
-                adicionar_view_musica = true
-    
-                // Adicionar_View_Musica(MusicaAtual)
-            }
 
             //! Vai atualizar a letra
             Atualizar_Letra_PC()
@@ -401,6 +392,27 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         }, 300)
     })
 }
+
+//! Adicionar view na música
+audio_player.addEventListener('play', () => {
+    interval_view = setInterval(() => {
+        if (!audio_player.paused && !audio_player.ended) {
+            tmp_ouvindo_musica++
+            if (tmp_ouvindo_musica >= 30) {
+                Adicionar_View_Musica(Listas_Prox.MusicaAtual)
+                clearInterval(interval_view)
+            }
+        }
+    }, 1000)
+})
+
+audio_player.addEventListener('pause', () => {
+    clearInterval(interval_view)
+})
+
+// audio_player.addEventListener('seeked', () => {
+//     tmp_ouvindo_musica = 0
+// })
 
 //! --------------------------------- Fim Tocar Musica -------------------------------
 
