@@ -53,7 +53,7 @@ function Mostrar_Max_Musicas() {
     document.querySelectorAll('.Container_Autor_Caixa').forEach(container => {
         container = container.querySelector('article')
         
-        if(container.querySelectorAll('.artista_caixa')  ) { 
+        if(container.querySelectorAll('.artista_caixa').length > 0) { 
             const artista = container.querySelectorAll('.artista_caixa')  
 
             if(artista.length > max_musicas && max_musicas > 4) {
@@ -71,7 +71,28 @@ function Mostrar_Max_Musicas() {
             }
         }
     })
-} Mostrar_Max_Musicas()
+
+    try {
+        const container_artista_caixa = document.getElementById('container_artistas_playlist_tocadas_recentemente').querySelectorAll('.container_artista_caixa')
+
+        if(container_artista_caixa.length > 0) { 
+
+            if(container_artista_caixa.length > max_musicas && max_musicas > 4) {
+                document.getElementById('container_artistas_playlist_tocadas_recentemente').style.justifyContent = 'space-around'
+            } else {
+                document.getElementById('container_artistas_playlist_tocadas_recentemente').style.justifyContent = 'start'
+            }
+            
+            for (let c = 0; c < container_artista_caixa.length; c++) {
+                if(c >= max_musicas) {
+                    container_artista_caixa[c].style.display = 'none'
+                } else {
+                    container_artista_caixa[c].style.display = 'flex'
+                }   
+            }
+        }   
+    } catch {}
+}
 
 let Execultar_Funcoes_Ao_Carregar_execultado = false
 function Pegar_Todas_Musicas() {
@@ -108,6 +129,10 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     if(Nome_Album != '') {
         Listas_Prox.Nome_Album = Nome_Album
+    }
+
+    if(Qm_Chamou != undefined && Qm_Chamou != 'perfil') {
+        User_Tocando_Agora = undefined
     }
 
     if(Listas_Prox.MusicaAtual != MusicaAtual) {
@@ -207,9 +232,36 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     //! Historico Salvar -------------------
     User.Historico.Musicas.push(MusicaAtual)
-    User.Historico.Artistas.push(...Separar_Por_Virgula(MusicaAtual.Autor))
+    User.Gosto_Musical.Artistas.push(...Separar_Por_Virgula(MusicaAtual.Autor))
+
+    if(User_Tocando_Agora != undefined) {
+        User.Historico.Artistas.push(User_Tocando_Agora)
+    } else {
+        let musica_do_autor = false
+        if(Nome_Artista_Pagina_Aberta != undefined) {
+            let autores_musica = Separar_Por_Virgula(MusicaAtual.Autor)
+            for (let c = 0; c < autores_musica.length; c++) {
+                const ab = formatarString(autores_musica[c])
+                const bb = formatarString(Nome_Artista_Pagina_Aberta)
+        
+                if(ab == bb) {
+                    musica_do_autor = true
+                    break
+                }
+            }
+        }
+    
+        if(Nome_Artista_Pagina_Aberta != undefined && musica_do_autor) {
+            User.Historico.Artistas.push(Nome_Artista_Pagina_Aberta)
+        } else {
+            User.Historico.Artistas.push(Separar_Por_Virgula(MusicaAtual.Autor)[0])
+        }
+    }
+
+    User.Historico.Artistas = removerDuplicados(User.Historico.Artistas.reverse()).reverse()
 
     Salvar_Historico()
+    Salvar_GostoMusical()
 
     //! ---------------- Navegador ----------------------------------
     navigator.mediaSession.metadata = new MediaMetadata({
@@ -775,12 +827,8 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
     
             const audio = new Audio(Musicas[c].Audio)
     
-            audio.addEventListener('loadedmetadata', function() {
-                const durationInSeconds = audio.duration;
-                const minutes = Math.floor(durationInSeconds / 60)
-                const seconds = Math.floor(durationInSeconds % 60)
-                const formattedDuration = `${minutes}:${seconds.toString().padStart(2, '0')}`
-                tempo.innerText = formattedDuration
+            obterDuracaoOuTempoAtualAudio(audio, true).then((resp) => {
+                tempo.innerText = resp.formattedDuration
             })
     
     
@@ -858,6 +906,12 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
     
                 if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar' && el != 'bnt_carrinho_editar' && el != 'img_carrinho_editar') {
                     if(!Comando.includes('Resumido')) {
+                        if(Qm_Chamou == 'perfil') {
+                            User_Tocando_Agora = infos_user_carregar.Email
+                        } else if(Qm_Chamou != '' && Qm_Chamou != 'perfil') {
+                            User_Tocando_Agora = undefined
+                        }
+
                         Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c], '', ID_Pagina, Qm_Chamou, Nome_Album)
                         Listas_Prox.Nome_Album = Qm_Chamou
                     } else {

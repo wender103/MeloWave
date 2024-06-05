@@ -323,6 +323,10 @@ function removerNomesDuplicados(arrayDeNomes) {
     return nomesUnicosArray;
 }
 
+function removerDuplicados(array) {
+    return [...new Set(array)]
+}
+
 //! tem o objetivo de extrair e listar os nomes de todos os artistas presentes em uma coleção de músicas
 function Nome_Artistas() {
     let TodosArtistas = []
@@ -962,4 +966,11 @@ function calcularTempoRestante(data) {
 //! Gera ids aleátorios
 function gerarId() {
     return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+}
+
+//! Identifica se é um email
+function validarEmail(email) {
+    // Expressão regular para validar e-mail
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return regex.test(email)
 }

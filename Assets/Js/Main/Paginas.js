@@ -22,9 +22,11 @@ function Abrir_Pagina(Pagina, ID) {
     animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 1500)
     Fechar_Creditos()
     
-    if(reabrir_letra_aba_musica_tocando_agora && Pagina != 'verletra') {
+    if(Pagina != 'verletra') {
         pd_atualizar_letra_pc = false
-        Mostrar_Letra_Tela_Tocando_Agora()
+        if(reabrir_letra_aba_musica_tocando_agora) {
+            Mostrar_Letra_Tela_Tocando_Agora()
+        }
     }
 
     if(Listas_Prox.MusicaAtual.Img && !pagina_igual) {
@@ -59,6 +61,16 @@ function Abrir_Pagina(Pagina, ID) {
 
         if(Pagina == 'home') {
             Mostrar_Max_Musicas()
+            Artistas_Tocados_Recentemente()
+
+            setTimeout(() => {
+                Mostrar_Max_Musicas()
+
+                setTimeout(() => {
+                    Mostrar_Max_Musicas()
+                }, 1000)
+            }, 1000)
+
         } else if(Pagina == 'musicascurtidas') {
             desativar_blur = true
             Retornar_Musicas_Curtidas()
@@ -69,6 +81,8 @@ function Abrir_Pagina(Pagina, ID) {
         } else if(Pagina == 'meuperfil') {
             desativar_blur = true
             Carregar_Meu_Perfil()
+        } else if(Pagina == 'perfil') {
+            desativar_blur = true
         } else if(Pagina == 'artista') {
             desativar_blur = true
         } else if(Pagina == 'adicionarletra') {
@@ -81,6 +95,10 @@ function Abrir_Pagina(Pagina, ID) {
         } else {
             Fechar_Add_Letra('Não Voltar a Página')
         }
+    }
+
+    if(Pagina != 'artista') {
+        Nome_Artista_Pagina_Aberta = undefined
     }
 
     if(desativar_blur) {

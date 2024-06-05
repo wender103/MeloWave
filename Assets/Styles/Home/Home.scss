@@ -628,7 +628,7 @@ body {
                         color: var(--white);
                         justify-content: space-between;
                         cursor: pointer;
-                        background-color: var(--padrao1);
+                        background-color: var(--black_transparent);
                         border-radius: 5px;
         
                         div {
@@ -653,6 +653,55 @@ body {
 
                 section#container_musicas_home {
                     margin-top: 20px;
+                }
+
+                section#container_tocados_recentemente {
+                    div.div_container_perfil_usuario_historico {
+                        div.div_container_img_historico {
+                            border-radius: 6px;
+                            height: 130px;
+                            overflow: hidden;
+
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+
+                        div.div_container_texto_historico {
+                            width: 100%;
+                            height: 45%;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+
+                            span {
+                                font-size: 13px;
+                                color: var(--fonte_meio_transparente);
+                                cursor: pointer;
+                            }
+
+                            p {
+                                font-size: 14px;
+                                color: var(--white);
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+                    }
+                }
+
+                section#container_artistas_favoritos {
+                    div.container_artista_caixa {
+                        background-color: transparent;  
+                        
+                        div.container_img_artista_caixa {
+                            width: 113%;
+                            height: 92%;
+                        }
+                    }
                 }
             }
 
@@ -2173,14 +2222,6 @@ body {
                 position: relative;
                 cursor: pointer;
 
-                p {
-                    position: absolute;
-                    font-weight: bold;
-                    top: 10px;
-                    left: 10px;
-                    z-index: 1;
-                }
-
                 #carousel_container_telta_tocando_agora {
                     position: relative;
                     width: 100%;
@@ -2194,10 +2235,24 @@ body {
                     .carousel_item_telta_tocando_agora {
                         min-width: 100%;
                         height: 229px;
-                        object-fit: cover;
-                        transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
                         transform-origin: center;
+                        transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
                         border-radius: 6px;
+                        position: relative;
+
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+
+                        p {
+                            position: absolute;
+                            font-weight: bold;
+                            top: 10px;
+                            left: 10px;
+                            z-index: 1;
+                        }
                     }
             
                     .carousel_item_telta_tocando_agora.active {
@@ -3232,12 +3287,12 @@ body {
             
             padding: 20px;
             // background-color: var(--padrao4);
-            background-color: #000000a2;
+            background-color: #000000a2;  
             color: var(--white);
             border-radius: 8px;   
             display: flex;
             flex-direction: column;
-            align-items: center; 
+            align-items: center;  
             justify-content: center;
             overflow: hidden;
 
@@ -3248,7 +3303,7 @@ body {
 
                 a {
                     color: var(--verde_azul);
-                }
+                } 
             }
 
             pre#pre_notificacao_infos {

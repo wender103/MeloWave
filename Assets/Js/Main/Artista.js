@@ -1,6 +1,7 @@
 let Lsita_Musicas_Artista = []
-let Id_Paga_Artistas = undefined
+let Nome_Artista_Pagina_Aberta = undefined
 function Abrir_Perfil_Artista(Artista, Musica) {
+    Nome_Artista_Pagina_Aberta = Artista
     Lsita_Musicas_Artista = Pegar_Musicas(Artista, 'Artista').reverse()
     Lsita_Musicas_Artista = Lsita_Musicas_Artista.reverse()
     Retornar_Musica_Linha(Lsita_Musicas_Artista, document.getElementById('container_musicas_pag_artista'), 'Não Inverter, View', 'artista')
@@ -53,7 +54,7 @@ icon_random_artista.addEventListener('click', () => {
 
 const img_play_musicas_artista = document.getElementById('img_play_musicas_artista')
 img_play_musicas_artista.addEventListener('click', () => {
-    Tocar_Musica(Lsita_Musicas_Artista, Lsita_Musicas_Artista[0])
+    Tocar_Musica(Lsita_Musicas_Artista, Lsita_Musicas_Artista[0], '', `artista_${Lsita_Musicas_Artista[0]}`, 'artista')
 })
 
 function Seguir_Artista(Artista=null, Comando=null) {
@@ -386,5 +387,38 @@ function Salvar_Musicas_Ouvidas_Artista_Seguindo(infos_artistas) {
 
     } else {
         Salvar_Perfil_Anonimo_User()
+    }
+}
+
+function Retornar_Musicas_Mais_View_Artista(Artista, Apenas_Do_Artista = true) {
+    const artista_formatado = formatarString(Artista)
+
+    let primeira_musica = undefined
+    let array_musicas = []
+    for (let c = 0; c < TodasMusicas.length; c++) {
+        const td_artista_formatado = formatarString(TodasMusicas[c].Autor)
+
+        if(artista_formatado == td_artista_formatado && Apenas_Do_Artista) {
+            array_musicas.push(TodasMusicas[c])
+        }
+
+        if(!Apenas_Do_Artista) {
+            if(artista_formatado.includes(td_artista_formatado) || td_artista_formatado.includes(artista_formatado)) {
+                array_musicas.push(TodasMusicas[c])
+            }
+        }
+
+        if(primeira_musica == undefined) {
+            if(artista_formatado.includes(td_artista_formatado) || td_artista_formatado.includes(artista_formatado)) {
+                primeira_musica = [TodasMusicas[c]]
+            }
+        }
+    }
+
+    if(array_musicas.length > 0) {
+        array_musicas = array_musicas.sort((a, b) => b.Views - a.Views)
+        return array_musicas
+    } else {
+        return primeira_musica
     }
 }

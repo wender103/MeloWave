@@ -68,7 +68,7 @@ div.div_container_perfil_usuario {
   min-width: 150px;
   height: 245px;
   border-radius: 8px;
-  background-color: var(--cor_qse_transparente_background);
+  background-color: var(--black_transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -174,8 +174,9 @@ div.musica_linha div.segunda_parte_musica_linha {
   gap: 30px;
 }
 div.musica_linha div.segunda_parte_musica_linha p {
-  width: 30px;
+  width: 42px;
   font-size: 14px;
+  text-align: end;
 }
 div.musica_linha div.segunda_parte_musica_linha button {
   width: 30px;
@@ -237,7 +238,7 @@ div.musica_caixa {
   min-width: 150px;
   height: 245px;
   border-radius: 8px;
-  background-color: var(--cor_qse_transparente_background);
+  background-color: var(--black_transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -296,7 +297,7 @@ div.daily_caixa {
   min-width: 150px;
   height: 245px;
   border-radius: 8px;
-  background-color: var(--cor_qse_transparente_background);
+  background-color: var(--black_transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -394,4 +395,50 @@ div.daily_caixa div.texto_musica span p span:hover {
   top: -3px;
   right: -3px;
   display: none;
+}
+
+div.container_artista_caixa {
+  width: 160px;
+  min-width: 150px;
+  height: 245px;
+  border-radius: 8px;
+  background-color: var(--black_transparent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  cursor: pointer;
+  padding: 10px;
+}
+div.container_artista_caixa div.container_img_artista_caixa {
+  width: 95%;
+  height: 63%;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: 2px;
+}
+div.container_artista_caixa div.container_img_artista_caixa img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+div.container_artista_caixa div.container_texto_artista_caixa {
+  width: 100%;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+div.container_artista_caixa div.container_texto_artista_caixa p {
+  font-size: 14px;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div.container_artista_caixa div.container_texto_artista_caixa span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  cursor: pointer;
 }/*# sourceMappingURL=Geral.css.map */

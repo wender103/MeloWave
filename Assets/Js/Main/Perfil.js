@@ -1,3 +1,4 @@
+let User_Tocando_Agora = undefined
 function Carregar_Perfil(User_Carregar) {
     Abrir_Pagina('perfil', `perfil_${User_Carregar.ID}`)
 
@@ -176,7 +177,9 @@ function fecharImagemZoom() {
 
 document.getElementById('img_play_musicas_perfil').addEventListener('click', () => {
     let new_array = [...musicas_perfil_pesquisa]
+    User_Tocando_Agora = infos_user_carregar.Email
     Tocar_Musica(new_array.reverse(), musicas_perfil_pesquisa[musicas_perfil_pesquisa.length - 1], `perfil_${infos_user_carregar.ID}`, 'perfil')
+    
 })
 
 function Pesquisar_Musicas_Perfil(Pesquisa) {

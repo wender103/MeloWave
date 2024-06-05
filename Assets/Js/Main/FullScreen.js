@@ -58,11 +58,7 @@ function Atualizar_Fullscreen() {
     }
 
     if(musicas_do_autor.length > 1) {
-        console.log('tem mais de 0 músicas')
-        console.log(musica_escolhida)
         musica_escolhida = musicas_do_autor.sort((a, b) => b.Views - a.Views)[1]
-        console.log(musicas_do_autor)
-        console.log(musica_escolhida)
     }
 
     Trocar_Background(musica_escolhida.Img, document.getElementById('background_fullscreen'))

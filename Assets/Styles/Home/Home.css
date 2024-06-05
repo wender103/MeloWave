@@ -69,7 +69,7 @@ div.div_container_perfil_usuario {
   min-width: 150px;
   height: 245px;
   border-radius: 8px;
-  background-color: var(--cor_qse_transparente_background);
+  background-color: var(--black_transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -175,8 +175,9 @@ div.musica_linha div.segunda_parte_musica_linha {
   gap: 30px;
 }
 div.musica_linha div.segunda_parte_musica_linha p {
-  width: 30px;
+  width: 42px;
   font-size: 14px;
+  text-align: end;
 }
 div.musica_linha div.segunda_parte_musica_linha button {
   width: 30px;
@@ -238,7 +239,7 @@ div.musica_caixa {
   min-width: 150px;
   height: 245px;
   border-radius: 8px;
-  background-color: var(--cor_qse_transparente_background);
+  background-color: var(--black_transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -297,7 +298,7 @@ div.daily_caixa {
   min-width: 150px;
   height: 245px;
   border-radius: 8px;
-  background-color: var(--cor_qse_transparente_background);
+  background-color: var(--black_transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -395,6 +396,52 @@ div.daily_caixa div.texto_musica span p span:hover {
   top: -3px;
   right: -3px;
   display: none;
+}
+
+div.container_artista_caixa {
+  width: 160px;
+  min-width: 150px;
+  height: 245px;
+  border-radius: 8px;
+  background-color: var(--black_transparent);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  cursor: pointer;
+  padding: 10px;
+}
+div.container_artista_caixa div.container_img_artista_caixa {
+  width: 95%;
+  height: 63%;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: 2px;
+}
+div.container_artista_caixa div.container_img_artista_caixa img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+div.container_artista_caixa div.container_texto_artista_caixa {
+  width: 100%;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+div.container_artista_caixa div.container_texto_artista_caixa p {
+  font-size: 14px;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+div.container_artista_caixa div.container_texto_artista_caixa span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  cursor: pointer;
 }
 
 body {
@@ -897,7 +944,7 @@ body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curti
   color: var(--white);
   justify-content: space-between;
   cursor: pointer;
-  background-color: var(--padrao1);
+  background-color: var(--black_transparent);
   border-radius: 5px;
 }
 body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curtidas div {
@@ -917,6 +964,43 @@ body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curti
 }
 body main section.Paginas#Pagina_home section#container_musicas_home {
   margin-top: 20px;
+}
+body main section.Paginas#Pagina_home section#container_tocados_recentemente div.div_container_perfil_usuario_historico div.div_container_img_historico {
+  border-radius: 6px;
+  height: 130px;
+  overflow: hidden;
+}
+body main section.Paginas#Pagina_home section#container_tocados_recentemente div.div_container_perfil_usuario_historico div.div_container_img_historico img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body main section.Paginas#Pagina_home section#container_tocados_recentemente div.div_container_perfil_usuario_historico div.div_container_texto_historico {
+  width: 100%;
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+body main section.Paginas#Pagina_home section#container_tocados_recentemente div.div_container_perfil_usuario_historico div.div_container_texto_historico span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_home section#container_tocados_recentemente div.div_container_perfil_usuario_historico div.div_container_texto_historico p {
+  font-size: 14px;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body main section.Paginas#Pagina_home section#container_artistas_favoritos div.container_artista_caixa {
+  background-color: transparent;
+}
+body main section.Paginas#Pagina_home section#container_artistas_favoritos div.container_artista_caixa div.container_img_artista_caixa {
+  width: 113%;
+  height: 92%;
 }
 body main section.Paginas#Pagina_pesquisar section {
   display: none;
@@ -2199,13 +2283,6 @@ body section#container_tela_tocando_agora div#container_artista_tela_tocando_ago
   position: relative;
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora p {
-  position: absolute;
-  font-weight: bold;
-  top: 10px;
-  left: 10px;
-  z-index: 1;
-}
 body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora {
   position: relative;
   width: 100%;
@@ -2218,11 +2295,23 @@ body section#container_tela_tocando_agora div#container_artista_tela_tocando_ago
 body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora {
   min-width: 100%;
   height: 229px;
+  transform-origin: center;
+  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+  border-radius: 6px;
+  position: relative;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora img {
+  width: 100%;
+  height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
-  transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
-  transform-origin: center;
-  border-radius: 6px;
+}
+body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora p {
+  position: absolute;
+  font-weight: bold;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
 }
 body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora.active {
   transform: scale(1);

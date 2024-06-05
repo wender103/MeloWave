@@ -71,5 +71,17 @@ function Execultar_Funcoes_Ao_Carregar() {
         try {
             Carregar_Notificacaoes()
         } catch{}
+
+        try {
+            Artistas_Tocados_Recentemente()
+        } catch(e){console.warn(e)}
+
+        try {
+            Mostrar_Max_Musicas()
+        } catch {}
+
+        try {
+            Retornar_Artistas_Mais_Vistos()
+        } catch{}
     }
 }

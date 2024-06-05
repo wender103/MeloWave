@@ -247,8 +247,8 @@ function Retornar_Artistas(Artista, Local, min) {
                 
                     //! AppendChild
                     container_img_musica.appendChild(img)
-                    texto_musica.appendChild(p)
                     texto_musica.appendChild(span)
+                    texto_musica.appendChild(p)
                     artista_caixa.appendChild(container_img_musica)
                     artista_caixa.appendChild(texto_musica)
                     article.appendChild(artista_caixa)

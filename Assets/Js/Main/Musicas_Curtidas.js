@@ -252,5 +252,5 @@ icon_random_musicascurtidas.addEventListener('click', () => {
 const img_play_musicas_curtidas = document.getElementById('img_play_musicas_curtidas')
 img_play_musicas_curtidas.addEventListener('click', () => {
     let new_arrey = [...Musicas_Curtidas_Array]
-    Tocar_Musica(new_arrey.reverse(), Musicas_Curtidas_Array[Musicas_Curtidas_Array.length - 1], `musicascurtidas_${User.ID}`, 'musicascurtidas')
+    Tocar_Musica(new_arrey.reverse(), Musicas_Curtidas_Array[Musicas_Curtidas_Array.length - 1], '', `musicascurtidas_${User.ID}`, 'musicascurtidas')
 })

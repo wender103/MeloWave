@@ -53,14 +53,17 @@ function Carregar_Tela_Tocando_Agora(Musica) {
     for (let contador = 0; contador < array_artistas.length; contador++) {
         let artista_formatado_atual = formatarString(array_artistas[contador])
         let user_encontrado = false
+        const carousel_item_containder_telta_tocando_agora = document.createElement('div')
         const carousel_item_telta_tocando_agora = document.createElement('img')
+        const carousel_item_p = document.createElement('p')
+        carousel_item_p.innerText = 'Artista'
         let musica_artista_encontrada = false
         for (let contador2 = 0; contador2 < TodasMusicas.length; contador2++) {
             let todasmusicas_artista_formatado = formatarString(TodasMusicas[contador2].Autor)
             if(todasmusicas_artista_formatado == artista_formatado_atual) {
                 musica_artista_encontrada = true
                 user_encontrado = true
-                carousel_item_telta_tocando_agora.classList.add('carousel_item_telta_tocando_agora')
+                carousel_item_containder_telta_tocando_agora.classList.add('carousel_item_telta_tocando_agora')
                 carousel_item_telta_tocando_agora.src = TodasMusicas[contador2].Img
 
                 let new_infos = {
@@ -71,14 +74,16 @@ function Carregar_Tela_Tocando_Agora(Musica) {
 
                 if(!active_add) {
                     active_add = true
-                    carousel_item_telta_tocando_agora.classList.add('active')
+                    carousel_item_containder_telta_tocando_agora.classList.add('active')
                 } else {
-                    carousel_item_telta_tocando_agora.classList.add('next')
+                    carousel_item_containder_telta_tocando_agora.classList.add('next')
                 }
 
-                carousel_telta_tocando_agora.appendChild(carousel_item_telta_tocando_agora)
+                carousel_item_containder_telta_tocando_agora.appendChild(carousel_item_telta_tocando_agora)
+                carousel_item_containder_telta_tocando_agora.appendChild(carousel_item_p)
+                carousel_telta_tocando_agora.appendChild(carousel_item_containder_telta_tocando_agora)
 
-                carousel_item_telta_tocando_agora.addEventListener('click', () => {
+                carousel_item_containder_telta_tocando_agora.addEventListener('click', () => {
                     Abrir_Perfil_Artista(infos_artistas_musica_tela_musica_tocando[contador].Artista, infos_artistas_musica_tela_musica_tocando[contador].Musica)
                 })
                 break
@@ -89,7 +94,7 @@ function Carregar_Tela_Tocando_Agora(Musica) {
         if(!musica_artista_encontrada) {
             musica_artista_encontrada = true
             user_encontrado = true
-            carousel_item_telta_tocando_agora.classList.add('carousel_item_telta_tocando_agora')
+            carousel_item_containder_telta_tocando_agora.classList.add('carousel_item_telta_tocando_agora')
             carousel_item_telta_tocando_agora.src = Musica.Img
 
             let new_infos = {
@@ -100,21 +105,26 @@ function Carregar_Tela_Tocando_Agora(Musica) {
 
             if(!active_add) {
                 active_add = true
-                carousel_item_telta_tocando_agora.classList.add('active')
+                carousel_item_containder_telta_tocando_agora.classList.add('active')
             } else {
-                carousel_item_telta_tocando_agora.classList.add('next')
+                carousel_item_containder_telta_tocando_agora.classList.add('next')
             }
 
-            carousel_telta_tocando_agora.appendChild(carousel_item_telta_tocando_agora)
+            carousel_item_containder_telta_tocando_agora.appendChild(carousel_item_telta_tocando_agora)
+            carousel_item_containder_telta_tocando_agora.appendChild(carousel_item_p)
+            carousel_telta_tocando_agora.appendChild(carousel_item_containder_telta_tocando_agora)
 
-            carousel_item_telta_tocando_agora.addEventListener('click', () => {
+            carousel_item_containder_telta_tocando_agora.addEventListener('click', () => {
                 Abrir_Perfil_Artista(infos_artistas_musica_tela_musica_tocando[contador].Artista, infos_artistas_musica_tela_musica_tocando[contador].Musica)
             })
         }
 
         if(!user_encontrado) {
+            const carousel_item_containder_telta_tocando_agora = document.createElement('div')
             const carousel_item_telta_tocando_agora = document.createElement('img')
-            carousel_item_telta_tocando_agora.classList.add('carousel_item_telta_tocando_agora')
+            const carousel_item_p = document.createElement('p')
+            carousel_item_p.innerText = 'Artista'
+            carousel_item_containder_telta_tocando_agora.classList.add('carousel_item_telta_tocando_agora')
             carousel_item_telta_tocando_agora.src = Musica.Img
 
             let new_infos = {
@@ -125,12 +135,14 @@ function Carregar_Tela_Tocando_Agora(Musica) {
 
             if(!active_add) {
                 active_add = true
-                carousel_item_telta_tocando_agora.classList.add('active')
+                carousel_item_containder_telta_tocando_agora.classList.add('active')
             } else {
-                carousel_item_telta_tocando_agora.classList.add('next')
+                carousel_item_containder_telta_tocando_agora.classList.add('next')
             }
 
-            carousel_telta_tocando_agora.appendChild(carousel_item_telta_tocando_agora)
+            carousel_item_containder_telta_tocando_agora.appendChild(carousel_item_telta_tocando_agora)
+            carousel_item_containder_telta_tocando_agora.appendChild(carousel_item_p)
+            carousel_telta_tocando_agora.appendChild(carousel_item_containder_telta_tocando_agora)
         }
     }
 
