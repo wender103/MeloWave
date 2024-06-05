@@ -1,4 +1,4 @@
-let Paginas_Nao_Trocar_Background = ['meuperfil', 'artista', 'adicionarletra']
+let Paginas_Nao_Trocar_Background = ['meuperfil', 'artista', 'adicionarletra', 'perfil']
 
 let Pagina_Atual = {
     Nome: 'home',
@@ -62,6 +62,7 @@ function Abrir_Pagina(Pagina, ID) {
         if(Pagina == 'home') {
             Mostrar_Max_Musicas()
             Artistas_Tocados_Recentemente()
+            Retornar_Artistas_Mais_Vistos()
 
             setTimeout(() => {
                 Mostrar_Max_Musicas()
