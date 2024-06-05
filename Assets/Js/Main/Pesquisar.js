@@ -24,22 +24,23 @@ function Pesquisar() {
         const pesquisa_formatada = formatarString(pesquisa)
 
         for (let c = 0; c < TodasMusicas.length; c++) {
-            const nome_formatado = formatarString(TodasMusicas[c].Nome)
-            const autor_formatado = formatarString(TodasMusicas[c].Autor)
-            const genero_formatado = formatarString(TodasMusicas[c].Genero)
-
-            //? Pesquisar Por Nome Da Música
-            if(pesquisa_formatada.includes(nome_formatado) || nome_formatado.includes(pesquisa_formatada) || pesquisa_formatada.includes(autor_formatado) || autor_formatado.includes(pesquisa_formatada) || pesquisa_formatada.includes(genero_formatado) || genero_formatado.includes(pesquisa_formatada)) {
-                pesquisa_encotrada = true
-                array_musicas_pesquisa.push(TodasMusicas[c])
-            } 
-            
-            //? Autor
-            if(pesquisa_formatada.includes(autor_formatado) || autor_formatado.includes(pesquisa_formatada)) {
-                pesquisa_encotrada = true
-                array_artistas_pesquisa.push(TodasMusicas[c])
+            if(TodasMusicas[c].Estado == 'Ativo') {
+                const nome_formatado = formatarString(TodasMusicas[c].Nome)
+                const autor_formatado = formatarString(TodasMusicas[c].Autor)
+                const genero_formatado = formatarString(TodasMusicas[c].Genero)
+    
+                //? Pesquisar Por Nome Da Música
+                if(pesquisa_formatada.includes(nome_formatado) || nome_formatado.includes(pesquisa_formatada) || pesquisa_formatada.includes(autor_formatado) || autor_formatado.includes(pesquisa_formatada) || pesquisa_formatada.includes(genero_formatado) || genero_formatado.includes(pesquisa_formatada)) {
+                    pesquisa_encotrada = true
+                    array_musicas_pesquisa.push(TodasMusicas[c])
+                } 
+                
+                //? Autor
+                if(pesquisa_formatada.includes(autor_formatado) || autor_formatado.includes(pesquisa_formatada)) {
+                    pesquisa_encotrada = true
+                    array_artistas_pesquisa.push(TodasMusicas[c])
+                }
             }
-
         }
         
         for (let c = 0; c < Todos_Usuarios.length; c++) {       

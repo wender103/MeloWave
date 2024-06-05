@@ -513,9 +513,23 @@
             <input type="text" placeholder="Gênero da música" autocomplete="off" id="input_genero_musica_sendo_editada" oninput="Checar_Pode_Salvar_Musica_Editada()">
 
             <div id="container_btns_editar_musica_sendo_editada">
-                <button onclick="Salvar_Edicao_Musica()" id="btn_salvar_musica_editando" class="btn_bloqueado">Salvar</button>
-                <button id="btn_adicionar_letra_musica_sendo_editada" onclick="Abrir_Pagina('adicionarletra', `adicionarletra_${musica_editando_meu_perfil.ID}`)">Letra</button>
                 <button onclick="Fechar_Container_Editar_Musicas()">Cancelar</button>
+                <button id="btn_adicionar_letra_musica_sendo_editada" onclick="Abrir_Pagina('adicionarletra', `adicionarletra_${musica_editando_meu_perfil.ID}`)">Letra</button>
+                <button onclick="Salvar_Edicao_Musica()" id="btn_salvar_musica_editando" class="btn_bloqueado">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!--! Div Deletar Música -->
+    <div id="container_remover_musica">
+        <div id="container_container_remover_musica">
+            <img src="" id="img_remover_musica">
+            <p id="nome_musica_remover"></p>
+            <span id="nome_autor_remover"></span>
+
+            <div id="container_btns_remover_musica">
+                <button onclick="Fechar_Remover_Musica()">Cancelar</button>
+                <button onclick="Deletar_Musica_Selecionada()" id="btn_deletar_musica">Deletar</button>
             </div>
         </div>
     </div>
@@ -788,9 +802,9 @@
 
             <div id="div_notificacao_infos"></div>
             <div>
-                <a href="" id="link_notificar_infos" target="_blank"></a>
-                <button id="btn_confirmar_notificacao_infos">Sim!</button>
                 <button id="btn_fechar_notificacao_infos">Fechar</button>
+                <button id="btn_confirmar_notificacao_infos">Sim!</button>
+                <a href="" id="link_notificar_infos" target="_blank"></a>
             </div>
         </article>
     </section>
@@ -874,6 +888,8 @@
     <script src="Assets/Js/Main/Loja.js"></script>
     <script src="Assets/Js/Main/Perfil.js"></script>
     <script src="Assets/Js/Main/Tela_Tocando_Agora.js"></script>
+    <script src="Assets/Js/Main/Excluir_Musica.js"></script>
+    <script src="Assets/Js/Main/Notificacao.js"></script>
 
     <!--* Banimento -->
     <script src="Assets/Js/Banimento/Banimento.js"></script>

@@ -18,39 +18,45 @@ function Salvar_Historico() {
 
     let Diferenca_Musicas = Musicas.length - maximo_infos_salvas
 
-    if(Diferenca_Musicas > 0) {
-       Musicas.splice(0, Diferenca_Musicas)
+    if (Diferenca_Musicas > 0) {
+        Musicas.splice(0, Diferenca_Musicas)
     }
 
     let Diferenca_Playlists = new_Historico.Playlists.length - maximo_infos_salvas
 
-    if(Diferenca_Playlists > 0) {
+    if (Diferenca_Playlists > 0) {
         new_Historico.Playlists.splice(0, Diferenca_Playlists)
     }
 
     let Diferenca_Users = new_Historico.Users.length - maximo_infos_salvas
 
-    if(Diferenca_Users > 0) {
+    if (Diferenca_Users > 0) {
         new_Historico.Users.splice(0, Diferenca_Users)
     }
 
     let Diferenca_Artistas = new_Historico.Artistas.length - maximo_infos_salvas
 
-    if(Diferenca_Artistas > 0) {
+    if (Diferenca_Artistas > 0) {
         new_Historico.Artistas.splice(0, Diferenca_Artistas)
     }
 
     let Diferenca_Pesquisa = new_Historico.Pesquisa.length - maximo_infos_salvas
 
-    if(Diferenca_Pesquisa > 0) {
+    if (Diferenca_Pesquisa > 0) {
         new_Historico.Pesquisa.splice(0, Diferenca_Pesquisa)
     }
 
     new_Historico.Musicas = Musicas
 
-    if(User.Estado_Da_Conta != 'Anônima') {
-        db.collection('Users').doc(User.ID).update({ Historico: new_Historico })
+    // Remove undefined values from the new_Historico object
+    Object.keys(new_Historico).forEach(key => {
+        new_Historico[key] = new_Historico[key].filter(item => item !== undefined)
+    })
 
+    console.log(new_Historico)
+    
+    if (User.Estado_Da_Conta != 'Anônima') {
+        db.collection('Users').doc(User.ID).update({ Historico: new_Historico })
     } else {
         Salvar_Perfil_Anonimo_User()
     }

@@ -55,22 +55,26 @@ function atualizarURL(parametro) {
 }
 
 //! Vai pegar a data atual
-function getDataAtual(ano, mes, dia) {
-    // Obtém a data atual
-    let data = new Date();
-    
-    // Se nenhum valor for passado, retorna a data atual no formato 'dd/mm/aaaa'
-    if (!ano && !mes && !dia) {
-        return `${formatarNumero(data.getDate())}/${formatarNumero(data.getMonth() + 1)}/${data.getFullYear()}`;
+function getDataAtual(ano = 0, mes = 0, dia = 0, dataInicial = '') {
+    let data;
+
+    if (dataInicial) {
+        // Divide a data inicial em partes (dia, mês, ano)
+        const [diaInicial, mesInicial, anoInicial] = dataInicial.split('/').map(Number);
+        // Cria um objeto Date com a data inicial fornecida
+        data = new Date(anoInicial, mesInicial - 1, diaInicial);
     } else {
-        // Se valores forem passados, calcula a nova data somando os valores passados
-        if (ano) data.setFullYear(data.getFullYear() + ano);
-        if (mes) data.setMonth(data.getMonth() + mes);
-        if (dia) data.setDate(data.getDate() + dia);
-        
-        // Retorna a nova data no formato 'dd/mm/aaaa'
-        return `${formatarNumero(data.getDate())}/${formatarNumero(data.getMonth() + 1)}/${data.getFullYear()}`;
+        // Usa a data atual se nenhuma data inicial for fornecida
+        data = new Date();
     }
+
+    // Realiza a soma ou subtração de anos, meses e dias
+    if (ano) data.setFullYear(data.getFullYear() + ano);
+    if (mes) data.setMonth(data.getMonth() + mes);
+    if (dia) data.setDate(data.getDate() + dia);
+
+    // Retorna a nova data no formato 'dd/mm/aaaa'
+    return `${formatarNumero(data.getDate())}/${formatarNumero(data.getMonth() + 1)}/${data.getFullYear()}`;
 }
 
 // Função auxiliar para formatar números menores que 10 com zero à esquerda
@@ -111,7 +115,9 @@ function Confetes() {
 
 //! Vai notificar alguma coisa
 let comemorar = false
-function Notificar_Infos(info, comando='', Texto_Btn='Sim!', Link) {
+let noficacao_esta_aberta = false
+function Notificar_Infos(info='', comando='', Texto_Btn='Sim!', Link='') {
+    noficacao_esta_aberta = true
     return new Promise((resolve) => {
         const div_notificacao_infos = document.getElementById('div_notificacao_infos')
         const texto_notificacao_infos = document.getElementById('texto_notificacao_infos')
@@ -119,17 +125,19 @@ function Notificar_Infos(info, comando='', Texto_Btn='Sim!', Link) {
         const btn_fechar_notificacao_infos = document.getElementById('btn_fechar_notificacao_infos')
         const notificacao_infos = document.getElementById('notificacao_infos')
         const link_notificar_infos = document.getElementById('link_notificar_infos')
+        
+        if(comando.includes('Grande')) {
+            notificacao_infos.classList.add('Informacao')
+        } else {
+            notificacao_infos.classList.remove('Informacao')
+        }
 
         if(comando.includes('Informação')) {
-            notificacao_infos.classList.add('Informacao')
-            notificacao_infos.style.maxWidth = '800px'
             div_notificacao_infos.innerHTML = info
             div_notificacao_infos.style.display = 'block'
             texto_notificacao_infos.style.display = 'none'
 
         } else {
-            notificacao_infos.classList.remove('Informacao')
-            notificacao_infos.style.maxWidth = '450px'
             texto_notificacao_infos.innerHTML = info
             div_notificacao_infos.style.display = 'none'
             texto_notificacao_infos.style.display = 'block'
@@ -164,12 +172,12 @@ function Notificar_Infos(info, comando='', Texto_Btn='Sim!', Link) {
 
         btn_confirmar_notificacao_infos.addEventListener('click', () => {
             Fechar_Notificacao_Infos(comando)
-            resolve(true)  // Resolve a promise com true quando o botão de confirmar for clicado
+            resolve(true)
         })
 
         btn_fechar_notificacao_infos.addEventListener('click', () => {
             Fechar_Notificacao_Infos(comando)
-            resolve(false)  // Resolve a promise com false se o botão de fechar for clicado
+            resolve(false)
         })
 
         if (comando.includes('Confirmar')) {
@@ -182,6 +190,7 @@ function Notificar_Infos(info, comando='', Texto_Btn='Sim!', Link) {
 
 //! Vai fechar a notificação
 function Fechar_Notificacao_Infos(comando) {
+    noficacao_esta_aberta = false
     comemorar = false
     if(comando.includes('Comemorar')) {
         Comemorar()        
@@ -883,4 +892,74 @@ function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'd
             reject(e)
         })
     })
+}
+
+//! Vai calcular quanto tempo falta até a data e retornar de forma formatada
+function calcularTempoRestante(data) {
+    const [dia, mes, ano] = data.split('/').map(Number);
+    const dataFutura = new Date(ano, mes - 1, dia);
+    const dataAtual = new Date();
+
+    if (dataFutura < dataAtual) {
+        return 'A data já passou!';
+    }
+
+    let anos = dataFutura.getFullYear() - dataAtual.getFullYear();
+    let meses = dataFutura.getMonth() - dataAtual.getMonth();
+    let dias = dataFutura.getDate() - dataAtual.getDate();
+
+    if (dias < 0) {
+        meses--;
+        dias += new Date(dataAtual.getFullYear(), dataAtual.getMonth() + 1, 0).getDate();
+    } else if (meses < 0) {
+        anos--;
+        meses += 12;
+    }
+
+    let texto_ano = ''
+    let texto_meses = ''
+    let texto_dias = ''
+    if (anos == 1) {
+        texto_ano = `${anos} ano`
+    } else if (anos > 1) {
+        texto_ano = `${anos} anos`
+    }
+    
+    if (meses == 1) {
+        texto_meses = `${meses} mes`
+    } else if (meses > 1) {
+        texto_meses = `${meses} meses`
+    }
+    
+    if (dias == 1) {
+        texto_dias = `${dias} dia`
+    } else if (dias > 1) {
+        texto_dias = `${dias} dias`
+    }
+
+    let resultado = ''
+    if (anos > 0) {
+        resultado += texto_ano
+    }
+
+    if (meses > 0 && resultado != '' && dias > 0) {
+        resultado += `, ` + texto_meses
+    } else if (dias <= 0 && resultado != '' && meses > 0) {
+        resultado += ' e ' + texto_meses
+    } else if (meses > 0 && resultado == '') {
+        resultado += texto_meses
+    }
+
+    if (dias > 0 && resultado != '') {
+        resultado += ` e ` + texto_dias
+    } else if (dias > 0 && resultado == '') {
+        resultado += texto_dias
+    }
+
+    return resultado
+}
+
+//! Gera ids aleátorios
+function gerarId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
 }

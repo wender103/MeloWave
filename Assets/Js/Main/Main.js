@@ -75,17 +75,10 @@ function Mostrar_Max_Musicas() {
 
 let Execultar_Funcoes_Ao_Carregar_execultado = false
 function Pegar_Todas_Musicas() {
-    TodasMusicas = []
 
     db.collection('Musicas').get().then((snapshot) => {
         snapshot.docs.forEach(Musicas => {
-            let AllMusics = Musicas.data().Musicas
-
-            for (let c = 0; c < AllMusics.length; c++) {
-                if(AllMusics[c].Estado != 'Pendente') {
-                    TodasMusicas.push(AllMusics[c])
-                }
-            }
+            TodasMusicas = Musicas.data().Musicas
         })
 
         Execultar_Funcoes_Ao_Carregar()
@@ -304,8 +297,6 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         let feito = false
         if(!feito) {
             feito = true
-
-            console.log('Metadados do audio carregadoss');
 
             obterDuracaoOuTempoAtualAudio(audio_player, true).then((resp) => {
                 document.getElementById('tempo_max_musica').innerText = resp.formattedDuration
@@ -854,6 +845,10 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
     
             bnt_carrinho_editar.addEventListener('click', () => {
                 Iniciar_Loja(Musicas[c])
+            })
+
+            btn_trash.addEventListener('click', () => {
+                Abrir_Remover_Musica(Musicas[c])
             })
 
             musica_linha.addEventListener('click', (e) => {

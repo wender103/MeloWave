@@ -59,5 +59,17 @@ function Execultar_Funcoes_Ao_Carregar() {
                 }
             }
         } catch{}
+
+        try {
+            Carregar_Musica_Pendentes()
+        } catch{}
+
+        try {
+            Remover_Musicas_Tempo_Exedido()
+        } catch{}
+
+        try {
+            Carregar_Notificacaoes()
+        } catch{}
     }
 }

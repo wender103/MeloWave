@@ -15,7 +15,8 @@ let Todos_Usuarios = []
 let User_logado = false
 let User
 
-function Pegar_Usuarios() {
+function Pegar_Usuarios(Comando='') {
+    Todos_Usuarios = []
     db.collection('Users').get().then((snapshot) => {
         let contador = 0
         // console.log('Chamada feita, carregar info user')
@@ -29,7 +30,9 @@ function Pegar_Usuarios() {
             contador++
         })
 
-        Logar_Na_Conta()
+        if(!Comando.includes('Não Logar')) {
+            Logar_Na_Conta()
+        }
     })
 
 } Pegar_Usuarios()

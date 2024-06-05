@@ -1,35 +1,39 @@
 let infos_musica_postada
 let pd_postar_outra_musica = true
 const btn_pesquisar_genero = document.getElementById('btn_pesquisar_genero')
-async function Postar_Musica() {
-    let AllMusics = []
+async function Postar_Musica(Comando = '') {
     if(User.Estado_Da_Conta != 'Anônima') {
         const input_add_musica = document.getElementById('input_add_musica').value
-        document.getElementById('input_add_musica').value = ''
 
         //! Vai checar se a música já foi adicionada anteriormente
         db.collection('Musicas').get().then((snapshot) => {
             snapshot.docs.forEach(Musicas => {
-                AllMusics = Musicas.data().Musicas
+                TodasMusicas = Musicas.data().Musicas
             })
         })
 
         let musica_ja_adicionada_anteriormente = false
-        for (let c = 0; c < AllMusics.length; c++) {
-            if(AllMusics[c].VideoURL == input_add_musica) {
-                musica_ja_adicionada_anteriormente = AllMusics[c]
+        for (let c = 0; c < TodasMusicas.length; c++) {
+            if(TodasMusicas[c].VideoURL == input_add_musica) {
+                musica_ja_adicionada_anteriormente = TodasMusicas[c]
                 break
             }
         }
 
+        document.getElementById('input_add_musica').value = ''
+
         if(!musica_ja_adicionada_anteriormente) {
+            if(Comando.includes('Abrir Página: ')) {
+                Abrir_Pagina(Comando.replace('Abrir Página: ', ''))
+            }
+
             if(input_add_musica.startsWith('https://music.youtube.com') && pd_postar_outra_musica) {
                 pd_postar_outra_musica = false
                 let downloadURL
         
                 // Verifica se está rodando localmente
                 if (window.location.href.includes('http://127.0.0.1:')) {
-                    downloadURL = 'http://localhost:3000/download'
+                    downloadURL = 'http://localhost:3001/download'
                 } else if (window.location.href.includes('https://wender103.github.io/MeloWave/')) {
                     downloadURL = 'https://molewaveapibaixarmusica.onrender.com/download'
                 } else {
@@ -82,8 +86,10 @@ async function Postar_Musica() {
                     } Carregar_Musica()
                     
                 } catch (error) {
-                    console.error("Erro na requisição: ", error);
-                    alert('Erro: ' + error.message);
+                    console.error("Erro na requisição: ")
+                    console.error(error)
+                    alert('Erro: ' + error.message)
+                    pd_postar_outra_musica = false
                 }
         
             } else if(input_add_musica.startsWith('https://music.youtube.com') && !pd_postar_outra_musica) {
@@ -95,12 +101,43 @@ async function Postar_Musica() {
                 Notificar_Infos('🚨 Opa! 🚨 Você esqueceu de colocar o link da música do YouTube Music no input 🎶. Sem isso, não dá pra postar a música 😢. Por favor, adicione o link e tente novamente! 👍')
             }
         } else {
-            Notificar_Infos('⚠️ Essa música já foi adicionada antes! 🎵 Quer ouvir agora? 🎧', 'Confirmar').then((confirmed) => {
-                if (confirmed) {
-                    Tocar_Musica([musica_ja_adicionada_anteriormente], musica_ja_adicionada_anteriormente)
-                    Abrir_Perfil_Artista(Separar_Por_Virgula(musica_ja_adicionada_anteriormente.Autor)[0], musica_ja_adicionada_anteriormente)
+            if(musica_ja_adicionada_anteriormente.Estado == 'Ativo') {
+                Notificar_Infos('⚠️ Essa música já foi adicionada antes! 🎵 Quer ouvir agora? 🎧', 'Confirmar').then((confirmed) => {
+                    if (confirmed) {
+                        Tocar_Musica([musica_ja_adicionada_anteriormente], musica_ja_adicionada_anteriormente)
+                        Abrir_Perfil_Artista(Separar_Por_Virgula(musica_ja_adicionada_anteriormente.Autor)[0], musica_ja_adicionada_anteriormente)
+                    }
+                })
+
+            } else {
+                let ja_segue = false
+                for (let c = 0; c < User.Social.Artistas.length; c++) {
+                    let nome_artista_user = formatarString(User.Social.Artistas[c].Autor)
+                    let autores = Separar_Por_Virgula(musica_ja_adicionada_anteriormente.Autor)
+                    for (let b = 0; b < autores.length; b++) {
+                        let autores_formatado = formatarString(autores[b])
+                        if(autores_formatado == nome_artista_user) {
+                            ja_segue = true
+                            Notificar_Infos(`⚠️ Esta música já foi adicionada, mas o usuário ainda está configurando! 🎵 Assim que ele terminar você será notificado na aba notificações por já seguir o artista ${autores[b]}!🎧📲`, 'Confirmar', 'Ver Artista').then((confirmed) => {
+                                if (confirmed) {
+                                    Abrir_Perfil_Artista(autores[b], musica_ja_adicionada_anteriormente)
+                                }
+                            })
+
+                            break
+                        }
+                    }
                 }
-            })
+
+                if(!ja_segue) {
+                    Notificar_Infos('⚠️ Esta música já foi adicionada, mas o usuário ainda está configurando! 🎵 Quer receber uma notificação quando ele terminar? Enão Siga o autor 🎧📲', 'Confirmar', `Seguir ${Separar_Por_Virgula(musica_ja_adicionada_anteriormente.Autor)[0]}`).then((confirmed) => {
+                        if (confirmed) {
+                            Tocar_Musica([musica_ja_adicionada_anteriormente], musica_ja_adicionada_anteriormente)
+                            Abrir_Perfil_Artista(Separar_Por_Virgula(musica_ja_adicionada_anteriormente.Autor)[0], musica_ja_adicionada_anteriormente)
+                        }
+                    })
+                }
+            }
         }
 
 
@@ -109,6 +146,7 @@ async function Postar_Musica() {
     }
 }
 
+let adicionando_musicas_pendentes = false
 function Finalizar_Postar() {
     if(User.Estado_Da_Conta != 'Anônima') {
         const input_add_musica_nome = document.getElementById('input_add_musica_nome').value
@@ -135,6 +173,10 @@ function Finalizar_Postar() {
                                     Notificar_Infos(`🎉 Parabéns por postar essa música! 🎶 Você ganhou ${Pontos_Por_Atividade.Adicionar_Musica} pontos com isso! 🌟 Obrigado por compartilhar! 🙌`, 'Comemorar')
                                     Atualizar_Infos_Perfil_Loja()
                                     pd_postar_outra_musica = true
+
+                                    if(adicionando_musicas_pendentes) {
+                                        Adicionar_Musicas_Pendentes()
+                                    }
                                 })
                             })
                         }
@@ -158,4 +200,76 @@ function Limpar_add_Musica() {
     document.getElementById('img_musica_postada').src = ''
     document.getElementById('primeira_parte_postar_musica').style.display = 'flex'
     document.getElementById('segunda_parte_postar_musica').style.display = 'none'
+}
+
+let array_musica_pendentes = []
+let contador_add_musicas_pendentes = 0
+function Carregar_Musica_Pendentes() {
+    array_musica_pendentes = []
+    for (let c = 0; c < TodasMusicas.length; c++) {
+        if(TodasMusicas[c].Email == User.Email && TodasMusicas[c].Estado == 'Pendente') {
+            array_musica_pendentes.push(TodasMusicas[c])
+        }
+    }
+
+    let data_exedida = false
+
+    for (let c = 0; c < array_musica_pendentes.length; c++) {
+        let resp = calcularTempoRestante(getDataAtual(0, 0, 5, array_musica_pendentes[c].Data))
+        if(resp != 'A data já passou!') {
+            data_exedida = true
+        }
+        
+    }
+
+    if(array_musica_pendentes.length > 0) {
+        if(data_exedida) {
+            let aviso = `
+            <h1>🚨 Atenção! 🚨</h1>
+            <p>Sua música 🎵 ainda não foi totalmente cadastrada. Para garantir que ela não seja excluída 🗑️, finalize o preenchimento das informações restantes dentro de <strong>${calcularTempoRestante(getDataAtual(0, 0, 5, array_musica_pendentes[0].Data))}</strong> ⏳. Caso contrário, ela será removida do sistema ❌.</p>`
+            Notificar_Infos(aviso, 'Confirmar, Informação, Pequeno', 'Terminar de Adicionar').then((resp) => {
+                if(resp) {
+                    Adicionar_Musicas_Pendentes(array_musica_pendentes)
+                }
+            })
+        }
+    }
+}
+function Adicionar_Musicas_Pendentes() {
+    if(contador_add_musicas_pendentes < array_musica_pendentes.length) {
+        Terminar_Adicionar_Musica(array_musica_pendentes[contador_add_musicas_pendentes])
+        contador_add_musicas_pendentes++
+    } else {
+        adicionando_musicas_pendentes = false
+    }
+}
+
+function Terminar_Adicionar_Musica(Musica) {
+    if(Pagina_Atual.Nome != 'adicionarmusicas') {
+        Abrir_Pagina('adicionarmusicas')
+    }
+
+    let new_obj = {
+        videoTitle: Musica.Nome,
+        channelName: Musica.Autor,
+        audioUrl: Musica.Audio,
+        thumbnailUrl: Musica.Img,
+        videoURL: Musica.VideoURL,
+        uid: Musica.ID
+    }
+
+    infos_musica_postada = new_obj
+
+    document.getElementById('input_add_musica_nome').value = new_obj.videoTitle;
+    document.getElementById('input_add_musica_autor').value = new_obj.channelName;
+    document.getElementById('img_musica_postada').src = new_obj.thumbnailUrl;
+    document.getElementById('primeira_parte_postar_musica').style.display = 'none'
+    document.getElementById('segunda_parte_postar_musica').style.display = 'flex'
+    //! Gerar link
+    btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('"genêro" da musica ' + new_obj.videoTitle, ' "' + new_obj.channelName + '"')}`
+    btn_pesquisar_genero.addEventListener('click', () => {
+        sairDaTelaCheia()
+    })
+
+    adicionando_musicas_pendentes = true
 }

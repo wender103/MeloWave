@@ -135,7 +135,7 @@ function Iniciar_Sincronizar_Letra(Iniciar_Sem_Perguntar = false) {
         }
 
     } else if(info_add_letra.Visto == false || info_add_letra == null) {
-        Notificar_Infos(Texto_Info_Add_Letra, 'Informação, Confirmar', 'Entendi').then(()=> {
+        Notificar_Infos(Texto_Info_Add_Letra, 'Informação, Confirmar, Grande', 'Entendi').then(()=> {
             info_add_letra.Visto = true
             localStorage.setItem('Infos_Add_Letra', JSON.stringify(info_add_letra))
 
