@@ -84,7 +84,7 @@ function Execultar_Funcoes_Ao_Carregar() {
             Retornar_Artistas_Mais_Vistos()
         } catch{}
 
-        if(location.href.includes('index')) {
+        if(pathname === '/index.html' || pathname === '/') {
             try {
                 setTimeout(() => {
                     closeLoadingScreen()
