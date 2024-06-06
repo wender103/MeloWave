@@ -77,6 +77,7 @@ document.getElementById('img_play_musicas_meu_perfil').addEventListener('click',
 const link_nova_img_meu_perfil = document.getElementById('link_nova_img_meu_perfil')
 const link_novo_background_meu_perfil = document.getElementById('link_novo_background_meu_perfil')
 const input_nome_user_meu_perfil = document.getElementById('input_nome_user_meu_perfil')
+let pd_fazer_alteracao_perfil = true
 function Abrir_Add_Nova_Img_Meu_Perfil() {
     if(User.Perfil.Img_Background) {
         link_novo_background_meu_perfil.value = User.Perfil.Img_Background
@@ -91,115 +92,128 @@ function Abrir_Add_Nova_Img_Meu_Perfil() {
     document.getElementById('container_add_nova_img_meu_perfil').style.display = 'flex'
 }
 
-let arrox = {}
 function Adicionar_Nova_img_Meu_Perfil() {
     let pode_salvar = false
 
     if(link_nova_img_meu_perfil.value != User.Perfil.Img_Perfil || link_novo_background_meu_perfil.value != User.Perfil.Img_Background || input_nome_user_meu_perfil.value != User.Nome) {
         pode_salvar = true
+        toggleLoadingScreen()
     }
 
+    let Checar = {
+        Nome: true,
+        Perfil: true,
+        Background: true
+    }
+    if(link_nova_img_meu_perfil.value == '') {
+        User.Perfil.Img_Perfil = User.Perfil.Img_Email
+        Checar.Perfil = false
+    }
 
-    if(link_nova_img_meu_perfil.value.trim() != '') {
+    if(link_novo_background_meu_perfil.value == '') {
+        User.Perfil.Background = Infos_Email.Background
+        Checar.Background = false
+    }
+
+    if(input_nome_user_meu_perfil.value == '') {
+        User.Nome = Infos_Email.Nome
+        document.getElementById('nome_user_meu_perfil').innerText = User.Nome
+        Checar.Nome = false
+    }
+
+    if(link_nova_img_meu_perfil.value == User.Perfil.Img_Perfil && link_novo_background_meu_perfil.value == User.Perfil.Img_Background && input_nome_user_meu_perfil.value != User.Nome || !Checar.Perfil && !Checar.Background) {
+        User.Nome = input_nome_user_meu_perfil.value
+        document.getElementById('nome_user_meu_perfil').innerText = User.Nome
+        Salvar_Edicao_Perfil(pode_salvar)
+        Fechar_Adicionar_Img_Meu_Perfil()
+    }
+
+    if(link_nova_img_meu_perfil.value.trim() != '' && link_nova_img_meu_perfil.value != User.Perfil.Img_Perfil && Checar.Perfil) {
+        pd_fazer_alteracao_perfil = false
         carregarImagem(link_nova_img_meu_perfil.value, function(imgPerfil) {
-            if(link_nova_img_meu_perfil.value != User.Perfil.Img_Perfil) {
-                if(imgPerfil) {
-                    validateImage(link_nova_img_meu_perfil.value)
-                    .then(imageInfo => {
-                        if (imageInfo.isValid && imageInfo.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
-                            arrox = imageInfo
-    
-                            Fechar_Adicionar_Img_Meu_Perfil()
-                            document.getElementById('img_foto_meu_perfil').src = imgPerfil.src
-                            document.getElementById('img_foto_meu_perfil').classList.add('foto_de_perfil_meu_perfil')
-                            User.Perfil.Img_Perfil = imgPerfil.src
-    
-                            Notificar_Infos(imageInfo.message, imageInfo.emojis)
-                        } else if(!imageInfo.isValid && imageInfo.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
-                            Notificar_Infos(imageInfo.message, 'Link', 'Ver Regras', 'regras.html')
+            if(imgPerfil) {
+                validateImage(link_nova_img_meu_perfil.value)
+                .then(imageInfo => {
+                    if (imageInfo.isValid && imageInfo.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
+
+                        document.getElementById('img_foto_meu_perfil').src = imgPerfil.src
+                        document.getElementById('img_foto_meu_perfil').classList.add('foto_de_perfil_meu_perfil')
+                        User.Perfil.Img_Perfil = imgPerfil.src
+                        
+                        Notificar_Infos(imageInfo.message, imageInfo.emojis)
+                        Salvar_Edicao_Perfil(pode_salvar)
+                        Fechar_Adicionar_Img_Meu_Perfil()
+                    } else if(!imageInfo.isValid && imageInfo.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
+                        Notificar_Infos(imageInfo.message, 'Link', 'Ver Regras', 'regras.html')
+                    } else {
+                        Notificar_Infos(imageInfo.message)
+                    }
+                    pd_fazer_alteracao_perfil = true
+                })
+
+            } else {
+                pode_salvar = false
+                Fechar_Adicionar_Img_Meu_Perfil()
+                Notificar_Infos('O link da img de perfil não está funcionando 🚫🔗. Por favor, tente outro link! 🔄📸✨', 'Confirmar', 'Tentar Outro').then((resolve) => {
+                    if(resolve) {
+                        Abrir_Add_Nova_Img_Meu_Perfil()
+                    }
+                })
+            }
+        })
+    }
+
+    if(link_novo_background_meu_perfil.value != User.Perfil.Img_Background && link_novo_background_meu_perfil.value != User.Perfil.Img_Background && Checar.Background) {
+        if(link_novo_background_meu_perfil.value.trim() != '') {
+            pd_fazer_alteracao_perfil = false
+            carregarImagem(link_novo_background_meu_perfil.value, function(imgBackground) {
+                if(imgBackground) {
+                    validateImage(link_novo_background_meu_perfil.value)
+                    .then(imgBackground_safe => {
+                        if (imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
+
+                            decreaseBlur()
+                            Trocar_Background(imgBackground.src, document.body)
+                            User.Perfil.Img_Background = imgBackground.src
+                            
+                            Notificar_Infos(imgBackground_safe.message, imgBackground_safe.emojis)
+                            Salvar_Edicao_Perfil(pode_salvar)
+                        } else if(!imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
+                            Notificar_Infos(imgBackground_safe.message, 'Link', 'Ver Regras', 'regras.html')
+                                
                         } else {
-                            Notificar_Infos(imageInfo.message)
+                            Notificar_Infos(imgBackground_safe.message)
                         }
+
+                        Fechar_Adicionar_Img_Meu_Perfil()
+                        pd_fazer_alteracao_perfil = true
                     })
     
                 } else {
                     pode_salvar = false
-                    Fechar_Adicionar_Img_Meu_Perfil()
-                    Notificar_Infos('O link da img de perfil não está funcionando 🚫🔗. Por favor, tente outro link! 🔄📸✨', 'Confirmar', 'Tentar Outro').then((resolve) => {
+                    Notificar_Infos('O link da imagem de background 🌄 não está funcionando 🚫🔗. Por favor, tente outro! 🔄✨', 'Confirmar', 'Tentar Outro').then((resolve) => {
                         if(resolve) {
                             Abrir_Add_Nova_Img_Meu_Perfil()
                         }
                     })
+                    Fechar_Adicionar_Img_Meu_Perfil()
+                    pd_fazer_alteracao_perfil = true
                 }
-            }
-
-            if(link_novo_background_meu_perfil.value != User.Perfil.Img_Background) {
-                if(link_novo_background_meu_perfil.value.trim() != '') {
-                    carregarImagem(link_novo_background_meu_perfil.value, function(imgBackground) {
-                        Fechar_Adicionar_Img_Meu_Perfil()
-                        if(imgBackground) {
-                            validateImage(link_novo_background_meu_perfil.value)
-                            .then(imgBackground_safe => {
-                                if (imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
-                                    arrox = imgBackground_safe
-    
-                                    Fechar_Adicionar_Img_Meu_Perfil()
-                                    decreaseBlur()
-                                    Trocar_Background(imgBackground.src, document.body)
-                                    User.Perfil.Img_Background = imgBackground.src
-    
-                                    Notificar_Infos(imgBackground_safe.message, imgBackground_safe.emojis)
-                                } else if(!imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
-                                    Notificar_Infos(imgBackground_safe.message, 'Link', 'Ver Regras', 'regras.html')
-
-                                } else {
-                                    Notificar_Infos(imgBackground_safe.message)
-                                }
-                            })
-            
-                        } else {
-                            pode_salvar = false
-                            link_novo_background_meu_perfil.value = ''
-                            Fechar_Adicionar_Img_Meu_Perfil()
-                            Notificar_Infos('O link da imagem de background 🌄 não está funcionando 🚫🔗. Por favor, tente outro! 🔄✨', 'Confirmar', 'Tentar Outro').then((resolve) => {
-                                if(resolve) {
-                                    Abrir_Add_Nova_Img_Meu_Perfil()
-                                }
-                            })
-                        }
-
-                        link_novo_background_meu_perfil.value = ''
-                    })
-                }
-            }
-        })
-
-        if(input_nome_user_meu_perfil.value.trim() != '') {
-            if(input_nome_user_meu_perfil.value != User.Nome) {
-                document.getElementById('nome_user_meu_perfil').innerText = input_nome_user_meu_perfil.value
-                User.Nome = input_nome_user_meu_perfil.value
-            }
+            })
         }
+    }
+}
 
-        setTimeout(() => {
-            if(pode_salvar) {
-                pode_salvar = false
-                if(User.Estado_Da_Conta != 'Anônima') {
-                    db.collection('Users').doc(User.ID).update({ Perfil: User.Perfil })
-                    db.collection('Users').doc(User.ID).update({ Nome: User.Nome })
-
-                } else {
-                    Salvar_Perfil_Anonimo_User()
-                }
-            }
-        }, 500)
-    } else {
-        Fechar_Adicionar_Img_Meu_Perfil()
-        Notificar_Infos('Ei, você precisa informar o link da nova imagem antes de tentar alterar o perfil! 🖼️🚫📲🔗', 'Confirmar', 'Entendi').then((resolve) => {
-            if(resolve) {
-                Abrir_Add_Nova_Img_Meu_Perfil()
-            }
-        })
+function Salvar_Edicao_Perfil(pode_salvar) {
+    if(pode_salvar) {
+        if(User.Estado_Da_Conta != 'Anônima') {
+            db.collection('Users').doc(User.ID).update({ Nome: User.Nome }).then(() => {
+                db.collection('Users').doc(User.ID).update({ Perfil: User.Perfil })
+            })
+    
+        } else {
+            Salvar_Perfil_Anonimo_User()
+        }
     }
 }
 
@@ -226,9 +240,13 @@ function Checar_Adicionar_Nova_Img_Meu_Perfil() {
 }
 
 function Fechar_Adicionar_Img_Meu_Perfil() {
-    link_nova_img_meu_perfil.value = ''
-    input_nome_user_meu_perfil.value = ''
+    // setTimeout(() => {
+    //     link_nova_img_meu_perfil.value = ''
+    //     input_nome_user_meu_perfil.value = ''
+    //     input_nome_user_meu_perfil.value = ''
+    // }, 500)
     document.getElementById('container_add_nova_img_meu_perfil').style.display = 'none'
+    closeLoadingScreen()
 }
 
 function Pesquisar_Musicas_Meu_Perfil(Pesquisa) {
@@ -279,9 +297,9 @@ function Fechar_Container_Editar_Musicas() {
     document.getElementById('container_editar_musica').style.display = 'none'
 
     img_musicas_sendo_editada.src = 'Assets/Imgs/music1.png'
-    input_autor_musica_sendo_editada.value = ''
-    input_nome_musica_sendo_editada.value = ''
-    input_genero_musica_sendo_editada.value = ''
+    // input_autor_musica_sendo_editada.value = ''
+    // input_nome_musica_sendo_editada.value = ''
+    // input_genero_musica_sendo_editada.value = ''
     document.getElementById('btn_salvar_musica_editando').classList.add('btn_bloqueado')
 }
 

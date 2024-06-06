@@ -29,6 +29,7 @@ async function Postar_Musica(Comando = '') {
 
             if(input_add_musica.startsWith('https://music.youtube.com') && pd_postar_outra_musica) {
                 pd_postar_outra_musica = false
+                toggleLoadingScreen()
                 let downloadURL
         
                 // Verifica se está rodando localmente
@@ -61,6 +62,7 @@ async function Postar_Musica(Comando = '') {
                         carregarImagem(data.thumbnailUrl, function(imgThumb) {
             
                             function Carregar_infos() {
+                                closeLoadingScreen()
                                 img_carregada = true
                                 // Aqui dentro você atualiza os elementos na página
                                 document.getElementById('input_add_musica_nome').value = data.videoTitle;
@@ -90,6 +92,7 @@ async function Postar_Musica(Comando = '') {
                     console.error(error)
                     alert('Erro: ' + error.message)
                     pd_postar_outra_musica = false
+                    closeLoadingScreen()
                 }
         
             } else if(input_add_musica.startsWith('https://music.youtube.com') && !pd_postar_outra_musica) {

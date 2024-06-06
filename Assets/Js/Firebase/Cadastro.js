@@ -14,6 +14,7 @@ function getDataAtualCadastro() {
 let Todos_Usuarios = []
 let User_logado = false
 let User
+let Infos_Email
 
 function Pegar_Usuarios(Comando='') {
     Todos_Usuarios = []
@@ -83,6 +84,12 @@ function Logar_Na_Conta() {
         if(val) {
             if(!User_logado && val.emailVerified) {
                 User_logado = true
+
+                Infos_Email = {
+                    Nome: val.displayName,
+                    Email: val.email,
+                    Foto_Perfil: val.photoURL,
+                }
 
                 try {
                     document.getElementById('img_perfil_emial').src = val.photoURL

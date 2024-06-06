@@ -430,7 +430,7 @@ let artistas_favoritos_retornados = false
 function Retornar_Artistas_Mais_Vistos() {
     const section = document.createElement('section')
     const h1 = document.createElement('h1')
-    const article = document.createElement('article')
+    let article = document.createElement('article')
     const artistas = ordenarNomesPorFrequencia(User.Gosto_Musical.Artistas)
 
     section.id = 'container_artistas_favoritos'

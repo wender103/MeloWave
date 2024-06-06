@@ -6,6 +6,7 @@
     <title>MeloWave - Home</title>
 
     <!-- <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css"> -->
+    <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css">
     <link rel="stylesheet" href="Assets/Styles/Home/Home.css">
     <link rel="stylesheet" href="Assets/Styles/Home/Responsivo/Home_Responsivo.css">
 </head>
@@ -839,6 +840,21 @@
         </article>
     </section>
 
+    <!--! Carregamento -->
+    <div id="container_carregamento_tela_innteira">
+        <div class="loader">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <div class="message" id="message_carregamento">Carregando curiosidades musicais...</div>
+    </div>
+
     <!--! Audio -->
     <audio id="audio_player" style="display: none;"></audio>
 
@@ -889,10 +905,9 @@
     <script src="Assets/Js/Main/Tela_Tocando_Agora.js"></script>
     <script src="Assets/Js/Main/Excluir_Musica.js"></script>
     <script src="Assets/Js/Main/Notificacao.js"></script>
+    <script src="Assets/Js/Main/Carregamento.js"></script>
 
     <!--* Banimento -->
     <script src="Assets/Js/Banimento/Banimento.js"></script>
-
-    <!-- <script src="Codigos_A_Parte/Atualizacoes.js"></script> -->
 </body>
 </html>

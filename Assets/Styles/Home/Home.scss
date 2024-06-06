@@ -2230,12 +2230,12 @@ body {
                     #carousel_telta_tocando_agora {
                         display: flex;
                         transition: transform 0.5s ease-in-out;
-                    }
+                    }          
             
                     .carousel_item_telta_tocando_agora {
                         min-width: 100%;
                         height: 229px;
-                        transform-origin: center;
+                        transform-origin: center;  
                         transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
                         border-radius: 6px;
                         position: relative;

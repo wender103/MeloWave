@@ -83,5 +83,11 @@ function Execultar_Funcoes_Ao_Carregar() {
         try {
             Retornar_Artistas_Mais_Vistos()
         } catch{}
+
+        try {
+            setTimeout(() => {
+                closeLoadingScreen()
+            }, 100)
+        } catch{}
     }
 }

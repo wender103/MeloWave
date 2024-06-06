@@ -69,8 +69,8 @@ function Abrir_Pagina(Pagina, ID) {
 
                 setTimeout(() => {
                     Mostrar_Max_Musicas()
-                }, 1000)
-            }, 1000)
+                }, 500)
+            }, 200)
 
         } else if(Pagina == 'musicascurtidas') {
             desativar_blur = true
