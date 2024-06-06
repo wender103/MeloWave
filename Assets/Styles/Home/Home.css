@@ -447,13 +447,13 @@ div.container_artista_caixa div.container_texto_artista_caixa span {
 div#container_carregamento_tela_innteira {
   width: 100vw;
   height: 100vh;
-  display: none;
+  display: flex;
   top: 0;
   left: 0;
   z-index: 7;
   align-items: center;
   justify-content: center;
-  background-color: var(--background_black);
+  background-color: #181818;
   position: fixed;
 }
 div#container_carregamento_tela_innteira .loader {
