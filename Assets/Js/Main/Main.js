@@ -100,9 +100,13 @@ function Pegar_Todas_Musicas() {
     db.collection('Musicas').get().then((snapshot) => {
         snapshot.docs.forEach(Musicas => {
             TodasMusicas = Musicas.data().Musicas
+
+            if(!Execultar_Funcoes_Ao_Carregar_execultado) {
+                Execultar_Funcoes_Ao_Carregar_execultado = true
+                Execultar_Funcoes_Ao_Carregar()
+            }
         })
 
-        Execultar_Funcoes_Ao_Carregar()
     })
 } Pegar_Todas_Musicas()
 
