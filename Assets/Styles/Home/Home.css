@@ -499,7 +499,7 @@ div#container_carregamento_tela_innteira #message_carregamento {
 body {
   width: 100vw;
   min-height: 100vh;
-  background-color: black;
+  background-color: #181818;
   background-image: url("../../Imgs/thumbnail.jpg");
   background-position: center 30%;
   background-repeat: no-repeat;

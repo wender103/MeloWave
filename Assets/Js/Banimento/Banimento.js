@@ -9,6 +9,7 @@ function Carregar_Banimento() {
 
     } else {
         if (User.Estado_Da_Conta.Estado.includes('Banido')) {
+
             emoji_do_banimento_e_supensao.innerText = '🚷'
             titulo_do_banimento_e_supensao.innerText = 'Você Foi Banido!'
             motivo_do_banomento_e_suspensao.innerHTML = `<strong>Motivo:</strong> ${User.Estado_Da_Conta.Motivo}`
@@ -30,6 +31,9 @@ function Carregar_Banimento() {
         } else if(location.href.includes('aviso') && User.Estado_Da_Conta.Estado == 'Ativo') {
             location.href = 'index.html'
         }
+
+        if(location.href.includes('aviso')) {
+            closeLoadingScreen()
+        }
     }
-    
 }

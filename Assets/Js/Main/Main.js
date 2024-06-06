@@ -103,7 +103,9 @@ function Pegar_Todas_Musicas() {
 
             if(!Execultar_Funcoes_Ao_Carregar_execultado) {
                 Execultar_Funcoes_Ao_Carregar_execultado = true
-                Execultar_Funcoes_Ao_Carregar()
+                setTimeout(() => {
+                    Execultar_Funcoes_Ao_Carregar()
+                }, 500)
             }
         })
 

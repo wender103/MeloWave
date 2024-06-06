@@ -30,6 +30,10 @@ function Checar_Fora_Do_Ar() {
                 } else if(email_igual && location.href.includes('fora_do_ar.html')) {
                 location.href = 'index.html'
                 }
+
+                if(location.href.includes('fora_do_ar')) {
+                    closeLoadingScreen()
+                }
             }
         },
         (error) => {

@@ -104,7 +104,9 @@ function Logar_Na_Conta() {
                         Atualizar_User()
 
                         if(location.href.includes('aviso')) {
-                            Execultar_Funcoes_Ao_Carregar()
+                            setTimeout(() => {
+                                Execultar_Funcoes_Ao_Carregar()
+                            }, 500);
                         }
                     }
                 }

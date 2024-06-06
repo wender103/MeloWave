@@ -43,7 +43,7 @@ function Execultar_Funcoes_Ao_Carregar() {
         try {
             Carregar_Banimento()
         } catch(e){
-            // console.warn(e)
+            console.warn(e)
         }
 
         try {
@@ -84,10 +84,12 @@ function Execultar_Funcoes_Ao_Carregar() {
             Retornar_Artistas_Mais_Vistos()
         } catch{}
 
-        try {
-            setTimeout(() => {
-                closeLoadingScreen()
-            }, 100)
-        } catch{}
+        if(location.href.includes('index')) {
+            try {
+                setTimeout(() => {
+                    closeLoadingScreen()
+                }, 100)
+            } catch{}
+        }
     }
 }
