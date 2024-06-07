@@ -55,7 +55,7 @@ function atualizarURL(parametro) {
 }
 
 //! Vai pegar a data atual
-function getDataAtual(ano = 0, mes = 0, dia = 0, dataInicial = '') {
+function getDataAtual(dia = 0, mes = 0, ano = 0, dataInicial = '') {
     let data;
 
     if (dataInicial) {
@@ -75,6 +75,28 @@ function getDataAtual(ano = 0, mes = 0, dia = 0, dataInicial = '') {
 
     // Retorna a nova data no formato 'dd/mm/aaaa'
     return `${formatarNumero(data.getDate())}/${formatarNumero(data.getMonth() + 1)}/${data.getFullYear()}`;
+}
+
+//! Checa se a data já passou
+function jaPassou(data) {
+    // Divide a string da data em partes (dia, mês, ano)
+    const partesData = data.split('/');
+    const dia = parseInt(partesData[0], 10);
+    const mes = parseInt(partesData[1], 10) - 1; // Meses em JavaScript são indexados de 0 (Janeiro) a 11 (Dezembro)
+    const ano = parseInt(partesData[2], 10);
+
+    // Cria um objeto Date com a data fornecida
+    const dataFornecida = new Date(ano, mes, dia);
+
+    // Obtém a data atual
+    const dataAtual = new Date();
+
+    // Verifica se a data fornecida já passou
+    if (dataFornecida < dataAtual) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 // Função auxiliar para formatar números menores que 10 com zero à esquerda
@@ -776,6 +798,7 @@ function validateImage(imageUrl, Qm_Chamou) {
                 
                 if(unsafe_is_maior_max && not_safe_maior_max || not_safe_confidence > 40 && tem_unsafe || unsafe_confidence > 40 && tem_not_safe) {
                     console.log('User Banido ❌🟥')
+                    Aplicar_Ban(User)
                     return { 
                         isValid: false, 
                         message: ' ⚠️ Sua conta está sob aviso 🚨 por utilizar uma imagem inadequada. 🖼️ Se continuar assim, sua conta pode acabar sendo banida! 🚫 Por favor, ajuste o conteúdo conforme as diretrizes para evitar problemas futuros. 🙏', 
@@ -784,6 +807,7 @@ function validateImage(imageUrl, Qm_Chamou) {
                     }
                 } else if(unsafe_is_maior_max || not_safe_maior_max) {
                     console.log('User Avisado 🛩✈🛫')
+                    Aplicar_Ban(User)
                     return { 
                         isValid: false, 
                         message: 'Imagem inadequada!🚫🔞 Por favor, escolha outra.⛔', 
@@ -793,6 +817,7 @@ function validateImage(imageUrl, Qm_Chamou) {
 
                 } else {
                     console.log('Img Aprovada ✔✅🥗')
+                    Aplicar_Ban(User)
                     return { 
                         isValid: true, 
                         message: 'Imagem aprovada!🥳', 

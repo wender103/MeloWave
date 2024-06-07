@@ -153,6 +153,7 @@ function Logar_Na_Conta() {
                             Estado: 'Ativo',
                             Motivo: '',
                             Tempo: '',
+                            Historico_De_Infracoes: [],
                         },
                         Notificacao: [],
                         Perfil: {
