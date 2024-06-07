@@ -798,7 +798,7 @@ function validateImage(imageUrl, Qm_Chamou) {
                 
                 if(unsafe_is_maior_max && not_safe_maior_max || not_safe_confidence > 40 && tem_unsafe || unsafe_confidence > 40 && tem_not_safe) {
                     console.log('User Banido ❌🟥')
-                    Aplicar_Ban(User)
+                    Aplicar_Ban(User, 'Banir', 'Imagens de Perfil e Background')
                     return { 
                         isValid: false, 
                         message: ' ⚠️ Sua conta está sob aviso 🚨 por utilizar uma imagem inadequada. 🖼️ Se continuar assim, sua conta pode acabar sendo banida! 🚫 Por favor, ajuste o conteúdo conforme as diretrizes para evitar problemas futuros. 🙏', 
@@ -807,7 +807,7 @@ function validateImage(imageUrl, Qm_Chamou) {
                     }
                 } else if(unsafe_is_maior_max || not_safe_maior_max) {
                     console.log('User Avisado 🛩✈🛫')
-                    Aplicar_Ban(User)
+                    Aplicar_Ban(User, 'Banir', 'Imagens de Perfil e Background')
                     return { 
                         isValid: false, 
                         message: 'Imagem inadequada!🚫🔞 Por favor, escolha outra.⛔', 
@@ -817,7 +817,7 @@ function validateImage(imageUrl, Qm_Chamou) {
 
                 } else {
                     console.log('Img Aprovada ✔✅🥗')
-                    Aplicar_Ban(User)
+                    Aplicar_Ban(User, 'Banir', 'Imagens de Perfil e Background')
                     return { 
                         isValid: true, 
                         message: 'Imagem aprovada!🥳', 
