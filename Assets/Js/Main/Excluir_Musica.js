@@ -117,7 +117,7 @@ let musicas_tmp_exedido = []
 function Remover_Musicas_Tempo_Exedido() {
     // Pegar_Usuarios('Não Logar')
     for (let c = 0; c < TodasMusicas.length; c++) {
-        let resp = calcularTempoRestante(getDataAtual(0, 0, 5, TodasMusicas[c].Data))
+        let resp = calcularTempoRestante(getDataAtual(5, 0, 0, TodasMusicas[c].Data))
         if(TodasMusicas[c].Estado == 'Pendente' && resp == 'A data já passou!') {
             musicas_tmp_exedido.push(TodasMusicas[c])
 

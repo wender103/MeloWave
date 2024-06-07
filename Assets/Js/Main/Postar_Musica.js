@@ -218,7 +218,7 @@ function Carregar_Musica_Pendentes() {
     let data_exedida = false
 
     for (let c = 0; c < array_musica_pendentes.length; c++) {
-        let resp = calcularTempoRestante(getDataAtual(0, 0, 5, array_musica_pendentes[c].Data))
+        let resp = calcularTempoRestante(getDataAtual(5, 0, 0, array_musica_pendentes[c].Data))
         if(resp != 'A data já passou!') {
             data_exedida = true
         }
@@ -229,7 +229,7 @@ function Carregar_Musica_Pendentes() {
         if(data_exedida) {
             let aviso = `
             <h1>🚨 Atenção! 🚨</h1>
-            <p>Sua música 🎵 ainda não foi totalmente cadastrada. Para garantir que ela não seja excluída 🗑️, finalize o preenchimento das informações restantes dentro de <strong>${calcularTempoRestante(getDataAtual(0, 0, 5, array_musica_pendentes[0].Data))}</strong> ⏳. Caso contrário, ela será removida do sistema ❌.</p>`
+            <p>Sua música 🎵 ainda não foi totalmente cadastrada. Para garantir que ela não seja excluída 🗑️, finalize o preenchimento das informações restantes dentro de <strong>${calcularTempoRestante(getDataAtual(5, 0, 0, array_musica_pendentes[0].Data))}</strong> ⏳. Caso contrário, ela será removida do sistema ❌.</p>`
             Notificar_Infos(aviso, 'Confirmar, Informação, Pequeno', 'Terminar de Adicionar').then((resp) => {
                 if(resp) {
                     Adicionar_Musicas_Pendentes(array_musica_pendentes)
