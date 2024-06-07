@@ -12,7 +12,7 @@ let array_tempo_letra_sincronizar = []
 
 document.getElementById('btn_adicionar_letra_musica_sendo_editada').addEventListener('click', () => {
     Fechar_Container_Editar_Musicas()
-    btn_pesquisar_letra_add.href = `https://www.musixmatch.com/es/busqueda?query=${`${Separar_Por_Virgula(musica_editando_meu_perfil.Autor)[0]} ${musica_editando_meu_perfil.Nome}`}`
+    btn_pesquisar_letra_add.href = `https://www.musixmatch.com/es/busqueda?query=${`${musica_editando_meu_perfil.Nome}`} ${Separar_Por_Virgula(musica_editando_meu_perfil.Autor)[0]}`
     btn_pesquisar_letra_add.addEventListener('click', () => {
         // sairDaTelaCheia()
     })

@@ -269,7 +269,7 @@ function Terminar_Adicionar_Musica(Musica) {
     document.getElementById('primeira_parte_postar_musica').style.display = 'none'
     document.getElementById('segunda_parte_postar_musica').style.display = 'flex'
     //! Gerar link
-    btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('"genêro" da musica ' + new_obj.videoTitle, ' "' + new_obj.channelName + '"')}`
+    btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('Genre of the song ' + new_obj.videoTitle, ' by artist ' + new_obj.channelName)}`
     btn_pesquisar_genero.addEventListener('click', () => {
         sairDaTelaCheia()
     })
