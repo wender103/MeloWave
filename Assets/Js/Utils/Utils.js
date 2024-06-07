@@ -806,8 +806,6 @@ function validateImage(imageUrl, Qm_Chamou) {
                         action: 'Entendi' 
                     }
                 } else if(unsafe_is_maior_max || not_safe_maior_max) {
-                    console.log('User Avisado 🛩✈🛫')
-                    Aplicar_Ban(User, 'Banir', 'Imagens de Perfil e Background')
                     return { 
                         isValid: false, 
                         message: 'Imagem inadequada!🚫🔞 Por favor, escolha outra.⛔', 
@@ -816,8 +814,6 @@ function validateImage(imageUrl, Qm_Chamou) {
                     }
 
                 } else {
-                    console.log('Img Aprovada ✔✅🥗')
-                    Aplicar_Ban(User, 'Banir', 'Imagens de Perfil e Background')
                     return { 
                         isValid: true, 
                         message: 'Imagem aprovada!🥳', 
