@@ -84,7 +84,7 @@ function Execultar_Funcoes_Ao_Carregar() {
             Retornar_Artistas_Mais_Vistos()
         } catch{}
 
-        if(window.location.pathname === '/MeloWave/index.html' || window.location.pathname === '/MeloWave/') {
+        if(window.location.pathname === '/MeloWave/index.html' || window.location.pathname === '/MeloWave/' || window.location.pathname === '/' || window.location.pathname === '/index.html') {
             try {
                 setTimeout(() => {
                     closeLoadingScreen()

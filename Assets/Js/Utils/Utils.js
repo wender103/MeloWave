@@ -708,7 +708,7 @@ async function somarTempos(Musicas) {
 
 //! Detecta imgs pon!@# e | ou violentas
 
-function validateImage(imageUrl) {
+function validateImage(imageUrl, Qm_Chamou) {
     let ban_dado = false
     const API_KEY = 'acc_bec382334232238';
     const API_SECRET = '2ac96f503928a2bdc3216f9fbdf01f30';
@@ -722,92 +722,84 @@ function validateImage(imageUrl) {
     .then(response => response.json())
     .then(result => {
         if (result && result.result && result.result.categories) {
-            let safeConfidence = 0;
-            const safeCategory = result.result.categories.find(category => category.name.en === 'safe');
-            if (safeCategory) {
-                safeConfidence = safeCategory.confidence;
-            }
-
-            const unsafeCategories = ['nudity', 'adult', 'unsafe', 'nsfw', 'underwear']
-            const containsUnsafeCategory = result.result.categories.some(category => unsafeCategories.includes(category.name.en));
-
-            let safe_maior = true
-            let nivel_ban1 = false
-            let nivel_ban2 = false
-            let categorias = result.result.categories
-            for (let c = 0; c < categorias.length; c++) {
-                if(categorias[c].name.en != 'safe' && categorias[c].confidence > safeConfidence) {
-                    safe_maior = false
+            function Checar_Resultados_Img(result) {
+                let safeConfidence = 0;
+                const safeCategory = result.result.categories.find(category => category.name.en === 'safe');
+                if (safeCategory) {
+                    safeConfidence = safeCategory.confidence;
                 }
-
-                for (let a = 0; a < unsafeCategories.length; a++) {
-                    if(categorias[c].name.en == unsafeCategories[a] && categorias[c].name.en != 'nsfw') {
-                        nivel_ban1 = true
-                    }
-                    
-                    if(categorias[c].name.en == 'nsfw' && categorias[c].confidence > 20) {
-                        if(nivel_ban1 || categorias[c].confidence >  50) {
-                            nivel_ban2 = true
+                
+                console.log(safeConfidence)
+                
+                const unsafeCategories = ['nudity', 'adult', 'unsafe', 'nsfw', 'underwear']
+                const containsUnsafeCategory = result.result.categories.some(category => unsafeCategories.includes(category.name.en))
+                
+                console.log(result)
+                let ban_dado = false
+                let safe_maior = true
+                let nivel_ban1 = false
+                let nivel_ban2 = false
+                let categorias = result.result.categories
+                let tem_unsafe = false
+                let unsafe_is_maior_max = false
+                let tem_not_safe = false
+                let not_safe_maior_max = false
+                const max_unsafe = 7
+                const max_not_safe = 10
+                let not_safe_confidence = 0
+                let unsafe_confidence = 0
+                for (let c = 0; c < categorias.length; c++) {
+                    for (let b = 0; b < unsafeCategories.length; b++) {
+                        if(categorias[c].name.en == unsafeCategories[b] && categorias[c].name.en != 'nsfw') {
+                            tem_unsafe = true
+                
+                            if(categorias[c].confidence > max_unsafe) {
+                                unsafe_is_maior_max = true
+                            }
+                        }
+                
+                        if(categorias[c].name.en == 'nsfw') {
+                            not_safe_confidence = categorias[c].confidence
+                            tem_not_safe = true
+                
+                            if(categorias[c].confidence > max_not_safe) {
+                                not_safe_maior_max = true
+                            }
                         }
                     }
                 }
                 
-            }
-
-            if(nivel_ban2 && !ban_dado) {
-                ban_dado = true
-                if(User.Estado_Da_Conta.Estado == 'Ativo') {
-                    User.Estado_Da_Conta.Estado = 'Aviso 1'
-
-                } else if(User.Estado_Da_Conta.Estado == 'Aviso 1') {
-                    User.Estado_Da_Conta.Estado = 'Aviso 2'
-
-                } else if(User.Estado_Da_Conta.Estado == 'Aviso 2') {
-                    User.Estado_Da_Conta.Estado = 'Banido 1'
-                    User.Estado_Da_Conta.Motivo = 'Sua conta foi banida por postar conteúdo pornográfico ou/e inapropriado. 🚫 Tal comportamento é inaceitável e demonstra total desrespeito pelas regras e pela comunidade. 😠 Reflita sobre suas ações e suas consequências. 😢'
-                    User.Estado_Da_Conta.Tempo = getDataAtual(0, 0, 10)
-
-                }  else if(User.Estado_Da_Conta.Estado == 'Banido 1') {
-                    User.Estado_Da_Conta.Estado = 'Banido 2'
-                    User.Estado_Da_Conta.Motivo = 'Sua conta foi banida por postar conteúdo pornográfico ou/e inapropriado. 🚫 Tal comportamento é inaceitável e demonstra total desrespeito pelas regras e pela comunidade. 😠 Reflita sobre suas ações e suas consequências. 😢'
-                    User.Estado_Da_Conta.Tempo = getDataAtual(0, 0, 10)
-
-                }   else if(User.Estado_Da_Conta.Estado == 'Banido 2') {
-                    User.Estado_Da_Conta.Estado = 'Banido 2'
-                    User.Estado_Da_Conta.Motivo = 'Sua conta foi banida por postar conteúdo pornográfico ou/e inapropriado. 🚫 Tal comportamento é inaceitável e demonstra total desrespeito pelas regras e pela comunidade. 😠 Reflita sobre suas ações e suas consequências. 😢'
-                    User.Estado_Da_Conta.Tempo = 'Permanente'
-                }
-
-                db.collection('Users').doc(User.ID).update({ Estado_Da_Conta: User.Estado_Da_Conta })
-
-                try {
-                    Carregar_Banimento()
-                } catch{}
-            }
-            
-            if (safeConfidence > 0 && safe_maior) {
-                return { 
-                    isValid: true, 
-                    message: 'Imagem aprovada!🥳', 
-                    emojis: 'Emojis:🎉,🎊,🥳,🎂,🎆,🍾,🥂,🏆,🏅,🎇' 
-                };
-            } else {
-                if(nivel_ban2) {
+                console.log('Not Safe For Work: ' + tem_unsafe)
+                console.log('Tem Categoria Bloqueada: ' + tem_unsafe)
+                console.log('Categoria Bloqueada Maior Que Max: ' + unsafe_is_maior_max)
+                console.log('Not Safe Maior Que Max: ' + not_safe_maior_max)
+                
+                if(unsafe_is_maior_max && not_safe_maior_max || not_safe_confidence > 40 && tem_unsafe || unsafe_confidence > 40 && tem_not_safe) {
+                    console.log('User Banido ❌🟥')
                     return { 
                         isValid: false, 
                         message: ' ⚠️ Sua conta está sob aviso 🚨 por utilizar uma imagem inadequada. 🖼️ Se continuar assim, sua conta pode acabar sendo banida! 🚫 Por favor, ajuste o conteúdo conforme as diretrizes para evitar problemas futuros. 🙏', 
                         emojis: 'Emojis:🚫, ❌, ⛔, 🔒, 🙅, 🚷, 🛑, 🔞, 🔐, 👋', 
                         action: 'Entendi' 
                     }
-                } else {
+                } else if(unsafe_is_maior_max || not_safe_maior_max) {
+                    console.log('User Avisado 🛩✈🛫')
                     return { 
                         isValid: false, 
                         message: 'Imagem inadequada!🚫🔞 Por favor, escolha outra.⛔', 
                         emojis: 'Emojis:🚫, ❌, ⛔, 🔒, 🙅, 🚷, 🛑, 🔞, 🔐, 👋', 
                         action: 'Entendi' 
-                    };
+                    }
+
+                } else {
+                    console.log('Img Aprovada ✔✅🥗')
+                    return { 
+                        isValid: true, 
+                        message: 'Imagem aprovada!🥳', 
+                        emojis: 'Emojis:🎉,🎊,🥳,🎂,🎆,🍾,🥂,🏆,🏅,🎇' 
+                    }
                 }
-            }
+            }  return Checar_Resultados_Img(result)
         } else {
             throw new Error('Não foi possível processar a resposta da API.');
         }

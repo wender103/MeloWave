@@ -107,6 +107,7 @@ function Logar_Na_Conta() {
                             setTimeout(() => {
                                 Execultar_Funcoes_Ao_Carregar()
                             }, 500);
+                            
                         }
                     }
                 }
@@ -148,7 +149,11 @@ function Logar_Na_Conta() {
                             Todos: [],
                             Atual: []
                         },
-                        Estado_Da_Conta: 'Ativa',
+                        Estado_Da_Conta: {
+                            Estado: 'Ativo',
+                            Motivo: '',
+                            Tempo: '',
+                        },
                         Notificacao: [],
                         Perfil: {
                             Img_Perfil: val.photoURL,

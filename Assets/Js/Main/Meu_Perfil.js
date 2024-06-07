@@ -132,8 +132,9 @@ function Adicionar_Nova_img_Meu_Perfil() {
         pd_fazer_alteracao_perfil = false
         carregarImagem(link_nova_img_meu_perfil.value, function(imgPerfil) {
             if(imgPerfil) {
-                validateImage(link_nova_img_meu_perfil.value)
+                validateImage(link_nova_img_meu_perfil.value, 'Perfil')
                 .then(imageInfo => {
+
                     if (imageInfo.isValid && imageInfo.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
 
                         document.getElementById('img_foto_meu_perfil').src = imgPerfil.src
@@ -144,8 +145,10 @@ function Adicionar_Nova_img_Meu_Perfil() {
                         Salvar_Edicao_Perfil(pode_salvar)
                         Fechar_Adicionar_Img_Meu_Perfil()
                     } else if(!imageInfo.isValid && imageInfo.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
+                        Fechar_Adicionar_Img_Meu_Perfil()
                         Notificar_Infos(imageInfo.message, 'Link', 'Ver Regras', 'regras.html')
                     } else {
+                        Fechar_Adicionar_Img_Meu_Perfil()
                         Notificar_Infos(imageInfo.message)
                     }
                     pd_fazer_alteracao_perfil = true
@@ -168,7 +171,7 @@ function Adicionar_Nova_img_Meu_Perfil() {
             pd_fazer_alteracao_perfil = false
             carregarImagem(link_novo_background_meu_perfil.value, function(imgBackground) {
                 if(imgBackground) {
-                    validateImage(link_novo_background_meu_perfil.value)
+                    validateImage(link_novo_background_meu_perfil.value, 'Background')
                     .then(imgBackground_safe => {
                         if (imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
 
@@ -179,9 +182,11 @@ function Adicionar_Nova_img_Meu_Perfil() {
                             Notificar_Infos(imgBackground_safe.message, imgBackground_safe.emojis)
                             Salvar_Edicao_Perfil(pode_salvar)
                         } else if(!imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
+                            Fechar_Adicionar_Img_Meu_Perfil()
                             Notificar_Infos(imgBackground_safe.message, 'Link', 'Ver Regras', 'regras.html')
                                 
                         } else {
+                            Fechar_Adicionar_Img_Meu_Perfil()
                             Notificar_Infos(imgBackground_safe.message)
                         }
 
@@ -195,7 +200,7 @@ function Adicionar_Nova_img_Meu_Perfil() {
                         if(resolve) {
                             Abrir_Add_Nova_Img_Meu_Perfil()
                         }
-                    })
+                        })
                     Fechar_Adicionar_Img_Meu_Perfil()
                     pd_fazer_alteracao_perfil = true
                 }

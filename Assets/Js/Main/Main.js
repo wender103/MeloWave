@@ -734,9 +734,12 @@ function Pegar_Musicas(pesquisa, tipo) {
         let pesquisa_formatada = formatarString(pesquisa)
 
         for (let c = 0; c < TodasMusicas.length; c++) {
-            let autor_formatado = formatarString(TodasMusicas[c].Autor)
-            if(autor_formatado.includes(pesquisa_formatada) || pesquisa_formatada.includes(autor_formatado)) {
-                musicas_array.push(TodasMusicas[c])
+            let autor_formatado = Separar_Por_Virgula(formatarString(TodasMusicas[c].Autor))
+            for (let b = 0; b < autor_formatado.length; b++) {
+                if(autor_formatado[b] == pesquisa_formatada) {
+                    musicas_array.push(TodasMusicas[c])
+                    break
+                }
             }
         }
     }
