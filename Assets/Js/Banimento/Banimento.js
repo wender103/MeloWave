@@ -227,8 +227,8 @@ function Aplicar_Ban(User_Recebido, Comando='Banir', Infracao) {
 
                                 } else {
                                     //! Vai Suspender o user
+                                    let tmp = Penalidades_E_Tolerancia[c].Suspensao[numero_infracoes[Infracao] - 1]
                                     if(Penalidades_E_Tolerancia[c].Suspensao != null && tmp.Tempo.Dias != 0 || Penalidades_E_Tolerancia[c].Suspensao != null && tmp.Tempo.Meses != 0 || Penalidades_E_Tolerancia[c].Suspensao != null && tmp.Tempo.Anos != 0) {
-                                        let tmp = Penalidades_E_Tolerancia[c].Suspensao[numero_infracoes[Infracao] - 1]
                                         //console.log(tmp)
                                         //console.log(numero_infracoes)
                                         //console.log(numero_infracoes[Infracao])
