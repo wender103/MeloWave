@@ -71,7 +71,7 @@ async function Postar_Musica(Comando = '') {
                                 document.getElementById('primeira_parte_postar_musica').style.display = 'none'
                                 document.getElementById('segunda_parte_postar_musica').style.display = 'flex'
                                 //! Gerar link
-                                btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('"genêro" da musica ' + data.videoTitle, ' "' + data.channelName + '"')}`
+                                btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('Genre of the song ' + data.videoTitle, ' by artist ' + data.channelName)}`
                                 btn_pesquisar_genero.addEventListener('click', () => {
                                     sairDaTelaCheia()
                                 })
