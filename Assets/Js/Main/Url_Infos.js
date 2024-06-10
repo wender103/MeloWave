@@ -89,13 +89,12 @@ function Recarregar_Infos_Url() {
             if(musica_ouvindo != undefined && musica_ouvindo != null) {
                 setTimeout(() => {
                     if(!tem_na_lista) {
-                        Tocar_Musica([musica_ouvindo], musica_ouvindo)
+                        Tocar_Musica([musica_ouvindo], musica_ouvindo, 'Pausar')
                     } else {
                         Listas_Prox = new_lista_prox
         
-                        Tocar_Musica(Listas_Prox.Lista_Musicas, musica_ouvindo)
+                        Tocar_Musica(Listas_Prox.Lista_Musicas, musica_ouvindo, 'Pausar')
                     }
-                    Pausar()
                     Abrir_Tela_Tocando_Agora()
                 }, 1000)
             }
@@ -124,6 +123,9 @@ function Recarregar_Infos_Url() {
 
         }  else if(page == 'meuperfil') {
             Abrir_Pagina('meuperfil', `meuperfil_${id_page}`)
+
+        } else if(page == 'verletra') {
+            Abrir_Ver_Letra_PC()
         }
     }
 }

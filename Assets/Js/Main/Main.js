@@ -207,8 +207,12 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     Carregar_Tela_Tocando_Agora(MusicaAtual)
 
     audio_player.src = MusicaAtual.Audio
-    Play()
-    document.title = `${MusicaAtual.Nome} - ${MusicaAtual.Autor}`
+    if(!Comando.includes('Pausar')) {
+        document.title = `${MusicaAtual.Nome} - ${MusicaAtual.Autor}`
+        Play()
+    } else {
+        Pausar()
+    }
 
     //! Vai trocar o background apenas se não for as páginas bloqueadas
     let pagina_igual = false

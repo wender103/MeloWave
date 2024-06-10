@@ -617,7 +617,6 @@ function Fechar_Ver_Letra_PC(Comando='') {
 }
 
 function Zerar_Ver_Letra_Pc() {
-    console.log('Caiu no zerar ver letra');
     pre_letra_da_musica.style.padding = '0px 10px 0px'
     Pagina_verletra.classList.remove('Tem_Letra')
     pre_letra_da_musica.innerHTML = '<h1 id="linha_atual_sincronizar_ver_letra">Ainda não aprendi essa :(</h1>'
