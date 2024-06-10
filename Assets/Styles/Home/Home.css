@@ -1759,8 +1759,8 @@ body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra 
 }
 body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra pre span.linha_pre_em_destaque_add_letra {
   color: var(--white);
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
-  font-size: 1.6rem;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
+  font-size: 1.7rem;
 }
 body main section.Paginas#Pagina_adicionarletra article#segunda_parte_add_letra div#container_contagem_regressiva_add_letra {
   position: fixed;
@@ -1855,8 +1855,8 @@ body main section.Paginas#Pagina_verletra {
   min-height: 0px !important;
   position: relative;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgb(0, 0, 0) 50%, rgb(0, 0, 0));
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgb(0, 0, 0) 50%, rgb(0, 0, 0));
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgb(0, 0, 0) 40%, rgba(0, 0, 0, 0));
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgb(0, 0, 0) 40%, rgba(0, 0, 0, 0));
 }
 body main section.Paginas#Pagina_verletra article#container_letra_verletra {
   overflow: hidden;
@@ -1867,29 +1867,34 @@ body main section.Paginas#Pagina_verletra article#container_letra_verletra pre {
   height: 100%;
   background-color: transparent;
   border: none;
-  color: var(--fonte_transparente);
+  color: rgba(255, 255, 255, 0.1);
   outline: none;
   font-size: 1.5rem;
   overflow: auto;
-  font-weight: bold;
-  padding: 0px 10px 500px;
+  font-weight: 700;
+  padding: 500px 10px 500px;
   white-space: pre-wrap;
 }
 body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span {
   cursor: pointer;
 }
 body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span.linha_pre_anterior_add_letra {
-  color: var(--white_pouco_transparent);
+  color: rgba(255, 255, 255, 0.368627451);
 }
-body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span.linha_pre_em_destaque_add_letra {
-  color: var(--white);
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
-  font-size: 1.6rem;
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span.linha_pre_em_destaque_add_letra .animated-span {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.23);
+  transition: font-size 0.3s, color 0.3s;
+}
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span.linha_pre_em_destaque_add_letra .animated-span.animated {
+  font-size: 1.7rem;
+  color: white;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
 }
 body main section.Paginas#Pagina_verletra article#container_letra_verletra pre h1 {
   color: var(--white);
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
-  font-size: 1.5rem;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
+  font-size: 1.7rem;
 }
 body main section.Paginas#Pagina_loja {
   flex-direction: column;
@@ -2304,7 +2309,7 @@ body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora
   border: none;
   color: var(--fonte_transparente);
   outline: none;
-  font-size: 1.1rem;
+  font-size: 1rem;
   overflow: auto;
   font-weight: bold;
   white-space: pre-wrap;
@@ -2316,10 +2321,15 @@ body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora
 body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_anterior_add_letra {
   color: var(--fonte_meio_transparente);
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_em_destaque_add_letra {
-  color: var(--white);
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.5), 0 0 15px rgba(255, 255, 255, 0.5);
-  font-size: 1.2rem;
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_em_destaque_add_letra.linha_pre_em_destaque_add_letra .animated-span {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.23);
+  transition: font-size 0.3s, color 0.3s;
+}
+body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_em_destaque_add_letra.linha_pre_em_destaque_add_letra .animated-span.animated {
+  font-size: 1.1rem;
+  color: white;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
 }
 body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora {
   background-color: var(--black_transparent);

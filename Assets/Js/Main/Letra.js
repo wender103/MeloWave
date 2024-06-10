@@ -432,10 +432,11 @@ function Voltar_Letra_Ver_Musica(index) {
     index = parseInt(index)
     audio_player.currentTime = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[index]
     linha_atual = index
-    Atualizar_Letra_PC()
+    Atualizar_Linha_Letra_Input()
 }
 
 function Destacar_linhas() {
+    let duracao_transicao = 50
     if(pd_atualizar_letra_pc) {
         pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
         letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
@@ -446,6 +447,7 @@ function Destacar_linhas() {
             for (let c = 0; c < linhas.length; c++) {
                 if(c == linha_atual) {
                     linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_ver_letra">' + letra_pre_ver_letra[c] + '</span>'
+
                 } else if(c < linha_atual) {
                     linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
                 } else {
@@ -461,8 +463,26 @@ function Destacar_linhas() {
             pre_letra_da_musica.innerHTML = ''
             for (let c = 0; c < linhas.length; c++) {
                 pre_letra_da_musica.innerHTML += linhas[c] + '\n'
-                
             }
+
+            const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+            const letters = text.textContent.split('')
+            text.innerHTML = ''
+
+            letters.forEach((letter, index) => {
+                const span = document.createElement('span')
+                if (letter === ' ' && text.lastElementChild) {
+                    text.lastElementChild.textContent += letter
+                } else {
+                    span.textContent = letter
+                    span.className = 'animated-span'
+                    text.appendChild(span)
+
+                    setTimeout(() => {
+                        span.classList.add('animated')
+                    }, index * duracao_transicao) 
+                }
+            })
             //? Faz o scroll para a linha atual
             try {
                 document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -494,16 +514,33 @@ function Destacar_linhas() {
             // Atualiza o conteúdo do <pre> com as linhas modificadas
             pre_letra_tocando_agora.innerHTML = ''
             for (let c = 0; c < linhas.length; c++) {
-                pre_letra_tocando_agora.innerHTML += linhas[c] + '\n'
-                
+                pre_letra_tocando_agora.innerHTML += linhas[c] + '\n'   
             }
+
+            const text = document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora')
+            const letters = text.textContent.split('')
+            text.innerHTML = ''
+
+            letters.forEach((letter, index) => {
+                const span = document.createElement('span')
+                if (letter === ' ' && text.lastElementChild) {
+                    text.lastElementChild.textContent += letter
+                } else {
+                    span.textContent = letter
+                    span.className = 'animated-span'
+                    text.appendChild(span)
+
+                    setTimeout(() => {
+                        span.classList.add('animated')
+                    }, index * duracao_transicao) 
+                }
+            })
             //? Faz o scroll para a linha atual
             try {
                 document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
             } catch{}
             
         }
-        linha_atual++
     }
 }
 
@@ -588,12 +625,10 @@ function Atualizar_Letra_PC() {
         if(pd_atualizar_letra_pc || pode_atualizar_letra_tela_tocando_agora) {
             info_dada_nao_aprendi = false
             let Tempo = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado
-    
-            if(audio_player.currentTime + 0.30 >= Tempo[linha_atual] && audio_player.currentTime < Tempo[linha_atual + 1]) {
-                Destacar_linhas()
 
-            } else if(audio_player.currentTime > Tempo[linha_atual + 1]) {
-                Atualizar_Linha_Letra_Input()
+            if(audio_player.currentTime + 0.50 > parseFloat(Tempo[linha_atual + 1])) {
+                linha_atual++
+                Destacar_linhas()
             }
         }
     } else if(!info_dada_nao_aprendi) {
