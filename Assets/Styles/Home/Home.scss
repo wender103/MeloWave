@@ -830,6 +830,18 @@ body {
                         overflow: hidden;
                         gap: 12px; 
                     }
+
+                    &#container_pesquisa {
+                        article {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                            gap: 4px;
+                            
+                            div {
+                                margin-bottom: 15px;
+                            }
+                        }
+                    }
                 }
 
                 div#pesquisa_nao_encontrada {

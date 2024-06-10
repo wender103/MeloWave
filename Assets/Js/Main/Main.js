@@ -28,26 +28,28 @@ function Quantas_musicas() {
 function Mostrar_Max_Musicas() {
     const max_musicas = Quantas_musicas()
     document.querySelectorAll('.Container_Musicas_Caixa').forEach(container => {
-        container = container.querySelector('article')
-
-        if(container.querySelectorAll('.musica_caixa')){
-
-            const musicas = container.querySelectorAll('.musica_caixa')  
+        if(container.id != 'container_pesquisa') {
+            container = container.querySelector('article')
     
-            if(musicas.length > max_musicas && max_musicas > 4) {
-                container.style.justifyContent = 'space-around'
-            } else {
-                container.style.justifyContent = 'start'
-            }
-            
-            for (let c = 0; c < musicas.length; c++) {
-                if(c >= max_musicas) {
-                    musicas[c].style.display = 'none'
+            if(container.querySelectorAll('.musica_caixa')){
+    
+                const musicas = container.querySelectorAll('.musica_caixa')  
+        
+                if(musicas.length > max_musicas && max_musicas > 4) {
+                    container.style.justifyContent = 'space-around'
                 } else {
-                    musicas[c].style.display = 'flex'
-                }   
+                    container.style.justifyContent = 'start'
+                }
+                
+                for (let c = 0; c < musicas.length; c++) {
+                    if(c >= max_musicas) {
+                        musicas[c].style.display = 'none'
+                    } else {
+                        musicas[c].style.display = 'flex'
+                    }   
+                }
             }
-        } 
+        }
     })
 
     document.querySelectorAll('.Container_Autor_Caixa').forEach(container => {

@@ -1158,6 +1158,14 @@ body main section.Paginas#Pagina_pesquisar section#container_perfis {
   overflow: hidden;
   gap: 12px;
 }
+body main section.Paginas#Pagina_pesquisar section#container_pesquisa article {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 4px;
+}
+body main section.Paginas#Pagina_pesquisar section#container_pesquisa article div {
+  margin-bottom: 15px;
+}
 body main section.Paginas#Pagina_pesquisar div#pesquisa_nao_encontrada {
   width: 70%;
   position: absolute;
