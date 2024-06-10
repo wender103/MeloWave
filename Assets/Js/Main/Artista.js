@@ -45,6 +45,10 @@ function Abrir_Perfil_Artista(Artista, Musica) {
 
     Abrir_Pagina('artista', musica_escolhida.ID)
     Trocar_Background(musica_escolhida.Img, document.body)
+
+    document.getElementById('btn_seguir_user').addEventListener('click', () => {
+        Seguir_Artista(Artista)
+    })
 }
 
 //! Random -----------------------
@@ -102,10 +106,18 @@ function Seguir_Artista(Artista=null, Comando=null) {
             location.reload()
 
         } else {
+            let nome_artista_tela_tocando_agora = document.getElementById('nome_artista_tela_tocando_agora')
+            nome_artista_tela_tocando_agora = formatarString(nome_artista_tela_tocando_agora.innerText)
+            let artista_formatado = formatarString(Artista)
+
             //! Caso ele esteja "SEGUINDO" o Artista
             if(user_seguindo_artista) {
                 User.Social.Artistas.splice(num_artista_seguindo, 1)
                 btn_seguir_user.innerText = 'Seguir'
+
+                if(nome_artista_tela_tocando_agora == artista_formatado) {
+                    document.getElementById('btn_seguir_artista_tela_tocando_agora').innerText = 'Seguir'
+                }
 
             } else {
                 const new_artista = {
@@ -117,6 +129,10 @@ function Seguir_Artista(Artista=null, Comando=null) {
                 User.Social.Artistas.push(new_artista)
 
                 btn_seguir_user.innerText = 'Seguindo'
+
+                if(nome_artista_tela_tocando_agora == artista_formatado) {
+                    document.getElementById('btn_seguir_artista_tela_tocando_agora').innerText = 'Seguindo'
+                }
             }
         }
 

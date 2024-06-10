@@ -1,4 +1,4 @@
-function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
+function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Artista, Perfil) {
 
     //! ---------------- Uls ----------------------
     const opcoes_musica_ul = document.getElementById('opcoes_musica_ul')
@@ -20,7 +20,8 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
 
     let Adicionar_Musica_Curtida = `<li onclick="Adicionar_Musica_Curtida_Opcoes_Click_Direito('${Musica.ID}', 'Fila')"<img src="Assets/Imgs/Like_Vazio.svg"><p>Adicionar à Músicas Curtidas</p></li>`
 
-    let Add_Fila = `<li onclick="Adicionar_a_Fila('${Musica.ID}')"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar a seguir</p></li>`
+    let Add_Fila = `<li onclick="Adicionar_a_Fila('${Musica.ID}')"><img src="Assets/Imgs/Fila.svg"><p>Adicionar a fila</p></li>`
+    let Add_Fila_Seguir = `<li onclick="Adicionar_a_Fila_Seguir('${Musica.ID}')"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar a seguir</p></li>`
 
     let Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('${Modo}', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover da fila</p></li>`
 
@@ -28,7 +29,30 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
 
     let About = `<li onclick="Abrir_Creditos('${Musica.ID}')"<img src="Assets/Imgs/About.png"><p>Ver creditos</p></li>`
 
-    let Share = `<li onclick="Comapartilhar_Musica_Fila('${Musica.ID}')"<img src="Assets/Imgs/Share.svg"><p>Compartilhar</p></li>`
+    let Share = `<li onclick="Comapartilhar_Musica_E_Artista('${Musica.ID}', '${ID_Artista}')"<img src="Assets/Imgs/Share.svg"><p>Compartilhar</p></li>`
+
+    let Btn_Seguir_Artsta
+    
+    if(Artista_Seguir) {
+        if(Seguir_Artista(Artista_Seguir, 'Checar')) {
+            Btn_Seguir_Artsta = `<li onclick="Seguir_Artista('${Artista_Seguir}')"<img src="Assets/Imgs/Share.svg"><p>Deixar de seguir</p></li>`
+        } else {
+            Btn_Seguir_Artsta = `<li onclick="Seguir_Artista('${Artista_Seguir}')"<img src="Assets/Imgs/Share.svg"><p>Seguir artista</p></li>`
+        }
+    }
+
+    let Btn_Seguir_User = `<li onclick="Seguir_Perfil('${Perfil}')"<img src="Assets/Imgs/Share.svg"><p>Seguir usuário</p></li>`
+
+    let Share_Perfil = `<li onclick="Comapartilhar_Perfil('${Perfil}')"<img src="Assets/Imgs/Share.svg"><p>Compartilhar perfil</p></li>`
+
+    let pode_add_a_fila = true
+
+    for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
+        if(Listas_Prox.Lista_Musicas[c].ID == Musica.ID) {
+            pode_add_a_fila = false
+            break
+        }
+    }
 
     function btn_musica_curtida() {
         let tem_nas_musicas_curtidas = false
@@ -60,7 +84,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
         })
 
         if(!musica_ja_em_a_seguir) {
-            opcoes_fila_ul.innerHTML += Add_Fila
+            opcoes_fila_ul.innerHTML += Add_Fila_Seguir
         }
 
         opcoes_fila_ul.innerHTML += Remover_Musica_Fila
@@ -78,8 +102,13 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
         //* Musicas Curtidas
         opcoes_musica_ul.innerHTML += btn_musica_curtida()
         opcoes_musica_ul.innerHTML += '<hr>'
+        
+        opcoes_fila_ul.innerHTML += Add_Fila_Seguir
+        
+        if(pode_add_a_fila) {
+            opcoes_fila_ul.innerHTML += Add_Fila
+        }
 
-        opcoes_fila_ul.innerHTML += Add_Fila
         opcoes_fila_ul.innerHTML += '<hr>'
 
         opcoes_musica2_ul.innerHTML += Ir_Para_Artista
@@ -119,7 +148,15 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
             }
         }
 
+        if(pode_add_a_fila) {
+            opcoes_fila_ul.innerHTML += Add_Fila
+        }
+
         if(Musica.ID != Listas_Prox.MusicaAtual.ID && !tem_no_a_seguir && Listas_Prox.Indice != undefined) {
+            opcoes_fila_ul.innerHTML += Add_Fila_Seguir
+        }
+
+        if(pode_add_a_fila && Listas_Prox.Indice != undefined) {
             opcoes_fila_ul.innerHTML += Add_Fila
         }
         
@@ -169,9 +206,13 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
         }
 
         if(Musica.ID != Listas_Prox.MusicaAtual.ID && !tem_no_a_seguir && Listas_Prox.Indice != undefined) {
-            opcoes_fila_ul.innerHTML += Add_Fila
+            opcoes_fila_ul.innerHTML += Add_Fila_Seguir
         }
         
+        if(pode_add_a_fila && Listas_Prox.Indice != undefined) {
+            opcoes_fila_ul.innerHTML += Add_Fila
+        }
+
         let tem_na_fila = false
         for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
             if(Musica.ID == Listas_Prox.Lista_Musicas[c].ID) {
@@ -202,6 +243,13 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice) {
         opcoes_musica2_ul.innerHTML += '<hr>'
 
         opcoes_compartilhar_ul.innerHTML += Share
+
+    } else if(Modo == 'Artista') {
+        opcoes_musica_ul.innerHTML += Btn_Seguir_Artsta
+        opcoes_musica_ul.innerHTML += Share
+    } else if(Modo == 'Perfil') {
+        opcoes_fila_ul.innerHTML += Btn_Seguir_User
+        opcoes_fila_ul.innerHTML += Share_Perfil
     }
 }
 
@@ -226,12 +274,19 @@ function Adicionar_Musica_Curtida_Opcoes_Click_Direito(ID) {
     }
 }
 
-function Adicionar_a_Fila(ID) {
+function Adicionar_a_Fila_Seguir(ID) {
     for (let c = 0; c < TodasMusicas.length; c++) {
         if(TodasMusicas[c].ID == ID) {
             Listas_Prox.A_Seguir.push(TodasMusicas[c])
             Atualizar_Fila('Adicionando Fila a Seguir') 
+            break
+        }
+    }
+}
 
+function Adicionar_a_Fila(ID) {
+    for (let c = 0; c < TodasMusicas.length; c++) {
+        if(TodasMusicas[c].ID == ID) {            
             let ja_tem_na_lista = false
             for (let a = 0; a < Listas_Prox.Lista_Musicas.length; a++) {
                 if(Listas_Prox.Lista_Musicas[a].ID == ID) {
@@ -242,6 +297,7 @@ function Adicionar_a_Fila(ID) {
 
             if(!ja_tem_na_lista) {
                 Listas_Prox.Lista_Musicas.push(TodasMusicas[c])
+                Atualizar_Fila() 
             }
             break
         }
@@ -274,6 +330,24 @@ function Ir_Para_Artista_Opcoes_Click_Direito(ID) {
     }
 }
 
-function Creditos_Fila(ID) {}
+function Comapartilhar_Musica_E_Artista(ID_Musica, ID_Artista) {
+    var url = window.location.href
+    var baseUrl = url.split('?')[0]
 
-function Comapartilhar_Musica_Fila(ID) {}
+    let link
+    if(ID_Artista != null && ID_Artista != undefined && ID_Artista != 'undefined') {
+        link = `${baseUrl}?Page=artista_${ID_Artista}`
+
+    } else {
+        link = `${baseUrl}?Musica=${ID_Musica}`
+    }
+
+    Copiar_Para_Area_Tranferencia(link)
+}
+
+function Comapartilhar_Perfil(ID) {
+    var url = window.location.href
+    var baseUrl = url.split('?')[0]
+    let link = `${baseUrl}?Page=perfil_${ID}`
+    Copiar_Para_Area_Tranferencia(link)
+}

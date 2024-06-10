@@ -35,7 +35,7 @@ function Abrir_Pagina(Pagina, ID) {
     
     document.getElementById('bnt_editar_meu_perfil').style.display = 'none'
 
-    atualizarURL(Pagina)
+    atualizarURL(Pagina, ID)
     const Paginas = document.querySelectorAll('.Paginas')
 
     Paginas.forEach(Pagina_especifica => {

@@ -436,6 +436,11 @@ function Voltar_Letra_Ver_Musica(index) {
 }
 
 function Destacar_linhas() {
+    if(linha_atual == -1 || linha_atual == 0) {
+        Pagina_verletra.classList.add('Tem_Letra')
+        pre_letra_da_musica.style.padding = '500px 10px 500px'
+    }
+
     let duracao_transicao = 50
     if(pd_atualizar_letra_pc) {
         pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
@@ -612,11 +617,33 @@ function Fechar_Ver_Letra_PC(Comando='') {
 }
 
 function Zerar_Ver_Letra_Pc() {
+    console.log('Caiu no zerar ver letra');
+    pre_letra_da_musica.style.padding = '0px 10px 0px'
+    Pagina_verletra.classList.remove('Tem_Letra')
     pre_letra_da_musica.innerHTML = '<h1 id="linha_atual_sincronizar_ver_letra">Ainda não aprendi essa :(</h1>'
     try {
         document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
     } catch{}
     linha_atual = -1
+}
+
+// Variáveis para armazenar os valores antigos
+let valores_antigos = {
+    pode_atualizar_letra_tela_tocando_agora: false,
+    pd_atualizar_letra_pc: false
+}
+
+function Pausar_Atualizar_Letra() {
+    valores_antigos.pode_atualizar_letra_tela_tocando_agora = pode_atualizar_letra_tela_tocando_agora
+    valores_antigos.pd_atualizar_letra_pc = pd_atualizar_letra_pc
+
+    pode_atualizar_letra_tela_tocando_agora = false
+    pd_atualizar_letra_pc = false
+}
+
+function Despausar_Atualizar_Letra() {
+    pode_atualizar_letra_tela_tocando_agora = valores_antigos.pode_atualizar_letra_tela_tocando_agora
+    pd_atualizar_letra_pc = valores_antigos.pd_atualizar_letra_pc
 }
 
 let info_dada_nao_aprendi = false

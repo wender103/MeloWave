@@ -375,7 +375,11 @@ function Retornar_Artistas_Caixa(Artista) {
 
     span.innerText = 'Artista'
     p.innerText = Artista
-    img.src = musicas_artista[0].Img
+    try {
+        img.src = musicas_artista[0].Img
+        
+    } catch{}
+        
 
     container_img.appendChild(img)
     container_texto.appendChild(span)
@@ -385,6 +389,11 @@ function Retornar_Artistas_Caixa(Artista) {
 
     container_artista_caixa.addEventListener('click', () => {
         Abrir_Perfil_Artista(Artista, musicas_artista[0])
+    })
+
+    container_artista_caixa.addEventListener('contextmenu', (event) => {
+        Ativar_Opcoes_Click_Direita('Artista', musicas_artista[0], 0, p.innerText, musicas_artista[0].ID)
+        posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
     })
 
     return container_artista_caixa

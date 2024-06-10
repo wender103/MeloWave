@@ -23,6 +23,7 @@ function Ativar_Fullscreen() {
     const container_fullscreen = document.getElementById('container_fullscreen')
     container_fullscreen.style.display = 'block'
     Atualizar_Fullscreen()
+    Pausar_Atualizar_Letra()
 
     setTimeout(() => {
         container_fullscreen.style.opacity = 1
@@ -68,6 +69,7 @@ function Destivar_Fullscreen() {
     fullscreen_aberta = false
     const container_fullscreen = document.getElementById('container_fullscreen')
 
+    Despausar_Atualizar_Letra()
     container_fullscreen.style.opacity = 0
     setTimeout(() => {
         container_fullscreen.style.display = 'none'

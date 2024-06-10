@@ -232,6 +232,9 @@ function Retornar_Artistas(Artista, Local, min) {
                 
                     //! Valores
                     img.src = TodasMusicas[c].Img
+
+                    let musica_atual = TodasMusicas[c]
+                    let number = c
     
                     for (let d = 0; d < TodosArtistas.length; d++) {
                         let formatado_artista = formatarString(TodosArtistas[d])
@@ -239,8 +242,8 @@ function Retornar_Artistas(Artista, Local, min) {
                         if(formatado_artista.includes(artistas_complo[b]) || artistas_complo[b].includes(formatado_artista)) {
                             let nome_autor = encontrarArtistas(Separar_Por_Virgula(TodasMusicas[c].Autor), TodosArtistas[d])
                             p.innerText = nome_autor.nomeMaisProximo
-                        }
-                        
+                            break
+                        }   
                     }
     
                     span.innerText = 'Artista'
@@ -252,10 +255,16 @@ function Retornar_Artistas(Artista, Local, min) {
                     artista_caixa.appendChild(container_img_musica)
                     artista_caixa.appendChild(texto_musica)
                     article.appendChild(artista_caixa)
-    
+
                     artista_caixa.addEventListener('click', () => {
-                        Abrir_Perfil_Artista(p.innerText, TodasMusicas[c])
+                        Abrir_Perfil_Artista(p.innerText, musica_atual)
                     })
+
+                    artista_caixa.addEventListener('contextmenu', (event) => {
+                        Ativar_Opcoes_Click_Direita('Artista', musica_atual, number, p.innerText, musica_atual.ID)
+                        posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+                    })
+                    break
                 }
             }
         }
@@ -436,6 +445,11 @@ function Retornar_Perfis(Lista, Local) {
 
         div_container_perfil_usuario.addEventListener('click', () => {
             Carregar_Perfil(Lista[c])
+        })
+
+        div_container_perfil_usuario.addEventListener('contextmenu', (event) => {
+            Ativar_Opcoes_Click_Direita('Perfil', TodasMusicas[0], undefined, undefined, undefined, Lista[c].ID)
+            posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
         })
     }
 

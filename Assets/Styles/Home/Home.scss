@@ -15,6 +15,7 @@ body {
     background-size: cover;
     padding: 8px;
     overflow: auto;
+    user-select: none;  
 
     //! Background blur
     div#background_blur {
@@ -1665,8 +1666,11 @@ body {
                 min-height: 0px !important;
                 position: relative;
                 overflow: hidden;
-                -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0));
-                mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0));
+                
+                .Tem_Letra {
+                    -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0));
+                    mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0));
+                }
 
                 article#container_letra_verletra {
                     overflow: hidden;
@@ -3066,7 +3070,7 @@ body {
         left: 0;
         background-color: rgb(22, 22, 22);
         z-index: 6;
-        transition: 1s opacity ease-in-out;
+        transition: 0.6s opacity ease-in-out;
         opacity: 0;
         
         div#background_fullscreen {
@@ -3092,7 +3096,7 @@ body {
             left: 50%;
             transform: translate(-50%);
             color: var(--white);
-            transition: 1s bottom ease-in-out;
+            transition: 0.7s bottom ease-in-out;
 
             div#container_nome_musica_fullscreen {
                 display: flex;

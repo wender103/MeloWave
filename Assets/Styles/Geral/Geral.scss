@@ -570,3 +570,23 @@ div#container_carregamento_tela_innteira {
         color: var(--white);
     }
 }
+
+//! Notificar Copiar
+#copyNotification {
+    position: fixed;
+    bottom: -100px; /* Inicia fora da tela */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s, bottom 0.5s;
+    z-index: 5;
+}
+
+#copyNotification.show {
+    bottom: 20px; /* Desliza para dentro da tela */
+    opacity: 1;
+}

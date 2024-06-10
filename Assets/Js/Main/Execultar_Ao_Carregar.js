@@ -91,5 +91,9 @@ function Execultar_Funcoes_Ao_Carregar() {
                 }, 100)
             } catch{}
         }
+
+        try {
+            Recarregar_Infos_Url()
+        } catch(e){console.warn(e)}
     }
 }

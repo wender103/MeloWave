@@ -36,24 +36,6 @@ function formatarTermoPesquisa(musica, cantor) {
     return formatarTexto(musicaFormatada) + "+" + formatarTexto(cantorFormatado);
 }
 
-//! Vai atualizar a URL
-function atualizarURL(parametro) {
-    // Obtém a URL atual da página
-    var url = window.location.href
-
-    // Verifica se a URL já possui o parâmetro 'Page='
-    if (url.indexOf('Page=') === -1) {
-        // Se não tiver, adiciona o parâmetro à URL
-        url += (url.indexOf('?') !== -1 ? '&' : '?') + 'Page=' + parametro
-    } else {
-        // Se já tiver, substitui o valor do parâmetro na URL
-        url = url.replace(/(Page=)[^\&]+/, '$1' + parametro)
-    }
-
-    // Atualiza a URL sem recarregar a página
-    window.history.pushState({path: url}, '', url)
-}
-
 //! Vai pegar a data atual
 function getDataAtual(dia = 0, mes = 0, ano = 0, dataInicial = '') {
     let data;

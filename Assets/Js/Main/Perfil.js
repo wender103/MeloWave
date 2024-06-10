@@ -58,10 +58,11 @@ function Atualizar_Perfil(User_Carregar) {
 
     const numero_seguidores_perfil = document.getElementById('numero_seguidores_perfil')
 
-    let ouvintes = parseInt(User.Perfil.Ouvintes)
+    // let ouvintes = parseInt(User.Perfil.Ouvintes)
+    let ouvintes = 0
 
-    for (let c = 0; c < musicas_meu_perfil.length; c++) {
-        ouvintes += parseInt(musicas_meu_perfil[c].Views)
+    for (let c = 0; c < musicas_perfil_pesquisa.length; c++) {
+        ouvintes += parseInt(musicas_perfil_pesquisa[c].Views)
     }
 
     let seguindo = User_Carregar.Social.Seguindo.length

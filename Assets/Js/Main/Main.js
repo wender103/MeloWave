@@ -94,6 +94,27 @@ function Mostrar_Max_Musicas() {
             }
         }   
     } catch {}
+
+    try {
+        const container_artista_caixa = document.getElementById('container_artistas_favoritos_article').querySelectorAll('.container_artista_caixa')
+
+        if(container_artista_caixa.length > 0) { 
+
+            if(container_artista_caixa.length > max_musicas && max_musicas > 4) {
+                document.getElementById('container_artistas_favoritos_article').style.justifyContent = 'space-around'
+            } else {
+                document.getElementById('container_artistas_favoritos_article').style.justifyContent = 'start'
+            }
+            
+            for (let c = 0; c < container_artista_caixa.length; c++) {
+                if(c >= max_musicas) {
+                    container_artista_caixa[c].style.display = 'none'
+                } else {
+                    container_artista_caixa[c].style.display = 'flex'
+                }   
+            }
+        }   
+    } catch{}
 }
 
 let Execultar_Funcoes_Ao_Carregar_execultado = false
@@ -147,6 +168,8 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         Repetir_Musica(false)
     }
 
+    atualizarURL_add_Musica(MusicaAtual.ID)
+
     tmp_ouvindo_musica = 0
     clearInterval(interval_view)
 
@@ -160,6 +183,26 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
             }
         }
     }
+
+    const new_lista_prox = {
+        Nome_Album: '',
+        MusicaAtual: {},
+        Lista_Musicas: [],
+        Indice: undefined,
+        A_Seguir: [],
+    }
+
+    for (let c = 0; c < Listas_Prox.A_Seguir.length; c++) {
+        new_lista_prox.A_Seguir.push(Listas_Prox.A_Seguir[c].ID)   
+    }
+
+    for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
+        new_lista_prox.Lista_Musicas.push(Listas_Prox.Lista_Musicas[c].ID)   
+    }
+
+    new_lista_prox.MusicaAtual = Listas_Prox.MusicaAtual.ID
+
+    localStorage.setItem('Lista_De_Reproducao', JSON.stringify(new_lista_prox))
 
     Carregar_Tela_Tocando_Agora(MusicaAtual)
 

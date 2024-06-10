@@ -5,7 +5,7 @@ li_icon.forEach(li => {
     li.addEventListener('click', () => {
         let nomes = formatarString(li.title)
         if(nomes == 'musicascurtidas') {
-            Abrir_Pagina(formatarString(li.title), `musicascurtidas=${User.ID}`)
+            Abrir_Pagina(formatarString(li.title), `musicascurtidas_${User.ID}`)
 
         } else if(nomes == 'meuperfil') {
             Abrir_Pagina('meuperfil', `meuperfil_${User.ID}`)

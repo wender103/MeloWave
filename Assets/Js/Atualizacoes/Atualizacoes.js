@@ -17,7 +17,7 @@ function Carregar_Na_Tela() {
     for (let c = 0; c < Array_Atualizacoes.length; c++) {
         let resp = `
         <div class='container_notificacao'>
-        <span>${Array_Atualizacoes[c].Data}</span>
+        <span id='${Array_Atualizacoes[c].ID}'>${Array_Atualizacoes[c].Data}</span>
         <h1>${Array_Atualizacoes[c].Titulo}</h1>
         ${Array_Atualizacoes[c].Mensagem}
         </div>
@@ -29,10 +29,27 @@ function Carregar_Na_Tela() {
     
         pre.innerHTML += resp
     }
+
+    Scrollar_Ate_Atualizacao()
 }
 
 let btn_home = document.querySelector('#ir_para_o_home')
 
 btn_home.addEventListener('click', () => {
-    location.href = 'index.html'
+    window.close()
+    if (!window.closed) {
+        location.href = 'index.html'
+    }
 })
+
+function Scrollar_Ate_Atualizacao() {
+    // Captura o fragmento da URL (parte após o '#')
+    const fragmento = window.location.hash.substring(1)
+
+    if (fragmento) {
+        const elemento = document.getElementById(fragmento)
+        if (elemento) {
+            elemento.scrollIntoView({ behavior: 'smooth' })
+        }
+    }
+}
