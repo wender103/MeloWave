@@ -16,8 +16,8 @@ function Carregar_Na_Tela() {
 
     for (let c = 0; c < Array_Atualizacoes.length; c++) {
         let resp = `
-        <div class='container_notificacao'>
-        <span id='${Array_Atualizacoes[c].ID}'>${Array_Atualizacoes[c].Data}</span>
+        <div class='container_notificacao' id='${Array_Atualizacoes[c].ID}'>
+        <span onclick='Trocar_Url'>${Array_Atualizacoes[c].Data}</span>
         <h1>${Array_Atualizacoes[c].Titulo}</h1>
         ${Array_Atualizacoes[c].Mensagem}
         </div>
@@ -28,7 +28,24 @@ function Carregar_Na_Tela() {
         }
     
         pre.innerHTML += resp
+
     }
+
+    const sections = document.querySelectorAll('.container_notificacao')
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            history.replaceState(null, '', '#' + entry.target.id)
+        }
+        })
+    }, {
+        threshold: 0.5 // quando 50% da div estiver visível
+    })
+
+    sections.forEach(section => {
+        observer.observe(section)
+    })
 
     Scrollar_Ate_Atualizacao()
 }
