@@ -346,21 +346,41 @@ function Nome_Artistas() {
 }
 
 //! Vai entrar em tela cheia
+let esta_em_tela_cheia = false
+// Função para entrar em tela cheia
 function entrarEmTelaCheia() {
     if (document.documentElement.requestFullscreen) {
-        document.documentElement.requestFullscreen();
-    } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
-        document.documentElement.mozRequestFullScreen();
-    } else if (document.documentElement.webkitRequestFullscreen) { /* Chrome, Safari e Opera */
-        document.documentElement.webkitRequestFullscreen();
-    } else if (document.documentElement.msRequestFullscreen) { /* Internet Explorer e Edge */
-        document.documentElement.msRequestFullscreen();
+      document.documentElement.requestFullscreen()
+    } else if (document.documentElement.mozRequestFullScreen) { // Firefox
+      document.documentElement.mozRequestFullScreen()
+    } else if (document.documentElement.webkitRequestFullscreen) { // Chrome, Safari, Opera
+      document.documentElement.webkitRequestFullscreen()
+    } else if (document.documentElement.msRequestFullscreen) { // IE/Edge
+      document.documentElement.msRequestFullscreen()
     }
 }
-
-//! Vai sair do modo tela cheia
+  
+// Função para sair da tela cheia
 function sairTelaCheia() {
-    
+    if (document.exitFullscreen) {
+    document.exitFullscreen().catch(err => {
+        console.error("Erro ao sair da tela cheia:", err)
+    })
+    } else if (document.mozCancelFullScreen) { // Firefox
+    document.mozCancelFullScreen()
+    } else if (document.webkitExitFullscreen) { // Chrome, Safari, Opera
+    document.webkitExitFullscreen()
+    } else if (document.msExitFullscreen) { // IE/Edge
+    document.msExitFullscreen()
+    }
+}
+  
+// Função para checar se está em tela cheia
+function isFullscreen() {
+return document.fullscreenElement != null ||
+        document.mozFullScreenElement != null ||
+        document.webkitFullscreenElement != null ||
+        document.msFullscreenElement != null
 }
 
 //! Vai retornar os artistas da musica
@@ -970,4 +990,35 @@ function validarEmail(email) {
     // Expressão regular para validar e-mail
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return regex.test(email)
+}
+
+//! Pausar Despausar
+function togglePlayPause() {
+    if(audio_player.paused) {
+      Play()
+    } else {
+      Pausar()
+    }
+}
+
+//! Diminuir Volume
+function diminuirVolume() {
+    let volume = Volume_Atual
+    if(audio_player.volume > 0) {
+        volume--
+
+        Volume(volume, input_volume_pc)
+        Volume(volume, input_volume_pc_fullscreen)
+    }
+}
+
+//! Aumentar o Volume
+function aumentarVolume() {
+    let volume = Volume_Atual
+    if(audio_player.volume < 1) {
+        volume++
+
+        Volume(volume, input_volume_pc)
+        Volume(volume, input_volume_pc_fullscreen)
+    }
 }

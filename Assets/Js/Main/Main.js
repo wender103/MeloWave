@@ -752,7 +752,7 @@ function Volume(volume = 0, input = undefined) {
     if(volume > 0 && volume < 50) {
         img_icone_som = 'Assets/Imgs/Som1.svg'
 
-    } else if(volume > 50 && volume < 99) {
+    } else if(volume > 50 && volume <= 99) {
         img_icone_som = 'Assets/Imgs/Som2.svg'
 
     } else if(volume > 99) {
@@ -1090,11 +1090,7 @@ function Fechar_Creditos() {
 //! Vai pausar a música usando a telca de espaço
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Space' && event.target.nodeName !== 'INPUT' && event.target.nodeName !== 'TEXTAREA') {
-      event.preventDefault()  // previne a página de rolar pra baixo
-      if (audio_player.paused) {
-        Play()
-      } else {
-        Pausar()
-      }
+        event.preventDefault()
+        togglePlayPause()
     }
-  })
+})
