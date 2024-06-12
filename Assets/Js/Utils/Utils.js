@@ -137,7 +137,7 @@ function Notificar_Infos(info='', comando='', Texto_Btn='Sim!', Link='') {
         }
 
         if(comando.includes('Informação')) {
-            div_notificacao_infos.innerHTML = info
+            div_notificacao_infos.innerHTML = substituirCor_cor(substituirTexto_cor(info))
             div_notificacao_infos.style.display = 'block'
             texto_notificacao_infos.style.display = 'none'
 
@@ -1021,4 +1021,19 @@ function aumentarVolume() {
         Volume(volume, input_volume_pc)
         Volume(volume, input_volume_pc_fullscreen)
     }
+}
+
+//! Adiciona cores as notificações
+function substituirTexto_cor(text) {
+    const regex = /\*([a-zA-Z]+)\*([^*]+)\*\1\*/g
+    return text.replace(regex, (match, color, content) => {
+        return `<strong style="color: ${color}">${content}</strong>`
+    })
+}
+
+function substituirCor_cor(text){
+    const regex = /\*#([a-fA-F0-9]{6})\*([^*]+)\*#\1\*/g;
+    return text.replace(regex, (match, color, content) => {
+        return `<strong style="color: #${color}">${content}</strong>`;
+    })
 }
