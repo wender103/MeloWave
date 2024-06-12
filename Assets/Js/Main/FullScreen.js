@@ -122,9 +122,9 @@ document.addEventListener('keypress', (event) => {
       event.preventDefault()
   
       if(isFullscreen()) {
-        exitFullscreen()
+        sairTelaCheia()
       } else {
-        enterFullscreen(document.documentElement)
+        entrarEmTelaCheia()
       }
     } else if(key_event == 'm' && event.target.nodeName !== 'INPUT' && event.target.nodeName !== 'TEXTAREA') {
       event.preventDefault()
