@@ -430,6 +430,12 @@ function Retornar_User_Historico(Email) {
             div_container_perfil_usuario.addEventListener('click', () => {
                 Carregar_Perfil(Todos_Usuarios[c])
             })
+
+            div_container_perfil_usuario.addEventListener('contextmenu', (event) => {
+                Ativar_Opcoes_Click_Direita('Perfil', TodasMusicas[0], undefined, undefined, undefined, Todos_Usuarios[c].ID)
+                posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+            })
+
             return div_container_perfil_usuario
         }
     }

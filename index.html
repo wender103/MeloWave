@@ -5,13 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MeloWave - Home</title>
 
-    <!-- <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css"> -->
-    <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css">
     <link rel="stylesheet" href="Assets/Styles/Home/Home.css">
     <link rel="stylesheet" href="Assets/Styles/Home/Responsivo/Home_Responsivo.css">
+    <link rel="stylesheet" href="Assets/Styles/Wallpapers/wallpapers.css">
 </head>
 <body>
-    <div id="background_blur"></div>
+    <div id="background_wallpaper">
+        <!-- <div id="container_stars">
+            <div class="stars">
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+                <div class="star"></div>
+            </div>
+        </div> -->
+    </div>
 
     <nav>
         <ul>
@@ -32,6 +86,9 @@
                 <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M18.25 18.75L14.1378 14.6305M16.4167 9.12498C16.4167 11.1915 15.5958 13.1733 14.1346 14.6345C12.6733 16.0957 10.6915 16.9166 8.62501 16.9166C6.55853 16.9166 4.57669 16.0957 3.11547 14.6345C1.65425 13.1733 0.833344 11.1915 0.833344 9.12498C0.833344 7.0585 1.65425 5.07666 3.11547 3.61544C4.57669 2.15422 6.55853 1.33331 8.62501 1.33331C10.6915 1.33331 12.6733 2.15422 14.1346 3.61544C15.5958 5.07666 16.4167 7.0585 16.4167 9.12498Z" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>                
+            </li>
+            <li class="li_icon" title="Loja">
+                <img src="Assets/Imgs/carrinho-de-compras.png">
             </li>
             <li class="li_icon" title="Adicionar Músicas">
                 <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -751,6 +808,12 @@
     <section id="container_fullscreen">
         <div id="background_fullscreen"></div>
 
+        <div id="letra_fullscreen">
+            <div id="container_pre_letra_fullscreen">
+                <pre id="pre_letra_fullscreen"></pre>
+            </div>
+        </div>
+
         <article id="container_barra_musica_fullscreen">
             <div id="container_nome_musica_fullscreen">
                 <img src="Assets/Imgs/music1.png" id="img_musica_fullscreen">
@@ -781,6 +844,7 @@
                     </svg>          
                 </div>
                 <div id="part3_controles_fullscreen">
+                    <img src="Assets/Imgs/Mic.svg" onclick="Abrir_Ver_Letra_FullScreen()" class="img_btn_mic_letra">    
                     <div class="container_icon_som" id="container_input_volume_fullscreen">
                         <div id="container_icon_volume">
                             <img src="Assets/Imgs/Som.svg" class="icone_som_pc">

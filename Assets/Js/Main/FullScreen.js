@@ -67,6 +67,7 @@ function Atualizar_Fullscreen() {
 
 function Destivar_Fullscreen() {
     fullscreen_aberta = false
+    Fechar_Ver_Letra_FullScreen()
     const container_fullscreen = document.getElementById('container_fullscreen')
 
     Despausar_Atualizar_Letra()
@@ -94,10 +95,10 @@ input_volume_pc_fullscreen.onmouseleave = function() {
 }
 
 const container_input_volume_fullscreen = document.getElementById('container_input_volume_fullscreen')
-
 let pd_diminuir_volume_full_screen = false
 container_input_volume_fullscreen.addEventListener('mouseenter', () => {
     pd_diminuir_volume_full_screen = false
+    container_input_volume_fullscreen.style.width = '162px'
     input_volume_pc_fullscreen.style.width = '100%'
 })
 
@@ -106,6 +107,7 @@ container_input_volume_fullscreen.addEventListener('mouseleave', () => {
 
     setTimeout(() => {
         if(pd_diminuir_volume_full_screen) {
+            container_input_volume_fullscreen.style.width = '33px'
             input_volume_pc_fullscreen.style.width = '0%'
         }
     }, 500)

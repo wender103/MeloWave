@@ -1,8 +1,10 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Khmer&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Tiny5&display=swap");
 :root {
   --fonte_inter: "Inter", sans-serif;
   --fonte_khmer: "Khmer", sans-serif;
+  --fonte_Tiny5:"Tiny5", sans-serif;
   --white: #fff;
   --white_pouco_transparent: #ffffff9c;
   --white_transparent: #ffffff8a;
@@ -570,6 +572,11 @@ body nav ul {
   border-radius: 8px;
   overflow: auto;
 }
+body nav ul li img, body nav ul li svg {
+  width: 25px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 body nav ul li#li_icon_perfil_user_nav {
   width: 25px;
   height: 25px;
@@ -584,6 +591,9 @@ body nav ul li#li_icon_perfil_user_nav img {
 }
 body nav ul#ul_artistas_seguindo {
   flex: 1;
+}
+body nav ul#ul_artistas_seguindo img {
+  width: 48px;
 }
 body nav ul#ul_artistas_seguindo div#container_artistas_seguindo {
   display: flex;
@@ -3059,6 +3069,7 @@ body section#container_fullscreen {
   z-index: 6;
   transition: 0.6s opacity ease-in-out;
   opacity: 0;
+  overflow: hidden;
 }
 body section#container_fullscreen div#background_fullscreen {
   width: 100vw;
@@ -3072,6 +3083,59 @@ body section#container_fullscreen div#background_fullscreen {
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 0.5;
+}
+body section#container_fullscreen div#letra_fullscreen {
+  width: 100%;
+  height: calc(100vh - 250px);
+  position: absolute;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.192);
+  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgb(0, 0, 0) 40%, rgba(0, 0, 0, 0));
+  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgb(0, 0, 0) 40%, rgba(0, 0, 0, 0));
+  z-index: 2;
+  overflow: hidden;
+}
+body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen {
+  overflow: hidden;
+  height: 100%;
+}
+body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  color: transparent;
+  outline: none;
+  font-size: 1rem;
+  overflow: auto;
+  font-weight: 700;
+  padding: 500px 10px 500px;
+  white-space: pre-wrap;
+  text-align: center;
+  overflow: hidden;
+}
+body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre span {
+  cursor: pointer;
+  display: none;
+}
+body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre span.linha_pre_em_destaque_add_letra {
+  display: inline;
+}
+body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre span.linha_pre_em_destaque_add_letra .animated-span {
+  font-size: 1rem;
+  transition: font-size 0.3s, color 0.3s;
+  display: inline;
+}
+body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre span.linha_pre_em_destaque_add_letra .animated-span.animated {
+  display: inline;
+  font-size: 2.5rem;
+  color: white;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
+}
+body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre h1 {
+  color: var(--white);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
+  font-size: 1.7rem;
 }
 body section#container_fullscreen article#container_barra_musica_fullscreen {
   width: 90%;
@@ -3176,10 +3240,12 @@ body section#container_fullscreen article#container_barra_musica_fullscreen div#
   cursor: pointer;
 }
 body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div#container_input_volume_fullscreen {
-  display: flex;
+  width: 33px;
+  display: inline-flex;
   align-items: center;
   justify-content: end;
   gap: 10px;
+  transition: 0.5s width ease-in-out;
   /* Hides the thumb (slider handle) */
 }
 body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div#container_input_volume_fullscreen img {
@@ -3192,11 +3258,11 @@ body section#container_fullscreen article#container_barra_musica_fullscreen div#
   height: 5px;
   width: 100%;
   outline: none;
-  transition: background 450ms ease-in;
   -webkit-appearance: none;
   cursor: pointer;
   width: 0%;
-  transition: 0.5s width ease-in-out;
+  transition: background 450ms ease-in, 0.5s width ease-in-out;
+  margin-bottom: 3.5px;
 }
 body section#container_fullscreen article#container_barra_musica_fullscreen div#contaier_controles_fullscreen div#part3_controles_fullscreen div#container_input_volume_fullscreen input::-webkit-slider-thumb {
   -webkit-appearance: none;

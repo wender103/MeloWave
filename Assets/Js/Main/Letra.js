@@ -425,6 +425,7 @@ function Salvar_Letra() {
 
 //! Mostrar letra na tela
 const pre_letra_da_musica = document.getElementById('pre_letra_da_musica')
+const pre_letra_fullscreen = document.getElementById('pre_letra_fullscreen')
 let linha_atual = -1
 let letra_pre_ver_letra = ''
 
@@ -435,6 +436,7 @@ function Voltar_Letra_Ver_Musica(index) {
     Atualizar_Linha_Letra_Input()
 }
 
+let pode_atualizar_letra_fullscreen = false
 function Destacar_linhas() {
     if(linha_atual == -1 || linha_atual == 0) {
         Pagina_verletra.classList.add('Tem_Letra')
@@ -493,9 +495,7 @@ function Destacar_linhas() {
                 document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
             } catch{}
         }
-    }
-
-    if(pode_atualizar_letra_tela_tocando_agora) {
+    } else if(pode_atualizar_letra_tela_tocando_agora) {
         pre_letra_tocando_agora.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
         letra_pre_ver_letra = pre_letra_tocando_agora.innerText.split('\n')
         let linhas = pre_letra_tocando_agora.innerHTML.split('\n')
@@ -543,6 +543,58 @@ function Destacar_linhas() {
             //? Faz o scroll para a linha atual
             try {
                 document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+            } catch{}
+            
+        }
+
+    } else if(pode_atualizar_letra_fullscreen) {
+        pre_letra_fullscreen.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
+        letra_pre_ver_letra = pre_letra_fullscreen.innerText.split('\n')
+        let linhas = pre_letra_fullscreen.innerHTML.split('\n')
+        
+        if (linha_atual <= linhas.length) {
+            // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+            for (let c = 0; c < linhas.length; c++) {
+                if(c == linha_atual) {
+                    linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_fullscreen">' + letra_pre_ver_letra[c] + '</span>'
+                } else if(c < linha_atual) {
+                    linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+                } else {
+                    if(c == 0) {
+                        linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_fullscreen">` + letra_pre_ver_letra[c] + '</span>'
+                    } else {
+                        linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+                    }
+                }
+            }
+
+            // Atualiza o conteúdo do <pre> com as linhas modificadas
+            pre_letra_fullscreen.innerHTML = ''
+            for (let c = 0; c < linhas.length; c++) {
+                pre_letra_fullscreen.innerHTML += linhas[c] + '\n'   
+            }
+
+            const text = document.getElementById('linha_atual_sincronizar_fullscreen')
+            const letters = text.textContent.split('')
+            text.innerHTML = ''
+
+            letters.forEach((letter, index) => {
+                const span = document.createElement('span')
+                if (letter === ' ' && text.lastElementChild) {
+                    text.lastElementChild.textContent += letter
+                } else {
+                    span.textContent = letter
+                    span.className = 'animated-span'
+                    text.appendChild(span)
+
+                    setTimeout(() => {
+                        span.classList.add('animated')
+                    }, index * duracao_transicao) 
+                }
+            })
+            //? Faz o scroll para a linha atual
+            try {
+                document.getElementById('linha_atual_sincronizar_fullscreen').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
             } catch{}
             
         }
@@ -648,7 +700,7 @@ function Despausar_Atualizar_Letra() {
 let info_dada_nao_aprendi = false
 function Atualizar_Letra_PC() {
     if(!Array.isArray(Listas_Prox.MusicaAtual.Letra)) {
-        if(pd_atualizar_letra_pc || pode_atualizar_letra_tela_tocando_agora) {
+        if(pd_atualizar_letra_pc || pode_atualizar_letra_tela_tocando_agora || pode_atualizar_letra_fullscreen) {
             info_dada_nao_aprendi = false
             let Tempo = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado
 
@@ -686,4 +738,21 @@ function Atualizar_Linha_Letra_Input() {
             }
         }
     }
+}
+
+//! Letra Fullscreen
+function Abrir_Ver_Letra_FullScreen() {
+    if(pode_atualizar_letra_fullscreen) {
+        Fechar_Ver_Letra_FullScreen()
+
+    } else {
+        pode_atualizar_letra_fullscreen = true
+        pre_letra_fullscreen.innerHTML = ''
+        document.getElementById('letra_fullscreen').style.display = 'block'
+    }
+}
+
+function Fechar_Ver_Letra_FullScreen() {
+    pode_atualizar_letra_fullscreen = false
+    document.getElementById('letra_fullscreen').style.display = 'none'
 }

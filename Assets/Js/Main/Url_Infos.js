@@ -53,22 +53,29 @@ function Recarregar_Infos_Url() {
                 Indice: undefined,
                 A_Seguir: [],
             }
+
+            for (let a = 0; a < memoria.A_Seguir.length; a++) {
+                for (let c = 0; c < TodasMusicas.length; c++) {
+                    if(memoria.A_Seguir[a] == TodasMusicas[c].ID) {
+                        new_lista_prox.A_Seguir.push(TodasMusicas[c])
+                        break
+                    }
+                }
+            }
+
+            for (let b = 0; b < memoria.Lista_Musicas.length; b++) {
+                for (let c = 0; c < TodasMusicas.length; c++) {
+                    if(memoria.Lista_Musicas[b] == TodasMusicas[c].ID) {
+                        new_lista_prox.Lista_Musicas.push(TodasMusicas[c])
+                        break
+                    }
+                }
+            }
             
             for (let c = 0; c < TodasMusicas.length; c++) {
                 if(TodasMusicas[c].ID == musicId) {
                     musica_ouvindo = TodasMusicas[c]
-                }
-
-                for (let a = 0; a < memoria.A_Seguir.length; a++) {
-                    if(memoria.A_Seguir[a] == TodasMusicas[c].ID) {
-                        new_lista_prox.A_Seguir.push(TodasMusicas[c])
-                    }
-                }
-
-                for (let b = 0; b < memoria.Lista_Musicas.length; b++) {
-                    if(memoria.Lista_Musicas[b] == TodasMusicas[c].ID) {
-                        new_lista_prox.Lista_Musicas.push(TodasMusicas[c])
-                    }
+                    break
                 }
             }
 
@@ -92,6 +99,8 @@ function Recarregar_Infos_Url() {
                         Tocar_Musica([musica_ouvindo], musica_ouvindo, 'Pausar')
                     } else {
                         Listas_Prox = new_lista_prox
+                        Listas_Prox.Lista_Musicas = new_lista_prox.Lista_Musicas.reverse()
+                        Listas_Prox.A_Seguir = new_lista_prox.A_Seguir.reverse()
         
                         Tocar_Musica(Listas_Prox.Lista_Musicas, musica_ouvindo, 'Pausar')
                     }

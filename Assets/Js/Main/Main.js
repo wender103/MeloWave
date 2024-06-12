@@ -1086,3 +1086,15 @@ function Abrir_Creditos(ID_Musica) {
 function Fechar_Creditos() {
     document.getElementById('contanier_creditos_musica').style.display = 'none'
 }
+
+//! Vai pausar a música usando a telca de espaço
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'Space' && event.target.nodeName !== 'INPUT' && event.target.nodeName !== 'TEXTAREA') {
+      event.preventDefault()  // previne a página de rolar pra baixo
+      if (audio_player.paused) {
+        Play()
+      } else {
+        Pausar()
+      }
+    }
+  })
