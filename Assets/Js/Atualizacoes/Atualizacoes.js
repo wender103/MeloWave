@@ -27,7 +27,7 @@ function Carregar_Na_Tela() {
             resp += `<hr>`
         }
     
-        pre.innerHTML += resp
+        pre.innerHTML += substituirCor_cor(substituirTexto_cor(resp))
 
     }
 
