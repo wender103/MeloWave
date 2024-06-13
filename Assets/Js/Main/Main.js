@@ -752,7 +752,7 @@ function Volume(volume = 0, input = undefined) {
     if(volume > 0 && volume < 50) {
         img_icone_som = 'Assets/Imgs/Som1.svg'
 
-    } else if(volume > 50 && volume <= 99) {
+    } else if(volume >= 50 && volume <= 99) {
         img_icone_som = 'Assets/Imgs/Som2.svg'
 
     } else if(volume > 99) {
