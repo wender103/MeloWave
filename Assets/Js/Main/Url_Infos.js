@@ -39,6 +39,8 @@ function Recarregar_Infos_Url() {
     const url = window.location.href
     const { page, id_page, musicId } = getParamsFromUrl(url)
 
+    // console.log(page, id_page, musicId)
+
     if(musicId != undefined && musicId != null) {
         //! Vai checar se a música da url tem na lista
         let memoria = JSON.parse(localStorage.getItem('Lista_De_Reproducao'))
@@ -135,6 +137,12 @@ function Recarregar_Infos_Url() {
 
         } else if(page == 'verletra') {
             Abrir_Ver_Letra_PC()
+        } else if(page == 'biblioteca') {
+            Abrir_Pagina('biblioteca') 
+        } else if(page == 'aceitarmatch') {
+            Abrir_Pagina('aceitarmatch', id_page) 
+        } else if(page == 'match') {
+            Abrir_Pagina('match', id_page) 
         }
     }
 }

@@ -93,6 +93,17 @@ function Abrir_Pagina(Pagina, ID) {
                 text_area_add_letra.value = ''
             }
 
+        } else if(Pagina == 'biblioteca') {
+            Carregar_Biblioteca()
+        } else if(Pagina == 'criarmatch') {
+            Carregar_Criar_Match()
+
+        } else if(Pagina == 'aceitarmatch') {
+            Carregar_Infos_Aceitar_Match(ID)
+
+        } else if(Pagina == 'match') {
+            Abrir_Match(ID)
+
         } else {
             Fechar_Add_Letra('Não Voltar a Página')
         }

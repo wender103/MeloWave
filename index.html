@@ -280,6 +280,11 @@
             </div>
         </section>
 
+        <section class="Paginas" id="Pagina_loja">
+            <h1>🚧</h1>
+            <p>🚧 A loja do site está em desenvolvimento! 🛠️🛒 Em breve, novidades! 🌟</p>
+        </section>
+
         <section class="Paginas" id="Pagina_adicionarmusicas">
             <article id="primeira_parte_postar_musica">
                 <h1>Poste suas músicas favoritas aqui</h1>
@@ -302,6 +307,21 @@
                     <div id="btns_postar_musica">
                         <button onclick="Finalizar_Postar()">Finalizar</button>
                         <a id="btn_pesquisar_genero" target="_blank">Pesquisar gênero musical</a> 
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="Paginas" id="Pagina_biblioteca">
+            <article id="container_itens_biblioteca">
+                <div class="container_item_biblioteca" id="musicas_curtidas_biblioteca">
+                    <div class="container_img_item_biblioteca">
+                        <img src="Assets/Imgs/Musicas curtidas.svg" alt="">
+                    </div>
+    
+                    <div class="container_texto_item_biblioteca">
+                        <span>Playlist</span>
+                        <p>Músicas Curtidas</p>
                     </div>
                 </div>
             </article>
@@ -501,9 +521,86 @@
             </article>
         </section>
 
-        <section class="Paginas" id="Pagina_loja">
-            <h1>🚧</h1>
-            <p>🚧 A loja do site está em desenvolvimento! 🛠️🛒 Em breve, novidades! 🌟</p>
+        <section class="Paginas" id="Pagina_criarmatch">
+            <article>
+                <div id="container_imgs_match">
+                    <div id="container_container_imgs_match">
+                        <div id="container_img_user_match" class="container_img_user_match">
+                            <img src='' id="img_user_match">
+                        </div>
+        
+                        <div id="container_plus_img_match" class="container_img_user_match">
+                            <img src="Assets/Imgs/Plus.svg">
+                        </div>
+                    </div>
+                </div>
+    
+                <h1>Convide seus amigos para o Match</h1>
+                <p>Convide até 5 amigos para dar Match, vocês vão criar uma playlist compartilhada que oferece recomendações com base no que todos escutam</p>
+                <span>Obeservação: os participantes do Match podem adicionar os próprios amigos. Os convites gerados só funcionarão por 5 dias.</span>
+
+                <button id="btn_convidar_para_match">Convidar</button>
+            </article>
+        </section>
+
+        <section class="Paginas" id="Pagina_aceitarmatch">
+            <article>
+                <div id="container_imgs_aceitarmatch">
+                    <div id="container_container_imgs_aceitarmatch">
+                        <div id="container_img_user_aceitarmatch" class="container_img_user_aceitarmatch">
+                            <img src='' id="img_user_aceitarmatch">
+                        </div>
+        
+                        <div id="container_anonimo_img_aceitarmatch" class="container_img_user_aceitarmatch">
+                            <img src="Assets/Imgs/user_anonimo.png">
+                        </div>
+                    </div>
+                </div>
+    
+                <h1>Entre nesse Match</h1>
+                <p>Veja se o gosto de vocês é mesmo parecido e ganhe um mix das músicas curtidas em comum.</p>
+                <span>Obeservação: até 10 pessoas podem entrar em um Match. Quem estiver conectado poderá ver sua foto de perfil e seu nome de usuário.</span>
+
+                <button id="btn_convidar_para_aceitarmatch">Participar</button>
+            </article>
+        </section>
+
+        <section class="Paginas" id="Pagina_match">
+            <article id="container_header_match">
+                <div id="container_infos_header_match">
+                    <div id="container_header_img_match">
+                        <div id="container_infos_foto_perfil_match">
+                            <div id="esferas_perfil_match">
+                            </div>
+                            <p>Match</p>
+                            <div id="traco_perfil_match"></div>
+                        </div>
+                    </div>
+
+                    <div id="container_infos_match">
+                        <span>Playlist</span>
+                        <h1 id="nome_match">User + User</h1>
+                        <p id="para_qm_match">Um Match de músicas feito para user e user. Atualizado todos os dias.</p>
+                        <p id="p_infos_match"></p>
+                    </div>
+                </div>
+
+                <div id="container_headers_btns_match">
+                    <div id="part1_btns_match">
+                        <img src="Assets/Imgs/play_pc.svg" id="img_play_match">
+                        <span id="btn_config_match" class="3_pontos_config">...</span>
+                    </div>
+
+                    <div id="container_pesquisar_match" class="container_inputs_pesquisar">
+                        <img src="Assets/Imgs/Icons_search_input.svg">
+                        <input type="text" placeholder="Buscar na playlist" id="input_pesquisar_match" oninput="Pesquisar_Matchs(this.value)" autocomplete="off">
+                    </div>
+                </div>
+
+                <hr>
+            </article>
+
+            <article id="container_match"></article>
         </section>
     </main>
     <!--! Fim Main -->
@@ -542,6 +639,12 @@
     <div id="container_img_perfil_zoom" onclick="fecharImagemZoom()">
         <img src="" id="img_perfil_zoom">
     </div>
+
+    <section id="contaier_amigos">
+        <article id="contaier_lista_de_amigos">
+            <div class="container_amigos"></div>
+        </article>
+    </section>
 
     <!--! Tela Tocando Agora -->
     <section id="container_tela_tocando_agora">
@@ -821,14 +924,22 @@
 
     <!--! Opções click direito  -->
     <section id="opcoes_click_direito">
-        <ul id="opcoes_musica_ul">
-        </ul>
-        <ul id="opcoes_fila_ul">
-        </ul>
-        <ul id="opcoes_musica2_ul">
-        </ul>
-        <ul id="opcoes_compartilhar_ul">
-        </ul>
+        <div id="opcoes1_click_direito" class="divs_opcs_click">
+            <ul id="opcoes_musica_ul">
+            </ul>
+            <ul id="opcoes_fila_ul">
+            </ul>
+            <ul id="opcoes_musica2_ul">
+            </ul>
+            <ul id="opcoes_compartilhar_ul">
+            </ul>
+        </div>
+
+        <div id="opcoes2_click_direito" class="divs_opcs_click">
+            <ul id="ul1div2_opcs"></ul>
+            <ul id="ul2div2_opcs"></ul>
+            <ul id="ul3div2_opcs"></ul>
+        </div>
     </section>
 
     <!--! Cadastro -->
@@ -922,6 +1033,8 @@
     <script src="Assets/Js/Main/Tela_Tocando_Agora.js"></script>
     <script src="Assets/Js/Main/Excluir_Musica.js"></script>
     <script src="Assets/Js/Main/Url_Infos.js"></script>
-    <script src="Assets/Js/Teclas_De_Atalho.js"></script>
+    <script src="Assets/Js/Main/Teclas_De_Atalho.js"></script>
+    <script src="Assets/Js/Main/Biblioteca.js"></script>
+    <script src="Assets/Js/Main/Match.js"></script>
 </body>
 </html>

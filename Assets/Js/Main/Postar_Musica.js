@@ -39,6 +39,7 @@ async function Postar_Musica(Comando = '') {
                     downloadURL = 'https://molewaveapibaixarmusica.onrender.com/download'
                 } else {
                     // Caso a URL não corresponda a nenhum dos casos anteriores
+                    pd_postar_outra_musica = true
                     console.error('URL não reconhecida')
                 }
         
@@ -91,7 +92,7 @@ async function Postar_Musica(Comando = '') {
                     console.error("Erro na requisição: ")
                     console.error(error)
                     alert('Erro: ' + error.message)
-                    pd_postar_outra_musica = false
+                    pd_postar_outra_musica = true
                     closeLoadingScreen()
                 }
         

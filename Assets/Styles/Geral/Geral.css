@@ -175,6 +175,18 @@ div.musica_linha div.segunda_parte_musica_linha {
   justify-content: end;
   gap: 30px;
 }
+div.musica_linha div.segunda_parte_musica_linha div.container_img_perfil_musica_linha_match {
+  width: 42px;
+  height: 42px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+div.musica_linha div.segunda_parte_musica_linha div.container_img_perfil_musica_linha_match img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 div.musica_linha div.segunda_parte_musica_linha p {
   width: 42px;
   font-size: 14px;

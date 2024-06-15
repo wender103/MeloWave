@@ -4,7 +4,7 @@ const nav_main = document.getElementById('nav_main')
 const container_fila = document.getElementById('container_fila')
 let pd_abrir_lista = true
 
-let array_locais_opcoes = ['musica_resulmo', 'config_lista_prox', 'musica_caixa', 'musica_linha'] //! Classes que vão ativar a section click direito
+let array_locais_opcoes = ['musica_resulmo', 'config_lista_prox', 'musica_caixa', 'musica_linha', '3_pontos_config', 'N_Fechar_Opcoes'] //! Classes que vão ativar a section click direito
 
 document.getElementById('musica_tocando_agora_fila').addEventListener('contextmenu', (event) => {
     Ativar_Opcoes_Click_Direita('Fila Música Tocando', Listas_Prox.MusicaAtual, Listas_Prox.Indice)

@@ -408,8 +408,8 @@ function Retornar_Artistas_Da_Musica(Musica) {
 }
 
 //! Vai reposicionar um elemento HTML na tela com base na posição do cursor do mouse
-function posicionarElemento(event, elemento, array_classes=array_locais_opcoes) {
-    elemento.style.display = 'block' // Mostra o elemento
+function posicionarElemento(event, elemento, array_classes=array_locais_opcoes, tipo_display='block') {
+    elemento.style.display = tipo_display // Mostra o elemento
 
     var mouseX = event.clientX
     var mouseY = event.clientY
@@ -1037,3 +1037,25 @@ function substituirCor_cor(text){
         return `<strong style="color: #${color}">${content}</strong>`;
     })
 }
+
+//! Retorna primeiro nome
+function retornar_primeiro_nome(fullName) {
+    return fullName.split(' ')[0]
+}
+
+//! Remover músicas duplicadas pelo id
+function removeDuplicatesPeloID(array) {
+    // Usando um objeto para manter o controle dos IDs únicos
+    const uniqueIds = {}
+    
+    // Filtrando o array, mantendo apenas os objetos com IDs únicos
+    const uniqueArray = array.filter(item => {
+      if (!uniqueIds[item.ID]) {
+        uniqueIds[item.ID] = true
+        return true
+      }
+      return false
+    })
+  
+    return uniqueArray
+  }

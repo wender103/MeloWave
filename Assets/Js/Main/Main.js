@@ -1,4 +1,6 @@
 let TodasMusicas = []
+let TodosMatchs = []
+let TodasPlaylists = []
 let Audio_Mutado = false
 
 let Listas_Prox = {
@@ -125,6 +127,34 @@ function Pegar_Todas_Musicas() {
             TodasMusicas = Musicas.data().Musicas
 
             if(!Execultar_Funcoes_Ao_Carregar_execultado) {
+                Execultar_Funcoes_Ao_Carregar_execultado = true
+                let Execultar_Funcoes_Ao_Carregar_execultado2 = false
+                db.collection('Matchs').get().then((snapshot) => {
+                    snapshot.docs.forEach(Matchs => {
+                        TodosMatchs = Matchs.data().Matchs
+            
+                        if(!Execultar_Funcoes_Ao_Carregar_execultado2) {
+                            Execultar_Funcoes_Ao_Carregar_execultado2 = true
+                            let Execultar_Funcoes_Ao_Carregar_execultado3 = false
+
+                            db.collection('Playlists').get().then((snapshot) => {
+                                snapshot.docs.forEach(Playlists => {
+                                    TodasPlaylists = Playlists.data().Playlists
+
+                                    if(!Execultar_Funcoes_Ao_Carregar_execultado3) {
+                                        Execultar_Funcoes_Ao_Carregar_execultado3 = true
+
+                                        setTimeout(() => {
+                                            Execultar_Funcoes_Ao_Carregar()
+                                        }, 500)
+                                    }
+                                })
+                        
+                            })
+                        }
+                    })
+              
+                })
                 Execultar_Funcoes_Ao_Carregar_execultado = true
                 setTimeout(() => {
                     Execultar_Funcoes_Ao_Carregar()
@@ -874,9 +904,9 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
             img_mic_editar.src = 'Assets/Imgs/Mic.svg'
             img_carrinho_editar.src = 'Assets/Imgs/carrinho-de-compras.png'
     
-            if(Musicas[c].Views < 10) {
-                views.innerText = `0${Musicas[c].Views}`
-    
+            if(Musicas[c].Views <= 0) {
+                views.style.display = 'none'
+
             } else {
                 views.innerText = Musicas[c].Views
             }

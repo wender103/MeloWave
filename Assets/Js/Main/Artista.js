@@ -145,6 +145,10 @@ function Seguir_Artista(Artista=null, Comando=null) {
         
 
         Carreagr_Artistas_Seguindo()
+
+        if(Pagina_Atual.Nome == 'biblioteca') {
+            Carregar_Biblioteca()
+        }
     }
 }
 
