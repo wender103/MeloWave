@@ -9,33 +9,52 @@ const btn_convidar_para_match = document.getElementById('btn_convidar_para_match
 btn_convidar_para_match.addEventListener('click', () => {
     //! Vai checar se o user tem algum convite pendente
     let id_pendente = undefined
+    let id_convite_pendente = undefined
     try {
+        let array_convites = []
         const Convites = User.Social.Matchs.Convites
-        for (let d = 0; d < Convites.length; d++) {
-            for (let c = 0; c < TodosMatchs.length; c++) {
-                let id_encontrado = false
-                if(Convites.ID == TodosMatchs[c].ID) {
+
+        for (let c = 0; c < Convites.length; c++) {
+            array_convites.push(Convites[c])
+        }
+
+        let array_ids_todos_matchs = []
+        for (let c = 0; c < TodosMatchs.length; c++) {
+            array_ids_todos_matchs.push(TodosMatchs[c].ID)
+        }
+
+        for (let a = 0; a < array_convites.length; a++) {
+            let id_encontrado = false
+            for (let b = 0; b < array_ids_todos_matchs.length; b++) {
+                if(array_convites[a].ID == array_ids_todos_matchs[b]) {
                     id_encontrado = true
                     break
                 }
             }
 
-            if(!id_pendente) {
-                id_pendente = Convites[d].ID
+            if(!id_encontrado) {
+                id_pendente = array_convites[a].ID
+                id_convite_pendente = array_convites[a].ID_Convite
+                break
             }
         }
     } catch{}
 
     let ID_Match
+    let ID_Convite
 
     if(id_pendente != undefined) {
         ID_Match = id_pendente
+        ID_Convite = id_convite_pendente
+
     } else {
         ID_Match = gerarId()
+        ID_Convite = gerarId()
 
         const new_convite = {
             Data: getDataAtual(5, 0, 0),
-            ID: ID_Match
+            ID: ID_Match,
+            ID_Convite
         }
     
         if(User.Social.Matchs == undefined) {
@@ -52,7 +71,7 @@ btn_convidar_para_match.addEventListener('click', () => {
     var baseUrl = url.split('?')[0]
 
     let link
-    link = `${baseUrl}?Page=aceitarmatch_${ID_Match}`
+    link = `${baseUrl}?Page=aceitarmatch_${ID_Match}&Convite_${ID_Convite}`
 
     if(id_pendente == undefined) {
         if(User.Estado_Da_Conta != 'Anônima') {
@@ -102,13 +121,14 @@ function Carregar_Infos_Aceitar_Match(ID) {
                 var baseUrl = url.split('?')[0]
 
                 let Link_Convidar
-                Link_Convidar = `${baseUrl}?Page=aceitarmatch_${match_convidado.ID}`
+                Link_Convidar = `${baseUrl}?Page=aceitarmatch_${match_convidado.ID}&Convite_${match_convidado.ID_Convite}`
                 Copiar_Para_Area_Tranferencia(Link_Convidar)
             }
         })
     }
 
     let link_expirou = false
+    let id_convite
     if(!user_encontrado && match_convidado != undefined) {
         for (let c = 0; c < Todos_Usuarios.length; c++) {
             if(Todos_Usuarios[c].ID == match_convidado.Admin) {
@@ -123,6 +143,8 @@ function Carregar_Infos_Aceitar_Match(ID) {
                                     Abrir_Pagina('criarmatch')
                                 }
                             })
+                        } else {
+                            id_convite = Todos_Usuarios[c].Social.Matchs.Convites[d].ID_Convite
                         }
                     }
 
@@ -133,7 +155,32 @@ function Carregar_Infos_Aceitar_Match(ID) {
         }
     }
 
-    if(!link_expirou) {
+    let id_convite_igual = false
+
+    if(match_convidado != undefined) {
+        if(id_convite == getParamsFromUrl(window.location.href).convite && getParamsFromUrl(window.location.href).convite != undefined && getParamsFromUrl(window.location.href).convite != null) {
+            id_convite_igual = true
+
+        }
+    } else {
+        for (let c = 0; c < Todos_Usuarios.length; c++) {
+            try {
+                const Convites = Todos_Usuarios[c].Social.Matchs.Convites
+                if(!id_convite_igual) {
+                    for (let b = 0; b < Convites.length; b++) {
+                        if(Convites[b].ID_Convite == getParamsFromUrl(window.location.href).convite) {
+                            id_convite_igual = true
+                            break
+                        }
+                    }
+                } else {
+                    break
+                }
+            } catch(e){console.error('Algo deu errado ao aceitar o match');}
+        }
+    }
+
+    if(!link_expirou && id_convite_igual) {
         //! Vai checar se o Match já tem 5 users
         if(match_convidado == undefined || match_convidado.Participantes.length < 5) {
             if(!user_encontrado) {
@@ -181,17 +228,31 @@ function Carregar_Infos_Aceitar_Match(ID) {
             Abrir_Pagina('home')
             Notificar_Infos('🚫 Opa! Parece que esse match já está lotado. Escolha outro match para entrar! 🎧✨')
         }
+    } else {
+        if(!id_convite_igual) {
+            Notificar_Infos('Acesso Negado 🚫. Parece que você está tentando acessar um match sem um convite válido. Infelizmente, apenas usuários com um convite podem participar deste match.')
+            limparURL('Convite')
+            Abrir_Pagina('home')
+        }
     }
 }
 
 const btn_convidar_para_aceitarmatch = document.getElementById('btn_convidar_para_aceitarmatch')
 
 btn_convidar_para_aceitarmatch.addEventListener('click', () => {
-    if(tudo_certo_participar_match) {
-        Criar_Match_Add_Participante()
+    if(User.Estado_Da_Conta != 'Anônima')  {
+        if(tudo_certo_participar_match) {
+            Criar_Match_Add_Participante()
+        } else {
+            Notificar_Infos('Opa! Algo deu errado 😕 Parece que você não está qualificado para participar deste Match 🚫🎮 Tente novamente mais tarde! 🔄✨')
+            Abrir_Pagina('home')
+        }
     } else {
-        Notificar_Infos('Opa! Algo deu errado 😕 Parece que você não está qualificado para participar deste Match 🚫🎮 Tente novamente mais tarde! 🔄✨')
-        Abrir_Pagina('home')
+        Notificar_Infos('🔒 Você precisa estar logado na sua conta para participar deste match. Faça login e tente novamente! 🚀🎧', 'Confirmar', 'Fazer Login/Cadastro').then((resp) => {
+            if(resp) {
+                Login()
+            } 
+        })
     }
 })
 
@@ -406,8 +467,8 @@ let todas_musicas_match = []
 let pesquisa_match = []
 function Retornar_Musicas_Match(Users) {
     todas_musicas_match = []
-    let max_generos = 30
-    let max_generos_por_user = 20
+    let max_generos = 2
+    let max_generos_por_user = 10
 
     for (let n = 0; n < Users.length; n++) {
         let User_Recebido = Users[n]
@@ -452,23 +513,25 @@ function Retornar_Musicas_Match(Users) {
         todasmusicas_random.push(...shuffleArray(TodasMusicas))
         
         for (let c = 0; c < todasmusicas_random.length; c++) {
-            const genero_formatado = formatarString(todasmusicas_random[c].Genero)
-
-            for (let b = 0; b < generos_mais_ouvidos_user.length; b++) {
-                if(array_musicas_user.length < max_generos_por_user) {
-                    if(genero_formatado.includes(generos_mais_ouvidos_user[b]) || generos_mais_ouvidos_user[b].includes(genero_formatado)) {
-                        let infos_user = {
-                            Img: User_Recebido.Perfil.Img_Perfil,
-                            ID: User_Recebido.ID,
-                            Nome: User_Recebido.Nome
+            if(todasmusicas_random[c].Estado == 'Ativo') {
+                const genero_formatado = formatarString(todasmusicas_random[c].Genero)
+    
+                for (let b = 0; b < generos_mais_ouvidos_user.length; b++) {
+                    if(array_musicas_user.length < max_generos_por_user) {
+                        if(genero_formatado.includes(generos_mais_ouvidos_user[b]) || generos_mais_ouvidos_user[b].includes(genero_formatado)) {
+                            let infos_user = {
+                                Img: User_Recebido.Perfil.Img_Perfil,
+                                ID: User_Recebido.ID,
+                                Nome: User_Recebido.Nome
+                            }
+                            let new_obj = todasmusicas_random[c]
+                            new_obj.User_Match = infos_user
+                            array_musicas_user.push(new_obj)
+                            break
                         }
-                        let new_obj = todasmusicas_random[c]
-                        new_obj.User_Match = infos_user
-                        array_musicas_user.push(new_obj)
+                    } else {
                         break
                     }
-                } else {
-                    break
                 }
             }
         }   

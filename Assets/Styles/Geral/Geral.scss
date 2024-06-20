@@ -43,6 +43,10 @@ input:focus {
     box-shadow: 0 0 0 0;
 }
 
+textarea {
+    resize: none;
+}
+
 button {
     outline: none !important;
 }
@@ -88,7 +92,7 @@ div.div_container_perfil_usuario {
     div.div_container_img {
         width: 95%;
         height: 57%;
-        border-radius: 50%;
+        border-radius: 8px;
         overflow: hidden;
         margin-top: 2px;
 
@@ -240,6 +244,13 @@ div.musica_linha {
                 object-fit: cover;
             }
         }
+
+        button.adicionar_remover_musica_criarplaylist {
+            width: 140px;
+            height: auto;
+            padding: 10px 0;
+            color: var(--white);
+        }
     }
 }
 
@@ -283,7 +294,7 @@ div.container_inputs_pesquisar {
 div.musica_caixa {
     width: calc(180px - 20px);
     min-width: 150px;
-    height: 245px;
+    height: 230px;
     border-radius: 8px;
     background-color:  var(--black_transparent);
     display: flex;
@@ -297,7 +308,7 @@ div.musica_caixa {
 
     div.container_img_musica {
         width: 95%;
-        height: 55%;
+        height: 95%;
         border-radius: 8px;
         overflow: hidden;
         margin-top: 2px;
@@ -523,6 +534,82 @@ div.container_artista_caixa {
     }
 }
 
+//! PLaylist
+.container_playlist {
+    width: 160px;
+    min-width: 150px;
+    height: 245px;
+    border-radius: 8px;
+    background-color: var(--black_transparent);
+    cursor: pointer;
+    padding: 10px;
+    color: var(--white);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    cursor: pointer;
+    margin-bottom: 15px;
+
+    &.container_playlist_artista {
+        div.container_img_playlist {
+            border-radius: 50%; 
+        }
+    }
+
+    div.container_img_playlist_playlist {
+        width: 100%;
+        height: 140px;
+        overflow: hidden;
+        border-radius: 8px;
+        position: relative;
+        background-color: black;
+
+        &.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 0px;
+            width: 100%;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    div.container_texto_playlist {
+        height: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 3px;
+
+        span {
+            font-size: 13px;
+            color: var(--fonte_meio_transparente);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            &.qm_postou_playlist {
+                color: rgba(255, 255, 255, 0.733); 
+            }
+        }
+
+        p {
+            font-size: 14px;
+            // white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--white);
+            word-wrap: break-word;
+        }
+    }
+}
+
 //! Carregamento
 
 div#container_carregamento_tela_innteira {
@@ -587,21 +674,24 @@ div#container_carregamento_tela_innteira {
 }
 
 //! Notificar Copiar
-#copyNotification {
+#copyNotification, #avisos_rapidos {
+    max-width: 95%;
     position: fixed;
     bottom: -100px; /* Inicia fora da tela */
     left: 50%;
     transform: translateX(-50%);
-    padding: 20px;
-    background-color: #333;
-    color: white;
+    padding: 15px 20px;
+    background-color: var(--white);
+    color: var(--black);
     border-radius: 5px;
     opacity: 0;
     transition: opacity 0.5s, bottom 0.5s;
     z-index: 5;
+    box-shadow: 2px 2px 5px var(--black);
+    box-sizing: content-box;
 }
 
-#copyNotification.show {
-    bottom: 20px; /* Desliza para dentro da tela */
+#copyNotification.show, #avisos_rapidos.show {
+    bottom: 120px; /* Desliza para dentro da tela */
     opacity: 1;
 }

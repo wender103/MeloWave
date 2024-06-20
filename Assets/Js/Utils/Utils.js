@@ -449,6 +449,20 @@ function posicionarElemento(event, elemento, array_classes=array_locais_opcoes, 
             elemento.style.display = 'none'
         }
     })
+
+    document.querySelector('main').addEventListener('scroll', (e) => {
+        let el = e.target.className
+        let elemento_igual = false
+        array_classes.forEach(classes => {
+            if(classes == el) {
+                elemento_igual = true
+            }
+        })
+
+        if(!elemento_igual) {
+            elemento.style.display = 'none'
+        }
+    })
 }
 
 //! Vai ordenar dos nomes que aparecem mais para os que aparencem menos
@@ -1044,6 +1058,26 @@ function retornar_primeiro_nome(fullName) {
 }
 
 //! Remover músicas duplicadas pelo id
+function removeDuplicatesById(arr1, arr2) {
+    let new_array = []
+    for (let a = 0; a < arr1.length; a++) {
+        let ja_tem = false
+
+        for (let b = 0; b < arr2.length; b++) {
+            if(arr1[a].ID == arr2[b].ID) {
+                ja_tem = true
+                break
+            }
+        }
+
+        if(!ja_tem) {
+            new_array.push(arr1[a])
+        }
+    }
+
+    return new_array
+}
+
 function removeDuplicatesPeloID(array) {
     // Usando um objeto para manter o controle dos IDs únicos
     const uniqueIds = {}
@@ -1058,4 +1092,87 @@ function removeDuplicatesPeloID(array) {
     })
   
     return uniqueArray
-  }
+}
+
+//! Retorna o que não se repete
+function elementosUnicos(array1, array2) {
+    const combinados = [...array1, ...array2]
+    const unicos = combinados.filter(item => 
+      combinados.indexOf(item) === combinados.lastIndexOf(item)
+    )
+    return unicos
+}
+
+//! Checa se é um URL valida
+function isValidURL(str) {
+    const pattern = new RegExp('^(https?:\\/\\/)?' + // protocolo
+      '(([a-zA-Z0-9$_.+!*\'(),;:&=]|%[0-9a-fA-F]{2})+@)?' + // usuário e senha
+      '(([a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})|' + // domínio
+      '(\\d{1,3}\\.){3}\\d{1,3})' + // IP (v4)
+      '(:\\d+)?' + // porta
+      '(\\/[-a-zA-Z0-9$_.+!*\'(),;:@&=]*)*' + // caminho
+      '(\\?[;&a-zA-Z0-9$_.+!*\'(),;:@&=-]*)?' + // query
+      '(#[-a-zA-Z0-9$_.+!*\'(),;:@&=]*)?$', 'i') // fragmento
+  
+    return pattern.test(str)
+}
+
+//! Avisos Rapidos
+let Todos_Avisos_Rapidos = []
+let aviso_rapido_ativado = false
+function Avisos_Rapidos(Aviso) {
+    Todos_Avisos_Rapidos.push(Aviso)
+    
+    function Avisar(Aviso_Atual) {
+        aviso_rapido_ativado = true
+        const avisos_rapidos = document.getElementById('avisos_rapidos')
+        avisos_rapidos.innerHTML = ''
+        const p = document.createElement('p')
+    
+        p.innerText = Aviso_Atual
+        avisos_rapidos.appendChild(p)
+    
+        avisos_rapidos.classList.add('show')
+    
+        setTimeout(() => {
+            avisos_rapidos.classList.remove('show')
+            Todos_Avisos_Rapidos.splice(0, 1)
+
+            setTimeout(() => {
+                if(Todos_Avisos_Rapidos.length > 0) {
+                    Avisar(Todos_Avisos_Rapidos[0])
+                } else {
+                    aviso_rapido_ativado = false
+                }
+            }, 600)
+        }, 2000)
+        
+
+    } 
+    
+    if(!aviso_rapido_ativado) {
+        Avisar(Todos_Avisos_Rapidos[0])
+    }
+}
+
+//! Lima a url tirando a parte informada
+function limparURL(parametroParaRemover) {
+    const url = window.location.href;
+    // Extrair a parte da query da URL
+    const urlObj = new URL(url);
+    const params = new URLSearchParams(urlObj.search);
+
+    // Iterar sobre todos os parâmetros
+    for (let param of params.keys()) {
+        if (param.startsWith(`${parametroParaRemover}_`)) {
+            params.delete(param);
+            break;  // Interrompe após o primeiro parâmetro removido
+        }
+    }
+
+    // Reconstruir a URL sem o parâmetro especificado
+    const novaURL = `${urlObj.origin}${urlObj.pathname}?${params.toString()}${urlObj.hash}`;
+
+    // Trocar a URL sem atualizar a página
+    history.replaceState(null, '', novaURL);
+}

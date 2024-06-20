@@ -44,7 +44,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
     
     if(Artista_Seguir) {
         if(Seguir_Artista(Artista_Seguir, 'Checar')) {
-            Btn_Seguir_Artsta = `<li onclick="Seguir_Artista('${Artista_Seguir}')"><img src="Assets/Imgs/Share.svg"><p>Deixar de seguir</p></li>`
+            Btn_Seguir_Artsta = `<li onclick="Seguir_Artista('${Artista_Seguir}')"><img src="Assets/Imgs/remover-participante.png"><p>Deixar de seguir</p></li>`
         } else {
             Btn_Seguir_Artsta = `<li onclick="Seguir_Artista('${Artista_Seguir}')"><img src="Assets/Imgs/convite.png"><p>Seguir artista</p></li>`
         }
@@ -59,6 +59,21 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
     let Abrir_Remover_Participante_Match = `<li onclick="Abrir_Remover_Participante_Match()" class="N_Fechar_Opcoes"><img src="Assets/Imgs/remover-participante.png" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Remover Participante</p></li>`
     let Convidar_Para_Match = `<li onclick="Convidar_Para_Match('${Pagina_Atual.ID}')"><img src="Assets/Imgs/convite.png"><p>Adicionar Amigo</p></li>`
     let Share_Match = `<li onclick="Comapartilhar_Match('${Pagina_Atual.ID}')"><img src="Assets/Imgs/Share.svg"><p>Compartilhar Match</p></li>`
+
+    //! Crirar Playlist
+    let Editar_Detalhes_criar_playlist = `<li onclick="Abrir_Editar_Header_CriarPlaylist()"><img src="Assets/Imgs/pen.png"><p>Editar detalhes</p></li>`
+    let btn_tornar_particular_criar_playlist = `<li onclick="TornarPlaylist_Particular()"><img src="Assets/Imgs/cadeado.png"><p>Tornar particular</p></li>`
+    let btn_tornar_publica_criar_playlist = `<li onclick="TornarPlaylist_Publica()"><img src="Assets/Imgs/mundo.png"><p>Tornar pública</p></li>`
+
+     //! Playlist
+     let Editar_Detalhes_playlist = `<li onclick="Abrir_Editar_Playlist()"><img src="Assets/Imgs/pen.png"><p>Editar playlist</p></li>`
+     let Convidar_Amido_playlist = `<li onclick="Convidar_Amigo_Playlist()"><img src="Assets/Imgs/convite.png"><p>Convidar amigo</p></li>`
+     let btn_tornar_particular_playlist = `<li onclick="Tornar_Playlist_Particular()"><img src="Assets/Imgs/cadeado.png"><p>Tornar particular</p></li>`
+    let Abrir_Remover_Amigo_playlist = `<li onclick="Abrir_Remover_Amigo_Playlist()" class="N_Fechar_Opcoes"><img src="Assets/Imgs/remover-participante.png" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Remover Amigo</p></li>`
+     let btn_tornar_publica_playlist = `<li onclick="Tornar_Playlist_Publica()"><img src="Assets/Imgs/mundo.png"><p>Tornar pública</p></li>`
+     let btn_apagar_playlist = `<li onclick="Apagar_playlist()"><img src="Assets/Imgs/lixeira_branca.png"><p>Apagar playlist</p></li>`
+     let btn_adicionar_a_fila_playlist = `<li onclick="Adicionar_Playlisy_Fila()"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar a fila</p></li>`
+    let Share_playlist = `<li onclick="Comapartilhar_playlist()"><img src="Assets/Imgs/Share.svg"><p>Compartilhar playlist</p></li>`
 
     let pode_add_a_fila = true
 
@@ -282,7 +297,6 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
                             const li = document.createElement('li')
                             const p = document.createElement('p')
                             const img = document.createElement('img')
-                            const hr = document.createElement('hr')
 
                             li.className = 'li_participantes_remover'
                             p.innerText = Todos_Usuarios[c].Nome
@@ -292,9 +306,6 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
                             li.appendChild(img)
 
                             ul1div2_opcs.appendChild(li)
-                            if(b + 1 < TodosMatchs[a].Participantes.length) {
-                                ul1div2_opcs.appendChild(hr)
-                            }
 
                             li.addEventListener('click', () => {
                                 if(TodosMatchs[a].Participantes.length > 2) {
@@ -324,6 +335,91 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
         opcoes_musica_ul.innerHTML += Convidar_Para_Match
         opcoes_musica_ul.innerHTML += Share_Match
 
+    } else if(Modo == 'Criar Playlist') {
+        opcoes_musica_ul.innerHTML += Editar_Detalhes_criar_playlist
+
+        if(Nova_Playlist.Estado == 'Pública') {
+            opcoes_musica_ul.innerHTML += btn_tornar_particular_criar_playlist
+        } else if(Nova_Playlist.Estado == 'Particular') {
+            opcoes_musica_ul.innerHTML += btn_tornar_publica_criar_playlist
+        }
+    } else if(Modo == 'Playlist Admin') {
+        opcoes_musica_ul.innerHTML += Editar_Detalhes_playlist
+
+        if(Playlist_Aberta.Estado == 'Pública') {
+            opcoes_musica_ul.innerHTML += btn_tornar_particular_playlist
+        } else if(Playlist_Aberta.Estado == 'Particular') {
+            opcoes_musica_ul.innerHTML += btn_tornar_publica_playlist
+        }
+
+        opcoes_musica_ul.innerHTML += btn_apagar_playlist
+        opcoes_musica_ul.innerHTML += '<hr>'
+
+        //! 4 Colaboradores + o Admin ficando 5 pessoas na playlist
+        if(Playlist_Aberta.Colaboradores.length < 4) {
+            opcoes_musica2_ul.innerHTML += Convidar_Amido_playlist
+        }
+
+        if(Playlist_Aberta.Colaboradores.length > 0) {
+            opcoes_musica2_ul.innerHTML += Abrir_Remover_Amigo_playlist
+        }
+
+        opcoes_musica2_ul.innerHTML += '<hr>'
+
+        if(Listas_Prox.Indice != undefined && Listas_Prox.Nome_Album != Playlist_Aberta.Nome) {
+            opcoes_musica2_ul.innerHTML += btn_adicionar_a_fila_playlist
+        }
+
+        opcoes_compartilhar_ul.innerHTML += Share_playlist
+
+        for (let c = 0; c < Playlist_Aberta.Colaboradores.length; c++) {
+            for (let b = 0; b < Todos_Usuarios.length; b++) {
+                if(Playlist_Aberta.Colaboradores[c] == Todos_Usuarios[b].ID) {
+                    const li = document.createElement('li')
+                    const img = document.createElement('img')
+                    const p = document.createElement('p')
+
+                    li.className = 'li_participantes_remover'
+                    p.innerText = Todos_Usuarios[b].Nome
+                    img.src = Todos_Usuarios[b].Perfil.Img_Perfil
+
+                    li.appendChild(img)
+                    li.appendChild(p)
+                    ul1div2_opcs.appendChild(li)
+
+                    li.addEventListener('click', () => {
+                        Remover_Amigo_Playlist(Pagina_Atual.ID, Playlist_Aberta.Colaboradores[c])
+                    })
+
+                    break
+                }
+            }
+        }
+
+    } else if(Modo == 'Playlist Colaboradores') {
+        opcoes_musica_ul.innerHTML += Editar_Detalhes_playlist
+
+        if(Playlist_Aberta.Estado == 'Pública') {
+            opcoes_musica_ul.innerHTML += btn_tornar_particular_playlist
+        } else if(Playlist_Aberta.Estado == 'Particular') {
+            opcoes_musica_ul.innerHTML += btn_tornar_publica_playlist
+        }
+
+        opcoes_musica_ul.innerHTML += Convidar_Amido_playlist
+        opcoes_fila_ul.innerHTML += '<hr>'
+
+        if(Listas_Prox.Indice != undefined && Listas_Prox.Nome_Album != Playlist_Aberta.Nome) {
+            opcoes_musica2_ul.innerHTML += btn_adicionar_a_fila_playlist
+        }
+
+        opcoes_musica2_ul.innerHTML += Share_playlist
+
+    } else if(Modo == 'Playlist Visitante') {
+        if(Listas_Prox.Indice != undefined && Listas_Prox.Nome_Album != Playlist_Aberta.Nome) {
+            opcoes_musica2_ul.innerHTML += btn_adicionar_a_fila_playlist
+        }
+
+        opcoes_musica2_ul.innerHTML += Share_playlist
     }
 }
 
@@ -445,6 +541,7 @@ function Apagar_Match(ID) {
                                         TodosMatchs.splice(b, 1)
                                         db.collection('Matchs').doc(Matchs.id).update({Matchs: TodosMatchs}).then(() => {
                                             Abrir_Pagina('home')
+                                            Carreagr_Artistas_Seguindo()
                                             Notificar_Infos('✅ Match deletado com sucesso! 🎉✨', 'Emojis:🎉,🥳,🎊,🍾,🎈,👏')
                                         })
                                     }
@@ -494,10 +591,10 @@ function Convidar_Para_Match(ID) {
             for (let c = 0; c < Todos_Usuarios.length; c++) {
                 if(Todos_Usuarios[c].ID == match_carregado.Admin) {
                     user_adm = Todos_Usuarios[c]
-
                     for (let d = 0; d < user_adm.Social.Matchs.Convites.length; d++) {
                         if(user_adm.Social.Matchs.Convites[d].ID == ID) {
                             link_expirou = jaPassou(user_adm.Social.Matchs.Convites[d].Data)
+
                             user_adm.Social.Matchs.Convites.splice(d, 1)
                             break
                         }
@@ -507,21 +604,38 @@ function Convidar_Para_Match(ID) {
             }
 
             if(!link_expirou && match_carregado.Participantes.length < 5) {
+                let id_convite
+
+                for (let c = 0; c < Todos_Usuarios.length; c++) {
+                    if(Todos_Usuarios[c].ID == match_carregado.Admin) {
+                        const user_selecionado = Todos_Usuarios[c]
+                        for (let d = 0; d < user_selecionado.Social.Matchs.Convites.length; d++) {
+                            if(user_selecionado.Social.Matchs.Convites[d].ID == ID) {
+                                id_convite = user_selecionado.Social.Matchs.Convites[d].ID_Convite
+                                break
+                            }
+                        }
+                        break
+                    }
+                }
+
                 let url = window.location.href
                 let baseUrl = url.split('?')[0]
 
                 let link
-                link = `${baseUrl}?Page=aceitarmatch_${ID}`
+                link = `${baseUrl}?Page=aceitarmatch_${ID}&Convite_${id_convite}`
                 Copiar_Para_Area_Tranferencia(link)
 
 
             } else if(link_expirou && match_carregado.Participantes.length < 5) {
                 Deletar_Convite_Match(ID, user_adm.ID).then(() => {
-                    ID_Match = ID
+                    let ID_Match = ID
+                    let ID_Convite = gerarId()
 
                     const new_convite = {
                         Data: getDataAtual(5, 0, 0),
-                        ID: ID_Match
+                        ID: ID_Match,
+                        ID_Convite: ID_Convite
                     }
                 
                     if(user_adm.Social.Matchs == undefined) {
@@ -536,7 +650,7 @@ function Convidar_Para_Match(ID) {
                     let baseUrl = url.split('?')[0]
 
                     let link
-                    link = `${baseUrl}?Page=aceitarmatch_${ID_Match}`
+                    link = `${baseUrl}?Page=aceitarmatch_${ID_Match}&Convite_${ID_Convite}`
                     if(User.Estado_Da_Conta != 'Anônima') {
                         db.collection('Users').doc(user_adm.ID).update({ Social: user_adm.Social }).then(() => {
                             Copiar_Para_Area_Tranferencia(link)
@@ -580,6 +694,204 @@ function Remover_Participante_Match(Match_ID, Participante_ID) {
                                     Abrir_Match(TodosMatchs[c].ID)
                                 })
                                 break
+                            }
+                        }
+                        break
+                    }
+                }
+            }
+        })
+    })
+}
+
+//! Criar Playlist
+const estado_playlist_criar_playlist = document.getElementById('estado_playlist_criar_playlist')
+function TornarPlaylist_Particular() {
+    Nova_Playlist.Estado = 'Particular'
+    estado_playlist_criar_playlist.innerText = 'Playlist ' + Nova_Playlist.Estado
+}
+
+function TornarPlaylist_Publica() {
+    Nova_Playlist.Estado = 'Pública'
+    estado_playlist_criar_playlist.innerText = 'Playlist ' + Nova_Playlist.Estado
+}
+
+//! Playlist
+function Abrir_Editar_Playlist() {
+    Abrir_Pagina('criarplaylist', Playlist_Aberta.ID)
+    Editando_Playlist = true
+    Nova_Playlist = Object.assign({}, Playlist_Aberta)
+    Carregar_Editar_Playlist()
+}
+
+function Convidar_Amigo_Playlist() {
+    let feito = false
+    db.collection('Playlists').get().then((snapshot) => {
+        snapshot.docs.forEach(Playlists => {
+            TodosPlaylists = Playlists.data().Playlists
+
+            if(!feito) {
+                feito = true
+                let Link_Convidar
+                let ID_PLaylist = Pagina_Atual.ID
+                var url = window.location.href
+                var baseUrl = url.split('?')[0]
+                for (let c = 0; c < TodasPlaylists.length; c++) {
+                    if(TodasPlaylists[c].ID == ID_PLaylist) {
+
+                        //! Caso não tenha passado a data
+                        if(!jaPassou(TodasPlaylists[c].Convites.Data)) {
+
+                            Link_Convidar = `${baseUrl}?Page=aceitarplaylist_${TodasPlaylists[c].Convites.ID}`
+                            
+                        } else {
+                            //! Caso ja tenha passado a data
+                            let new_convite = {
+                                ID: gerarId(),
+                                Data: getDataAtual(5, 0, 0)
+                            }
+                            
+                            TodasPlaylists[c].Convites = new_convite
+                            Link_Convidar = `${baseUrl}?Page=aceitarplaylist_${new_convite.ID}`
+
+                            db.collection('Playlists').doc(Playlists.id).update({ Playlists: TodasPlaylists })
+                        }
+
+                        Copiar_Para_Area_Tranferencia(Link_Convidar)
+                        break
+                    }
+                }
+            }
+        })
+    })
+}
+
+function Tornar_Playlist_Particular() {
+    let feito = false
+    db.collection('Playlists').get().then((snapshot) => {
+        snapshot.docs.forEach(Playlists => {
+            TodasPlaylists = Playlists.data().Playlists
+        
+
+            if(!feito) {
+                feito = true
+
+                for (let c = 0; c < TodasPlaylists.length; c++) {
+                    if(TodasPlaylists[c].ID == Playlist_Aberta.ID) {
+                        if(TodasPlaylists[c].Estado != 'Particular') {
+                            TodasPlaylists[c].Estado = 'Particular'
+                            Playlist_Aberta = TodasPlaylists[c]
+    
+                            db.collection('Playlists').doc(Playlists.id).update({ Playlists: TodasPlaylists }).then(() => {
+                                Avisos_Rapidos('A playlist agora é particular')
+                                document.getElementById("estado_playlist_page_criar_playlist_page").innerText = 'Playlist Particular'
+                            })
+                        } else {
+                            Avisos_Rapidos('A playlist agora é particular')
+                            document.getElementById("estado_playlist_page_criar_playlist_page").innerText = 'Playlist Particular'
+                        }
+                    }
+                }
+            }
+        })
+    })
+}
+
+function Abrir_Remover_Amigo_Playlist() {
+    document.getElementById('opcoes_click_direito').style.display = 'flex'
+    opcoes2_click_direito.style.display = 'block'
+}
+
+function Tornar_Playlist_Publica() {
+    let feito = false
+    db.collection('Playlists').get().then((snapshot) => {
+        snapshot.docs.forEach(Playlists => {
+            TodasPlaylists = Playlists.data().Playlists
+        
+            if(!feito) {
+                feito = true
+
+                for (let c = 0; c < TodasPlaylists.length; c++) {
+                    if(TodasPlaylists[c].ID == Playlist_Aberta.ID) {
+                        if(TodasPlaylists[c].Estado != 'Pública') {
+                            TodasPlaylists[c].Estado = 'Pública'
+                            Playlist_Aberta = TodasPlaylists[c]
+    
+                            db.collection('Playlists').doc(Playlists.id).update({ Playlists: TodasPlaylists }).then(() => {
+                                Avisos_Rapidos('A playlist agora é pública')
+                                document.getElementById("estado_playlist_page_criar_playlist_page").innerText = 'Playlist Pública'
+                            })
+                        } else {
+                            Avisos_Rapidos('A playlist agora é pública')
+                            document.getElementById("estado_playlist_page_criar_playlist_page").innerText = 'Playlist Pública'
+                        }
+                    }
+                }
+            }
+        })
+    })
+}
+
+function Apagar_playlist() {
+    Notificar_Infos('❓ Você tem certeza que deseja deletar esta playlist? Essa ação não pode ser desfeita. 🔥⚠️', 'Confirmar', 'Deletar').then((resp) => {
+        if(resp) {
+            let feito = false
+            db.collection('Playlists').get().then((snapshot) => {
+                snapshot.docs.forEach(Playlists => {
+                    TodasPlaylists = Playlists.data().Playlists
+                
+                    if(!feito) {
+                        feito = true
+        
+                        for (let c = 0; c < TodasPlaylists.length; c++) {
+                            if(TodasPlaylists[c].ID == Playlist_Aberta.ID) {
+                                TodasPlaylists.splice(c, 1)
+        
+                                db.collection('Playlists').doc(Playlists.id).update({ Playlists: TodasPlaylists }).then(() => {
+                                    Carreagr_Artistas_Seguindo()
+                                    Avisos_Rapidos('A playlist foi apagada com sucesso!')
+                                    Abrir_Pagina('home')
+                                })
+                            }
+                        }
+                    }
+                })
+            })
+        }
+    })
+}
+
+function Adicionar_Playlisy_Fila() {
+    Listas_Prox.Lista_Musicas.push(...Playlist_Aberta.Musicas)
+    Atualizar_Fila()
+}
+
+function Comapartilhar_playlist() {
+    var url = window.location.href
+    var baseUrl = url.split('?')[0]
+
+    let Link_Convidar
+    Link_Convidar = `${baseUrl}?Page=playlist_${Playlist_Aberta.ID}`
+    Copiar_Para_Area_Tranferencia(Link_Convidar)
+}
+
+function Remover_Amigo_Playlist(ID_Playlist, ID_Amigo) {
+    let feito = false
+    db.collection('Playlists').get().then((snapshot) => {
+        snapshot.docs.forEach(Playlists => {
+            TodasPlaylists = Playlists.data().Playlists
+        
+            if(!feito) {
+                feito = true
+                for (let c = 0; c < TodasPlaylists.length; c++) {
+                    if(TodasPlaylists[c].ID == ID_Playlist) {
+                        for (let b = 0; b < TodasPlaylists[c].Colaboradores.length; b++) {
+                            if(TodasPlaylists[c].Colaboradores[b] == ID_Amigo) {
+                                TodasPlaylists[c].Colaboradores.splice(b, 1)
+                                db.collection('Playlists').doc(Playlists.id).update({ Playlists: TodasPlaylists }).then(() => {
+                                    Avisos_Rapidos('Amigo removido da playlist!')
+                                    Abrir_Pagina('playlist', ID_Playlist)
+                                })
                             }
                         }
                         break

@@ -2,12 +2,23 @@ function getParamsFromUrl(url) {
     const params = new URLSearchParams(new URL(url).search)
     const pageParam = params.get('Page')
     const [page, id_page] = pageParam ? pageParam.split('_') : [null, null]
+
+    // Procurando o parâmetro "Convite"
+    let convite = null
+    for (let param of params.keys()) {
+        if (param.startsWith('Convite_')) {
+            convite = param.split('_')[1]
+            break
+        }
+    }
+
     const musicId = params.get('Musica')
 
     return {
         page,
         id_page,
-        musicId
+        musicId,
+        convite
     }
 }
 
@@ -35,11 +46,10 @@ function atualizarURL(parametro, ID='') {
     window.history.pushState({path: url}, '', url)
 }
 
+let musica_carregada = false
 function Recarregar_Infos_Url() {
     const url = window.location.href
-    const { page, id_page, musicId } = getParamsFromUrl(url)
-
-    // console.log(page, id_page, musicId)
+    const { page, id_page, musicId, conviteID } = getParamsFromUrl(url)
 
     if(musicId != undefined && musicId != null) {
         //! Vai checar se a música da url tem na lista
@@ -141,8 +151,48 @@ function Recarregar_Infos_Url() {
             Abrir_Pagina('biblioteca') 
         } else if(page == 'aceitarmatch') {
             Abrir_Pagina('aceitarmatch', id_page) 
+        } else if(page == 'criarmatch') {
+            Abrir_Pagina('criarmatch') 
         } else if(page == 'match') {
             Abrir_Pagina('match', id_page) 
+        } else if(page == 'criarplaylist') {
+            if(id_page) {
+                Editando_Playlist = true
+                
+                let user_participante = false
+                let playlist_econtrada
+
+                for (let c = 0; c < TodasPlaylists.length; c++) {
+                    if(TodasPlaylists[c].ID == id_page) {
+                        if(User.ID == TodasPlaylists[c].Admin) {
+                            user_participante = true
+                            playlist_econtrada = Object.assign({}, TodasPlaylists[c])
+                            break
+                        } else {
+                            for (let b = 0; b < TodasPlaylists[c].Colaboradores.length; b++) {
+                                if(User.ID == TodasPlaylists[c].Colaboradores[b]) {
+                                    user_participante = true
+                                    playlist_econtrada = Object.assign({}, TodasPlaylists[c])
+                                    break
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if(user_participante) {
+                    Abrir_Pagina('criarplaylist', id_page)
+                    Nova_Playlist = playlist_econtrada
+                    Carregar_Editar_Playlist()
+                } else {
+                    Abrir_Pagina('criarplaylist')
+                }
+            }
+
+        } else if(page == 'playlist') {
+            Abrir_Pagina('playlist', id_page)
+        } else if(page == 'aceitarplaylist') {
+            Abrir_Pagina('aceitarplaylist', id_page)
         }
     }
 }

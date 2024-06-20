@@ -10,9 +10,10 @@ input_pesquisar.addEventListener('keypress', (e) => {
 
 function Pesquisar() {
     let array_musicas_pesquisa = []
-    let array_playlists_pesquisa = []
     let array_artistas_pesquisa = []
     let array_perfis_pesquisa = []
+    let array_matchs = []
+    let array_playlists = []
 
     Limpar_Pesquisa()
     let pesquisa = input_pesquisar.value
@@ -51,6 +52,95 @@ function Pesquisar() {
             }
         }
 
+        //! Vai adicionar o nome dos participantes do match para ajudar na pesquisa
+        let todos_maths2 = TodosMatchs
+        for (let a = 0; a < TodosMatchs.length; a++) {
+            for (let b = 0; b < TodosMatchs[a].Participantes.length; b++) {
+                for (let c = 0; c < Todos_Usuarios.length; c++) { 
+                    if(Todos_Usuarios[c].ID == TodosMatchs[a].Participantes[b].ID) {
+                        todos_maths2[a].Participantes[b].Nome = Todos_Usuarios[c].Nome
+                        break
+                    }
+                }
+            }
+        }
+
+        for (let a = 0; a < todos_maths2.length; a++) {
+            let encontrado = false
+
+
+            for (let b = 0; b < todos_maths2[a].Participantes.length; b++) {
+                if(!encontrado) {
+                    const nomes_participantes_formatado = formatarString(todos_maths2[a].Participantes[b].Nome)
+                    if(nomes_participantes_formatado.includes(pesquisa_formatada) || pesquisa_formatada.includes(nomes_participantes_formatado)) {
+                        array_matchs.push(todos_maths2[a])
+                        pesquisa_encotrada = true
+                        encontrado = true
+                        break
+                    }
+                } else {
+                    break
+                }
+            }
+        }
+        
+        //! Playlists
+        for (let c = 0; c < TodasPlaylists.length; c++) {
+            let nome_playlist_formatado = formatarString(TodasPlaylists[c].Nome)
+            let desc_playlist_formatado = formatarString(TodasPlaylists[c].Descricao)
+
+            let Adm
+
+            for (let n = 0; n < Todos_Usuarios.length; n++) {
+                if(Todos_Usuarios[n].ID == TodasPlaylists[c].Admin) {
+                    Adm = Todos_Usuarios[n]
+                    break
+                }
+            }
+
+            let nome_adm_formatado = formatarString(Adm.Nome)
+
+            let includes_descricao = false
+            let includes_nome = false
+
+            if(nome_adm_formatado.includes(pesquisa_formatada) || pesquisa_formatada.includes(nome_adm_formatado)) {
+                includes_nome = true
+            }
+
+            if(TodasPlaylists[c].Descricao.trim() != '') {
+                if(pesquisa_formatada.includes(desc_playlist_formatado) || desc_playlist_formatado.includes(pesquisa_formatada)) {
+                    includes_descricao = true
+                }
+            }
+
+            if(TodasPlaylists[c].Estado == 'Pública') {
+                if(pesquisa_formatada.includes(nome_playlist_formatado) || nome_playlist_formatado.includes(pesquisa_formatada) || includes_descricao || includes_nome) {
+                    array_playlists.push(TodasPlaylists[c])
+                    pesquisa_encotrada = true
+                }
+
+            } else {
+                if(pesquisa_formatada.includes(nome_playlist_formatado) || nome_playlist_formatado.includes(pesquisa_formatada) || includes_descricao || includes_nome) {
+                    if(User.ID == TodasPlaylists[c].Admin) {
+                        array_playlists.push(TodasPlaylists[c])
+                    } else {
+                        let faz_parte_dos_colaboradores = false
+                        for (let b = 0; b < TodasPlaylists[c].Colaboradores.length; b++) {
+                            if(TodasPlaylists[c].Colaboradores[b] == User.ID) {
+                                faz_parte_dos_colaboradores = true
+                                break
+                            } 
+                        }
+
+                        if(faz_parte_dos_colaboradores) {
+                            array_playlists.push(TodasPlaylists[c])
+                            pesquisa_encotrada = true
+                        }
+                    }
+                }
+            }
+        }
+
         if(pesquisa_encotrada) {
             document.getElementById('Pagina_pesquisar').classList.remove('Pesquisa_Nao_Encontrada')
             document.getElementById('pesquisa_nao_encontrada').style.display = 'none'
@@ -66,8 +156,8 @@ function Pesquisar() {
             document.getElementById('h1_pesquisa').innerHTML = `<span>Resultados para:</span> ${pesquisa}`
         }
 
-        if(array_playlists_pesquisa.length > 0) {
-            // Retornar_Playlists(array_playlists, document.getElementById('container_playlists'))
+        if(array_playlists.length > 0) {
+            Retornar_Playlists(array_playlists, document.getElementById('container_playlists'))
         }
 
         if(array_artistas_pesquisa.length > 0) {
@@ -82,6 +172,10 @@ function Pesquisar() {
 
         if(array_perfis_pesquisa.length > 0) {
             Retornar_Perfis(array_perfis_pesquisa, document.getElementById('container_perfis'))
+        }
+
+        if(array_matchs.length > 0) {
+            Retornar_Match(array_matchs, document.getElementById('container_matchs'))
         }
         
         setTimeout(() => {
@@ -108,6 +202,9 @@ function Limpar_Pesquisa() {
     })
 
     document.getElementById('container_melhor_resultado').style.display = 'none'
+
+    document.getElementById('container_matchs').style.display = 'none'
+    document.getElementById('container_playlists').style.display = 'none'
 
     Mostrar_Max_Musicas()
 }
@@ -450,6 +547,145 @@ function Retornar_Perfis(Lista, Local) {
         div_container_perfil_usuario.addEventListener('contextmenu', (event) => {
             Ativar_Opcoes_Click_Direita('Perfil', TodasMusicas[0], undefined, undefined, undefined, Lista[c].ID)
             posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+        })
+    }
+
+    Local.style.display = 'block'
+}
+
+function Retornar_Match(Lista, Local) {
+    for (let a = 0; a < Lista.length; a++) {
+        const container_match = document.createElement('div')
+        const container_img_match_match = document.createElement('div')
+        const container_container_header_match = document.createElement('div')
+        const container_esferas = document.createElement('div')
+        const p_match = document.createElement('p')
+        const traco_match = document.createElement('div')
+        const container_texto_match = document.createElement('div')
+        const span = document.createElement('span')
+        const p = document.createElement('p')
+
+        container_container_header_match.className = 'container_container_header_match'
+        container_esferas.className = 'container_esferas'
+        traco_match.className = 'traco_match'
+        container_match.classList.add('container_match')
+        container_match.classList.add('container_match_match')
+        container_img_match_match.classList.add('container_img_match_match')
+        container_texto_match.classList.add('container_texto_match')
+
+        let cor_adm
+        let nomes_participantes = ''
+        let array_participantes = []
+        for (let c = 0; c < Lista[a].Participantes.length; c++) {
+
+            const esfera = document.createElement('div')
+            esfera.className = 'esferas'
+            esfera.style.background = Lista[a].Participantes[c].Cor
+            container_esferas.appendChild(esfera)
+
+            if(Lista[a].Participantes[c].ID == Lista[a].Admin) {
+                cor_adm = Lista[a].Participantes[c].Cor
+            }
+
+            if(c + 1 >= Lista[a].Participantes.length) {
+                nomes_participantes += Lista[a].Participantes[c].Nome
+
+            } else {
+                nomes_participantes += `${Lista[a].Participantes[c].Nome} + `
+            }
+        }
+
+        container_img_match_match.style.background = Lista[a].Background
+        traco_match.style.background = cor_adm
+        p.innerText= nomes_participantes
+
+        span.innerText = 'Playlist'
+        p_match.innerHTML = 'Match'
+
+        container_container_header_match.appendChild(container_esferas)
+        container_container_header_match.appendChild(p_match)
+        container_container_header_match.appendChild(traco_match)
+        container_img_match_match.appendChild(container_container_header_match)
+        container_texto_match.appendChild(span)
+        container_texto_match.appendChild(p)
+        container_match.appendChild(container_img_match_match)
+        container_match.appendChild(container_texto_match)
+        Local.querySelector('article').appendChild(container_match)
+
+        container_match.addEventListener('click', () => {
+            Abrir_Pagina('match', Lista[a].ID)
+        })
+    }
+
+    Local.style.display = 'block'
+}
+
+function Retornar_Playlists(Lista, Local) {
+    
+    for (let c = 0; c < Lista.length; c++) {
+        for (let b = 0; b < Lista[c].Musicas.length; b++) {
+            for (let a = 0; a < TodasMusicas.length; a++) {
+                if(TodasMusicas[a].ID == Lista[c].Musicas[b]) {
+                    Lista[c].Musicas[b] = TodasMusicas[a]
+                    break
+                }
+            }
+        }
+
+        let user_adm
+        for (let b = 0; b < Todos_Usuarios.length; b++) {
+            if(Todos_Usuarios[b].ID == Lista[c].Admin) {
+                user_adm = Todos_Usuarios[b]
+                break
+            }
+        }
+        
+        const container_playlist = document.createElement('div')
+        const container_img_playlist_playlist = document.createElement('div')
+        const container_texto_playlist = document.createElement('div')
+        const img_so = document.createElement('img')
+        const span = document.createElement('span')
+        const p = document.createElement('p')
+        const qm_postou_playlist = document.createElement('span')
+    
+        container_playlist.classList.add('container_playlist')
+        container_playlist.classList.add('container_playlist_playlist')
+        container_img_playlist_playlist.classList.add('container_img_playlist_playlist')
+        container_texto_playlist.classList.add('container_texto_playlist')
+        qm_postou_playlist.className = 'qm_postou_playlist'
+    
+        p.innerText = Lista[c].Nome
+        qm_postou_playlist.innerText = 'De ' + user_adm.Nome
+    
+        span.innerText = 'Playlist'
+    
+        if(Lista[c].Img != null) {
+            img_so.src = Lista[c].Img
+            container_img_playlist_playlist.appendChild(img_so)
+
+        } else if(Lista[c].Musicas.length <= 3) {
+            img_so.src = Lista[c].Musicas[0].Img
+            container_img_playlist_playlist.appendChild(img_so)
+
+        } else {
+
+            for (let b = 0; b < 4; b++) {
+                const img = document.createElement('img')
+                img.src = Lista[c].Musicas[b].Img
+                container_img_playlist_playlist.classList.add('active')
+                container_img_playlist_playlist.appendChild(img)
+            }
+        }
+    
+        container_texto_playlist.appendChild(span)
+        container_texto_playlist.appendChild(p)
+        container_texto_playlist.appendChild(qm_postou_playlist)
+        container_playlist.appendChild(container_img_playlist_playlist)
+        container_playlist.appendChild(container_texto_playlist)
+        Local.querySelector('article').appendChild(container_playlist)
+    
+        container_playlist.addEventListener('click', () => {
+            Abrir_Pagina('playlist', Lista[c].ID)
         })
     }
 

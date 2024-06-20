@@ -3,7 +3,8 @@ const container_itens_biblioteca = document.getElementById('container_itens_bibl
 //! Organizar por ordem dos vistos e não por ordem de seguidos
 function Carregar_Biblioteca() {
     container_itens_biblioteca.innerHTML = `<div class="container_item_biblioteca" id="musicas_curtidas_biblioteca" onclick="Abrir_Pagina('musicascurtidas', 'musicascurtidas_${User.ID}')"><div class="container_img_item_biblioteca"><img src="Assets/Imgs/Musicas curtidas.svg"></div><div class="container_texto_item_biblioteca"><span>Playlist</span><p>Músicas Curtidas</p></div></div>
-
+    
+    <div class="container_item_biblioteca" id="criar_playlist_biblioteca" onclick="Abrir_Pagina('criarplaylist')"><div class="container_img_item_biblioteca"><img src="Assets/Imgs/cubo_criar_playlist.svg"></div><div class="container_texto_item_biblioteca"><span>Playlist</span><p>Criar Playlist</p></div></div>
     
     <div class="container_item_biblioteca" id="criar_match_biblioteca" onclick="Abrir_Pagina('criarmatch')"><div class="container_img_item_biblioteca"><img src="Assets/Imgs/cubo_match.svg"></div><div class="container_texto_item_biblioteca"><span>Playlist</span><p>Criar Match</p></div></div>`
 
@@ -18,6 +19,20 @@ function Carregar_Biblioteca() {
         }
     }
 
+    for (let c = 0; c < TodasPlaylists.length; c++) {
+        if(TodasPlaylists[c].Admin == User.ID) {
+            lista_seguindo.push(TodasPlaylists[c])
+            
+        } else {
+            for (let b = 0; b < TodasPlaylists.Colaboradores.length; b++) {
+                if(TodasPlaylists[c].Colaboradores[b] == User.ID) {
+                    lista_seguindo.push(TodasPlaylists[c])
+                    break
+                }
+            }
+        }
+    }
+
     lista_seguindo.push(...User.Social.Artistas)
     lista_seguindo.push(...User.Social.Seguindo)
     lista_seguindo = [...organizarPorDataDescendente(lista_seguindo)]
@@ -27,6 +42,9 @@ function Carregar_Biblioteca() {
 
         } else if(lista_seguindo[c].Participantes != undefined) {
             Match_Biblioteca(lista_seguindo[c])            
+
+        } else if(lista_seguindo[c].Colaboradores != undefined) {
+            Playlist_Biblioteca(lista_seguindo[c])
 
         } else {
             //? Caso for um artista
@@ -86,7 +104,7 @@ function Match_Biblioteca(Match_Carregar) {
     traco_match.style.background = cor_adm
     p.innerText= nomes_participantes
 
-    span.innerText = 'Match'
+    span.innerText = 'Playlist'
     p_match.innerHTML = 'Match'
 
     container_container_header_match.appendChild(container_esferas)
@@ -137,6 +155,52 @@ function Artistas_Biblioteca(Autor) {
     container_item_biblioteca.addEventListener('contextmenu', (event) => {
         Ativar_Opcoes_Click_Direita('Artista', [musica_mais_view], 0, Autor, musica_mais_view.ID)
         posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+    })
+}
+
+function Playlist_Biblioteca(Playlist_Carregar) {
+    const container_playlist = document.createElement('div')
+    const container_img_playlist_playlist = document.createElement('div')
+    const container_texto_playlist = document.createElement('div')
+    const img_so = document.createElement('img')
+    const span = document.createElement('span')
+    const p = document.createElement('p')
+
+    container_playlist.classList.add('container_playlist')
+    container_playlist.classList.add('container_playlist_playlist')
+    container_img_playlist_playlist.classList.add('container_img_playlist_playlist')
+    container_texto_playlist.classList.add('container_texto_playlist')
+
+    p.innerText = Playlist_Carregar.Nome
+
+    span.innerText = 'Playlist'
+
+    if(Playlist_Carregar.Img != null) {
+        img_so.src = Playlist_Carregar.Img
+        container_img_playlist_playlist.appendChild(img_so)
+
+    } else if(Playlist_Carregar.Musicas.length <= 3) {
+        img_so.src = Playlist_Carregar.Musicas[0].Img
+        container_img_playlist_playlist.appendChild(img_so)
+
+    } else {
+
+        for (let b = 0; b < 4; b++) {
+            const img = document.createElement('img')
+            img.src = Playlist_Carregar.Musicas[b].Img
+            container_img_playlist_playlist.classList.add('active')
+            container_img_playlist_playlist.appendChild(img)
+        }
+    }
+
+    container_texto_playlist.appendChild(span)
+    container_texto_playlist.appendChild(p)
+    container_playlist.appendChild(container_img_playlist_playlist)
+    container_playlist.appendChild(container_texto_playlist)
+    document.getElementById('container_itens_biblioteca').appendChild(container_playlist)
+
+    container_playlist.addEventListener('click', () => {
+        Abrir_Pagina('playlist', Playlist_Carregar.ID)
     })
 }
 

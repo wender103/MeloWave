@@ -98,6 +98,82 @@ body {
                     flex-direction: column;
                     align-items: center;
                     gap: 15px;
+
+                    div.container_img_match_item_biblioteca {
+                        width: 47px;
+                        height: 47px;
+                        overflow: hidden;
+                        border-radius: 4px;
+                        position: relative;
+                        background-color: black;
+
+                        div.container_container_header_match {
+                            width: 100%;
+                            height: 100%;
+
+                            div.container_esferas {
+                                width: 100%;
+                                height: 70%;
+                                transform: rotate(-45deg);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                position: relative;
+
+                                div.esferas {
+                                    width: 20px;
+                                    height: 20px;
+                                    border-radius: 50%;
+                                    margin-left: -7px;
+                                }
+                            }
+
+                            p {
+                                position: absolute;
+                                left: 2px;
+                                bottom: 5px;
+                                font-size: 7px;
+                                font-weight: 600;
+                                color: var(--white);
+                                display: block;
+                                z-index: 1;
+                                background-color: transparent;
+                                top: auto;
+                                opacity: 1;
+                                border-radius: 0;
+                                padding: 0;
+                            }
+
+                            div.traco_match {
+                                width: 24px;
+                                height: 5px;
+                                position: absolute;
+                                left: 2px;
+                                bottom: 0;
+                            }
+                        }
+                    }
+
+                    .container_playlist {
+                        width: 47px;
+                        height: 47px;
+                        min-width: auto;
+                        padding: 0;
+                        border-radius: 4px;
+                        margin: 0;
+                        background-color: transparent;
+
+                        div.container_img_playlist_playlist {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 0;
+
+                            img {
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                    }
                 }
 
                 li {
@@ -843,6 +919,127 @@ body {
                         gap: 12px; 
                     }
 
+                    &#container_matchs {
+                        width: 100%;
+                        overflow: hidden;
+                        gap: 12px;
+
+                        div.container_match {
+                            width: 160px;
+                            min-width: 150px;
+                            height: 245px;
+                            border-radius: 8px;
+                            background-color: var(--black_transparent);
+                            cursor: pointer;
+                            padding: 10px;
+                            color: var(--white);
+                            overflow: hidden;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 13px;
+                            cursor: pointer;
+                            margin-bottom: 15px;
+    
+                            &.container_match_artista {
+                                div.container_img_match {
+                                    border-radius: 50%; 
+                                }
+                            }
+    
+                            div.container_img_match_match {
+                                width: 100%;
+                                height: 127px;
+                                overflow: hidden;
+                                border-radius: 8px;
+                                position: relative;
+                                background-color: black;
+    
+                                div.container_container_header_match {
+                                    width: 100%;
+                                    height: 100%;
+    
+                                    div.container_esferas {
+                                        width: 100%;
+                                        height: 70%;
+                                        transform: rotate(-45deg);
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        position: relative;
+    
+                                        div.esferas {
+                                            width: 30px;
+                                            height: 30px;
+                                            border-radius: 50%;
+                                            margin-left: -12px;
+                                        }
+                                    }
+    
+                                    p {
+                                        position: absolute;
+                                        left: 20px;
+                                        bottom: 10px;
+                                        font-size: 18px;
+                                        font-weight: 600;
+                                        color: var(--white);
+                                    }
+    
+                                    div.traco_match {
+                                        width: 50px;
+                                        height: 7px;
+                                        position: absolute;
+                                        left: 20px;
+                                        bottom: 0;
+                                    }
+                                }
+                            }
+        
+                            div.container_img_match {
+                                width: 100%;
+                                height: 125px;
+                                overflow: hidden;
+                                border-radius: 6px;
+        
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                }
+                            }
+        
+                            div.container_texto_match {
+                                height: 30%;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                gap: 3px;
+        
+                                span {
+                                    font-size: 13px;
+                                    color: var(--fonte_meio_transparente);
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                }
+        
+                                p {
+                                    font-size: 14px;
+                                    // white-space: nowrap;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    color: var(--white);
+                                    word-wrap: break-word;
+                                }
+                            }
+                        }
+                    }
+
+                    &#container_playlists {
+                        width: 100%;
+                        overflow: hidden;
+                        gap: 12px; 
+                    }
+
                     &#container_pesquisa {
                         article {
                             display: grid;
@@ -951,6 +1148,61 @@ body {
                         border: none;
                         color: var(--white);
                         font-size: 16px;
+                    }
+                }
+
+                article#carregamento_postar_musica {
+                    width: 100%;
+                    height: 100vh;
+                    display: none;
+                    top: 0;
+                    left: 0;
+                    z-index: 7;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: transparent;
+                    position: fixed;
+                    
+                    .loader {
+                        display: flex;
+                        gap: 5px;
+
+                        .bar {
+                            width: 10px;
+                            height: 40px;
+                            background-color: var(--white);
+                            animation: jump 0.6s infinite;
+                            border-radius: 4px;
+
+                            &:nth-child(2) {
+                                animation-delay: 0.2s;
+                            }
+                            
+                            &:nth-child(3) {
+                                animation-delay: 0.4s;
+                            }
+                            
+                            &:nth-child(4) {
+                                animation-delay: 0.6s;
+                            }
+                            
+                            &:nth-child(5) {
+                                animation-delay: 0.8s;
+                            }
+                            
+                            &:nth-child(7) {
+                                animation-delay: 1s;
+                            }
+                            
+                            @keyframes jump {
+                                0%, 100% {
+                                    transform: scaleY(1);
+                                }
+                                50% {
+                                    transform: scaleY(2.3);
+                                }
+                            }
+                        }
                     }
                 }
 
@@ -1987,6 +2239,11 @@ body {
                             }
                         }
                     }
+
+                    div.container_playlist {
+                        width: 150px;
+                        height: 200px;
+                    }
                 }
             }
 
@@ -2332,6 +2589,701 @@ body {
                     }
                 }
             }
+
+            &#Pagina_criarplaylist {
+                article#container_header_criarplaylist {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+
+                    div#container_infos_header_criarplaylist {
+                        display: flex;
+                        align-items: end;
+                        gap: 20px;
+
+                        div#container_header_img_criarplaylist {
+                            width: 180px;
+                            height: 180px;
+                            overflow: hidden;
+                            border-radius: 8px;
+                            background-color: var(--black_transparent);
+                            position: relative;
+                            cursor: pointer;
+
+                            div.container_imgs_criar_playlist {
+                                width: 100%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+
+                                &.active {
+                                    display: grid;
+                                    grid-template-columns: 1fr 1fr;
+                                    grid-template-rows: 1fr 1fr;
+                                    gap: 0px;
+                                    width: 100%;
+                                    height: 100%; 
+                                }
+
+                                img {
+                                    width: 50%;
+                                    height: 50%;
+                                    -o-object-fit: cover;
+                                    object-fit: cover;
+                                    opacity: 1;
+                                    transition: 0.2s opacity ease-in-out;
+
+                                    &.active {
+                                        width: 100%;
+                                        height: 100%;
+                                    }
+
+                                    &.active2 {
+                                        width: 100%;
+                                        height: 100%;
+                                        display: block;
+                                    }
+                                }
+                            }
+
+                            &:hover > div#container_editar_img_criarplaylist {
+                                opacity: 1;
+                            }
+
+                            div#container_editar_img_criarplaylist {
+                                width: 100%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                position: absolute;
+                                background-color: var(--background_black);
+                                opacity: 0;
+                                top: 0;
+                                transition: 0.4s opacity ease-in-out;
+                                
+                                img {
+                                    width: 30%;
+                                    height: 30%;
+                                    object-fit: cover;
+                                }
+                            }
+                        }
+
+                        color: var(--white);
+
+                        div#container_infos_criarplaylist {
+                            padding: 0;
+                            cursor: pointer;
+                            // margin-bottom: -10px;
+
+                            span {
+                                font-size: 13px;
+                            }
+                            
+                            h1 {
+                                font-size: 3em;
+                                font-weight: 800;
+                                margin: 0;
+                            }
+
+                            div#div_infos_criarplaylist {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                margin-top: 10px;
+
+                                div#container_imgs_header_criarplaylist {
+                                    display: flex;
+
+                                    img {
+                                        width: 30px;
+                                        height: 30px;
+                                        object-fit: cover;
+                                        border-radius: 50%;
+                                        margin-left: -7px;
+                                    }
+                                }
+
+                                p {
+                                    font-size: 13px;
+                                }
+
+                                span {
+                                    font-weight: normal;
+                                    color: var(--white_pouco_transparent);
+                                    font-size: 12px;
+                                }
+                            }
+
+                        }
+                    }
+
+                    div#container_headers_btns_criarplaylist {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        margin-top: 25px;  
+                        justify-content: space-between;
+                        
+                        div#part1_btns_criarplaylist {
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+
+                            img, svg {
+                                width: 30px;
+                                height: 30px;
+                                cursor: pointer;
+    
+                                &#img_play_criarplaylist {
+                                    width: 70px;
+                                    height: 70px;
+                                }
+                            }
+
+                            span#btn_config_criarplaylist {
+                                width: 100%;
+                                height: 80%;
+                                font-size: 30px;
+                                font-weight: 900;
+                                letter-spacing: 5px;
+                                color: var(--white);
+                                cursor: pointer;
+                                margin-top: -12px;
+                            }
+
+                            div#btns_postar_cancelar_criar_playlist {
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+
+                                button {
+                                    color: var(--white);
+                                    padding: 10px 15px;
+                                    border-radius: 6px;
+                                    background-color: var(--black_transparent);
+                                    border: none;
+                                    outline: none;
+                                    cursor: pointer;
+                                    display: none;
+    
+                                    &:hover {
+                                        transition: 0.2s background ease-in-out;
+                                        background-color: var(--background_black);
+                                    }
+                                }
+                            }
+
+                        }
+
+                        div#container_pesquisar_criarplaylist {
+                            display: flex;
+                            height: 32px;
+                            background-color: var(--cor_qse_transparente_background);
+                        }
+
+                    }
+
+                    hr {
+                        border-color: rgba(180, 180, 180, 0.24);
+                        margin: 10px 0;
+                    }
+                }
+
+                div#container_editar_perfil_header_criar_plylist {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    background-color: #00000057;
+                    display: none;
+                    align-items: center;
+                    justify-content: center;
+                    top: 0;
+                    left: 0;
+
+                    div#container_container_editar_perfil_header_criar_plylist {
+                        width: 95%;
+                        max-width: 600px;
+                        height: auto;
+                        padding: 20px;
+                        background-color: #00000057;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 20px;
+                        border-radius: 8px;
+                        overflow: hidden;
+
+                        div#header_container_editar_perfil_header_criar_plylist {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+
+                            img {
+                                cursor: pointer;
+                                width: 45px;
+                                height: 45px;
+                                object-fit: contain; 
+                            }
+                        }
+
+                        div#container_inputs_editar_header_criar_plylist {
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            gap: 15px;
+                            position: relative;
+
+                            div#container_img_editar_criar_playlist {
+                                width: 50%;
+                                height: 270px;
+                                overflow: hidden;
+                                border-radius: 8px;
+                                background-color: #00000038;
+                                position: relative;
+                                cursor: pointer;
+
+                                div.container_imgs_criar_playlist{
+                                    width: 100%;
+                                    height: 100%;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    opacity: 1;
+                                    transition: 0.2s opacity ease-in-out;
+
+                                    &.active {
+                                        display: grid;
+                                        grid-template-columns: 1fr 1fr;
+                                        grid-template-rows: 1fr 1fr;
+                                        gap: 0px;
+                                        width: 100%;
+                                        height: 100%; 
+                                    }
+    
+                                    img {
+                                        width: 50%;
+                                        height: 50%;
+                                        -o-object-fit: cover;
+                                        object-fit: cover;
+    
+                                        &.active {
+                                            width: 100%;
+                                            height: 100%;
+                                        }
+    
+                                        &.active2 {
+                                            width: 100%;
+                                            height: 100%;
+                                            display: block;
+                                        }
+                                    }
+                                }
+                            
+    
+                                div#container_iconeidtar_editar_criar_playlist {
+                                    // width: 30px;
+                                    // height: 20px;
+                                    padding: 5px 5px 10px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center; 
+                                    position: absolute;
+                                    background-color: #00000063;
+                                    top: 10px;
+                                    right: 10px;
+                                    border-radius: 6px;
+                                    
+                                    span {
+                                        width: 100%;
+                                        display: block;
+                                        font-size: 15px;
+                                        font-weight: 900;
+                                        letter-spacing: 5px;
+                                        color: var(--white);
+                                        cursor: pointer;
+                                    }
+                                }
+
+                                input#input_link_img_playlist_criar_playlist {
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    width: 80%;
+                                    height: 32px;
+                                    transform: translate(-50%, -50%);
+                                    padding: 0px 0px 0px 13px;
+                                    background-color: rgba(0, 0, 0, 0.2196078431);
+                                    border-radius: 4px;
+                                    font-size: 14px;
+                                    padding-right: 13px;
+                                    border: transparent;
+                                    outline: none;
+                                    display: none;
+                                    color: var(--white);
+
+                                    &::placeholder {
+                                        color: rgba(255, 255, 255, 0.644);
+                                    }
+                                }
+                            }
+
+                            div#opcs_editar_criar_playlist {
+                                position: absolute;
+                                // -webkit-backdrop-filter: blur(4px);
+                                // backdrop-filter: blur(4px);
+                                background-color: #00000063;
+                                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.404);
+                                padding: 12px;
+                                border-radius: 8px;
+                                color: var(--white);
+                                display: none;
+                                flex-direction: column;
+                                gap: 15px;
+                                top: 53px;
+                                left: 125px;
+
+                                p {
+                                    display: flex;
+                                    gap: 10px;
+                                    align-items: center;
+                                    font-size: 14px;
+                                    cursor: pointer;
+
+                                    &#p_remover_foto_editar_criarplaylist {
+                                        display: none;
+                                    }
+
+                                    img {
+                                        font-size: 17px;
+                                        height: 17px;
+                                        object-fit: cover;
+                                    }
+                                }
+                            }
+
+                            div#container_inputs_editar_criar_playlist {
+                                width: 50%;
+                                height: 270px;
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: space-between;
+                                gap: 15px;
+
+                                input {
+                                    width: 100%;
+                                    height: 40px;
+                                    padding: 0px 0px 0px 13px;
+                                    background-color: #00000038;
+                                    border-radius: 4px;
+                                    font-size: 14px;
+                                    padding-right: 13px;
+                                    border: transparent;
+                                    outline: none;
+                                    color: var(--white);
+
+                                    &::placeholder {
+                                        color: rgba(255, 255, 255, 0.644);
+                                    }
+                                }
+
+                                textarea {
+                                    width: 100%;
+                                    height: 270px;
+                                    padding: 13px 0px 0px 13px;
+                                    background-color: #00000038;
+                                    border-radius: 4px;
+                                    font-size: 14px;
+                                    padding-right: 13px;
+                                    border: transparent;
+                                    outline: none;
+                                    color: var(--white);
+
+                                    &::placeholder {
+                                        color: rgba(255, 255, 255, 0.644);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                article#pesquisa_criar_playlist, article#container_musicas_criar_playlist {
+                    flex-direction: column;
+                    margin-top: 20px;
+                    padding-bottom: 0px;
+
+                    div.musica_linha {
+                        background-color: transparent;
+
+                        &:hover {
+                            background-color: var(--black_transparent);
+                        }
+                    }
+                }
+
+                article#pesquisa_criar_playlist {
+                    &.active {
+                        height: calc(100vh - 500px);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            &#Pagina_playlist {
+                article#container_header_playlist_page {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+
+                    div#container_infos_header_playlist_page {
+                        display: flex;
+                        align-items: end;
+                        gap: 20px;
+
+                        div#container_header_img_playlist_page {
+                            width: 180px;
+                            height: 180px;
+                            overflow: hidden;
+                            border-radius: 8px;
+                            background-color: var(--black_transparent);
+                            position: relative;
+
+                            div#container_imgs_criar_playlist_page {
+                                width: 100%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                cursor: pointer;
+
+                                &.active {
+                                    display: grid;
+                                    grid-template-columns: 1fr 1fr;
+                                    grid-template-rows: 1fr 1fr;
+                                    gap: 0px;
+                                    width: 100%;
+                                    height: 100%; 
+                                }
+
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                    -o-object-fit: cover;
+                                    object-fit: cover;
+                                }
+                            }
+                        }
+
+                        color: var(--white);
+
+                        div#container_infos_playlist_page {
+                            padding: 0;
+                            // margin-bottom: -10px;
+
+                            span {
+                                font-size: 13px;
+                            }
+                            
+                            h1 {
+                                font-size: 3em;
+                                font-weight: 800;
+                                margin: 0;
+                            }
+
+                            div#div_infos_playlist_page {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                margin-top: 10px;
+
+                                div#container_imgs_header_playlist_page {
+                                    display: flex;
+
+                                    img {
+                                        width: 30px;
+                                        height: 30px;
+                                        object-fit: cover;
+                                        border-radius: 50%;
+                                        margin-left: -7px;
+                                    }
+                                }
+
+                                p {
+                                    font-size: 13px;
+                                }
+
+                                span {
+                                    font-weight: normal;
+                                    color: var(--white_pouco_transparent);
+                                    font-size: 12px;
+                                }
+                            }
+
+                        }
+                    }
+
+                    div#container_headers_btns_playlist_page {
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        margin-top: 25px;  
+                        justify-content: space-between;
+                        
+                        div#part1_btns_playlist_page {
+                            display: flex;
+                            align-items: center;
+                            gap: 20px;
+
+                            img, svg {
+                                width: 30px;
+                                height: 30px;
+                                cursor: pointer;
+    
+                                &#img_play_playlist_page {
+                                    width: 70px;
+                                    height: 70px;
+                                }
+                            }
+
+                            span#btn_config_playlist_page {
+                                width: 100%;
+                                height: 80%;
+                                font-size: 30px;
+                                font-weight: 900;
+                                letter-spacing: 5px;
+                                color: var(--white);
+                                cursor: pointer;
+                                margin-top: -12px;
+                            }
+                        }
+
+                        div#container_pesquisar_playlist_page {
+                            display: flex;
+                            height: 32px;
+                            background-color: var(--cor_qse_transparente_background);
+                        }
+
+                    }
+
+                    hr {
+                        border-color: rgba(180, 180, 180, 0.24);
+                        margin: 10px 0;
+                    }
+                }
+    
+                article#container_musicas_playlist_page {
+                    flex-direction: column;
+                    margin-top: 20px;
+                    padding-bottom: 0px;
+
+                    div.musica_linha {
+                        background-color: transparent;
+
+                        &:hover {
+                            background-color: var(--black_transparent);
+                        }
+                    }
+                }
+            }
+
+            &#Pagina_aceitarplaylist {
+                min-height: calc(100vh - 200px);
+                color: var(--white);
+                align-items: center;
+                justify-content: center;
+                align-items: center;
+
+                &.Pagina_Aberta {
+                    display: flex;
+                }
+
+                article {
+                    width: 95%;
+                    max-width: 700px;
+                    align-items: center;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+
+                    div#container_imgs_aceitarplaylist {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+    
+                        div#container_container_imgs_aceitarplaylist {
+                            display: flex;
+                            align-items: end;
+                            justify-content: end;
+                            position: relative;
+                            width: 230px;
+    
+                            div.container_img_user_aceitarplaylist {
+                                width: 130px;
+                                height: 130px;
+                                border-radius: 50%;
+                                overflow: hidden;
+                                
+                                &#container_img_user_aceitarplaylist {
+                                    border: 5px solid black;
+                                    position: absolute;
+                                    left: 0;
+                                }
+        
+                                &#container_anonimo_img_aceitarplaylist {
+                                    background-color: var(--background_black);
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+        
+                                    img {
+                                        width: 40%;
+                                        height: 40%;
+                                    }
+                                }
+        
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                }
+                            }
+                        }
+    
+                    }
+    
+                    h1 {
+                        font-size: 2.5em;
+                    }
+    
+                    p {
+                        font-size: 15px;
+                    }
+    
+                    span {
+                        font-size: 13px;
+                        color: var(--fonte_meio_transparente);
+                    }
+
+                    button {
+                        background-color: var(--cor_qse_transparente_background);
+                        -webkit-backdrop-filter: blur(0px);
+                        backdrop-filter: blur(0px);
+                        cursor: pointer;
+                        border-radius: 4px;
+                        height: 60px;
+                        border: none;
+                        color: var(--white);
+                        font-size: 16px;
+                        padding: 0 20px;
+                        margin-top: 30px; 
+                    }
+                }
+            }
         }
     }
 
@@ -2510,6 +3462,61 @@ body {
         }
     
         &.active img#img_perfil_zoom {
+            transform: scale(1);
+        }
+    }
+
+    //! Container Img Zoom PLaylist
+    #container_img_zoom_playlist {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: var(--background_black);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 4;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+    
+        &.active {
+            opacity: 1;
+        }
+    
+        div#container_imgs_playlist_zoom {
+            width: 95%;
+            max-width: 600px;
+            height: 95vh;
+            max-height: 600px;
+            border-radius: 8px;
+            object-fit: cover;
+            transform: scale(0);
+            transition: transform 0.5s ease;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+
+            &.active {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 1fr 1fr;
+                gap: 0px;
+                width: 100%;
+                height: 100%; 
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                -o-object-fit: cover;
+                object-fit: cover;
+            }
+        }
+    
+        &.active div#container_imgs_playlist_zoom {
             transform: scale(1);
         }
     }
@@ -3115,7 +4122,7 @@ body {
         display: none;
         align-items: center;
         justify-content: center;
-        z-index: 5;
+        z-index: 6;
 
         article {
             width: 90%;
@@ -3226,7 +4233,7 @@ body {
                     width: 72px;
                     height: 72px;
                     min-width: 72px;
-                    min-height: 72px;
+                    min-height: 72px; 
                     border-radius: 4px;
                     // border: 0.5px solid var(--fonte_transparente);
 
@@ -3789,7 +4796,8 @@ body {
         z-index: 5;
         display: none;
         color: var(--white);
-        gap: 20px;
+        gap: 10px;
+        align-items: start;
         
         div.divs_opcs_click {
             min-width: 270px;
@@ -3799,7 +4807,12 @@ body {
             padding: 12px;
             border-radius: 8px;
 
+            &#opcoes1_click_direito {
+                flex: 1;
+            }
+
             &#opcoes2_click_direito {
+                height: auto;
                 display: none;
 
                 ul {

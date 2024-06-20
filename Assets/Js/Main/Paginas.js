@@ -99,11 +99,19 @@ function Abrir_Pagina(Pagina, ID) {
             Carregar_Criar_Match()
 
         } else if(Pagina == 'aceitarmatch') {
+            console.log(ID);
             Carregar_Infos_Aceitar_Match(ID)
 
         } else if(Pagina == 'match') {
             Abrir_Match(ID)
 
+        } else if(Pagina == 'criarplaylist')  {
+            Carregar_Infos_Criar_Playlist()
+            
+        } else if(Pagina == 'playlist') {
+            Abrir_Playlist(ID)
+        } else if(Pagina == 'aceitarplaylist') {
+            Checar_Aceitar_Playlist(ID)
         } else {
             Fechar_Add_Letra('Não Voltar a Página')
         }

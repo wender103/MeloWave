@@ -1,6 +1,6 @@
 let TodasMusicas = []
 let TodosMatchs = []
-let TodasPlaylists = []
+let TodasPlaylists
 let Audio_Mutado = false
 
 let Listas_Prox = {
@@ -140,7 +140,7 @@ function Pegar_Todas_Musicas() {
                             db.collection('Playlists').get().then((snapshot) => {
                                 snapshot.docs.forEach(Playlists => {
                                     TodasPlaylists = Playlists.data().Playlists
-
+                                    
                                     if(!Execultar_Funcoes_Ao_Carregar_execultado3) {
                                         Execultar_Funcoes_Ao_Carregar_execultado3 = true
 
@@ -155,10 +155,6 @@ function Pegar_Todas_Musicas() {
                     })
               
                 })
-                Execultar_Funcoes_Ao_Carregar_execultado = true
-                setTimeout(() => {
-                    Execultar_Funcoes_Ao_Carregar()
-                }, 500)
             }
         })
 

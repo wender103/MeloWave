@@ -21,6 +21,8 @@ async function Postar_Musica(Comando = '') {
         }
 
         document.getElementById('input_add_musica').value = ''
+        const carregamento_postar_musica = document.getElementById('carregamento_postar_musica')
+        const primeira_parte_postar_musica = document.getElementById('primeira_parte_postar_musica')
 
         if(!musica_ja_adicionada_anteriormente) {
             if(Comando.includes('Abrir Página: ')) {
@@ -29,7 +31,9 @@ async function Postar_Musica(Comando = '') {
 
             if(input_add_musica.startsWith('https://music.youtube.com') && pd_postar_outra_musica) {
                 pd_postar_outra_musica = false
-                toggleLoadingScreen()
+                carregamento_postar_musica.style.display = 'flex'
+                primeira_parte_postar_musica.style.display = 'none'
+                
                 let downloadURL
         
                 // Verifica se está rodando localmente
@@ -40,6 +44,9 @@ async function Postar_Musica(Comando = '') {
                 } else {
                     // Caso a URL não corresponda a nenhum dos casos anteriores
                     pd_postar_outra_musica = true
+                    carregamento_postar_musica.style.display = 'none'
+                    primeira_parte_postar_musica.style.display = 'flex'
+                    
                     console.error('URL não reconhecida')
                 }
         
@@ -71,6 +78,7 @@ async function Postar_Musica(Comando = '') {
                                 document.getElementById('img_musica_postada').src = data.thumbnailUrl;
                                 document.getElementById('primeira_parte_postar_musica').style.display = 'none'
                                 document.getElementById('segunda_parte_postar_musica').style.display = 'flex'
+                                carregamento_postar_musica.style.display = 'none'
                                 //! Gerar link
                                 btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('Genre of the song ' + data.videoTitle, ' by artist ' + data.channelName)}`
                                 btn_pesquisar_genero.addEventListener('click', () => {
@@ -93,6 +101,9 @@ async function Postar_Musica(Comando = '') {
                     console.error(error)
                     alert('Erro: ' + error.message)
                     pd_postar_outra_musica = true
+                    carregamento_postar_musica.style.display = 'none'
+                    primeira_parte_postar_musica.style.display = 'flex'
+                    
                     closeLoadingScreen()
                 }
         

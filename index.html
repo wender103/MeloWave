@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="theme-color" content="#ff6600"> -->
     <title>MeloWave - Home</title>
 
+    <!-- <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css"> -->
     <link rel="stylesheet" href="Assets/Styles/Home/Home.css">
     <link rel="stylesheet" href="Assets/Styles/Home/Responsivo/Home_Responsivo.css">
     <link rel="stylesheet" href="Assets/Styles/Wallpapers/wallpapers.css">
@@ -269,6 +271,11 @@
                 <article></article>
             </section>
 
+            <section class="Container_Musicas_Caixa" id="container_matchs">
+                <h1>Matchs</h1>
+                <article></article>
+            </section>
+
             <section class="Container_Musicas_Caixa" id="container_pesquisa">
                 <h1 id="h1_pesquisa"></h1>
                 <article></article>
@@ -295,6 +302,18 @@
                 </div>
 
                 <button onclick="Postar_Musica()">Prosseguir</button>
+            </article>
+
+            <article id="carregamento_postar_musica">
+                <div class="loader">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
             </article>
 
             <article id="segunda_parte_postar_musica">
@@ -409,7 +428,7 @@
                     </div>
 
                     <div id="container_infos_playlistmix">
-                        <span>Playlist pública</span>
+                        <span>Playlist Pública</span>
                         <h1 id="nome_playlistmix">Mix Diário 1</h1>
                         <p id="p_infos_playlistmix">Feito para Wedner Natanael - <span>209 músicas</span></p>
                     </div>
@@ -559,7 +578,7 @@
     
                 <h1>Entre nesse Match</h1>
                 <p>Veja se o gosto de vocês é mesmo parecido e ganhe um mix das músicas curtidas em comum.</p>
-                <span>Obeservação: até 10 pessoas podem entrar em um Match. Quem estiver conectado poderá ver sua foto de perfil e seu nome de usuário.</span>
+                <span>Obeservação: até 5 pessoas podem entrar em um Match. Quem estiver conectado poderá ver sua foto de perfil e seu nome de usuário.</span>
 
                 <button id="btn_convidar_para_aceitarmatch">Participar</button>
             </article>
@@ -602,6 +621,152 @@
 
             <article id="container_match"></article>
         </section>
+
+        <section class="Paginas" id="Pagina_criarplaylist">
+            <article id="container_header_criarplaylist">
+                <div id="container_infos_header_criarplaylist">
+                    <div id="container_header_img_criarplaylist" onclick="Abrir_Editar_Header_CriarPlaylist()">
+                        <div class="container_imgs_criar_playlist">
+                            <img src="Assets/Imgs/Faixas.png">
+                        </div>
+
+                        <div id="container_editar_img_criarplaylist">
+                            <img src="Assets/Imgs/pen.png">
+                        </div>
+                    </div>
+
+                    <div id="container_infos_criarplaylist" onclick="Abrir_Editar_Header_CriarPlaylist()">
+                        <span id="estado_playlist_criar_playlist">Playlist Pública</span>
+                        <h1 id="nome_criarplaylist">Minha Playlist</h1>
+                        <p id="desc_playlist_criar_playlist"></p>
+                        <div id="div_infos_criarplaylist">
+                            <div id="container_imgs_header_criarplaylist">
+                                <img src="" id="img_perfil_user_criar_playlisy">
+                            </div>
+                            <p id="nomes_colaboradores"></p>
+                            <span id="infos_musica_playlist_criar"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="container_headers_btns_criarplaylist">
+                    <div id="part1_btns_criarplaylist">
+                        <img src="Assets/Imgs/play_pc.svg" id="img_play_criarplaylist">
+                        <span id="btn_config_criarplaylist" class="3_pontos_config">...</span>
+                        <div id="btns_postar_cancelar_criar_playlist">
+                            <button id="btn_postar_nova_playlist">Postar</button>
+                            <button id="btn_cancelar_nova_playlist">Cancelar</button>
+                        </div>
+                    </div>
+
+                    <div id="container_pesquisar_criarplaylist" class="container_inputs_pesquisar">
+                        <img src="Assets/Imgs/Icons_search_input.svg">
+                        <input type="text" placeholder="Incrementar a playlist" id="input_pesquisar_criarplaylist" oninput="Pesquisar_Musica_Incrementar(this.value)" autocomplete="off">
+                    </div>
+                </div>
+
+                <hr>
+            </article>
+
+            <div id="container_editar_perfil_header_criar_plylist">
+                <div id="container_container_editar_perfil_header_criar_plylist">
+                    <div id="header_container_editar_perfil_header_criar_plylist">
+                        <h1>Editar Detalhes</h1>
+                        <img src="Assets/Imgs/x.svg" onclick="Fechar_Editar_Header_CriarPlaylist()">
+                    </div>
+    
+                    <div id="container_inputs_editar_header_criar_plylist">
+                        <div id="container_img_editar_criar_playlist">
+                            <div class="container_imgs_criar_playlist">
+                                <img src="Assets/Imgs/Faixas.png">
+                            </div>
+
+                            <div id="container_iconeidtar_editar_criar_playlist" class="container_iconeidtar_editar_criar_playlist">
+                                <span class="container_iconeidtar_editar_criar_playlist">...</span>
+                            </div>
+
+                            <input type="text" autocomplete="off" placeholder="Link da imagem" id="input_link_img_playlist_criar_playlist" oninput="Checar_Img_CriarPlaylist()">
+                        </div>
+
+                        <div id="opcs_editar_criar_playlist">
+                            <p id="p_mudar_foto_editar_criarplaylist"><img src="Assets/Imgs/fotos.png">  Mudar foto</p>
+                            <p id="p_remover_foto_editar_criarplaylist"><img src="Assets/Imgs/lixeira_branca.png">  Remover foto</p>
+                        </div>
+    
+                        <div id="container_inputs_editar_criar_playlist">
+                            <input type="text" placeholder="Nome da playlist" autocomplete="off" id="input_nome_criar_playlist" oninput="Atualizar_Infos_Criar_Playlist()" maxlength="20">
+                            <textarea id="text_area_add_descricao_criar_playlist" autocomplete="off" placeholder="Descrição opicional." oninput="Atualizar_Infos_Criar_Playlist()" maxlength="100"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <article id="pesquisa_criar_playlist"></article>
+
+            <article id="container_musicas_criar_playlist"></article>
+        </section>
+
+        <section class="Paginas" id="Pagina_playlist">
+            <article id="container_header_playlist_page">
+                <div id="container_infos_header_playlist_page">
+                    <div id="container_header_img_playlist_page">
+                        <div id="container_imgs_criar_playlist_page" onclick="Abrir_Zoom_Img_Playlist()">
+                            <img src="Assets/Imgs/Faixas.png" id="img">
+                        </div>
+                    </div>
+
+                    <div id="container_infos_playlist_page">
+                        <span id="estado_playlist_page_criar_playlist_page">Playlist Pública</span>
+                        <h1 id="nome_playlist_page">Minha Playlist</h1>
+                        <p id="desc_playlist_page_criar_playlist_page"></p>
+                        <div id="div_infos_playlist_page">
+                            <div id="container_imgs_header_playlist_page">
+                            </div>
+                            <p id="nomes_colaboradores_playlist_page"></p>
+                            <span id="infos_musica_page_playlist"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="container_headers_btns_playlist_page">
+                    <div id="part1_btns_playlist_page">
+                        <img src="Assets/Imgs/play_pc.svg" id="img_play_playlist_page">
+                        <span id="btn_config_playlist_page" class="3_pontos_config">...</span>
+                    </div>
+
+                    <div id="container_pesquisar_playlist_page" class="container_inputs_pesquisar">
+                        <img src="Assets/Imgs/Icons_search_input.svg">
+                        <input type="text" placeholder="Pesquisar na playlist" id="input_pesquisar_playlist_page" oninput="Pesquisar_Musica_Playlist_Page(this.value)" autocomplete="off">
+                    </div>
+                </div>
+
+                <hr>
+            </article>
+
+            <article id="container_musicas_playlist_page"></article>
+        </section>
+
+        <section class="Paginas" id="Pagina_aceitarplaylist">
+            <article>
+                <div id="container_imgs_aceitarplaylist">
+                    <div id="container_container_imgs_aceitarplaylist">
+                        <div id="container_img_user_aceitarplaylist" class="container_img_user_aceitarplaylist">
+                            <img src='Assets/Imgs/user_anonimo.png' id="img_user_aceitarplaylist">
+                        </div>
+        
+                        <div id="container_anonimo_img_aceitarplaylist" class="container_img_user_aceitarplaylist">
+                            <img src="Assets/Imgs/user_anonimo.png">
+                        </div>
+                    </div>
+                </div>
+    
+                <h1>Faça parte dessa playlist</h1>
+                <p>Junte-se aos seus amigos em uma playlist exclusiva e divirtam-se juntos! 🎶🎉</p>
+                <span>Obeservação: até 5 pessoas podem fazer parte de uma playlist. Quem estiver conectado poderá ver sua foto de perfil e seu nome de usuário. Seus amigos também podem convidar amigos.</span>
+
+                <button id="btn__aceitarplaylist">Entrar</button>
+            </article>
+        </section>
     </main>
     <!--! Fim Main -->
 
@@ -638,6 +803,11 @@
     <!--! Img Zoom Perfil -->
     <div id="container_img_perfil_zoom" onclick="fecharImagemZoom()">
         <img src="" id="img_perfil_zoom">
+    </div>
+
+    <!--! Container Img Zoom PLaylist -->
+    <div id="container_img_zoom_playlist" onclick="Fechar_Zoom_Img_Playlist()">
+        <div id="container_imgs_playlist_zoom"></div>
     </div>
 
     <section id="contaier_amigos">
@@ -745,7 +915,7 @@
                     <div class="contanier_caixa_fila2">
                         <div class="musica_resulmo Animation_Nova_Musica_Fila" id="musica_tocando_agora_fila">
                             <div class="primeira_parte_lista_prox">
-                                <img src="https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/1ppcDBGWY14jvKrqORj0/Omy_Alka___Topic_thumbnail.jpg" id="img_tocando_agora_fila">
+                                <img src="Assets/Imgs/music1.png" id="img_tocando_agora_fila">
                 
                                 <div class="texto_musica_resulmo">
                                     <p id="nome_tocando_agora_fila"></p>
@@ -963,6 +1133,9 @@
 
     <div id="copyNotification">✅ Link copiado para a área de transferência!</div>
 
+    <!--! Avisos Raídos -->
+    <div id="avisos_rapidos"></div>
+
     <!--! Carregamento -->
     <div id="container_carregamento_tela_innteira">
         <div class="loader">
@@ -1036,5 +1209,7 @@
     <script src="Assets/Js/Main/Teclas_De_Atalho.js"></script>
     <script src="Assets/Js/Main/Biblioteca.js"></script>
     <script src="Assets/Js/Main/Match.js"></script>
+    <script src="Assets/Js/Main/Criar_Playlist.js"></script>
+    <script src="Assets/Js/Main/AceitarPlaylist.js"></script>
 </body>
 </html>
