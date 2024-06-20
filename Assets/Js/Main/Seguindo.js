@@ -132,6 +132,14 @@ function Artistas_Seguindo(Autor) {
 }
 
 function Playlist_Seguindo(Playlist_Carregar) {
+    for (let c = 0; c < Playlist_Carregar.Musicas.length; c++) {
+        for (let b = 0; b < TodasMusicas.length; b++) {
+            if(TodasMusicas[b].ID == Playlist_Carregar.Musicas[c]) {
+                Playlist_Carregar.Musicas[c] = TodasMusicas[b]
+            }
+        }
+    }
+
     const container_playlist = document.createElement('li')
     const container_img_playlist_playlist = document.createElement('div')
     const img_so = document.createElement('img')

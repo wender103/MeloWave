@@ -29,12 +29,6 @@ function Execultar_Funcoes_Ao_Carregar() {
         }
 
         try {
-            Carreagr_Artistas_Seguindo()
-        } catch(e){
-            console.warn(e)
-        }
-
-        try {
             Checar_Notificacao_Artista_Seguindo()
         } catch(e){
             console.warn(e)
@@ -95,5 +89,13 @@ function Execultar_Funcoes_Ao_Carregar() {
         try {
             Recarregar_Infos_Url()
         } catch(e){console.warn(e)}
+
+        try {
+            setTimeout(() => {
+                Carreagr_Artistas_Seguindo()
+            }, 1000)
+        } catch(e){
+            console.warn(e)
+        }
     }
 }
