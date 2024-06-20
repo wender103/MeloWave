@@ -91,9 +91,7 @@ function Execultar_Funcoes_Ao_Carregar() {
         } catch(e){console.warn(e)}
 
         try {
-            setTimeout(() => {
-                Carreagr_Artistas_Seguindo()
-            }, 1000)
+            Carreagr_Artistas_Seguindo()
         } catch(e){
             console.warn(e)
         }
