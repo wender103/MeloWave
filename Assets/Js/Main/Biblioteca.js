@@ -24,7 +24,7 @@ function Carregar_Biblioteca() {
             lista_seguindo.push(TodasPlaylists[c])
             
         } else {
-            for (let b = 0; b < TodasPlaylists.Colaboradores.length; b++) {
+            for (let b = 0; b < TodasPlaylists[c].Colaboradores.length; b++) {
                 if(TodasPlaylists[c].Colaboradores[b] == User.ID) {
                     lista_seguindo.push(TodasPlaylists[c])
                     break
