@@ -558,7 +558,14 @@ function Ativar_Musica(Musica) {
 
 function Desativar_Musica() {
     Pausar()
-    Fehcar_Fila()
+    try {
+        Fehcar_Fila()
+    } catch{}
+
+    try {
+        Fechar_Tela_Tocando_Agora()
+    } catch{}
+
     const nav = document.querySelector('nav')
     nav.classList.add('Musica_On')
 

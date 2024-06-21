@@ -134,6 +134,10 @@ function Iniciar_Sincronizar_Letra(Iniciar_Sem_Perguntar = false) {
             Volume(100, input_volume_pc)
         }
 
+        setTimeout(() => {
+            Play()
+        }, 5000)
+
     } else if(info_add_letra.Visto == false || info_add_letra == null) {
         Notificar_Infos(Texto_Info_Add_Letra, 'Informação, Confirmar, Grande', 'Entendi').then(()=> {
             info_add_letra.Visto = true
@@ -149,6 +153,10 @@ function Iniciar_Sincronizar_Letra(Iniciar_Sem_Perguntar = false) {
             if(Volume_Antigo < 20) {
                 Volume(100, input_volume_pc)
             }
+
+            setTimeout(() => {
+                Play()
+            }, 5000)
         })
     }
 }

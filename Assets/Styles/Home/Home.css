@@ -819,6 +819,9 @@ body div#nav_main div#btns_esquerda button {
   border-radius: 4px;
   cursor: pointer;
 }
+body div#nav_main div#btns_esquerda button.active {
+  background-color: rgba(0, 0, 0, 0.3019607843);
+}
 body div#nav_main div#btns_direita {
   display: none;
   gap: 8px;

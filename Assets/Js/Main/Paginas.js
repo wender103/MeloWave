@@ -7,8 +7,16 @@ let Pagina_Atual = {
 }
 
 function Abrir_Pagina(Pagina, ID) {
+    const Paginas_Sem_Btns_Voltar = ['verpagina', 'adicionarletra']
+
     Pagina_Atual.Nome = Pagina,
     Pagina_Atual.ID = ID
+
+    if(pode_salvar_navegacao) {
+        Salvar_Navegacao(Pagina, ID)
+    }
+
+    pode_salvar_navegacao = true
 
     let pagina_igual = false
     for (let c = 0; c < Paginas_Nao_Trocar_Background.length; c++) {
@@ -18,8 +26,8 @@ function Abrir_Pagina(Pagina, ID) {
         }
     }
 
-    animateBackgroundColor('transparent', lista_elementos_mudar_cor_letra, 1500)
-    animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 1500)
+    animateBackgroundColor('transparent', lista_elementos_mudar_cor_letra, 800)
+    animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 800)
     Fechar_Creditos()
     
     if(Pagina != 'verletra') {
@@ -27,6 +35,20 @@ function Abrir_Pagina(Pagina, ID) {
         if(reabrir_letra_aba_musica_tocando_agora) {
             Mostrar_Letra_Tela_Tocando_Agora()
         }
+    }
+    let tem_btns_voltar = true
+    for (let c = 0; c < Paginas_Sem_Btns_Voltar.length; c++) {
+        if(Pagina == Paginas_Sem_Btns_Voltar[c]) {
+            tem_btns_voltar = false
+            document.getElementById('btn_voltar_pagina').style.display = 'none'
+            document.getElementById('btn_avancar_pagina').style.display = 'none'
+            break
+        }
+    }
+
+    if(tem_btns_voltar) {
+        document.getElementById('btn_voltar_pagina').style.display = 'flex'
+        document.getElementById('btn_avancar_pagina').style.display = 'flex'
     }
 
     if(Listas_Prox.MusicaAtual.Img && !pagina_igual) {
@@ -49,7 +71,7 @@ function Abrir_Pagina(Pagina, ID) {
                 setTimeout(() => {
                     document.getElementById(`Pagina_${Pagina}`).style.opacity = 1
                 }, 200) 
-            }, 500)
+            }, 200)
         }
     })
 

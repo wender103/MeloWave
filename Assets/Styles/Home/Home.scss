@@ -248,6 +248,10 @@ body {
                 justify-content: center;
                 border-radius: 4px;
                 cursor: pointer;
+
+                &.active {
+                    background-color: #0000004d;
+                }
             }
 
             // div#input_pesquisa {

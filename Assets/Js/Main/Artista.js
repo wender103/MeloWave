@@ -52,10 +52,6 @@ function Abrir_Perfil_Artista(Artista, Musica) {
 }
 
 //! Random -----------------------
-const icon_random_artista = document.getElementById('icon_random_artista')
-icon_random_artista.addEventListener('click', () => {
-})
-
 const img_play_musicas_artista = document.getElementById('img_play_musicas_artista')
 img_play_musicas_artista.addEventListener('click', () => {
     Tocar_Musica(Lsita_Musicas_Artista, Lsita_Musicas_Artista[0], '', `artista_${Lsita_Musicas_Artista[0]}`, 'artista')

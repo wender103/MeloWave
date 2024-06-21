@@ -51,7 +51,8 @@ function Recarregar_Infos_Url() {
     const url = window.location.href
     const { page, id_page, musicId, conviteID } = getParamsFromUrl(url)
 
-    if(musicId != undefined && musicId != null) {
+    if(musicId != undefined && musicId != null && !musica_carregada) {
+        musica_carregada = true
         //! Vai checar se a música da url tem na lista
         let memoria = JSON.parse(localStorage.getItem('Lista_De_Reproducao'))
         if(memoria) {
@@ -193,6 +194,18 @@ function Recarregar_Infos_Url() {
             Abrir_Pagina('playlist', id_page)
         } else if(page == 'aceitarplaylist') {
             Abrir_Pagina('aceitarplaylist', id_page)
+        } else {
+            let Pode_Salvar_Pagina = true
+            for (let c = 0; c < Paginas_Nao_Salvar_No_Historico.length; c++) {
+                if(page == Paginas_Nao_Salvar_No_Historico[c]) {
+                    Pode_Salvar_Pagina = false
+                    break
+                }
+            }
+
+            if(Pode_Salvar_Pagina) {
+                Abrir_Pagina(page, id_page)
+            }
         }
     }
 }
