@@ -405,7 +405,10 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
             opcoes_musica_ul.innerHTML += btn_tornar_publica_playlist
         }
 
-        opcoes_musica_ul.innerHTML += Convidar_Amido_playlist
+        //! 4 Colaboradores + o Admin ficando 5 pessoas na playlist
+        if(Playlist_Aberta.Colaboradores.length < 4) {
+            opcoes_fila_ul.innerHTML += Convidar_Amido_playlist
+        }
         opcoes_fila_ul.innerHTML += '<hr>'
 
         if(Listas_Prox.Indice != undefined && Listas_Prox.Nome_Album != Playlist_Aberta.Nome) {
@@ -603,18 +606,19 @@ function Convidar_Para_Match(ID) {
                 }
             }
 
-            if(!link_expirou && match_carregado.Participantes.length < 5) {
-                let id_convite
+            let user_admin_match
+            for (let c = 0; c < Todos_Usuarios.length; c++) {
+                if(Todos_Usuarios[c].ID == match_carregado.Admin) {
+                    user_admin_match = Todos_Usuarios[c]
+                    break
+                }
+            }
 
-                for (let c = 0; c < Todos_Usuarios.length; c++) {
-                    if(Todos_Usuarios[c].ID == match_carregado.Admin) {
-                        const user_selecionado = Todos_Usuarios[c]
-                        for (let d = 0; d < user_selecionado.Social.Matchs.Convites.length; d++) {
-                            if(user_selecionado.Social.Matchs.Convites[d].ID == ID) {
-                                id_convite = user_selecionado.Social.Matchs.Convites[d].ID_Convite
-                                break
-                            }
-                        }
+            if(!link_expirou && match_carregado.Participantes.length < 5 && user_admin_match.Social.Matchs.Convites.length > 0) {
+                let id_convite
+                for (let d = 0; d < user_admin_match.Social.Matchs.Convites.length; d++) {
+                    if(user_admin_match.Social.Matchs.Convites[d].ID == ID) {
+                        id_convite = user_admin_match.Social.Matchs.Convites[d].ID_Convite
                         break
                     }
                 }
@@ -627,7 +631,7 @@ function Convidar_Para_Match(ID) {
                 Copiar_Para_Area_Tranferencia(link)
 
 
-            } else if(link_expirou && match_carregado.Participantes.length < 5) {
+            } else if(link_expirou && match_carregado.Participantes.length < 5 || user_admin_match.Social.Matchs.Convites.length == 0 && match_carregado.Participantes.length < 5) {
                 Deletar_Convite_Match(ID, user_adm.ID).then(() => {
                     let ID_Match = ID
                     let ID_Convite = gerarId()

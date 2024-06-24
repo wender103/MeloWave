@@ -455,6 +455,11 @@ function Abrir_Match(ID=undefined) {
                 traco_perfil_match.style.background = cor_adm
                 document.getElementById('nome_match').innerText = nomes_participantes
                 document.getElementById('para_qm_match').innerText = `Um Match de músicas feito para ${nomes_participantes}. Atualizado todos os dias.`
+
+                const container_header_img_match = document.getElementById('container_header_img_match')
+                const container_imgs_playlist_zoom = document.getElementById('container_imgs_playlist_zoom')
+                container_imgs_playlist_zoom.innerHTML = container_header_img_match.cloneNode(true).innerHTML
+                container_imgs_playlist_zoom.className = 'active_match'
         }
     }
 
@@ -538,8 +543,7 @@ function Retornar_Musicas_Match(Users) {
         todas_musicas_match.push(...array_musicas_user)
     }
 
-    todas_musicas_match = shuffleArray(todas_musicas_match)
-
+    todas_musicas_match = organizarArrayPorEmail(todas_musicas_match)
     pesquisa_match = [...todas_musicas_match]
 
     //! Carregar músicas ---------------------------

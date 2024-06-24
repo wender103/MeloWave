@@ -313,11 +313,6 @@ function Retornar_Daily() {
     }
 }
 
-//! Random -------------------------------------------
-const icon_random_playlistmix = document.getElementById('icon_random_playlistmix')
-icon_random_playlistmix.addEventListener('click', () => {
-})
-
 const img_play_playlistmix = document.getElementById('img_play_playlistmix')
 img_play_playlistmix.addEventListener('click', () => {
     Tocar_Musica(Arraay_PlaylistMix, Arraay_PlaylistMix[0])

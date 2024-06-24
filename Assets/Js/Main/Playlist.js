@@ -8,6 +8,11 @@ function Abrir_PLaylistMix(Array, Nome, svg) {
     document.getElementById('img_da_playlistmix').src = new_array[new_array.length - 1].Img
     document.getElementById('p_infos_playlistmix').innerText = `Feito para ${User.Nome}`
 
+    const container_header_img_playlistmix = document.getElementById('container_header_img_playlistmix')
+    const container_imgs_playlist_zoom = document.getElementById('container_imgs_playlist_zoom')
+    container_imgs_playlist_zoom.innerHTML = container_header_img_playlistmix.cloneNode(true).innerHTML
+    container_imgs_playlist_zoom.className = 'active_daily'
+
     somarTempos(new_array).then((Tempo) => {
         let resultado = ''
 

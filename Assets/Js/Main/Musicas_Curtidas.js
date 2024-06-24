@@ -215,42 +215,18 @@ function Pesquisar_Musicas_Curtidas(Pesquisa) {
 }
 
 //! Tocar Músicas Curtidas
-let musica_curtida_random = false
-let musica_curtidas_id_page = undefined
-const icon_random_musicascurtidas = document.getElementById('icon_random_musicascurtidas')
-icon_random_musicascurtidas.addEventListener('click', () => {
-    let new_arrey = [...Musicas_Curtidas_Array]
-
-    if(icon_random_musicascurtidas.style.cursor == 'pointer') { 
-        if(musica_curtida_random) {
-            musica_curtida_random = false
-            icon_random_musicascurtidas.style.cursor = 'pointer'
-            var paths = icon_random_musicascurtidas.querySelectorAll('path')
-            paths.forEach(function(path) {
-                path.style.fill = '#fff'
-                path.style.cursor = 'pointer'
-            })
-
-            Random(new_arrey.reverse(), false)
-
-
-        } else {
-            musica_curtida_random = true
-
-            icon_random_musicascurtidas.style.cursor = 'pointer'
-            var paths = icon_random_musicascurtidas.querySelectorAll('path')
-            paths.forEach(function(path) {
-                path.style.fill = 'rgb(0, 255, 213)'
-                path.style.cursor = 'pointer'
-            })
-
-            Random(new_arrey.reverse(), true, 'musicascurtidas')
-        }
-    }
-})
-
 const img_play_musicas_curtidas = document.getElementById('img_play_musicas_curtidas')
 img_play_musicas_curtidas.addEventListener('click', () => {
     let new_arrey = [...Musicas_Curtidas_Array]
     Tocar_Musica(new_arrey.reverse(), Musicas_Curtidas_Array[Musicas_Curtidas_Array.length - 1], '', `musicascurtidas_${User.ID}`, 'musicascurtidas')
+})
+
+const container_header_img_musicas_curtidas = document.getElementById('container_header_img_musicas_curtidas')
+container_header_img_musicas_curtidas.addEventListener('click', () => {
+    const container_imgs_playlist_zoom = document.getElementById('container_imgs_playlist_zoom')
+    const img = document.createElement('img')
+    img.src = container_header_img_musicas_curtidas.querySelector('img').src
+    container_imgs_playlist_zoom.innerHTML = ''
+    container_imgs_playlist_zoom.appendChild(img)
+    container_imgs_playlist_zoom.className = ''
 })

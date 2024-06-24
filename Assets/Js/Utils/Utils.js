@@ -1176,3 +1176,33 @@ function limparURL(parametroParaRemover) {
     // Trocar a URL sem atualizar a página
     history.replaceState(null, '', novaURL);
 }
+
+//! Organizar arrays listra por email
+function organizarArrayPorEmail(array) {
+    // Primeiro, agrupa os objetos por User_Match.ID
+    const agrupadosPorUser = array.reduce((acc, obj) => {
+      const userID = obj.User_Match.ID
+      if (!acc[userID]) {
+        acc[userID] = []
+      }
+      acc[userID].push(obj)
+      return acc
+    }, {})
+  
+    // Depois, transforma o objeto em um array de arrays
+    const listasPorUser = Object.values(agrupadosPorUser)
+  
+    // Cria um array para armazenar o resultado final
+    const resultado = []
+    
+    // Usa um loop infinito que só para quando não há mais objetos para distribuir
+    while (listasPorUser.some(lista => lista.length > 0)) {
+      for (const lista of listasPorUser) {
+        if (lista.length > 0) {
+          resultado.push(lista.shift())
+        }
+      }
+    }
+  
+    return resultado
+  }
