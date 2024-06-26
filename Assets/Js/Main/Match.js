@@ -449,17 +449,17 @@ function Abrir_Match(ID=undefined) {
                 }
             }
 
-                Retornar_Musicas_Match(array_participantes)
-                
-                container_infos_foto_perfil_match.style.background = Match_Carregar.Background
-                traco_perfil_match.style.background = cor_adm
-                document.getElementById('nome_match').innerText = nomes_participantes
-                document.getElementById('para_qm_match').innerText = `Um Match de músicas feito para ${nomes_participantes}. Atualizado todos os dias.`
+            Retornar_Musicas_Match(array_participantes)
+            
+            container_infos_foto_perfil_match.style.background = Match_Carregar.Background
+            traco_perfil_match.style.background = cor_adm
+            document.getElementById('nome_match').innerText = nomes_participantes
+            document.getElementById('para_qm_match').innerText = `Um Match de músicas feito para ${nomes_participantes}. Atualizado todos os dias.`
 
-                const container_header_img_match = document.getElementById('container_header_img_match')
-                const container_imgs_playlist_zoom = document.getElementById('container_imgs_playlist_zoom')
-                container_imgs_playlist_zoom.innerHTML = container_header_img_match.cloneNode(true).innerHTML
-                container_imgs_playlist_zoom.className = 'active_match'
+            const container_header_img_match = document.getElementById('container_header_img_match')
+            const container_imgs_playlist_zoom = document.getElementById('container_imgs_playlist_zoom')
+            container_imgs_playlist_zoom.innerHTML = container_header_img_match.cloneNode(true).innerHTML
+            container_imgs_playlist_zoom.className = 'active_match'
         }
     }
 
@@ -609,10 +609,10 @@ function Retornar_Musicas_Match(Users) {
         musica_linha.appendChild(primeira_parte_musica_linha)
 
         musica_linha.appendChild(views)
-        container_img_perfil.appendChild(img_perfil)
-        segunda_parte_musica_linha.appendChild(container_img_perfil)
         segunda_parte_musica_linha.appendChild(like)
         segunda_parte_musica_linha.appendChild(tempo)
+        container_img_perfil.appendChild(img_perfil)
+        segunda_parte_musica_linha.appendChild(container_img_perfil)
         musica_linha.appendChild(segunda_parte_musica_linha)
         document.getElementById('container_match').appendChild(musica_linha)
 
@@ -764,10 +764,10 @@ function Pesquisar_Matchs(Pesquisa) {
             musica_linha.appendChild(primeira_parte_musica_linha)
     
             musica_linha.appendChild(views)
-            container_img_perfil.appendChild(img_perfil)
-            segunda_parte_musica_linha.appendChild(container_img_perfil)
             segunda_parte_musica_linha.appendChild(like)
             segunda_parte_musica_linha.appendChild(tempo)
+            container_img_perfil.appendChild(img_perfil)
+            segunda_parte_musica_linha.appendChild(container_img_perfil)
             musica_linha.appendChild(segunda_parte_musica_linha)
             document.getElementById('container_match').appendChild(musica_linha)
     

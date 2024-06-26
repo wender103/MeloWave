@@ -289,14 +289,14 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     let user_artistas_seguindo = User.Social.Artistas
     let ja_tem_a_musica = false
     for (let c = 0; c < user_artistas_seguindo.length; c++) {
-        if(MusicaAtual.Autor.includes(user_artistas_seguindo[c].Autor) && !ja_tem_a_musica) {           
+        if(MusicaAtual.Autor.includes(user_artistas_seguindo[c].Autor) && !ja_tem_a_musica) {    
             for (let a = 0; a < user_artistas_seguindo[c].Musicas_Ouvidas.length; a++) {
-                if(user_artistas_seguindo[c].Musicas_Ouvidas[a].ID == MusicaAtual.ID) {
+                if(user_artistas_seguindo[c].Musicas_Ouvidas[a] == MusicaAtual.ID) {
                     ja_tem_a_musica = true
                     break
                 }
             }
-        } else {
+        } else if(ja_tem_a_musica) {
             break
         }
     }
@@ -304,6 +304,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     if(!ja_tem_a_musica) {
         for (let c = 0; c < user_artistas_seguindo.length; c++) {
             if(MusicaAtual.Autor.includes(user_artistas_seguindo[c].Autor)) {  
+                user_artistas_seguindo[c].Musicas_Ouvidas = removerNomesDuplicados(user_artistas_seguindo[c].Musicas_Ouvidas)
                 user_artistas_seguindo[c].Musicas_Ouvidas.push(MusicaAtual.ID)
                 Salvar_Musicas_Ouvidas_Artista_Seguindo(user_artistas_seguindo)
                 break
