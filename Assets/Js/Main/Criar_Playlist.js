@@ -15,6 +15,7 @@ function Gerar_Forma_Playlist() {
         Img : null,
         ID: gerarId(),
         Estado: 'Pública',
+        Banidos: [],
         Convites: {
             Data: getDataAtual(5, 0, 0),
             ID: gerarId()

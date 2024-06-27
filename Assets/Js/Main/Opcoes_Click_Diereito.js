@@ -1,5 +1,5 @@
 const opcoes2_click_direito = document.getElementById('opcoes2_click_direito')
-
+let Is_Banir_Amigo_Playlist = false
 function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Artista, Perfil) {
     opcoes2_click_direito.style.display = 'none'
     //! ---------------- Uls ----------------------
@@ -66,10 +66,11 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
     let btn_tornar_publica_criar_playlist = `<li onclick="TornarPlaylist_Publica()"><img src="Assets/Imgs/mundo.png"><p>Tornar pública</p></li>`
 
     //! Playlist
+    let Baniar_Amigo_Playlist = `<li onclick="Abrir_Remover_Amigo_Playlist(true)" class="N_Fechar_Opcoes"><img src="Assets/Imgs/Hide song.svg" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Banir amigo da playlist</p></li>`
     let Editar_Detalhes_playlist = `<li onclick="Abrir_Editar_Playlist()"><img src="Assets/Imgs/pen.png"><p>Editar playlist</p></li>`
     let Convidar_Amido_playlist = `<li onclick="Convidar_Amigo_Playlist()"><img src="Assets/Imgs/convite.png"><p>Convidar amigo</p></li>`
     let btn_tornar_particular_playlist = `<li onclick="Tornar_Playlist_Particular()"><img src="Assets/Imgs/cadeado.png"><p>Tornar particular</p></li>`
-    let Abrir_Remover_Amigo_playlist = `<li onclick="Abrir_Remover_Amigo_Playlist()" class="N_Fechar_Opcoes"><img src="Assets/Imgs/remover-participante.png" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Remover Amigo</p></li>`
+    let Abrir_Remover_Amigo_playlist = `<li onclick="Abrir_Remover_Amigo_Playlist()" class="N_Fechar_Opcoes"><img src="Assets/Imgs/remover-participante.png" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Remover amigo</p></li>`
     let btn_tornar_publica_playlist = `<li onclick="Tornar_Playlist_Publica()"><img src="Assets/Imgs/mundo.png"><p>Tornar pública</p></li>`
     let btn_apagar_playlist = `<li onclick="Apagar_playlist()"><img src="Assets/Imgs/lixeira_branca.png"><p>Apagar playlist</p></li>`
     let btn_adicionar_a_fila_playlist = `<li onclick="Adicionar_Playlisy_Fila()"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar a fila</p></li>`
@@ -363,6 +364,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
 
         if (Playlist_Aberta.Colaboradores.length > 0) {
             opcoes_musica2_ul.innerHTML += Abrir_Remover_Amigo_playlist
+            opcoes_musica2_ul.innerHTML += Baniar_Amigo_Playlist
         }
 
         opcoes_musica2_ul.innerHTML += '<hr>'
@@ -389,7 +391,13 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
                     ul1div2_opcs.appendChild(li)
 
                     li.addEventListener('click', () => {
-                        Remover_Amigo_Playlist(Pagina_Atual.ID, Playlist_Aberta.Colaboradores[c])
+                        console.log('is banir do li:' + Is_Banir_Amigo_Playlist);
+                        if(Is_Banir_Amigo_Playlist) {
+                            Banir_Amigo_Playlist(Pagina_Atual.ID, Playlist_Aberta.Colaboradores[c])
+
+                        } else {
+                            Remover_Amigo_Playlist(Pagina_Atual.ID, Playlist_Aberta.Colaboradores[c])
+                        }
                     })
 
                     break
@@ -802,7 +810,10 @@ function Tornar_Playlist_Particular() {
     })
 }
 
-function Abrir_Remover_Amigo_Playlist() {
+function Abrir_Remover_Amigo_Playlist(Banir=false) {
+    console.log(Banir)
+    Is_Banir_Amigo_Playlist = Banir
+
     document.getElementById('opcoes_click_direito').style.display = 'flex'
     opcoes2_click_direito.style.display = 'block'
 }
@@ -914,6 +925,56 @@ function Remover_Amigo_Playlist(ID_Playlist, ID_Amigo) {
                                 })
                             }
                         }
+                        break
+                    }
+                }
+            }
+        })
+    })
+}
+
+function Banir_Amigo_Playlist(ID_Playlist, ID_Amigo) {
+    console.log('Na função de banir')
+    let feito = false
+    db.collection('Playlists').get().then((snapshot) => {
+        snapshot.docs.forEach(Playlists => {
+            TodasPlaylists = Playlists.data().Playlists
+
+            if (!feito) {
+                feito = true
+
+                let Amigo_Removido
+                for (let c = 0; c < Todos_Usuarios.length; c++) {
+                    if(Todos_Usuarios[c].ID == ID_Amigo) {
+                        Amigo_Removido = Todos_Usuarios[c]
+                        break
+                    }
+                }
+
+                for (let c = 0; c < TodasPlaylists.length; c++) {
+                    if(TodasPlaylists[c].ID == ID_Playlist) {
+                        TodasPlaylists[c].Banidos.push(ID_Amigo)
+
+                        for (let f = 0; f < TodasPlaylists[c].Colaboradores.length; f++) {
+                            if(TodasPlaylists[c].Colaboradores[f] == ID_Amigo) {
+                                TodasPlaylists[c].Colaboradores.splice(f, 1)
+                                break
+                            }
+                        }
+
+                        db.collection('Playlists').doc(Playlists.id).update({ Playlists: TodasPlaylists }).then(() => {
+                            Avisos_Rapidos('Amigo banido da playlist!')
+                            Abrir_Pagina('playlist', ID_Playlist)
+
+                            Enviar_Notificacao_Tempo_Real(Amigo_Removido.ID, 'Playlist', `🎵😔 Você foi banido permanentemente da playlist *#00ceff*${TodasPlaylists[c].ID}*#00ceff*.🎶✨`, 'Modelo1', `User Banido Playlist:${Amigo_Removido.ID}`, Amigo_Removido.Perfil.Img_Perfil, null, 'Fehcar')
+
+                            //! Vai notificar os colaboradores que o user foi removido da playlist
+                            for (let f = 0; f < TodasPlaylists[c].Colaboradores.length; f++) {
+                                if(TodasPlaylists[c].Colaboradores[f] != User.ID) {
+                                    Enviar_Notificacao_Tempo_Real(TodasPlaylists[c].Colaboradores[f], 'Playlist', `🎵😔 *#00ceff*${Amigo_Removido.Nome}*#00ceff* foi banido permanentemente da playlist.🎶✨`, 'Modelo1', `User Removido Playlist:${Amigo_Removido.ID}`, Amigo_Removido.Perfil.Img_Perfil, null, 'Fehcar')
+                                }
+                            }
+                        })
                         break
                     }
                 }

@@ -11,7 +11,8 @@ function Checar_Aceitar_Playlist(ID, Comando='Não Aceitar') {
                 let ja_faz_parte = false
                 let playlist_lotada = false
                 let contador_playlist
-                
+                let user_banido = false
+
                 for (let c = 0; c < TodasPlaylists.length; c++) {
                     if(ID == TodasPlaylists[c].Convites.ID) {
                         convite_encontrado = true
@@ -31,7 +32,14 @@ function Checar_Aceitar_Playlist(ID, Comando='Não Aceitar') {
                             for (let b = 0; b < TodasPlaylists[c].Colaboradores.length; b++) {
                                 if(TodasPlaylists[c].Colaboradores[b] == User.ID) {
                                     ja_faz_parte = true
+                                    break
                                 }
+                            }
+                        }
+
+                        for (let f = 0; f < TodasPlaylists[c].Banidos.length; f++) {
+                            if(TodasPlaylists[c].Banidos[f] == User.ID) {
+                                user_banido = true
                             }
                         }
                         break
@@ -45,7 +53,11 @@ function Checar_Aceitar_Playlist(ID, Comando='Não Aceitar') {
                     }
                 }
 
-                if(!convite_encontrado) {
+                if(user_banido) {
+                    Notificar_Infos('🚫 Ops! Você não pode fazer parte desta playlist porque foi banido permanentemente. 😔')
+                    Abrir_Pagina('home')
+
+                } else if(!convite_encontrado) {
                     Notificar_Infos('⚠️ O link do convite para a playlist está errado. Por favor, verifique o link ou peça um novo convite. 🎶')
                     Abrir_Pagina('home')
 

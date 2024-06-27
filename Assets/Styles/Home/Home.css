@@ -1215,8 +1215,8 @@ body main section.Paginas#Pagina_home section#container_tocados_recentemente div
   overflow: hidden;
 }
 body main section.Paginas#Pagina_home section#container_tocados_recentemente div.div_container_perfil_usuario_historico div.div_container_img_historico img {
-  width: 100%;
-  height: 100%;
+  width: 130px;
+  height: 130px;
   -o-object-fit: cover;
      object-fit: cover;
 }

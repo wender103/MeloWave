@@ -266,6 +266,27 @@ function Mostrar_Notificaco_Tempo_Real() {
                 texto_notificacao_tempo_real.querySelector('strong').addEventListener('click', () => {
                     Carregar_Perfil(user_carregado)
                 }) 
+
+            } else if(Notificacao.Comando.includes('User Banido Playlist:')) {
+                img_notificacao_tempo_real.style.cursor = 'pointer'
+                img_notificacao_tempo_real.addEventListener('click', () => {
+                    Carregar_Perfil(User)
+                })
+
+                texto_notificacao_tempo_real.querySelector('strong').style.cursor = 'pointer'
+
+                let Playlist_Carregada
+                for (let c = 0; c < TodasPlaylists.length; c++) {
+                    if(TodasPlaylists[c].ID == texto_notificacao_tempo_real.querySelector('strong').innerText) {
+                        Playlist_Carregada = TodasPlaylists[c]
+                        break
+                    }
+                }
+
+                texto_notificacao_tempo_real.querySelector('strong').innerText = Playlist_Carregada.Nome
+                texto_notificacao_tempo_real.querySelector('strong').addEventListener('click', () => {
+                    Abrir_Pagina('playlist', Playlist_Carregada.ID)
+                }) 
             }
         } 
 
