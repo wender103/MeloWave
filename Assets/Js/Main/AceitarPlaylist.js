@@ -67,6 +67,14 @@ function Checar_Aceitar_Playlist(ID, Comando='Não Aceitar') {
                     db.collection('Playlists').doc(Playlists.id).update({ Playlists: TodasPlaylists }).then(() => {
                         Notificar_Infos('🎉 Bem-vindo à playlist! Estamos felizes em ter você aqui. Aproveite a música e divirta-se com a gente! 🎶🤗', 'Comemorar')
                         Abrir_Pagina('playlist', TodasPlaylists[contador_playlist].ID)
+
+                        Enviar_Notificacao_Tempo_Real(TodasPlaylists[contador_playlist].Admin, 'Playlist', `🎉🎶 Ei! *#00ceff*${User.Nome}*#00ceff* acabou de entrar na playlist! Bora curtir juntos? 😎🔥`, 'Modelo1', `Novo User Abrir Playlist:${TodasPlaylists[contador_playlist].ID}`, User.Perfil.Img_Perfil, null, 'Agora não', 'Ver')
+
+                        for (let f = 0; f < TodasPlaylists[contador_playlist].Colaboradores.length; f++) {
+                            if(TodasPlaylists[contador_playlist].Colaboradores[f] != User.ID) {
+                                Enviar_Notificacao_Tempo_Real(TodasPlaylists[contador_playlist].Colaboradores[f], 'Playlist', `🎉🎶 Ei! *#00ceff*${User.Nome}*#00ceff* acabou de entrar na playlist! Bora curtir juntos? 😎🔥`, 'Modelo1', `Novo User Abrir Playlist:${TodasPlaylists[contador_playlist].ID}`, User.Perfil.Img_Perfil, null, 'Agora não', 'Ver')
+                            }
+                        }
                     })
                 }
             }

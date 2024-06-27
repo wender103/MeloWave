@@ -92,8 +92,16 @@ function Execultar_Funcoes_Ao_Carregar() {
 
         try {
             Carreagr_Artistas_Seguindo()
+
+            setTimeout(() => {
+                Carreagr_Artistas_Seguindo()
+            }, 1000)
         } catch(e){
             console.warn(e)
         }
+
+        try {
+            Carregar_Notificacaoes_Em_Tempo_Real()
+        } catch{}
     }
 }

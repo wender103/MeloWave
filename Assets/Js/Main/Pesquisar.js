@@ -620,13 +620,13 @@ function Retornar_Match(Lista, Local) {
     Local.style.display = 'block'
 }
 
-function Retornar_Playlists(Lista, Local) {
-    
+function Retornar_Playlists(Lista, Local) {    
+    let musicas_playlist = []
     for (let c = 0; c < Lista.length; c++) {
         for (let b = 0; b < Lista[c].Musicas.length; b++) {
             for (let a = 0; a < TodasMusicas.length; a++) {
-                if(TodasMusicas[a].ID == Lista[c].Musicas[b]) {
-                    Lista[c].Musicas[b] = TodasMusicas[a]
+                if(TodasMusicas[a].ID == Lista[c].Musicas[b].ID_Musica) {
+                    musicas_playlist.push(TodasMusicas[a])
                     break
                 }
             }
@@ -663,15 +663,15 @@ function Retornar_Playlists(Lista, Local) {
             img_so.src = Lista[c].Img
             container_img_playlist_playlist.appendChild(img_so)
 
-        } else if(Lista[c].Musicas.length <= 3) {
-            img_so.src = Lista[c].Musicas[0].Img
+        } else if(musicas_playlist.length <= 3) {
+            img_so.src = musicas_playlist[0].Img
             container_img_playlist_playlist.appendChild(img_so)
 
         } else {
 
             for (let b = 0; b < 4; b++) {
                 const img = document.createElement('img')
-                img.src = Lista[c].Musicas[b].Img
+                img.src = musicas_playlist[b].Img
                 container_img_playlist_playlist.classList.add('active')
                 container_img_playlist_playlist.appendChild(img)
             }

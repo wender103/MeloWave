@@ -117,7 +117,6 @@ function Recarregar_Infos_Url() {
         
                         Tocar_Musica(Listas_Prox.Lista_Musicas, musica_ouvindo, 'Pausar')
                     }
-                    Abrir_Tela_Tocando_Agora()
                 }, 1000)
             }
         }

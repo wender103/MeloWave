@@ -5136,6 +5136,98 @@ body {
         }
     }
 
+    //! Notificação Em Tempo Real
+    section#container_notificacoes_tempo_real {
+        width: 400px;
+        height: auto;
+        position: fixed;
+        // bottom: 106px;
+        bottom: 20px;
+        right: -450px;
+        z-index: 5;
+        background-color: var(--black_transparent);
+        backdrop-filter: blur(20px);
+        border-radius: 8px;
+        padding: 13px;
+        transition: 0.5s right ease-in-out, 0.5s bottom ease-in-out;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.507);
+
+        &.active {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        &.active1 {
+            right: 20px;
+            bottom: 116px;
+        }
+
+        &.active2 {
+            bottom: 116px;
+            right: 310px;
+        }
+
+        article {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            &.Modelo1 > div#continer_texto_notificacao_tempo_real > div#container_img_notificacao_tempo_real > img {
+                display: block !important;
+            }
+
+            div#continer_texto_notificacao_tempo_real {
+                display: flex;
+                gap: 10px;
+
+                div#container_img_notificacao_tempo_real {
+                    img {
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 6px;
+                        display: none;
+                        object-fit: cover;
+                    }
+                }
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    color: white;
+
+                    p {
+                        strong {
+                            font-weight: 300;
+                            color: var(--verde_azul);
+                        }
+                    }
+                }
+            }
+
+            div#container_btns_notificacao_tempo_real {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: end;
+                gap: 10px;
+
+                button {
+                    width: 100%;
+                    background-color: var(--black_transparent);
+                    height: 35px;
+                    border: none;
+                    outline: none;
+                    font-weight: 500;
+                    cursor: pointer;
+                    color: var(--white);
+                }
+            }
+        }
+    }
+
     //* ------------------------------------
     //! Cadastro
     section#Container_Cadastro {

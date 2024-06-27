@@ -158,7 +158,19 @@ function Artistas_Biblioteca(Autor) {
     })
 }
 
-function Playlist_Biblioteca(Playlist_Carregar) {
+function Playlist_Biblioteca(Playlist_Recebida) {
+    let Playlist_Carregar = Object.assign({}, Playlist_Recebida)
+    let musicas_playlist = []
+
+    for (let c = 0; c < Playlist_Carregar.Musicas.length; c++) {
+        for (let b = 0; b < TodasMusicas.length; b++) {
+            if(Playlist_Carregar.Musicas[c].ID_Musica == TodasMusicas[b].ID) {
+                musicas_playlist.push(TodasMusicas[b])
+                break
+            }
+        }
+    }
+
     const container_playlist = document.createElement('div')
     const container_img_playlist_playlist = document.createElement('div')
     const container_texto_playlist = document.createElement('div')
@@ -180,14 +192,14 @@ function Playlist_Biblioteca(Playlist_Carregar) {
         container_img_playlist_playlist.appendChild(img_so)
 
     } else if(Playlist_Carregar.Musicas.length <= 3) {
-        img_so.src = Playlist_Carregar.Musicas[0].Img
+        img_so.src = musicas_playlist[0].Img
         container_img_playlist_playlist.appendChild(img_so)
 
     } else {
 
         for (let b = 0; b < 4; b++) {
             const img = document.createElement('img')
-            img.src = Playlist_Carregar.Musicas[b].Img
+            img.src = musicas_playlist[b].Img
             container_img_playlist_playlist.classList.add('active')
             container_img_playlist_playlist.appendChild(img)
         }

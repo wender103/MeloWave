@@ -1038,17 +1038,31 @@ function aumentarVolume() {
 }
 
 //! Adiciona cores as notificações
+// function substituirTexto_cor(text) {
+//     const regex = /\*([a-zA-Z]+)\*([^*]+)\*\1\*/g
+//     return text.replace(regex, (match, color, content) => {
+//         return `<strong style="color: ${color}">${content}</strong>`
+//     })
+// }
+
+// function substituirCor_cor(text){
+//     const regex = /\*#([a-fA-F0-9]{6})\*([^*]+)\*#\1\*/g;
+//     return text.replace(regex, (match, color, content) => {
+//         return `<strong style="color: #${color}">${content}</strong>`;
+//     })
+// }
+
 function substituirTexto_cor(text) {
-    const regex = /\*([a-zA-Z]+)\*([^*]+)\*\1\*/g
+    const regex = /\*([a-zA-Z]+)\*([^*]+?)\*\1\*/g
     return text.replace(regex, (match, color, content) => {
         return `<strong style="color: ${color}">${content}</strong>`
     })
 }
 
 function substituirCor_cor(text){
-    const regex = /\*#([a-fA-F0-9]{6})\*([^*]+)\*#\1\*/g;
+    const regex = /\*#([a-fA-F0-9]{6})\*([^*]+?)\*#\1\*/g
     return text.replace(regex, (match, color, content) => {
-        return `<strong style="color: #${color}">${content}</strong>`;
+        return `<strong style="color: #${color}">${content}</strong>`
     })
 }
 
@@ -1205,4 +1219,15 @@ function organizarArrayPorEmail(array) {
     }
   
     return resultado
-  }
+}
+
+//! Compara 2 Objetos
+function objetosDiferentes(obj1, obj2) {
+    // Convertemos os objetos em strings JSON e comparamos diretamente
+    return JSON.stringify(obj1) !== JSON.stringify(obj2)
+}
+
+//! Troca os <> por &lt e &gt
+function escapeHtml(text) {
+    return text.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}

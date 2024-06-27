@@ -184,6 +184,8 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     if(Nome_Album != '') {
         Listas_Prox.Nome_Album = Nome_Album
+    } else {
+        Listas_Prox.Nome_Album = undefined
     }
 
     if(Qm_Chamou != undefined && Qm_Chamou != 'perfil') {
@@ -192,6 +194,10 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     if(Listas_Prox.MusicaAtual != MusicaAtual) {
         Repetir_Musica(false)
+    }
+
+    if(Listas_Prox.Indice == undefined) {
+        Abrir_Tela_Tocando_Agora()   
     }
 
     atualizarURL_add_Musica(MusicaAtual.ID)
@@ -541,6 +547,10 @@ function Ativar_Musica(Musica) {
     nav.style.transition = '500ms height ease-in-out'
     nav.style.height = 'calc(100vh - 112px)'
     main.style.height = 'calc(100vh - 112px)'
+
+    if(notificacao_tempo_real_aberta) {
+        document.getElementById('container_notificacoes_tempo_real').className = 'active2'
+    }
     
     const container_barra_musica = document.querySelector('#container_barra_musica')
     container_barra_musica.style.bottom = '8px'

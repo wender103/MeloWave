@@ -278,14 +278,17 @@ function Abrir_Tela_Tocando_Agora() {
         }, 600)
 
         if(!telca_tocando_agora_aberta) {
+            telca_tocando_agora_aberta = true
             setTimeout(() => {
-                telca_tocando_agora_aberta = true
                 main.style.transition = '500ms width ease-in-out'
                 main.style.width = 'calc(100vw - 386px)'
 
         
                 nav_main.style.transition = '500ms width ease-in-out'
                 nav_main.style.width = 'calc(100vw - 386px)'
+                if(notificacao_tempo_real_aberta) {
+                    document.getElementById('container_notificacoes_tempo_real').className = 'active2'
+                }
 
                 container_tela_tocando_agora.style.transition = '500ms right ease-in-out'
         
@@ -311,6 +314,9 @@ function Fechar_Tela_Tocando_Agora() {
 
     nav_main.style.transition = '500ms width ease-in-out'
     nav_main.style.width = 'calc(100vw - 96px)'
+    if(!fila_aberta && notificacao_tempo_real_aberta) {
+        document.getElementById('container_notificacoes_tempo_real').className = 'active1'
+    }
 
     Fechar_Letra_Tela_Tocando_Agora()
 

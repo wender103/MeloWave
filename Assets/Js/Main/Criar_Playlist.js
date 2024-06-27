@@ -33,7 +33,14 @@ function Carregar_Infos_Criar_Playlist() {
     Gerar_Forma_Playlist()
 }
 
-function Carregar_Editar_Playlist() {
+function Carregar_Editar_Playlist(ID_PLaylist) {
+    for (let c = 0; c < TodasPlaylists.length; c++) {
+        if(TodasPlaylists[c].ID == ID_PLaylist) {
+            Nova_Playlist = TodasPlaylists[c]
+            break
+        }
+    }
+
     Valores_Antigos_Playlist = Object.assign({}, Nova_Playlist)
 
     //! Carregar a img dos colaboradores
@@ -88,26 +95,31 @@ function Carregar_Editar_Playlist() {
 
     let ids_musica_playlist = []
 
-    if(Nova_Playlist.Musicas[0].ID != undefined) {
-        musicas_nova_playlist.push(...Nova_Playlist.Musicas)
-        for (let c = 0; c < Nova_Playlist.Musicas.length; c++) {
-            ids_musica_playlist.push(Nova_Playlist.Musicas[c].ID)
-        }
-    
-        Nova_Playlist.Musicas = [...ids_musica_playlist]
-        musicas_ids_anteriores = [...ids_musica_playlist]
+    if(Nova_Playlist.Musicas[0] != undefined) {
+        for (let c = 0; c < Nova_Playlist.Musicas.length; c++) {        
+            delete Nova_Playlist.Musicas[c].Musica
+            ids_musica_playlist.push(Nova_Playlist.Musicas[c].ID_Musica)
 
-    } else {
-        musicas_ids_anteriores = [...Nova_Playlist.Musicas]
-        for (let b = 0; b < Nova_Playlist.Musicas.length; b++) {
-            for (let c = 0; c < TodasMusicas.length; c++) {
-                if(TodasMusicas[c].ID == Nova_Playlist.Musicas[b]) {
-                    musicas_nova_playlist.push(TodasMusicas[c])
+            for (let b = 0; b < TodasMusicas.length; b++) {
+                if(Nova_Playlist.Musicas[c].ID_Musica == TodasMusicas[b].ID) {
+                    musicas_nova_playlist.push(TodasMusicas[b])
                     break
                 }
             }
         }
+    
+        musicas_ids_anteriores = [...ids_musica_playlist]
 
+    } else {
+        // musicas_ids_anteriores = [...Nova_Playlist.Musicas]
+        // for (let b = 0; b < Nova_Playlist.Musicas.length; b++) {
+        //     for (let c = 0; c < TodasMusicas.length; c++) {
+        //         if(TodasMusicas[c].ID == Nova_Playlist.Musicas[b]) {
+        //             musicas_nova_playlist.push(TodasMusicas[c])
+        //             break
+        //         }
+        //     }
+        // }
     }
 
     Incrementar_Musica()
@@ -149,7 +161,6 @@ function Carregar_Editar_Playlist() {
         infos_musica_playlist_criar.innerHTML = ` - ${musicas_nova_playlist.length} ${name_msuicas}, ${resultado}`
     })
 }
-
 
 const container_editar_perfil_header_criar_plylist = document.getElementById('container_editar_perfil_header_criar_plylist')
 
@@ -381,7 +392,12 @@ const btn_cancelar_nova_playlist = document.getElementById('btn_cancelar_nova_pl
 function Incrementar_Musica(Musica=undefined) {
 
     if(Musica != undefined) {
-        Nova_Playlist.Musicas.push(Musica.ID)
+        const new_music = {
+            ID_Musica: Musica.ID,
+            Adicionada_Por: User.ID,
+            Data: getDataAtual()
+        }
+        Nova_Playlist.Musicas.push(new_music)
         musicas_nova_playlist.push(Musica)
     }
 
@@ -493,7 +509,7 @@ function Checar_Postar() {
     let musica_adicionada = false
     if(Editando_Playlist) {
         for (let c = 0; c < Nova_Playlist.Musicas.length; c++) {
-            if(musicas_ids_anteriores[c] != Nova_Playlist.Musicas[c] || musicas_ids_anteriores.length != Nova_Playlist.Musicas.length) {
+            if(musicas_ids_anteriores[c] != Nova_Playlist.Musicas[c].ID_Musica || musicas_ids_anteriores.length != Nova_Playlist.Musicas.length) {
                 musica_adicionada = true
                 break
             }

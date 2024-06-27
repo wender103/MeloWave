@@ -51,12 +51,16 @@ function Abrir_PLaylistMix(Array, Nome, svg) {
 }
 
 //! --------------------------------- Abrir Playlist ----------------------------------------
-let Pesquisa_Playlist = []
+let Musicas_Pesquisa_Playlist = []
 let Playlist_Aberta
-function Abrir_Playlist(Playlist) {
+let Musicas_Playlist_Aberta = []
+function Abrir_Playlist(ID_PLaylist) {
+    Musicas_Playlist_Aberta = []
+    let Playlist
+    let musicas_playlist = []
     for (let c = 0; c < TodasPlaylists.length; c++) {
-        if(TodasPlaylists[c].ID == Playlist) {
-            Playlist = TodasPlaylists[c]
+        if(TodasPlaylists[c].ID == ID_PLaylist) {
+            Playlist = Object.assign({}, TodasPlaylists[c])
             break
         }
     }
@@ -88,17 +92,16 @@ function Abrir_Playlist(Playlist) {
 
     if(Playlist.Estado == 'Particular' && user_faz_parte_playlist || Playlist.Estado == 'Pública') {
     
-        for (let c = 0; c < TodasMusicas.length; c++) {
-            for (let b = 0; b < Playlist.Musicas.length; b++) {
-                if(TodasMusicas[c].ID == Playlist.Musicas[b]) {
-                    Playlist.Musicas[b] = TodasMusicas[c]
+        for (let b = 0; b < Playlist.Musicas.length; b++) {
+            for (let c = 0; c < TodasMusicas.length; c++) {
+                if(TodasMusicas[c].ID == Playlist.Musicas[b].ID_Musica) {
+                    musicas_playlist.push(TodasMusicas[c])
                     break
                 }
             }
         }
     
         Playlist_Aberta = Playlist
-        Pesquisa_Playlist = [...Playlist_Aberta.Musicas]
     
     
         const container_imgs_criar_playlist_page = document.getElementById('container_imgs_criar_playlist_page')
@@ -108,7 +111,6 @@ function Abrir_Playlist(Playlist) {
         const desc_playlist_page_criar_playlist_page = document.getElementById('desc_playlist_page_criar_playlist_page')
         const container_imgs_header_playlist_page = document.getElementById('container_imgs_header_playlist_page') //? Imgs Colaboradores
         const nomes_colaboradores_playlist_page = document.getElementById('nomes_colaboradores_playlist_page')
-        const infos_musica_playlist_page_criar = document.getElementById('infos_musica_playlist_page_criar')
     
         estado_playlist_page_criar_playlist_page.innerText = 'Playlist ' + Playlist.Estado
         nome_playlist_page.innerText = Playlist.Nome
@@ -157,8 +159,8 @@ function Abrir_Playlist(Playlist) {
             container_imgs_playlist_zoom.classList.remove('active')
             const img = document.createElement('img')
             const img2 = document.createElement('img')
-            img.src = Playlist.Musicas[0].Img
-            img2.src = Playlist.Musicas[0].Img
+            img.src = musicas_playlist[0].Img
+            img2.src = musicas_playlist[0].Img
             container_imgs_criar_playlist_page.appendChild(img)
             container_imgs_playlist_zoom.appendChild(img2)
     
@@ -167,8 +169,8 @@ function Abrir_Playlist(Playlist) {
             for (let b = 0; b < 4; b++) {
                 const img = document.createElement('img')
                 const img2 = document.createElement('img')
-                img.src = Playlist.Musicas[b].Img
-                img2.src = Playlist.Musicas[b].Img
+                img.src = musicas_playlist[b].Img
+                img2.src = musicas_playlist[b].Img
                 container_imgs_criar_playlist_page.classList.add('active')
                 container_imgs_playlist_zoom.classList.add('active')
                 container_imgs_criar_playlist_page.appendChild(img)
@@ -176,7 +178,7 @@ function Abrir_Playlist(Playlist) {
             }
         }
     
-        somarTempos(Playlist.Musicas).then((Tempo) => {
+        somarTempos(musicas_playlist).then((Tempo) => {
             let resultado = ''
     
             if(Tempo.Horas > 0) {
@@ -202,25 +204,236 @@ function Abrir_Playlist(Playlist) {
             }
     
             let name_msuicas = 'músicas'
-            if(Playlist.Musicas.length == 1) {
+            if(musicas_playlist.length == 1) {
                 name_msuicas = 'música'
             }
     
             const infos_musica_page_playlist = document.getElementById('infos_musica_page_playlist')
-            infos_musica_page_playlist.innerHTML = ` - ${Playlist.Musicas.length} ${name_msuicas}, ${resultado}`
+            infos_musica_page_playlist.innerHTML = ` - ${musicas_playlist.length} ${name_msuicas}, ${resultado}`
         })
+
+        for (let c = 0; c < Playlist.Musicas.length; c++) {
+            for (let b = 0; b < TodasMusicas.length; b++) {
+                if(TodasMusicas[b].ID == Playlist.Musicas[c].ID_Musica) {
+                    for (let a = 0; a < Todos_Usuarios.length; a++) {
+                        if(Todos_Usuarios[a].ID == Playlist.Musicas[c].Adicionada_Por) {
+                            const new_obj = {
+                                User: Todos_Usuarios[a],
+                                Musica: TodasMusicas[b]
+                            }
+                            Musicas_Playlist_Aberta.push(new_obj)
+                            break
+                        }
+                    }
+                    break
+                }
+            }
+        }
     
-        Retornar_Musica_Linha(Playlist.Musicas, document.getElementById('container_musicas_playlist_page'))
+        Musicas_Pesquisa_Playlist = [...Musicas_Playlist_Aberta]
+
+        Retornar_Musicas_Playlist(Playlist.ID, document.getElementById('container_musicas_playlist_page'))
     } else {
         Notificar_Infos('🔒 Esta playlist é particular. Você não tem permissão para visualizá-la. Entre em contato com o administrador para solicitar acesso. 🎶')
         Abrir_Pagina('home')
     }
 }
 
+function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
+    Local.innerHTML = ''
+    let Musicas_Playlist = []
+    let Playlist
+
+    //! Vai pegar todas as informações necessárias da playlist como as música e quem postou
+    for (let c = 0; c < TodasPlaylists.length; c++) {
+        if(TodasPlaylists[c].ID == ID_Playlist) {
+            Playlist = TodasPlaylists[c]
+            for (let d = 0; d < TodasPlaylists[c].Musicas.length; d++) {
+                for (let e = 0; e < TodasMusicas.length; e++) {
+                    if(TodasMusicas[e].ID == TodasPlaylists[c].Musicas[d].ID_Musica) {
+                        for (let f = 0; f < Todos_Usuarios.length; f++) {
+                            if(Todos_Usuarios[f].ID == TodasPlaylists[c].Musicas[d].Adicionada_Por) {
+                                const new_obj = {
+                                    User: Todos_Usuarios[f],
+                                    Musica: TodasMusicas[e]
+                                }
+                                Musicas_Playlist.push(new_obj)
+                                break
+                            }
+                        }
+                        break
+                    }
+                }
+            }
+            break
+        }
+    }
+
+    if(ArrayMusicas != undefined) {
+        for (let c = 0; c < ArrayMusicas.length; c++) {
+            for (let b = 0; b < Musicas_Playlist.length; b++) {
+                if(ArrayMusicas[c].ID == Musicas_Playlist[b].Musica.ID) {
+                    ArrayMusicas[c] = {
+                        User: Musicas_Playlist[b].User,
+                        Musica: Musicas_Playlist[b].Musica
+                    }
+                    break
+                }
+            }
+        }
+        
+        Musicas_Playlist = [...ArrayMusicas]
+    }
+
+    //! Vai construir as música na tela
+    for (let c = Musicas_Playlist.length - 1; c >= 0 ; c--) {
+        const musica_linha = document.createElement('div')
+        const primeira_parte_musica_linha = document.createElement('div')
+        const img = document.createElement('img')
+        const p_contador = document.createElement('p')
+        const texto_musica_linha = document.createElement('div')
+        const p = document.createElement('p')
+        const span = document.createElement('span')
+        const views = document.createElement('p')
+        const segunda_parte_musica_linha = document.createElement('div')
+        const like = document.createElement('img')
+        const tempo = document.createElement('p')
+        const container_img_perfil = document.createElement('div')
+        const img_perfil = document.createElement('img')
+
+        //! Classes
+        musica_linha.classList.add('musica_linha')
+        musica_linha.classList.add('Musica_Linha_' + Musicas_Playlist[c].Musica.ID)
+        primeira_parte_musica_linha.className = 'primeira_parte_musica_linha'
+        texto_musica_linha.className = 'texto_musica_linha'
+        segunda_parte_musica_linha.className = 'segunda_parte_musica_linha'
+        img.className = 'Img_musica_linha'
+        p.className = 'Nome_musica_linha'
+        p_contador.className = 'p_contador_musica_curtida'
+        like.className = 'like_musicas_linha'
+        views.className = 'Views_Musica_Linha'
+        span.className = 'Autor_Musica_Linha'
+        container_img_perfil.className = 'container_img_perfil_musica_linha_match'
+        img_perfil.className = 'img_perfil_playlist'
+
+        //! Valores
+        img.src = Musicas_Playlist[c].Musica.Img
+        p.innerText = Musicas_Playlist[c].Musica.Nome
+        span.appendChild(Retornar_Artistas_Da_Musica(Musicas_Playlist[c].Musica))
+        p_contador.innerText = c + 1
+        img_perfil.src = Musicas_Playlist[c].User.Perfil.Img_Perfil
+        container_img_perfil.title = `Adicionada por ${Musicas_Playlist[c].User.Nome}`
+
+        if(Musicas_Playlist[c].Musica.Views <= 0) {
+            views.style.display = 'none'
+
+        } else {
+            views.innerText = Musicas_Playlist[c].Musica.Views
+        }
+
+        Curtir_Musica_Descurtir(Musicas_Playlist[c].Musica, like, 'Checar')
+
+        const audio = new Audio(Musicas_Playlist[c].Musica.Audio)
+
+        obterDuracaoOuTempoAtualAudio(audio, true).then((resp) => {
+            tempo.innerText = resp.formattedDuration
+        })
+
+
+        //! AppendChild
+        primeira_parte_musica_linha.appendChild(p_contador)
+
+        primeira_parte_musica_linha.appendChild(img)
+        texto_musica_linha.appendChild(p)
+        texto_musica_linha.appendChild(span)
+        primeira_parte_musica_linha.appendChild(texto_musica_linha)
+
+        segunda_parte_musica_linha.appendChild(like)
+        segunda_parte_musica_linha.appendChild(tempo)
+        container_img_perfil.appendChild(img_perfil)
+        segunda_parte_musica_linha.appendChild(container_img_perfil)
+        musica_linha.appendChild(primeira_parte_musica_linha)
+        musica_linha.appendChild(views)
+        musica_linha.appendChild(segunda_parte_musica_linha)
+        Local.appendChild(musica_linha)
+
+        //! Funções de click
+        like.addEventListener('click', () => {
+            let Musicas_Recebidas = []
+
+            for (let c = 0; c < Musicas_Playlist.length; c++) {
+                for (let b = 0; b < TodasMusicas.length; b++) {
+                    if(Musicas_Playlist[c].Musica.ID == TodasMusicas[b].ID) {
+                        Musicas_Recebidas.push(TodasMusicas[b])
+                        break
+                    }
+                }
+            }
+            Curtir_Musica_Descurtir(Musicas_Recebidas[c], like)
+        })
+
+        container_img_perfil.addEventListener('click', () => {
+            const user_playlist = Musicas_Playlist[c].User
+            for (let c = 0; c < Todos_Usuarios.length; c++) {
+                if(Todos_Usuarios[c].ID == user_playlist.ID) {
+                    Carregar_Perfil(Todos_Usuarios[c])
+                    break
+                }
+            }
+        })
+
+        musica_linha.addEventListener('click', (e) => {
+            let Musicas_Recebidas = []
+
+            for (let c = Musicas_Pesquisa_Playlist.length - 1; c >= 0; c--) {
+                for (let b = 0; b < TodasMusicas.length; b++) {
+                    if(Musicas_Playlist[c].Musica.ID == TodasMusicas[b].ID) {
+                        Musicas_Recebidas.push(TodasMusicas[b])
+                        break
+                    }
+                }
+            }
+            let el = e.target.className
+
+            if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar' && el != 'bnt_carrinho_editar' && el != 'img_carrinho_editar' && el != 'container_img_perfil' && el != 'img_perfil_playlist') {
+                User_Tocando_Agora = undefined
+
+                Tocar_Musica(Musicas_Recebidas, Musicas_Playlist[c].Musica, '', Playlist.ID, 'Playlist', `Playlist - ${Playlist.Nome}`)
+                Listas_Prox.Nome_Album = `Playlist - ${Playlist.Nome}`
+            }
+        })
+
+        musica_linha.addEventListener('contextmenu', (event) => {
+            let Musicas_Recebidas = []
+
+            for (let c = 0; c < Musicas_Playlist.length; c++) {
+                for (let b = 0; b < TodasMusicas.length; b++) {
+                    if(Musicas_Playlist[c].Musica.ID == TodasMusicas[b].ID) {
+                        Musicas_Recebidas.push(TodasMusicas[b])
+                        break
+                    }
+                }
+            }
+
+            Ativar_Opcoes_Click_Direita('Músicas Linha', Musicas_Recebidas[c], c)
+            posicionarElemento(event, document.getElementById('opcoes_click_direito'))
+        })
+    }
+}
+
 const img_play_playlist_page = document.getElementById('img_play_playlist_page')
 img_play_playlist_page.addEventListener('click', () => {
-    let new_array = [...Pesquisa_Playlist]
-    new_array.reverse()
+    let new_array = []
+
+    for (let c = Musicas_Pesquisa_Playlist.length - 1; c >= 0; c--) {
+        for (let b = 0; b < TodasMusicas.length; b++) {
+            if(Musicas_Pesquisa_Playlist[c].Musica.ID == TodasMusicas[b].ID) {
+                new_array.push(TodasMusicas[b])
+                break
+            }
+        }
+    }
+
     Tocar_Musica(new_array, new_array[0], '', User.ID, 'playlist', Playlist_Aberta.Nome)
 })
 
@@ -230,21 +443,21 @@ function Pesquisar_Musica_Playlist_Page(Pesquisa) {
     let array_musicas_encontradas = []
 
     if(pesquisa_formadata.trim() != '') {
-        for (let c = 0; c < Playlist_Aberta.Musicas.length; c++) {
-            let nome = formatarString(Playlist_Aberta.Musicas[c].Nome)
-            let autor = formatarString(Playlist_Aberta.Musicas[c].Autor)
-            let genero = formatarString(Playlist_Aberta.Musicas[c].Genero)
+        for (let c = 0; c < Musicas_Playlist_Aberta.length; c++) {
+            let nome = formatarString(Musicas_Playlist_Aberta[c].Musica.Nome)
+            let autor = formatarString(Musicas_Playlist_Aberta[c].Musica.Autor)
+            let genero = formatarString(Musicas_Playlist_Aberta[c].Musica.Genero)
 
             if(pesquisa_formadata.includes(nome) || pesquisa_formadata.includes(autor) || pesquisa_formadata.includes(genero) || nome.includes(pesquisa_formadata) || autor.includes(pesquisa_formadata) || genero.includes(pesquisa_formadata)) {
-                array_musicas_encontradas.push(Playlist_Aberta.Musicas[c])
+                array_musicas_encontradas.push(Musicas_Playlist_Aberta[c])
             }
         }
 
-        Pesquisa_Playlist = array_musicas_encontradas
-        Retornar_Musica_Linha(Pesquisa_Playlist, document.getElementById('container_musicas_playlist_page'))
+        Musicas_Pesquisa_Playlist = array_musicas_encontradas
+        Retornar_Musicas_Playlist(Playlist_Aberta.ID, document.getElementById('container_musicas_playlist_page'), Musicas_Pesquisa_Playlist)
     } else {
-        Pesquisa_Playlist = [...Playlist_Aberta.Musicas]
-        Retornar_Musica_Linha(Pesquisa_Playlist, document.getElementById('container_musicas_playlist_page'))
+        Musicas_Pesquisa_Playlist = [...Musicas_Playlist_Aberta]
+        Retornar_Musicas_Playlist(Playlist_Aberta.ID, document.getElementById('container_musicas_playlist_page'), Musicas_Pesquisa_Playlist)
     }
 }
 
@@ -266,15 +479,15 @@ btn_config_playlist_page.addEventListener('click', (event) => {
     }
 
     if(oq_o_user_e == 'Admin') {
-        Ativar_Opcoes_Click_Direita('Playlist Admin', Playlist_Aberta.Musicas[0], 0)
+        Ativar_Opcoes_Click_Direita('Playlist Admin', Musicas_Playlist_Aberta[0].Musica, 0)
         posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
 
     } else if(oq_o_user_e == 'Colaboradores') {
-        Ativar_Opcoes_Click_Direita('Playlist Colaboradores', Playlist_Aberta.Musicas[0], 0)
+        Ativar_Opcoes_Click_Direita('Playlist Colaboradores', Musicas_Playlist_Aberta[0].Musica, 0)
         posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
 
     } else {
-        Ativar_Opcoes_Click_Direita('Playlist Visitante', Playlist_Aberta.Musicas[0], 0)
+        Ativar_Opcoes_Click_Direita('Playlist Visitante', Musicas_Playlist_Aberta[0].Musica, 0)
         posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
 
     }
@@ -298,3 +511,27 @@ function Fechar_Zoom_Img_Playlist() {
         container.style.display = 'none'
     }, 500)
 }
+
+//! Vai atualizar as playlist assim que alguém fizer alguma alteração
+
+function listenToPlaylists() {
+    db.collection('Playlists').onSnapshot((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        TodasPlaylists = doc.data().Playlists
+      })
+    
+        //! Vai checar se a playlist atualizada está aberta e vai atualiza-la na tela
+        if(Playlist_Aberta != undefined) {
+            for (let c = 0; c < TodasPlaylists.length; c++) {
+                if(TodasPlaylists[c].ID == Playlist_Aberta.ID) {
+
+                    if(objetosDiferentes(TodasPlaylists[c], Playlist_Aberta)) {
+                        Abrir_Pagina('playlist', Playlist_Aberta.ID)
+                    }
+                    break
+                }
+            }
+        }
+    })
+} listenToPlaylists()
+  

@@ -143,6 +143,10 @@ function Abrir_Pagina(Pagina, ID) {
         Nome_Artista_Pagina_Aberta = undefined
     }
 
+    if(Pagina != 'playlist' && Pagina != 'criarplaylist') {
+        Playlist_Aberta = undefined
+    }
+
     if(desativar_blur) {
         decreaseBlur()
     } else {
