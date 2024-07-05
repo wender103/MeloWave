@@ -104,9 +104,9 @@ function Logar_Na_Conta() {
                         Atualizar_User()
 
                         if(location.href.includes('aviso')) {
-                            setTimeout(() => {
-                                Execultar_Funcoes_Ao_Carregar()
-                            }, 500);
+                            Execultar_Funcoes_Ao_Carregar().then(() => {
+                                closeLoadingScreen()
+                            })                 
                             
                         }
                     }
@@ -114,65 +114,73 @@ function Logar_Na_Conta() {
     
                 //? Vai cricar a conta do usuário
                 if(!usuario_encontrado) {
-                    console.log('usuário não encontrado')
-    
-                    const New_User = {
-                        Email: val.email,
-                        Nome: val.displayName,
-                        Musicas_Curtidas: [],
-                        Loja: {
-                            Pontos: 0,
-                        },
-                        Social: {
-                            Seguindo: [],
-                            Seguidores: [],
-                            Amigos: {
-                                Pendentes: [],
-                                Recusados: [],
-                                Aceitos: []
-                            },
-                            Artistas: [],
-                            Playlists_Curtidas: []
-                        },
-                        Gosto_Musical: {
-                            Generos: [],
-                            Artistas: [],
-                        },
-                        Historico: {
-                            Musicas: [],
-                            Playlists: [],
-                            Users: [],
-                            Artistas: [],
-                            Pesquisa: [],
-                        },
-                        Dispositivos: {
-                            Todos: [],
-                            Atual: []
-                        },
-                        Estado_Da_Conta: {
-                            Estado: 'Ativo',
-                            Motivo: '',
-                            Tempo: '',
-                            Historico_De_Infracoes: [],
-                        },
-                        Notificacao: [],
-                        Perfil: {
-                            Img_Perfil: val.photoURL,
-                            Img_Background: null,
-                            Img_Email: val.photoURL,
-                            Ouvintes: 0,
-                            Horas_Ouvindo: 0,
-                            Data_Criacao_Conta: getDataAtual()
-                        },
-                    }
-    
-                    db.collection('Users').add(New_User).then(() => {
-                        Fechar_Entrar()
-                        Atualizar_User()
+                    closeLoadingScreen()
+                    Notificar_Infos('Parece que não encontramos nenhuma conta associada a este e-mail. Você gostaria de criar uma nova conta? 😊🎶🚀', 'Confirmar', 'Criar conta').then((resp) => {
 
-                        setTimeout(() => {
-                            location.reload()
-                        }, 500)
+                        if(resp) {
+                            console.log('usuário não encontrado')
+        
+                            const New_User = {
+                                Email: val.email,
+                                Nome: val.displayName,
+                                Musicas_Curtidas: [],
+                                Loja: {
+                                    Pontos: 0,
+                                },
+                                Social: {
+                                    Seguindo: [],
+                                    Seguidores: [],
+                                    Amigos: {
+                                        Pendentes: [],
+                                        Recusados: [],
+                                        Aceitos: []
+                                    },
+                                    Artistas: [],
+                                    Playlists_Curtidas: []
+                                },
+                                Gosto_Musical: {
+                                    Generos: [],
+                                    Artistas: [],
+                                },
+                                Historico: {
+                                    Musicas: [],
+                                    Playlists: [],
+                                    Users: [],
+                                    Artistas: [],
+                                    Pesquisa: [],
+                                },
+                                Dispositivos: {
+                                    Todos: [],
+                                    Atual: []
+                                },
+                                Estado_Da_Conta: {
+                                    Estado: 'Ativo',
+                                    Motivo: '',
+                                    Tempo: '',
+                                    Historico_De_Infracoes: [],
+                                },
+                                Notificacao: [],
+                                Perfil: {
+                                    Img_Perfil: val.photoURL,
+                                    Img_Background: null,
+                                    Img_Email: val.photoURL,
+                                    Ouvintes: 0,
+                                    Horas_Ouvindo: 0,
+                                    Data_Criacao_Conta: getDataAtual()
+                                },
+                            }
+            
+                            db.collection('Users').add(New_User).then(() => {
+                                Fechar_Entrar()
+                                Atualizar_User()
+    
+                                setTimeout(() => {
+                                    location.reload()
+                                }, 100)
+                            })
+                        } else {
+                            logout()
+                        }
                     })
                 }
             } else if(!val.emailVerified) {

@@ -144,9 +144,15 @@ function Pegar_Todas_Musicas() {
                                     if(!Execultar_Funcoes_Ao_Carregar_execultado3) {
                                         Execultar_Funcoes_Ao_Carregar_execultado3 = true
 
-                                        setTimeout(() => {
-                                            Execultar_Funcoes_Ao_Carregar()
-                                        }, 500)
+                                        Execultar_Funcoes_Ao_Carregar().then(() => {
+                                        if(window.location.pathname === '/MeloWave/index.html' || window.location.pathname === '/MeloWave/' || window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                                            try {
+                                                closeLoadingScreen()
+                                            } catch{}
+                                        }
+                                        }).catch(error => {
+                                        console.error('Ocorreu um erro:', error);
+                                        });                                          
                                     }
                                 })
                         
@@ -168,7 +174,13 @@ const audio_player = document.getElementById('audio_player')
 let cor_input_agora = '#fff'
 function atualizar_cor_progresso_input(inputElement) {
     var value = (inputElement.value-inputElement.min)/(inputElement.max-inputElement.min)*100;
-    inputElement.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
+
+    if(Tema_Atual_Pagina == 'Claro') {
+        inputElement.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
+
+    } else {
+        inputElement.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
+    }
 }
 
 let feito_musica_tocar = false
@@ -178,6 +190,25 @@ let interval_view
 const img_btn_mic_letra = document.querySelectorAll('.img_btn_mic_letra')
 
 function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {
+    //! Vai deixar as cores pretas caso o background interativo for branco
+
+    if(MusicaAtual.Cores.length > 0) {
+        if(pd_atualizar_letra_pc) {
+            Montar_Cores_Na_Tela(MusicaAtual)
+
+            if(corEhClara(MusicaAtual.Cores[0])) {
+                mudarTemaParaEscuro()
+            } else {
+                mudarTemaParaClaro()
+            }   
+        }
+
+        Atualizar_Cores_Partes_Site()
+        Adicionar_Opacidade_Das_Cores_Fundo_Interativo()
+    } else {
+        Remover_Opacidade_Das_Cores_Fundo_Interativo()
+    }
+
     if(Comando == null || Comando == undefined) {
         Comando = ''
     }
@@ -549,7 +580,7 @@ function Ativar_Musica(Musica) {
     main.style.height = 'calc(100vh - 112px)'
 
     if(notificacao_tempo_real_aberta) {
-        document.getElementById('container_notificacoes_tempo_real').className = 'active2'
+        Mostrar_Notificacao_Na_Tela(2)
     }
     
     const container_barra_musica = document.querySelector('#container_barra_musica')
@@ -896,17 +927,17 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
             img.className = 'Img_musica_linha'
             p.className = 'Nome_musica_linha'
             p_contador.className = 'p_contador_musica_curtida'
-            like.className = 'like_musicas_linha'
+            like.className = 'like_musicas_linha icone'
             views.className = 'Views_Musica_Linha'
             span.className = 'Autor_Musica_Linha'
             btn_letra_editar.className = 'btn_letra_editar'
-            img_mic_editar.className = 'img_mic_editar'
+            img_mic_editar.className = 'img_mic_editar icone'
             btn_editar_musica.className = 'btn_editar_musica'
-            img_pen.className = 'img_pen'
+            img_pen.className = 'img_pen icone'
             btn_trash.className = 'btn_trash'
             img_trash.className = 'img_trash'
             bnt_carrinho_editar.className = 'bnt_carrinho_editar'
-            img_carrinho_editar.className = 'img_carrinho_editar'
+            img_carrinho_editar.className = 'img_carrinho_editar icone'
     
             //! Valores
             img.src = Musicas[c].Img
@@ -972,7 +1003,12 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
             if(!Comando.includes('Resumido')) {
                 musica_linha.appendChild(segunda_parte_musica_linha)
             }
+
             Local.appendChild(musica_linha)
+
+            if(User.Configuracoes.Tema == 'Escuro') {
+                mudarTemaParaEscuro()
+            }
     
             //! Funções de click
             like.addEventListener('click', () => {

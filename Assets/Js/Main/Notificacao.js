@@ -303,3 +303,14 @@ function Mostrar_Notificaco_Tempo_Real() {
         }, 2000)  
     })
 }
+
+
+function Mostrar_Notificacao_Na_Tela(Num=1) {
+    if(Todas_Notificacoes_Tempo_Real_User.length > 0) {
+        document.getElementById('container_notificacoes_tempo_real').className = `active${Num}`
+    }
+}
+
+function Remover_Notificacao_Da_Tela() {
+    document.getElementById('container_notificacoes_tempo_real').className = ``
+}

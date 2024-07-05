@@ -6,9 +6,8 @@
   --fonte_khmer: "Khmer", sans-serif;
   --fonte_Tiny5:"Tiny5", sans-serif;
   --white: #fff;
-  --white_pouco_transparent: #ffffff9c;
-  --white_transparent: #ffffff8a;
-  --black: #000;
+  --white_pouco_transparent: rgba(255, 255, 255, 0.612);
+  --white_transparent: rgba(255, 255, 255, 0.541);
   --black_transparent: #0000001a;
   --padrao1: rgba(58, 62, 64, 0.404);
   --padrao15: rgba(35, 38, 39, 0.404);
@@ -607,6 +606,22 @@ div#container_carregamento_tela_innteira #message_carregamento {
   opacity: 1;
 }
 
+#cores_imgs {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 6;
+}
+
+.color-box {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+}
+
 body {
   width: 100vw;
   min-height: 100vh;
@@ -661,6 +676,10 @@ body nav ul {
   padding: 18px 0;
   border-radius: 8px;
   overflow: auto;
+}
+body nav ul div.gradient-bg {
+  min-height: auto;
+  overflow: hidden;
 }
 body nav ul li img, body nav ul li svg {
   width: 25px;
@@ -982,11 +1001,11 @@ body main {
   -webkit-backdrop-filter: blur(0px);
           backdrop-filter: blur(0px);
   border-radius: 8px;
-  padding: 22px;
   overflow: auto;
   background-image: linear-gradient(to bottom, transparent, var(--padrao15));
 }
 body main section.Paginas {
+  padding: 22px;
   margin: 54px 0 35px;
   display: none;
   min-height: calc(100vh - 149px);
@@ -2207,47 +2226,36 @@ body main section.Paginas#Pagina_verletra {
   position: relative;
   overflow: hidden;
 }
-body main section.Paginas#Pagina_verletra .Tem_Letra {
-  -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgb(0, 0, 0) 40%, rgba(0, 0, 0, 0));
-  mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgb(0, 0, 0) 40%, rgba(0, 0, 0, 0));
+body main section.Paginas#Pagina_verletra.Pagina_Aberta > article > pre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - 78px);
+}
+body main section.Paginas#Pagina_verletra.Tem_Letra article > pre {
+  display: block;
+  height: auto;
 }
 body main section.Paginas#Pagina_verletra article#container_letra_verletra {
   overflow: hidden;
   height: 100%;
 }
-body main section.Paginas#Pagina_verletra article#container_letra_verletra pre {
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.1);
-  outline: none;
-  font-size: 1.5rem;
-  overflow: auto;
-  font-weight: 700;
-  padding: 500px 10px 500px;
-  white-space: pre-wrap;
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre.Dark {
+  color: rgba(0, 0, 0, 0.2509803922);
 }
-body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span {
-  cursor: pointer;
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre.Dark span.linha_pre_anterior_add_letra {
+  color: rgba(0, 0, 0, 0.4705882353);
 }
-body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span.linha_pre_anterior_add_letra {
-  color: rgba(255, 255, 255, 0.368627451);
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre.Dark span.linha_pre_em_destaque_add_letra .animated-span {
+  color: rgba(0, 0, 0, 0.4705882353);
 }
-body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span.linha_pre_em_destaque_add_letra .animated-span {
-  font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.23);
-  transition: font-size 0.3s, color 0.3s;
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre.Dark span.linha_pre_em_destaque_add_letra .animated-span.animated {
+  color: black;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0);
 }
-body main section.Paginas#Pagina_verletra article#container_letra_verletra pre span.linha_pre_em_destaque_add_letra .animated-span.animated {
-  font-size: 1.7rem;
-  color: white;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
-}
-body main section.Paginas#Pagina_verletra article#container_letra_verletra pre h1 {
-  color: var(--white);
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
-  font-size: 1.7rem;
+body main section.Paginas#Pagina_verletra article#container_letra_verletra pre.Dark h1 {
+  color: black;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0);
 }
 body main section.Paginas#Pagina_loja {
   flex-direction: column;
@@ -3647,24 +3655,30 @@ body section#container_tela_tocando_agora {
   border-radius: 8px;
   transition: 500ms right ease-in-out;
   overflow: auto;
+}
+body section#container_tela_tocando_agora div.gradient-bg {
+  z-index: -1;
+  min-height: auto;
+}
+body section#container_tela_tocando_agora article {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#nome_album_tela_tocando_agora {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora p#p_nome_album_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#nome_album_tela_tocando_agora p#p_nome_album_tela_tocando_agora {
   font-weight: bold;
 }
-body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora div {
+body section#container_tela_tocando_agora article div#nome_album_tela_tocando_agora div {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora div button {
+body section#container_tela_tocando_agora article div#nome_album_tela_tocando_agora div button {
   width: 30px;
   height: 30px;
   background-color: transparent;
@@ -3675,13 +3689,13 @@ body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora div 
   color: var(--white);
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora div button img {
+body section#container_tela_tocando_agora article div#nome_album_tela_tocando_agora div button img {
   width: 100%;
   height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
 }
-body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora div button span {
+body section#container_tela_tocando_agora article div#nome_album_tela_tocando_agora div button span {
   width: 100%;
   height: 80%;
   font-size: 14px;
@@ -3689,7 +3703,7 @@ body section#container_tela_tocando_agora div#nome_album_tela_tocando_agora div 
   letter-spacing: 2px;
   display: block;
 }
-body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_musica_tela_tocando_agora {
   background-color: var(--black_transparent);
   padding: 10px;
   border-radius: 6px;
@@ -3697,39 +3711,39 @@ body section#container_tela_tocando_agora div#container_musica_tela_tocando_agor
   flex-direction: column;
   gap: 20px;
 }
-body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#container_img_musica_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_musica_tela_tocando_agora div#container_img_musica_tela_tocando_agora {
   width: 100%;
   height: 229px;
   overflow: hidden;
   border-radius: 6px;
 }
-body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#container_img_musica_tela_tocando_agora img {
+body section#container_tela_tocando_agora article div#container_musica_tela_tocando_agora div#container_img_musica_tela_tocando_agora img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div {
+body section#container_tela_tocando_agora article div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div {
   display: flex;
   flex-direction: column;
 }
-body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div p#nome_musica_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div p#nome_musica_tela_tocando_agora {
   font-weight: bold;
 }
-body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div span {
+body section#container_tela_tocando_agora article div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div span {
   font-size: 12px;
   color: var(--white_transparent);
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div span p.p_nomes_artistas span.span_nomes_artistas:hover {
+body section#container_tela_tocando_agora article div#container_musica_tela_tocando_agora div#contanier_texto_tela_tocando_agora div span p.p_nomes_artistas span.span_nomes_artistas:hover {
   text-decoration: underline;
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora {
   width: 100%;
   padding: 10px;
   border-radius: 6px;
@@ -3737,12 +3751,12 @@ body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora
   flex-direction: column;
   background-color: var(--black_transparent);
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_mostrar_letra_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_mostrar_letra_tela_tocando_agora {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_mostrar_letra_tela_tocando_agora button {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_mostrar_letra_tela_tocando_agora button {
   background-color: transparent;
   border: 1px solid var(--white);
   color: var(--white);
@@ -3750,20 +3764,20 @@ body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora
   border-radius: 4px;
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora {
   width: calc(100% + 20px);
   margin-left: -10px;
   height: 0;
   transition: height 0.5s ease-in-out;
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora.active {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora.active {
   height: 300px;
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora.active pre {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora.active pre {
   margin-top: 10px;
   background-position: center;
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre {
   width: 100%;
   height: 100%;
   background-color: transparent;
@@ -3776,23 +3790,23 @@ body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora
   white-space: pre-wrap;
   padding: 0 10px;
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span {
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_anterior_add_letra {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_anterior_add_letra {
   color: var(--fonte_meio_transparente);
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_em_destaque_add_letra.linha_pre_em_destaque_add_letra .animated-span {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_em_destaque_add_letra.linha_pre_em_destaque_add_letra .animated-span {
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.23);
   transition: font-size 0.3s, color 0.3s;
 }
-body section#container_tela_tocando_agora div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_em_destaque_add_letra.linha_pre_em_destaque_add_letra .animated-span.animated {
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre span.linha_pre_em_destaque_add_letra.linha_pre_em_destaque_add_letra .animated-span.animated {
   font-size: 1.1rem;
   color: white;
   text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora {
   background-color: var(--black_transparent);
   padding: 10px;
   border-radius: 6px;
@@ -3800,22 +3814,22 @@ body section#container_tela_tocando_agora div#container_artista_tela_tocando_ago
   flex-direction: column;
   gap: 20px;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora {
   overflow: hidden;
   border-radius: 6px;
   position: relative;
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora {
   position: relative;
   width: 100%;
   overflow: hidden;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #carousel_telta_tocando_agora {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #carousel_telta_tocando_agora {
   display: flex;
   transition: transform 0.5s ease-in-out;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora {
   min-width: 100%;
   height: 229px;
   transform-origin: center;
@@ -3823,28 +3837,28 @@ body section#container_tela_tocando_agora div#container_artista_tela_tocando_ago
   border-radius: 6px;
   position: relative;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora img {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora p {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora p {
   position: absolute;
   font-weight: bold;
   top: 10px;
   left: 10px;
   z-index: 1;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora.active {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora.active {
   transform: scale(1);
   width: 100%;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora.next {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora .carousel_item_telta_tocando_agora.next {
   transform: scale(0.3);
   width: 80%;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #next_btn_telta_tocando_agora, body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #prev_btn_telta_tocando_agora {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #next_btn_telta_tocando_agora, body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #prev_btn_telta_tocando_agora {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -3858,32 +3872,32 @@ body section#container_tela_tocando_agora div#container_artista_tela_tocando_ago
   align-items: center;
   justify-content: center;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #next_btn_telta_tocando_agora img, body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #prev_btn_telta_tocando_agora img {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #next_btn_telta_tocando_agora img, body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #prev_btn_telta_tocando_agora img {
   width: 15px;
   height: 15px;
   -o-object-fit: contain;
      object-fit: contain;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #next_btn_telta_tocando_agora {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #next_btn_telta_tocando_agora {
   right: 10px;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #prev_btn_telta_tocando_agora {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#contaier_img_tela_tocando_agora #carousel_container_telta_tocando_agora #prev_btn_telta_tocando_agora {
   left: 10px;
   display: none;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#texto_artista_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#texto_artista_tela_tocando_agora {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#texto_artista_tela_tocando_agora div p {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#texto_artista_tela_tocando_agora div p {
   font-weight: bold;
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora div#texto_artista_tela_tocando_agora div span {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora div#texto_artista_tela_tocando_agora div span {
   font-size: 12px;
   color: var(--white_transparent);
 }
-body section#container_tela_tocando_agora div#container_artista_tela_tocando_agora button {
+body section#container_tela_tocando_agora article div#container_artista_tela_tocando_agora button {
   background-color: transparent;
   border: 1px solid var(--white);
   color: var(--white);
@@ -3891,99 +3905,102 @@ body section#container_tela_tocando_agora div#container_artista_tela_tocando_ago
   border-radius: 4px;
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora {
   background-color: var(--black_transparent);
   padding: 10px;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora div {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora div {
   display: flex;
   justify-content: space-between;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora div h1 {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora div h1 {
   font-size: 1.3em;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora div button {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora div button {
   width: 50px;
   height: 50px;
   background-color: transparent;
   border: none;
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora div button img {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora div button img {
   width: 100%;
   height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora hr {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora hr {
   width: 100%;
   border-color: rgba(180, 180, 180, 0.24);
   margin: 10px 0;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora p {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora p {
   font-size: 14px;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span#nome_qm_postou_creditos_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora span#nome_qm_postou_creditos_tela_tocando_agora {
   text-decoration: none;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span#nome_qm_postou_creditos_tela_tocando_agora.active:hover {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora span#nome_qm_postou_creditos_tela_tocando_agora.active:hover {
   text-decoration: underline;
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora span {
   font-size: 13px;
-  color: var(--fonte_meio_transparente);
+  color: var(--white_transparent);
   display: block;
   margin: 5px 0 10px;
   cursor: default;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span#nome_qm_postou_creditos.active:hover {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora span#nome_qm_postou_creditos.active:hover {
   text-decoration: underline;
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span p {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora span p {
   font-size: 13px !important;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span p span {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora span p span {
   font-size: 13px;
-  color: var(--fonte_meio_transparente);
+  color: var(--white_transparent);
   margin: 0 !important;
   display: inline;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span p span:first-child {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora span p span:first-child {
   padding: 0;
 }
-body section#container_tela_tocando_agora div#container_creditos_tela_tocando_agora span p span:hover {
+body section#container_tela_tocando_agora article div#container_creditos_tela_tocando_agora span p span:hover {
   text-decoration: underline;
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#fila_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#fila_tela_tocando_agora {
   background-color: var(--black_transparent);
   padding: 10px;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
 }
-body section#container_tela_tocando_agora div#fila_tela_tocando_agora div#primeira_parte_a_seguir_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#fila_tela_tocando_agora div#primeira_parte_a_seguir_tela_tocando_agora {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-body section#container_tela_tocando_agora div#fila_tela_tocando_agora div#primeira_parte_a_seguir_tela_tocando_agora h3 {
+body section#container_tela_tocando_agora article div#fila_tela_tocando_agora div#primeira_parte_a_seguir_tela_tocando_agora h3 {
   font-size: 1em;
 }
-body section#container_tela_tocando_agora div#fila_tela_tocando_agora div#primeira_parte_a_seguir_tela_tocando_agora p {
+body section#container_tela_tocando_agora article div#fila_tela_tocando_agora div#primeira_parte_a_seguir_tela_tocando_agora p {
   font-size: 13px;
   color: var(--white_transparent);
   cursor: pointer;
 }
-body section#container_tela_tocando_agora div#fila_tela_tocando_agora div#contanier_fila_tela_tocando_agora {
+body section#container_tela_tocando_agora article div#fila_tela_tocando_agora div#primeira_parte_a_seguir_tela_tocando_agora p span {
+  color: var(--white_transparent);
+}
+body section#container_tela_tocando_agora article div#fila_tela_tocando_agora div#contanier_fila_tela_tocando_agora {
   margin-top: 20px;
 }
-body section#container_tela_tocando_agora div#fila_tela_tocando_agora div#contanier_fila_tela_tocando_agora div.musica_linha {
+body section#container_tela_tocando_agora article div#fila_tela_tocando_agora div#contanier_fila_tela_tocando_agora div.musica_linha {
   background-color: transparent;
 }
 body section#container_fila {
@@ -4002,12 +4019,16 @@ body section#container_fila {
   transition: 500ms right ease-in-out;
   overflow: auto;
 }
+body section#container_fila div.gradient-bg {
+  min-height: calc(-112px + 100vh);
+}
 body section#container_fila article {
   width: 100%;
   height: auto;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  overflow: auto;
 }
 body section#container_fila article p#texto_fila {
   margin-left: 8px;
@@ -4208,6 +4229,9 @@ body section#container_barra_musica {
   border-radius: 8px;
   padding: 8px;
 }
+body section#container_barra_musica div.gradient-bg {
+  min-height: auto;
+}
 body section#container_barra_musica article {
   width: 100%;
   display: flex;
@@ -4399,9 +4423,6 @@ body section#container_barra_musica article div#container_opcoes_barra_musica di
   display: flex;
   align-items: center;
   justify-content: center;
-}
-body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som div#container_icon_volume img {
-  transition: all 5s ease-in-out;
 }
 body section#container_barra_musica article div#container_opcoes_barra_musica div.container_icon_som input {
   background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);

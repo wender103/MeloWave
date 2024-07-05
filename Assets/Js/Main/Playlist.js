@@ -310,7 +310,7 @@ function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
         img.className = 'Img_musica_linha'
         p.className = 'Nome_musica_linha'
         p_contador.className = 'p_contador_musica_curtida'
-        like.className = 'like_musicas_linha'
+        like.className = 'like_musicas_linha icone'
         views.className = 'Views_Musica_Linha'
         span.className = 'Autor_Musica_Linha'
         container_img_perfil.className = 'container_img_perfil_musica_linha_match'
@@ -356,6 +356,10 @@ function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
         musica_linha.appendChild(views)
         musica_linha.appendChild(segunda_parte_musica_linha)
         Local.appendChild(musica_linha)
+
+        if(User.Configuracoes.Tema == 'Escuro') {
+            mudarTemaParaEscuro()
+        }
 
         //! Funções de click
         like.addEventListener('click', () => {

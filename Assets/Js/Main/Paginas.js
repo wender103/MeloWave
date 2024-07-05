@@ -7,7 +7,8 @@ let Pagina_Atual = {
 }
 
 function Abrir_Pagina(Pagina, ID) {
-    const Paginas_Sem_Btns_Voltar = ['verpagina', 'adicionarletra']
+    document.querySelector("main").style.overflow = 'auto'
+    const Paginas_Sem_Btns_Voltar = ['verpagina', 'adicionarletra', 'verletra']
 
     Pagina_Atual.Nome = Pagina,
     Pagina_Atual.ID = ID
@@ -35,7 +36,10 @@ function Abrir_Pagina(Pagina, ID) {
         if(reabrir_letra_aba_musica_tocando_agora) {
             Mostrar_Letra_Tela_Tocando_Agora()
         }
+
+        Remover_Opacidade_Das_Cores_Fundo_Interativo()
     }
+    
     let tem_btns_voltar = true
     for (let c = 0; c < Paginas_Sem_Btns_Voltar.length; c++) {
         if(Pagina == Paginas_Sem_Btns_Voltar[c]) {
@@ -44,6 +48,12 @@ function Abrir_Pagina(Pagina, ID) {
             document.getElementById('btn_avancar_pagina').style.display = 'none'
             break
         }
+    }
+
+    if(User.Configuracoes.Tema == 'Escuro') {
+        mudarTemaParaEscuro()
+    } else {
+        mudarTemaParaClaro()
     }
 
     if(tem_btns_voltar) {

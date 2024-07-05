@@ -26,6 +26,14 @@ function Ativar_Fullscreen() {
     Pausar_Atualizar_Letra()
 
     setTimeout(() => {
+        if(User.Configuracoes.Tem == 'Escuro') {
+            mudarTemaParaEscuro()
+        } else {
+            mudarTemaParaClaro()
+        }   
+    }, 1000)
+
+    setTimeout(() => {
         container_fullscreen.style.opacity = 1
     }, 500)
 }
@@ -71,6 +79,17 @@ function Destivar_Fullscreen() {
     const container_fullscreen = document.getElementById('container_fullscreen')
 
     Despausar_Atualizar_Letra()
+
+    if(pd_atualizar_letra_pc) {
+        if(corEhClara(Listas_Prox.MusicaAtual.Cores[0])) {
+            setTimeout(() => {
+                mudarTemaParaEscuro()
+            }, 300)
+        } else {
+            mudarTemaParaClaro()
+        }
+    }
+
     container_fullscreen.style.opacity = 0
     setTimeout(() => {
         container_fullscreen.style.display = 'none'

@@ -616,7 +616,8 @@ let pagina_anterior_ver_letra = {
 }
 
 let reabrir_letra_aba_musica_tocando_agora = false
-function Abrir_Ver_Letra_PC() {
+function Abrir_Ver_Letra_PC(id_musica=undefined) {
+
     if(!pd_atualizar_letra_pc) {
         if(pode_atualizar_letra_tela_tocando_agora) {
             Fechar_Letra_Tela_Tocando_Agora('Reabrir')
@@ -624,16 +625,39 @@ function Abrir_Ver_Letra_PC() {
 
         pagina_anterior_ver_letra.Nome = Pagina_Atual.Nome
         pagina_anterior_ver_letra.ID = Pagina_Atual.ID
-        Abrir_Pagina('verletra', `verletra_${Listas_Prox.MusicaAtual.ID}`)
-        
-        animateBackgroundColor('#0d111f54', lista_elementos_mudar_cor_letra, 1500)
-        animateBackgroundColor('#0d111f54', document.querySelector('nav').querySelectorAll('ul'), 1500)
-        // decreaseBlur()
+
+        let musica_do_musica_id = Listas_Prox.MusicaAtual
+
+        if(id_musica) {
+            for (let c = 0; c < TodasMusicas.length; c++) {
+                if(TodasMusicas[c].ID == id_musica) {
+                    musica_do_musica_id = TodasMusicas[c]
+                    break
+                }
+            }
+        }
+
+        Abrir_Pagina('verletra', musica_do_musica_id.ID)
+        Montar_Cores_Na_Tela(musica_do_musica_id)
+
+        if(musica_do_musica_id.Cores.length > 0) {
+            Atualizar_Cores_Partes_Site()
+            Adicionar_Opacidade_Das_Cores_Fundo_Interativo()
+            if(corEhClara(musica_do_musica_id.Cores[0])) {
+                setTimeout(() => {
+                    mudarTemaParaEscuro()
+                }, 500)
+            } else {
+                mudarTemaParaClaro()
+            }
+        }
+
+        document.querySelector('main').style.overflow = 'hidden'
 
         pd_atualizar_letra_pc = true
 
-        if(!Array.isArray(Listas_Prox.MusicaAtual.Letra)) {
-            pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
+        if(!Array.isArray(musica_do_musica_id.Letra)) {
+            pre_letra_da_musica.innerHTML = musica_do_musica_id.Letra.Letra_Musica
             letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
 
             if(linha_atual == -1) {
@@ -662,9 +686,25 @@ function Fechar_Ver_Letra_PC(Comando='') {
         Mostrar_Letra_Tela_Tocando_Agora()
     }
 
-    Abrir_Pagina(pagina_anterior_ver_letra.Nome, pagina_anterior_ver_letra.ID)
+    if(pagina_anterior_ver_letra.ID != 'verletra_undefined') {
+        Abrir_Pagina(pagina_anterior_ver_letra.Nome, pagina_anterior_ver_letra.ID)
+    } else {
+        Abrir_Pagina('home', '')
+    }
+
+    if(Listas_Prox.MusicaAtual.Cores.length > 0) {
+        Atualizar_Cores_Partes_Site()
+    }
+    
     animateBackgroundColor('transparent', lista_elementos_mudar_cor_letra, 1500)
     animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 1500)
+    document.querySelector('main').style.overflow = 'auto'
+
+    Remover_Opacidade_Das_Cores_Fundo_Interativo()
+
+    if(User.Configuracoes.Tema == 'Claro') {
+        mudarTemaParaClaro()
+    }
 
     img_btn_mic_letra.forEach(element => {
         if(!Array.isArray(Listas_Prox.MusicaAtual.Letra)) {

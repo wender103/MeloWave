@@ -412,7 +412,7 @@ function Retornar_Melhor_Resultado(Musica, Tipo) {
                 primeira_parte_musica_linha.className = 'primeira_parte_musica_linha'
                 texto_musica_linha.className = 'texto_musica_linha'
                 segunda_parte_musica_linha.className = 'segunda_parte_musica_linha'
-                like.className = 'like_musicas_linha'
+                like.className = 'like_musicas_linha icone'
     
                 //! Valores
                 img.src = Musicas[c].Img

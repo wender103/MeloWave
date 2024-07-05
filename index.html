@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="Assets/Styles/Home/Home.css">
     <link rel="stylesheet" href="Assets/Styles/Home/Responsivo/Home_Responsivo.css">
     <link rel="stylesheet" href="Assets/Styles/Wallpapers/wallpapers.css">
+    <link rel="stylesheet" href="Assets/Styles/Letra/Letra.css">
 </head>
 <body>
     <div id="background_wallpaper">
@@ -17,12 +18,29 @@
 
     <nav>
         <ul>
+            <div class="gradient-bg">
+                <svg xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="goo">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+                            <feBlend in="SourceGraphic" in2="goo" />
+                        </filter>
+                    </defs>
+                </svg>
+                <div class="gradients-container">
+                    <div class="esferas_animacao_letra"></div>
+                    <div class="esferas_animacao_letra"></div>
+                    <div class="esferas_animacao_letra"></div>
+                    <!-- <div class="interactive"></div> -->
+                </div>
+            </div>
             <li class="li_icon" id="li_icon_perfil_user_nav" title="Meu Perfil">
-                <img src="Assets/Imgs/user_anonimo.png" id="id_img_nav_perfil_user">
+                <img src="Assets/Imgs/user_anonimo.png" id="id_img_nav_perfil_user" class="icone">
             </li>
 
             <li class="li_icon" title="Home">
-                <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg" class="icone">
                     <mask id="path-1-inside-1_4_7" fill="white">
                     <path d="M10.2432 1.778L1.41382 7.18998V21.4046H7.00803V13.7366H13.5271V21.4046H19.0725V7.1509L10.2432 1.778ZM10.2432 0.499939L20.1112 6.31233V22.4999H12.4885V14.8319H8.04676V22.4999H0.375092V6.3645L10.2432 0.499939Z"/>
                     </mask>
@@ -31,21 +49,19 @@
                 </svg>
             </li>
             <li class="li_icon" title="Pesquisar">
-                <svg width="19" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M18.25 18.75L14.1378 14.6305M16.4167 9.12498C16.4167 11.1915 15.5958 13.1733 14.1346 14.6345C12.6733 16.0957 10.6915 16.9166 8.62501 16.9166C6.55853 16.9166 4.57669 16.0957 3.11547 14.6345C1.65425 13.1733 0.833344 11.1915 0.833344 9.12498C0.833344 7.0585 1.65425 5.07666 3.11547 3.61544C4.57669 2.15422 6.55853 1.33331 8.62501 1.33331C10.6915 1.33331 12.6733 2.15422 14.1346 3.61544C15.5958 5.07666 16.4167 7.0585 16.4167 9.12498Z" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>                
+                <img src="Assets/Imgs/Searchsvg.svg" class="icone">  
             </li>
             <li class="li_icon" title="Loja">
-                <img src="Assets/Imgs/carrinho-de-compras.png">
+                <img src="Assets/Imgs/carrinho-de-compras.png" class="icone">
             </li>
             <li class="li_icon" title="Adicionar Músicas">
-                <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="26" height="27" viewBox="0 0 26 27" fill="none" xmlns="http://www.w3.org/2000/svg" class="icone">
                     <path d="M12.2383 4.35938H13.7617C13.8971 4.35938 13.9648 4.42708 13.9648 4.5625V22.4375C13.9648 22.5729 13.8971 22.6406 13.7617 22.6406H12.2383C12.1029 22.6406 12.0352 22.5729 12.0352 22.4375V4.5625C12.0352 4.42708 12.1029 4.35938 12.2383 4.35938Z" fill="white"/>
                     <path d="M4.46875 12.5352H21.5312C21.6667 12.5352 21.7344 12.6029 21.7344 12.7383V14.2617C21.7344 14.3971 21.6667 14.4648 21.5312 14.4648H4.46875C4.33333 14.4648 4.26562 14.3971 4.26562 14.2617V12.7383C4.26562 12.6029 4.33333 12.5352 4.46875 12.5352Z" fill="white"/>
                 </svg>   
             </li>
             <li class="li_icon" title="Biblioteca">
-                <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="22" height="23" viewBox="0 0 22 23" fill="none" xmlns="http://www.w3.org/2000/svg" class="icone">
                     <g clip-path="url(#clip0_2_648)">
                     <path d="M12.7032 0.61338L22 21.4921L20.9213 21.9747L11.6245 1.09597L12.7032 0.61338ZM0 21.9605V0.499817H1.1923V21.9605H0ZM7.15356 21.9605V0.499817H8.34586V21.9605H7.15356Z" fill="white"/>
                     </g>
@@ -59,6 +75,23 @@
         </ul>
 
         <ul id="ul_artistas_seguindo">
+            <div class="gradient-bg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icone">
+                    <defs>
+                        <filter id="goo">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+                            <feBlend in="SourceGraphic" in2="goo" />
+                        </filter>
+                    </defs>
+                </svg>
+                <div class="gradients-container">
+                    <div class="esferas_animacao_letra"></div>
+                    <div class="esferas_animacao_letra"></div>
+                    <div class="esferas_animacao_letra"></div>
+                    <!-- <div class="interactive"></div> -->
+                </div>
+            </div>
             <li class="li_icon" title="Músicas Curtidas">
                 <img src="Assets/Imgs/Musicas curtidas.svg">
             </li>
@@ -73,19 +106,19 @@
     <div id="nav_main">
         <div id="btns_esquerda">
             <button onclick="Voltar_Para_Pagina_Anterior()" id="btn_voltar_pagina">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icone">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5364 2.58957L6.84479 11.2968C6.76655 11.3715 6.70447 11.4615 6.66236 11.5612C6.62026 11.6609 6.59903 11.7682 6.59999 11.8764C6.59967 12.0997 6.68767 12.3141 6.84479 12.4728C9.98879 15.54 13.0188 18.5004 15.9348 21.354C16.0848 21.4944 16.6848 21.8436 17.148 21.3252C17.6112 20.8056 17.3304 20.3532 17.148 20.166L8.66639 11.8764L16.7628 3.76557C17.058 3.35877 17.034 2.98317 16.6908 2.63877C16.3476 2.29437 15.9624 2.27757 15.5364 2.58957Z" fill="#BDBDBD"/>
                 </svg>                        
             </button>
 
             <button onclick="Avancar_Para_Proxima_Pagina()" id="btn_avancar_pagina">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icone">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.46361 2.58957L17.1552 11.2968C17.2334 11.3715 17.2955 11.4615 17.3376 11.5612C17.3797 11.6609 17.401 11.7682 17.4 11.8764C17.4003 12.0997 17.3123 12.3141 17.1552 12.4728C14.0112 15.54 10.9812 18.5004 8.06521 21.354C7.91521 21.4944 7.31521 21.8436 6.85201 21.3252C6.38881 20.8056 6.66961 20.3532 6.85201 20.166L15.3336 11.8764L7.23721 3.76557C6.94201 3.35877 6.96601 2.98317 7.30921 2.63877C7.65241 2.29437 8.03761 2.27757 8.46361 2.58957Z" fill="#BDBDBD"/>
                 </svg>
             </button>
 
             <div id="input_pesquisa" class="container_inputs_pesquisar">
-                <img src="Assets/Imgs/Icons_search_input.svg" id="icon_pesquisar">                      
+                <img src="Assets/Imgs/Icons_search_input.svg" id="icon_pesquisar" class="icone">                      
 
                 <input type="text" placeholder="O que quer ouvir?" id="input_pesquisar" autocomplete="off">
             </div>
@@ -94,16 +127,16 @@
         <div id="btns_direita">
             <button id="btn_pontos_nav">
                 <p id="p_quantos_pontos_nav">0 </p>
-                <img src="Assets/Imgs/moedas.png" alt="">
+                <img src="Assets/Imgs/moedas.png" alt="" class="icone">
             </button>
 
             <button onclick="Abrir_Add_Nova_Img_Meu_Perfil()" id="bnt_editar_meu_perfil">
-                <img src="Assets/Imgs/pen.png" alt="">
+                <img src="Assets/Imgs/pen.png" alt="" class="icone">
             </button>
             
             <button onclick="Abrir_Pagina('notificacao')">
                 <div class="bolinbha_notificacao" id="bolinha_icone_noficacao"></div>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="icone">
                     <g clip-path="url(#clip0_2_494)">
                     <path d="M8.00006 1.5C6.93919 1.5 5.92178 1.92143 5.17163 2.67157C4.42149 3.42172 4.00006 4.43913 4.00006 5.5V8.77C3.99985 8.90093 3.96538 9.02953 3.90006 9.143L2.25506 12H13.7451L12.1001 9.142C12.0346 9.02823 12.0001 8.89927 12.0001 8.768V5.5C12.0001 4.43913 11.5786 3.42172 10.8285 2.67157C10.0783 1.92143 9.06092 1.5 8.00006 1.5ZM2.50006 5.5C2.50006 4.04131 3.07952 2.64236 4.11097 1.61091C5.14242 0.579463 6.54137 0 8.00006 0C9.45875 0 10.8577 0.579463 11.8891 1.61091C12.9206 2.64236 13.5001 4.04131 13.5001 5.5V8.567L15.6931 12.376C15.7587 12.49 15.7931 12.6193 15.793 12.7508C15.7928 12.8824 15.7581 13.0116 15.6922 13.1255C15.6264 13.2393 15.5317 13.3339 15.4178 13.3996C15.3038 13.4654 15.1746 13.5 15.0431 13.5H10.5001C10.5001 14.163 10.2367 14.7989 9.76783 15.2678C9.29898 15.7366 8.6631 16 8.00006 16C7.33702 16 6.70113 15.7366 6.23229 15.2678C5.76345 14.7989 5.50006 14.163 5.50006 13.5H0.957058C0.825511 13.5 0.696283 13.4654 0.582341 13.3996C0.4684 13.3339 0.373753 13.2393 0.307899 13.1255C0.242045 13.0116 0.207301 12.8824 0.207154 12.7508C0.207006 12.6193 0.24146 12.49 0.307058 12.376L2.50006 8.569V5.5ZM7.00006 13.5C7.00006 13.7652 7.10542 14.0196 7.29295 14.2071C7.48049 14.3946 7.73484 14.5 8.00006 14.5C8.26528 14.5 8.51963 14.3946 8.70716 14.2071C8.8947 14.0196 9.00006 13.7652 9.00006 13.5H7.00006Z" fill="white"/>
                     </g>
@@ -116,8 +149,8 @@
             </button>
 
             <button>
-                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M2.4 5.59999C3.2825 5.59999 4 4.88249 4 3.99999C4 3.11749 3.2825 2.39999 2.4 2.39999C1.5175 2.39999 0.8 3.11749 0.8 3.99999C0.8 4.88249 1.5175 5.59999 2.4 5.59999ZM13.6 5.59999C14.4825 5.59999 15.2 4.88249 15.2 3.99999C15.2 3.11749 14.4825 2.39999 13.6 2.39999C12.7175 2.39999 12 3.11749 12 3.99999C12 4.88249 12.7175 5.59999 13.6 5.59999ZM14.4 6.39999H12.8C12.36 6.39999 11.9625 6.57749 11.6725 6.86499C12.68 7.41749 13.395 8.41499 13.55 9.59999H15.2C15.6425 9.59999 16 9.24249 16 8.79999V7.99999C16 7.11749 15.2825 6.39999 14.4 6.39999ZM8 6.39999C9.5475 6.39999 10.8 5.14749 10.8 3.59999C10.8 2.05249 9.5475 0.799988 8 0.799988C6.4525 0.799988 5.2 2.05249 5.2 3.59999C5.2 5.14749 6.4525 6.39999 8 6.39999ZM9.92 7.19999H9.7125C9.1925 7.44999 8.615 7.59999 8 7.59999C7.385 7.59999 6.81 7.44999 6.2875 7.19999H6.08C4.49 7.19999 3.2 8.48999 3.2 10.08V10.8C3.2 11.4625 3.7375 12 4.4 12H11.6C12.2625 12 12.8 11.4625 12.8 10.8V10.08C12.8 8.48999 11.51 7.19999 9.92 7.19999ZM4.3275 6.86499C4.0375 6.57749 3.64 6.39999 3.2 6.39999H1.6C0.7175 6.39999 0 7.11749 0 7.99999V8.79999C0 9.24249 0.3575 9.59999 0.8 9.59999H2.4475C2.605 8.41499 3.32 7.41749 4.3275 6.86499Z" fill="white"/>
+                <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg" class="icone">
+                    <path d="M2.4 5.59999C3.2825 5.59999 4 4.88249 4 3.99999C4 3.11749 3.2825 2.39999 2.4 2.39999C1.5175 2.39999 0.8 3.11749 0.8 3.99999C0.8 4.88249 1.5175 5.59999 2.4 5.59999ZM13.6 5.59999C14.4825 5.59999 15.2 4.88249 15.2 3.99999C15.2 3.11749 14.4825 2.39999 13.6 2.39999C12.7175 2.39999 12 3.11749 12 3.99999C12 4.88249 12.7175 5.59999 13.6 5.59999ZM14.4 6.39999H12.8C12.36 6.39999 11.9625 6.57749 11.6725 6.86499C12.68 7.41749 13.395 8.41499 13.55 9.59999H15.2C15.6425 9.59999 16 9.24249 16 8.79999V7.99999C16 7.11749 15.2825 6.39999 14.4 6.39999ZM8 6.39999C9.5475 6.39999 10.8 5.14749 10.8 3.59999C10.8 2.05249 9.5475 0.799988 8 0.799988C6.4525 0.799988 5.2 2.05249 5.2 3.59999C5.2 5.14749 6.4525 6.39999 8 6.39999ZM9.92 7.19999H9.7125C9.1925 7.44999 8.615 7.59999 8 7.59999C7.385 7.59999 6.81 7.44999 6.2875 7.19999H6.08C4.49 7.19999 3.2 8.48999 3.2 10.08V10.8C3.2 11.4625 3.7375 12 4.4 12H11.6C12.2625 12 12.8 11.4625 12.8 10.8V10.08C12.8 8.48999 11.51 7.19999 9.92 7.19999ZM4.3275 6.86499C4.0375 6.57749 3.64 6.39999 3.2 6.39999H1.6C0.7175 6.39999 0 7.11749 0 7.99999V8.79999C0 9.24249 0.3575 9.59999 0.8 9.59999H2.4475C2.605 8.41499 3.32 7.41749 4.3275 6.86499Z" fill="white" class="icone"/>
                 </svg>                        
             </button>
 
@@ -521,7 +554,46 @@
 
         <section class="Paginas" id="Pagina_verletra">
             <article id="container_letra_verletra">
-                <pre id="pre_letra_da_musica"></pre>
+                <div class="gradient-bg">
+                    <svg xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <filter id="goo">
+                                <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+                                <feBlend in="SourceGraphic" in2="goo" />
+                            </filter>
+                        </defs>
+                    </svg>
+                    <div class="gradients-container">
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="esferas_animacao_letra"></div>
+                        <div class="interactive"></div>
+                    </div>
+                </div>
+
+                <pre id="pre_letra_da_musica" class="pre_container_letra"></pre>
             </article>
         </section>
 
@@ -803,93 +875,135 @@
 
     <!--! Tela Tocando Agora -->
     <section id="container_tela_tocando_agora">
-        <div id="nome_album_tela_tocando_agora">
-            <p id="p_nome_album_tela_tocando_agora">gavm!</p>
-            
-            <div>
-                <button>
-                    <span>...</span>
-                </button>
-    
-                <button>
-                    <img src="Assets/Imgs/x.svg" onclick="Fechar_Tela_Tocando_Agora()">
-                </button>
+        <div class="gradient-bg" id="gradient_bg_tela_tocando_agora">
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="goo">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+                        <feBlend in="SourceGraphic" in2="goo" />
+                    </filter>
+                </defs>
+            </svg>
+            <div class="gradients-container">
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <!-- <div class="interactive"></div> -->
             </div>
         </div>
 
-        <div id="container_musica_tela_tocando_agora">
-            <div id="container_img_musica_tela_tocando_agora">
-                <img src="Assets/Imgs/music1.png" id="img_musica_tela_tocando_agora">
+       <article>
+            <div id="nome_album_tela_tocando_agora">
+                <p id="p_nome_album_tela_tocando_agora">gavm!</p>
+                
+                <div>
+                    <button>
+                        <span>...</span>
+                    </button>
+        
+                    <button>
+                        <img src="Assets/Imgs/x.svg" onclick="Fechar_Tela_Tocando_Agora()" class="icone">
+                    </button>
+                </div>
             </div>
 
-            <div id="contanier_texto_tela_tocando_agora">
-                <div>
-                    <p id="nome_musica_tela_tocando_agora">Dolla</p>
-                    <span id="nome_artistas_tela_tocando_agora">Omy Alka</span>
+            <div id="container_musica_tela_tocando_agora">
+                <div id="container_img_musica_tela_tocando_agora">
+                    <img src="Assets/Imgs/music1.png" id="img_musica_tela_tocando_agora">
                 </div>
 
-                <img src="./Assets/Imgs/Like_Vazio.svg" id="icon_like_tela_tocando_agora" class="icons_like_barra_musica">
-            </div>
-        </div>
-
-        <div id="container_letra_tela_tocando_agora">
-            <div id="container_mostrar_letra_tela_tocando_agora">
-                <p>Letra</p>
-                <button id="btn_mostrar_letra_tela_tocando_agora">Mostrar Letra</button>
-            </div>
-
-            <div id="container_letra_tocando_agora">
-                <pre id="pre_letra_tocando_agora"></pre>
-            </div>
-        </div>
-
-        <div id="container_artista_tela_tocando_agora">
-            <div id="contaier_img_tela_tocando_agora">
-                <div id="carousel_container_telta_tocando_agora">
-                    <div id="carousel_telta_tocando_agora">
+                <div id="contanier_texto_tela_tocando_agora">
+                    <div>
+                        <p id="nome_musica_tela_tocando_agora">Dolla</p>
+                        <span id="nome_artistas_tela_tocando_agora">Omy Alka</span>
                     </div>
-                    <button id="prev_btn_telta_tocando_agora"><img src="Assets/Imgs/uiw_left.svg"></button>
-                    <button id="next_btn_telta_tocando_agora"><img src="Assets/Imgs/uiw_rigth.svg"></button>
+
+                    <img src="./Assets/Imgs/Like_Vazio.svg" id="icon_like_tela_tocando_agora" class="icons_like_barra_musica icone">
                 </div>
             </div>
 
-            <div id="texto_artista_tela_tocando_agora">
+            <div id="container_letra_tela_tocando_agora">
+                <div id="container_mostrar_letra_tela_tocando_agora">
+                    <p>Letra</p>
+                    <button id="btn_mostrar_letra_tela_tocando_agora">Mostrar Letra</button>
+                </div>
+
+                <div id="container_letra_tocando_agora">
+                    <pre id="pre_letra_tocando_agora"></pre>
+                </div>
+            </div>
+
+            <div id="container_artista_tela_tocando_agora">
+                <div id="contaier_img_tela_tocando_agora">
+                    <div id="carousel_container_telta_tocando_agora">
+                        <div id="carousel_telta_tocando_agora">
+                        </div>
+                        <button id="prev_btn_telta_tocando_agora"><img src="Assets/Imgs/uiw_left.svg"></button>
+                        <button id="next_btn_telta_tocando_agora"><img src="Assets/Imgs/uiw_rigth.svg"></button>
+                    </div>
+                </div>
+
+                <div id="texto_artista_tela_tocando_agora">
+                    <div>
+                        <p id="nome_artista_tela_tocando_agora">gvan!</p>
+                        <span id="ouvintes_mensais_artista_tela_tocando_agora">1.234.545 ouvintes mensais</span>
+                    </div>
+
+                    <button id="btn_seguir_artista_tela_tocando_agora">Seguir</button>
+                </div>
+            </div>
+
+            <div id="container_creditos_tela_tocando_agora">
                 <div>
-                    <p id="nome_artista_tela_tocando_agora">gvan!</p>
-                    <span id="ouvintes_mensais_artista_tela_tocando_agora">1.234.545 ouvintes mensais</span>
+                    <h1>Créditos</h1>
+                </div>
+                <hr>
+                <p id="p_artista_creditos_tela_tocando_agora">Artistas:</p>
+                <span id="nome_artistas_credito_tela_tocando_agora">
+                    <span>GHRARAM, Omy Alka, Connor</span>
+                </span>
+                <p>Nome da música:</p>
+                <span id="nome_musica_cretido_tela_tocando_agora">Dollar</span>
+                <p>Postada por:</p>
+                <span id="nome_qm_postou_creditos_tela_tocando_agora">Gabriel Rocha</span>
+            </div>
+
+            <div id="fila_tela_tocando_agora">
+                <div id="primeira_parte_a_seguir_tela_tocando_agora">
+                    <h3>A seguir</h3>
+                    <p onclick="Abrir_Fila()">Abrir fila</p>
                 </div>
 
-                <button id="btn_seguir_artista_tela_tocando_agora">Seguir</button>
+                <div id="contanier_fila_tela_tocando_agora"></div>
             </div>
-        </div>
-
-        <div id="container_creditos_tela_tocando_agora">
-            <div>
-                <h1>Créditos</h1>
-            </div>
-            <hr>
-            <p id="p_artista_creditos_tela_tocando_agora">Artistas:</p>
-            <span id="nome_artistas_credito_tela_tocando_agora">
-                <span>GHRARAM, Omy Alka, Connor</span>
-            </span>
-            <p>Nome da música:</p>
-            <span id="nome_musica_cretido_tela_tocando_agora">Dollar</span>
-            <p>Postada por:</p>
-            <span id="nome_qm_postou_creditos_tela_tocando_agora">Gabriel Rocha</span>
-        </div>
-
-        <div id="fila_tela_tocando_agora">
-            <div id="primeira_parte_a_seguir_tela_tocando_agora">
-                <h3>A seguir</h3>
-                <p onclick="Abrir_Fila()">Abrir fila</p>
-            </div>
-
-            <div id="contanier_fila_tela_tocando_agora"></div>
-        </div>
+       </article>
     </section>
 
     <!--! Fila -->
     <section id="container_fila">
+        <div class="gradient-bg" id="gradient_bg_container_fila">
+            <svg xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="goo">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+                        <feBlend in="SourceGraphic" in2="goo" />
+                    </filter>
+                </defs>
+            </svg>
+            <div class="gradients-container">
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <!-- <div class="interactive"></div> -->
+            </div>
+        </div>
+
         <article>
             <p id="texto_fila">Fila</p>
 
@@ -951,12 +1065,32 @@
 
     <!--! Container Barra Música -->
     <section id="container_barra_musica">
+        <div class="gradient-bg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icone">
+                <defs>
+                    <filter id="goo">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo" />
+                        <feBlend in="SourceGraphic" in2="goo" />
+                    </filter>
+                </defs>
+            </svg>
+            <div class="gradients-container">
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <div class="esferas_animacao_letra"></div>
+                <!-- <div class="interactive"></div> -->
+            </div>
+        </div>
+
         <article>
             <div id="infos_musica_barra_musica">
                 <div id="container_container_img_musica_barra_musica">
                     <div id="container_img_musica_barra_musica" onclick="Ativar_img_maior_barra_musica()">
                         <button id="btn_mostrar_img_musica_barra_maior">
-                            <img src="Assets/Imgs/uiw_left.svg">
+                            <img src="Assets/Imgs/uiw_left.svg" class="icone">
                         </button>
                         <img src="" id="img_musica_barra_musica">
                     </div>
@@ -965,21 +1099,19 @@
                     <p id="nome_musica_barra_musica"></p>
                     <span id="autor_musica_barra_musica"></span>
                 </div>
-                <img src="./Assets/Imgs/Like_Vazio.svg" id="btn_like_barra_musica" class="icons_like_barra_musica">
+                <img src="./Assets/Imgs/Like_Vazio.svg" id="btn_like_barra_musica" class="icons_like_barra_musica icone">
             </div>
 
             <div id="container_controles_musica_barra_musica">
                 <div id="container_controles">
 
-                    <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg" id="random_barra_musicas" class="icon_random_barra_musica">
+                    <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg" id="random_barra_musicas" class="icon_random_barra_musica icone">
                         <path d="M25.628 16.852C25.7145 16.9384 25.7831 17.041 25.8299 17.1539C25.8767 17.2668 25.9008 17.3878 25.9008 17.51C25.9008 17.6322 25.8767 17.7532 25.8299 17.8661C25.7831 17.979 25.7145 18.0816 25.628 18.168L22.838 20.958C22.7079 21.0882 22.5422 21.1769 22.3617 21.2128C22.1812 21.2488 21.9941 21.2304 21.824 21.1599C21.654 21.0895 21.5087 20.9701 21.4065 20.8171C21.3044 20.664 21.2499 20.4841 21.25 20.3V18.44C19.9366 18.4216 18.6459 18.0949 17.4818 17.4863C16.3178 16.8777 15.3129 16.0042 14.5482 14.9362L9.69828 8.14724C9.09542 7.3045 8.30043 6.61755 7.37918 6.14327C6.45793 5.669 5.43693 5.42107 4.40076 5.42001H1.72004C1.47339 5.42001 1.23684 5.32203 1.06243 5.14762C0.888021 4.97321 0.790039 4.73666 0.790039 4.49001C0.790039 4.24336 0.888021 4.00681 1.06243 3.8324C1.23684 3.65799 1.47339 3.56001 1.72004 3.56001H4.40076C5.73286 3.56112 7.04552 3.87963 8.22999 4.48915C9.41446 5.09867 10.4366 5.98165 11.2119 7.06495L16.0618 13.854C16.6538 14.6818 17.4314 15.3595 18.3323 15.8329C19.2332 16.3062 20.2325 16.5621 21.25 16.58V14.72C21.2499 14.536 21.3044 14.356 21.4065 14.2029C21.5087 14.0499 21.654 13.9306 21.824 13.8601C21.9941 13.7897 22.1812 13.7712 22.3617 13.8072C22.5422 13.8431 22.7079 13.9318 22.838 14.062L25.628 16.852ZM14.6238 8.55876C14.7232 8.62975 14.8356 8.68047 14.9545 8.70802C15.0735 8.73558 15.1968 8.73943 15.3172 8.71935C15.4377 8.69927 15.5531 8.65566 15.6567 8.591C15.7603 8.52635 15.8502 8.44192 15.9211 8.34254L16.0606 8.1484C16.6525 7.31999 17.4302 6.64172 18.3313 6.16793C19.2325 5.69414 20.2321 5.43799 21.25 5.42001V7.28001C21.2499 7.46406 21.3044 7.644 21.4065 7.79708C21.5087 7.95015 21.654 8.06946 21.824 8.13991C21.9941 8.21036 22.1812 8.22878 22.3617 8.19283C22.5422 8.15689 22.7079 8.0682 22.838 7.93799L25.628 5.14799C25.7145 5.06162 25.7831 4.95905 25.8299 4.84615C25.8767 4.73325 25.9008 4.61223 25.9008 4.49001C25.9008 4.3678 25.8767 4.24678 25.8299 4.13388C25.7831 4.02098 25.7145 3.91841 25.628 3.83204L22.838 1.04204C22.7079 0.911826 22.5422 0.823135 22.3617 0.78719C22.1812 0.751245 21.9941 0.769663 21.824 0.840113C21.654 0.910563 21.5087 1.02988 21.4065 1.18295C21.3044 1.33602 21.2499 1.51597 21.25 1.70001V3.56001C19.9366 3.57846 18.6459 3.90513 17.4818 4.51371C16.3178 5.1223 15.3129 5.99578 14.5482 7.06379L14.4087 7.25792C14.3371 7.35735 14.2859 7.46995 14.258 7.58924C14.23 7.70853 14.2259 7.83216 14.2459 7.95304C14.2659 8.07392 14.3096 8.18966 14.3744 8.29361C14.4393 8.39756 14.524 8.48767 14.6238 8.55876ZM11.1363 13.4413C11.0369 13.3703 10.9245 13.3196 10.8055 13.292C10.6865 13.2644 10.5633 13.2606 10.4428 13.2807C10.3224 13.3008 10.207 13.3444 10.1034 13.409C9.99979 13.4737 9.90992 13.5581 9.83894 13.6575L9.69944 13.8516C9.09659 14.6947 8.30148 15.382 7.38 15.8565C6.45852 16.331 5.43723 16.579 4.40076 16.58H1.72004C1.47339 16.58 1.23684 16.678 1.06243 16.8524C0.888021 17.0268 0.790039 17.2634 0.790039 17.51C0.790039 17.7567 0.888021 17.9932 1.06243 18.1676C1.23684 18.342 1.47339 18.44 1.72004 18.44H4.40076C5.73286 18.4389 7.04552 18.1204 8.22999 17.5109C9.41446 16.9014 10.4366 16.0184 11.2119 14.9351L11.3514 14.7409C11.4228 14.6415 11.4739 14.529 11.5017 14.4099C11.5295 14.2907 11.5336 14.1672 11.5136 14.0465C11.4936 13.9257 11.45 13.8101 11.3853 13.7063C11.3205 13.6024 11.2359 13.5124 11.1363 13.4413Z" fill="white"/>
                     </svg>                        
-                    <img src="Assets/Imgs/Back.svg" onclick="Musica_Anterior()">
-                    <img src="Assets/Imgs/Pause.svg" class="icone_play_pc">                                           
-                    <img src="Assets/Imgs/Next.svg" onclick="Proxima_Musica()">
-                    <svg width="23" height="24" viewBox="0 0 23 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="repeat_icons">
-                        <path d="M20.2611 6.86262C21.2452 7.89353 21.9125 9.18541 22.1836 10.5846C22.4547 11.9838 22.3182 13.4314 21.7904 14.7553C21.2626 16.0791 20.3656 17.2236 19.2062 18.0524C18.0468 18.8812 16.6737 19.3596 15.2502 19.4306L14.8801 19.4399L8.7551 19.4381L10.8904 21.5752C11.0444 21.7291 11.1396 21.9322 11.1593 22.149C11.1791 22.3659 11.122 22.5828 10.9983 22.7619L10.8904 22.8902C10.7365 23.0443 10.5334 23.1395 10.3166 23.1592C10.0997 23.1789 9.88284 23.1219 9.7037 22.9981L9.57536 22.8902L5.85164 19.1665C5.69787 19.0124 5.60303 18.8092 5.58366 18.5924C5.56429 18.3755 5.6216 18.1588 5.74562 17.9798L5.85164 17.8515L9.57536 14.1278C9.73939 13.963 9.95919 13.8657 10.1914 13.8549C10.4237 13.8442 10.6515 13.9208 10.8301 14.0697C11.0086 14.2186 11.1249 14.429 11.1561 14.6594C11.1872 14.8898 11.1309 15.1235 10.9983 15.3145L10.8904 15.4447L8.7551 17.5781H14.8801C16.3031 17.5782 17.6723 17.0346 18.7078 16.0586C19.7433 15.0826 20.3668 13.7478 20.4508 12.3273L20.4601 11.9999C20.4623 10.5309 19.8833 9.12073 18.8493 8.0772C18.6796 7.90544 18.5833 7.67439 18.5809 7.43292C18.5784 7.19145 18.67 6.9585 18.8362 6.78334C19.0025 6.60817 19.2303 6.50453 19.4716 6.49434C19.7128 6.48414 19.9486 6.56819 20.129 6.7287L20.2629 6.86262H20.2611ZM12.6183 1.00176L12.7485 1.10778L16.4704 4.8315L16.5783 4.9617C16.6854 5.11701 16.7428 5.30124 16.7428 5.48994C16.7428 5.67864 16.6854 5.86288 16.5783 6.01818L16.4704 6.14838L12.7485 9.87024L12.6183 9.97812C12.463 10.0853 12.2788 10.1427 12.0901 10.1427C11.9014 10.1427 11.7171 10.0853 11.5618 9.97812L11.4316 9.87024L11.3256 9.74004C11.2184 9.58474 11.161 9.4005 11.161 9.2118C11.161 9.0231 11.2184 8.83887 11.3256 8.68356L11.4316 8.55336L13.5669 6.41994H7.44008C6.01679 6.41986 4.64727 6.96367 3.61172 7.94009C2.57617 8.91651 1.95288 10.2517 1.86938 11.6726L1.86008 11.9999C1.86008 13.5251 2.47202 14.9053 3.46154 15.9134C3.61824 16.0923 3.70043 16.3245 3.69122 16.5621C3.68201 16.7998 3.5821 17.0249 3.41203 17.1911C3.24196 17.3574 3.01466 17.4522 2.77686 17.456C2.53906 17.4598 2.30883 17.3724 2.1335 17.2117C1.12917 16.1885 0.441839 14.897 0.154202 13.4924C-0.133435 12.0879 -0.00912701 10.6302 0.512171 9.29458C1.03347 7.95902 1.92955 6.80251 3.09262 5.9642C4.25569 5.12589 5.63621 4.64148 7.06808 4.56924L7.44008 4.55994L13.5669 4.55808L11.4316 2.42466L11.3256 2.29446C11.2031 2.11544 11.1471 1.89923 11.1671 1.68323C11.1872 1.46724 11.2821 1.26506 11.4355 1.11167C11.5889 0.958284 11.7911 0.863341 12.0071 0.84327C12.2231 0.823199 12.4393 0.879264 12.6183 1.00176Z" fill="white"/>
-                    </svg>                        
+                    <img src="Assets/Imgs/Back.svg" onclick="Musica_Anterior()" class="icone">
+                    <img src="Assets/Imgs/Pause.svg" class="icone_play_pc icone">                                           
+                    <img src="Assets/Imgs/Next.svg" onclick="Proxima_Musica()" class="icone">
+                    <img src="Assets/Imgs/Repeat.svg" alt="" class="repeat_icons icone">                       
                 </div>
 
                 <div id="container_barra">
@@ -990,20 +1122,20 @@
             </div>
 
             <div id="container_opcoes_barra_musica">
-                <img src="Assets/Imgs/Mic.svg" onclick="Abrir_Ver_Letra_PC()" class="img_btn_mic_letra">
-                <img src="Assets/Imgs/icon_tela_tocando_agora.png" class="img_btn_tela_tocando_agora" onclick="Abrir_Tela_Tocando_Agora()">
-                <img src="Assets/Imgs/Fila.svg" onclick="Abrir_Fila()">
-                <img src="Assets/Imgs/Pc.svg">
+                <img src="Assets/Imgs/Mic.svg" onclick="Abrir_Ver_Letra_PC()" class="img_btn_mic_letra icone">
+                <img src="Assets/Imgs/icon_tela_tocando_agora.png" class="img_btn_tela_tocando_agora icone" onclick="Abrir_Tela_Tocando_Agora()">
+                <img src="Assets/Imgs/Fila.svg" onclick="Abrir_Fila()" class="icone">
+                <img src="Assets/Imgs/Pc.svg" class="icone">
 
                 <div class="container_icon_som">
                     <div id="container_icon_volume">
-                        <img src="Assets/Imgs/Som.svg" class="icone_som_pc">
+                        <img src="Assets/Imgs/Som.svg" class="icone_som_pc icone">
                     </div>
 
                     <input type="range" min="0" max="100" value="0" id="input_volume_pc">
                 </div>
 
-                <img src="Assets/Imgs/Maximizar.svg" onclick="Ativar_Fullscreen()">                 
+                <img src="Assets/Imgs/Maximizar.svg" onclick="Ativar_Fullscreen()" class="icone">                 
             </div>
         </article>
     </section>
@@ -1159,6 +1291,11 @@
     <!--! Audio -->
     <audio id="audio_player" style="display: none;"></audio>
 
+    <!--! Remover ------------------------------------ -->
+    <div id="cores_imgs">
+
+    </div>
+
     <!--? Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-firestore.js"></script>
@@ -1185,6 +1322,7 @@
     <script src="Assets/Js/Banimento/Banimento.js"></script>
     
     <!--* Main -->
+    <script src="Assets/Js/Main/Tema.js"></script>
     <script src="Assets/Js/Main/Main.js"></script>
     <script src="Assets/Js/Main/Artista.js"></script>
     <script src="Assets/Js/Main/Opcoes_Click_Diereito.js"></script>
@@ -1216,6 +1354,7 @@
     <script src="Assets/Js/Main/Match.js"></script>
     <script src="Assets/Js/Main/Criar_Playlist.js"></script>
     <script src="Assets/Js/Main/AceitarPlaylist.js"></script>
+    <script src="Assets/Js/Main/Cores_Imgs.js"></script>
     <script src="Assets/Js/Nav/Navegation.js"></script>
 </body>
 </html>

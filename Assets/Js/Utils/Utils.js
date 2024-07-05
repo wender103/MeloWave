@@ -1038,19 +1038,6 @@ function aumentarVolume() {
 }
 
 //! Adiciona cores as notificações
-// function substituirTexto_cor(text) {
-//     const regex = /\*([a-zA-Z]+)\*([^*]+)\*\1\*/g
-//     return text.replace(regex, (match, color, content) => {
-//         return `<strong style="color: ${color}">${content}</strong>`
-//     })
-// }
-
-// function substituirCor_cor(text){
-//     const regex = /\*#([a-fA-F0-9]{6})\*([^*]+)\*#\1\*/g;
-//     return text.replace(regex, (match, color, content) => {
-//         return `<strong style="color: #${color}">${content}</strong>`;
-//     })
-// }
 
 function substituirTexto_cor(text) {
     const regex = /\*([a-zA-Z]+)\*([^*]+?)\*\1\*/g
@@ -1230,4 +1217,68 @@ function objetosDiferentes(obj1, obj2) {
 //! Troca os <> por &lt e &gt
 function escapeHtml(text) {
     return text.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+}
+
+//! Checa se todas imgs e audios foram carregados
+function checkIfAllLoaded() {
+    let allImagesLoaded = Array.from(document.images).every(img => img.complete);
+    let allAudioLoaded = Array.from(document.querySelectorAll('audio')).every(audio => audio.readyState === 4);
+  
+    return allImagesLoaded && allAudioLoaded;
+}
+
+//! Transforma #642420" em rgb
+function hexToRgb(hex) {
+    const bigint = parseInt(hex.slice(1), 16)
+    const r = (bigint >> 16) & 255
+    const g = (bigint >> 8) & 255
+    const b = bigint & 255
+    return [r, g, b]
+}
+
+//! Retorna se a cor é clara de mais
+function corEhClara(cor) {
+    // Função para converter formato HEX para RGB
+    function hexParaRgb(hex) {
+        hex = hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => {
+            return r + r + g + g + b + b;
+        });
+        const bigint = parseInt(hex.substring(1), 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    // Função para calcular o brilho da cor
+    function calcularBrilho(cor) {
+        let r, g, b, a;
+
+        if (cor.startsWith('rgba')) {
+            [r, g, b, a] = cor.match(/[\d.]+/g);
+        } else if (cor.startsWith('rgb')) {
+            [r, g, b] = cor.match(/[\d.]+/g);
+            a = 1;
+        } else if (cor.startsWith('#')) {
+            cor = hexParaRgb(cor);
+            [r, g, b] = cor.match(/[\d.]+/g);
+            a = 1;
+        }
+
+        // Calcula o brilho conforme a fórmula perceptiva
+        const brilho = (r * 299 + g * 587 + b * 114) / 1000;
+        return brilho;
+    }
+
+    // Converte a cor para minúsculas para facilitar a comparação
+    cor = cor.toLowerCase();
+
+    // Obtém o brilho da cor
+    const brilho = calcularBrilho(cor);
+
+    // Define um limite de brilho para determinar se a cor é clara demais
+    const limiteBrilho = 100;
+
+    // Retorna verdadeiro se a cor for clara demais (brilho acima do limite)
+    return brilho > limiteBrilho;
 }

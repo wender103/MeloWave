@@ -335,13 +335,15 @@ function Artistas_Tocados_Recentemente() {
         article.id = 'container_artistas_playlist_tocadas_recentemente'
     }
 
-
     for (let c = artistas.length - 1; c >=0 ; c--) {
-        if(!validarEmail(artistas[c])) {
-            article.appendChild(Retornar_Artistas_Caixa(artistas[c]))
-        } else {
-            article.appendChild(Retornar_User_Historico(artistas[c]))
+        if(typeof artistas[c] == 'string') {
+            if(!validarEmail(artistas[c])) {
+                article.appendChild(Retornar_Artistas_Caixa(artistas[c]))
+            } else {
+                article.appendChild(Retornar_User_Historico(artistas[c]))
+            }
         }
+
     }
 
     if(article.innerHTML != '' && !Artistas_Tocados_Recentemente_ja_carregados) {

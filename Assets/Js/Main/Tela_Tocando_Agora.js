@@ -287,13 +287,15 @@ function Abrir_Tela_Tocando_Agora() {
                 nav_main.style.transition = '500ms width ease-in-out'
                 nav_main.style.width = 'calc(100vw - 386px)'
                 if(notificacao_tempo_real_aberta) {
-                    document.getElementById('container_notificacoes_tempo_real').className = 'active2'
+                    Mostrar_Notificacao_Na_Tela(2)
                 }
 
                 container_tela_tocando_agora.style.transition = '500ms right ease-in-out'
         
                 container_tela_tocando_agora.style.right = '8px'
-        
+
+                Atualizar_Cores_Partes_Site()
+                
                 setTimeout(() => {
                     main.style.transition = 'none'
                     nav_main.style.transition = 'none'
@@ -315,7 +317,7 @@ function Fechar_Tela_Tocando_Agora() {
     nav_main.style.transition = '500ms width ease-in-out'
     nav_main.style.width = 'calc(100vw - 96px)'
     if(!fila_aberta && notificacao_tempo_real_aberta) {
-        document.getElementById('container_notificacoes_tempo_real').className = 'active1'
+        Mostrar_Notificacao_Na_Tela(1)
     }
 
     Fechar_Letra_Tela_Tocando_Agora()
@@ -354,6 +356,10 @@ function Mostrar_Letra_Tela_Tocando_Agora() {
         container_letra_tela_tocando_agora.style.backdropFilter = 'blur(20px)'
 
         setTimeout(() => {
+            Atualizar_Cores_Partes_Site()
+        }, 500)
+
+        setTimeout(() => {
             Atualizar_Linha_Letra_Input()
         }, 500)
     } else {
@@ -373,4 +379,8 @@ function Fechar_Letra_Tela_Tocando_Agora(Comando = '') {
     container_letra_tocando_agora.classList.remove('active')
     container_letra_tela_tocando_agora.style.background = '#0000001a'
     container_letra_tela_tocando_agora.style.backdropFilter = 'blur(0px)'
+
+    setTimeout(() => {
+        Atualizar_Cores_Partes_Site()
+    }, 500)
 }

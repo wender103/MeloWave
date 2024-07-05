@@ -66,6 +66,11 @@ body {
             border-radius: 8px;
             overflow: auto;
 
+            div.gradient-bg {
+                min-height: auto;
+                overflow: hidden;
+            }
+
             li {
                 img, svg {
                     width: 25px;
@@ -474,12 +479,13 @@ body {
         // background-color: var(--padrao1);
         backdrop-filter: blur($blur);
         border-radius: 8px;
-        padding: 22px;
+        // padding: 22px;
         overflow: auto;
         background-image: linear-gradient(to bottom, transparent, var(--padrao15));
 
         //! Paginas
         section.Paginas {
+            padding: 22px;
             margin: 54px 0 35px;
             display: none;
             min-height: calc(100vh - 149px);
@@ -1928,62 +1934,59 @@ body {
                     }
                 }
             }
-
+ 
             &#Pagina_verletra {
                 height: 100vh;
                 min-height: 0px !important;
                 position: relative;
-                overflow: hidden;
+                overflow: hidden;  
                 
-                .Tem_Letra {
-                    -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0));
-                    mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0));
+                &.Pagina_Aberta > article > pre {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: calc(100% - 78px);
                 }
 
+                &.Tem_Letra {
+                    // -webkit-mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0));
+                    // mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 40%, rgba(0, 0, 0, 0));
+
+                    article > pre {
+                        display: block;
+                        height: auto;
+                    }
+                }
+
+                $sombra_letra_destaque_dark: 0 0 1px rgb(0 0 0 / 70%), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0);
                 article#container_letra_verletra {
                     overflow: hidden;
                     height: 100%;
 
-                    pre {
-                        width: 100%;
-                        height: 100%;
-                        background-color: transparent;
-                        border: none;
-                        color: rgba(255, 255, 255, 0.1);
-                        outline: none;
-                        font-size: 1.5rem;
-                        overflow: auto;
-                        font-weight: 700;
-                        padding: 500px 10px 500px;
-                        white-space: pre-wrap;
-                        // text-align: center;
+                    pre.Dark {
+                        color: #00000040;
 
                         span {
-                            cursor: pointer;
-
+                            
                             &.linha_pre_anterior_add_letra {
-                                color: #ffffff5e;
+                                color: #00000078;
                             }
 
                             &.linha_pre_em_destaque_add_letra {
                                 .animated-span {
-                                    font-size: 1.5rem;
-                                    color: rgba(255, 255, 255, 0.23);
-                                    transition: font-size 0.3s, color 0.3s;
+                                    color: #00000078;
                                 }
                                     
                                 .animated-span.animated {
-                                    font-size: 1.7rem;
-                                    color: white;
-                                    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
+                                    color: black;
+                                    text-shadow: $sombra_letra_destaque_dark;
                                 }
                             }
                         }
 
                         h1 { 
-                            color: var(--white);
-                            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
-                            font-size: 1.7rem;
+                            color: black;
+                            text-shadow: $sombra_letra_destaque_dark;
                         }
                     }
                 }
@@ -3633,117 +3636,297 @@ body {
         border-radius: 8px;
         transition: 500ms right ease-in-out;
         overflow: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
 
-        div#nome_album_tela_tocando_agora {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            p#p_nome_album_tela_tocando_agora {
-                font-weight: bold;
-            }
-
-            div {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-
-                button {
-                    width: 30px;
-                    height: 30px;
-                    background-color: transparent;
-                    border: none;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: var(--white);
-                    cursor: pointer;
-    
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: contain;
-                    }
-
-                    span {
-                        width: 100%;
-                        height: 80%;
-                        font-size: 14px;
-                        font-weight: 700;
-                        letter-spacing: 2px;
-                        display: block;
-                    }
-                }
-            }
+        div.gradient-bg {
+            z-index: -1;
+            min-height: auto;
         }
 
-        div#container_musica_tela_tocando_agora {
-            background-color: var(--black_transparent);
-            padding: 10px;
-            border-radius: 6px;
+        article {
             display: flex;
             flex-direction: column;
             gap: 20px;
 
-            div#container_img_musica_tela_tocando_agora {
-                width: 100%;
-                height: 229px;
-                overflow: hidden;
-                border-radius: 6px;
-
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-            }
-
-            div#contanier_texto_tela_tocando_agora {
+            div#nome_album_tela_tocando_agora {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                // margin-top: 20px;
+
+                p#p_nome_album_tela_tocando_agora {
+                    font-weight: bold;
+                }
 
                 div {
                     display: flex;
-                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
 
-                    p#nome_musica_tela_tocando_agora {
-                        font-weight: bold;
-                    }
-
-                    span {
-                        font-size: 12px;
-                        color: var(--white_transparent);
-
+                    button {
+                        width: 30px;
+                        height: 30px;
+                        background-color: transparent;
+                        border: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: var(--white);
                         cursor: pointer;
+        
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                        }
 
-                        p.p_nomes_artistas {
-                            span.span_nomes_artistas:hover {
-                                text-decoration: underline;
+                        span {
+                            width: 100%;
+                            height: 80%;
+                            font-size: 14px;
+                            font-weight: 700;
+                            letter-spacing: 2px;
+                            display: block;
+                        }
+                    }
+                }
+            }
+
+            div#container_musica_tela_tocando_agora {
+                background-color: var(--black_transparent);
+                padding: 10px;
+                border-radius: 6px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                div#container_img_musica_tela_tocando_agora {
+                    width: 100%;
+                    height: 229px;
+                    overflow: hidden;
+                    border-radius: 6px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                div#contanier_texto_tela_tocando_agora {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    // margin-top: 20px;
+
+                    div {
+                        display: flex;
+                        flex-direction: column;
+
+                        p#nome_musica_tela_tocando_agora {
+                            font-weight: bold;
+                        }
+
+                        span {
+                            font-size: 12px;
+                            color: var(--white_transparent);
+
+                            cursor: pointer;
+
+                            p.p_nomes_artistas {
+                                span.span_nomes_artistas:hover {
+                                    text-decoration: underline;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
 
-        div#container_letra_tela_tocando_agora {
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            // height: 48px;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--black_transparent);
-
-            div#container_mostrar_letra_tela_tocando_agora {
+            div#container_letra_tela_tocando_agora {
+                width: 100%;
+                padding: 10px;
+                border-radius: 6px;
+                // height: 48px;
                 display: flex;
-                align-items: center;
-                justify-content: space-between;
+                flex-direction: column;
+                background-color: var(--black_transparent);
+
+                div#container_mostrar_letra_tela_tocando_agora {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    button {
+                        background-color: transparent;
+                        border: 1px solid var(--white);
+                        color: var(--white);
+                        padding: 5px 10px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                    }
+                }
+
+                div#container_letra_tocando_agora {
+                    width: calc(100% + 20px);
+                    margin-left: -10px;
+                    height: 0;
+                    // overflow: hidden;
+                    transition: height 0.5s ease-in-out;
+
+                    &.active {
+                        height: 300px;
+
+                        pre {
+                            margin-top: 10px;
+                            background-position: center;
+                        }
+                    }
+
+                    pre {
+                        width: 100%;
+                        height: 100%;
+                        background-color: transparent;
+                        border: none;
+                        color: var(--fonte_transparente);
+                        outline: none;
+                        font-size: 1rem;
+                        overflow: auto;
+                        font-weight: bold;
+                        // text-align: center;
+                        white-space: pre-wrap;
+                        padding: 0 10px;
+
+                        span {
+                            cursor: pointer;
+
+                            &.linha_pre_anterior_add_letra {
+                                color: var(--fonte_meio_transparente);
+                            }
+
+                            &.linha_pre_em_destaque_add_letra {
+                                &.linha_pre_em_destaque_add_letra {
+                                    .animated-span {
+                                        font-size: 1rem;
+                                        color: rgba(255, 255, 255, 0.23);
+                                        transition: font-size 0.3s, color 0.3s;
+                                    }
+                                        
+                                    .animated-span.animated {
+                                        font-size: 1.1rem;
+                                        color: white;
+                                        text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            div#container_artista_tela_tocando_agora {
+                background-color: var(--black_transparent);
+                padding: 10px;
+                border-radius: 6px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                
+                div#contaier_img_tela_tocando_agora {
+                    overflow: hidden;
+                    border-radius: 6px;
+                    position: relative;
+                    cursor: pointer;
+
+                    #carousel_container_telta_tocando_agora {
+                        position: relative;
+                        width: 100%;
+                        overflow: hidden;
+            
+                        #carousel_telta_tocando_agora {
+                            display: flex;
+                            transition: transform 0.5s ease-in-out;
+                        }          
+                
+                        .carousel_item_telta_tocando_agora {
+                            min-width: 100%;
+                            height: 229px;
+                            transform-origin: center;  
+                            transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
+                            border-radius: 6px;
+                            position: relative;
+
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+
+                            p {
+                                position: absolute;
+                                font-weight: bold;
+                                top: 10px;
+                                left: 10px;
+                                z-index: 1;
+                            }
+                        }
+                
+                        .carousel_item_telta_tocando_agora.active {
+                            transform: scale(1);
+                            width: 100%;
+                        }
+                
+                        .carousel_item_telta_tocando_agora.next {
+                            transform: scale(0.3);
+                            width: 80%;
+                        }
+                
+                        #next_btn_telta_tocando_agora, #prev_btn_telta_tocando_agora {
+                            position: absolute;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            background-color: #0000006b;
+                            border: none;
+                            cursor: pointer;
+                            padding: 10px 11px;
+                            border-radius: 50%;
+                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            img {
+                                width: 15px;
+                                height: 15px;
+                                object-fit: contain;
+                            }
+                        }
+                
+                        #next_btn_telta_tocando_agora {
+                            right: 10px;
+                        }
+                
+                        #prev_btn_telta_tocando_agora {
+                            left: 10px;
+                            display: none;
+                        }
+                    }
+                }
+
+                div#texto_artista_tela_tocando_agora {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    div {
+                        p {
+                            font-weight: bold;
+                        }
+        
+                        span {
+                            font-size: 12px;
+                            color: var(--white_transparent);
+                        }
+                    }
+                }
 
                 button {
                     background-color: transparent;
@@ -3755,294 +3938,126 @@ body {
                 }
             }
 
-            div#container_letra_tocando_agora {
-                width: calc(100% + 20px);
-                margin-left: -10px;
-                height: 0;
-                // overflow: hidden;
-                transition: height 0.5s ease-in-out;
-
-                &.active {
-                    height: 300px;
-
-                    pre {
-                        margin-top: 10px;
-                        background-position: center;
-                    }
-                }
-
-                pre {
-                    width: 100%;
-                    height: 100%;
-                    background-color: transparent;
-                    border: none;
-                    color: var(--fonte_transparente);
-                    outline: none;
-                    font-size: 1rem;
-                    overflow: auto;
-                    font-weight: bold;
-                    // text-align: center;
-                    white-space: pre-wrap;
-                    padding: 0 10px;
-
-                    span {
-                        cursor: pointer;
-
-                        &.linha_pre_anterior_add_letra {
-                            color: var(--fonte_meio_transparente);
-                        }
-
-                        &.linha_pre_em_destaque_add_letra {
-                            &.linha_pre_em_destaque_add_letra {
-                                .animated-span {
-                                    font-size: 1rem;
-                                    color: rgba(255, 255, 255, 0.23);
-                                    transition: font-size 0.3s, color 0.3s;
-                                }
-                                    
-                                .animated-span.animated {
-                                    font-size: 1.1rem;
-                                    color: white;
-                                    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        div#container_artista_tela_tocando_agora {
-            background-color: var(--black_transparent);
-            padding: 10px;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            
-            div#contaier_img_tela_tocando_agora {
-                overflow: hidden;
+            div#container_creditos_tela_tocando_agora {
+                background-color: var(--black_transparent);
+                padding: 10px;
                 border-radius: 6px;
-                position: relative;
-                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                // gap: 20px;
 
-                #carousel_container_telta_tocando_agora {
-                    position: relative;
-                    width: 100%;
-                    overflow: hidden;
-        
-                    #carousel_telta_tocando_agora {
-                        display: flex;
-                        transition: transform 0.5s ease-in-out;
-                    }          
-            
-                    .carousel_item_telta_tocando_agora {
-                        min-width: 100%;
-                        height: 229px;
-                        transform-origin: center;  
-                        transition: transform 0.5s ease-in-out, width 0.5s ease-in-out;
-                        border-radius: 6px;
-                        position: relative;
+                div {
+                    display: flex;
+                    justify-content: space-between;
+
+                    h1 {
+                        font-size: 1.3em;
+                    }
+
+                    button {
+                        width: 50px;
+                        height: 50px;
+                        background-color: transparent;
+                        border: none;
+                        cursor: pointer;
 
                         img {
                             width: 100%;
                             height: 100%;
-                            object-fit: cover;
-                        }
-
-                        p {
-                            position: absolute;
-                            font-weight: bold;
-                            top: 10px;
-                            left: 10px;
-                            z-index: 1;
-                        }
-                    }
-            
-                    .carousel_item_telta_tocando_agora.active {
-                        transform: scale(1);
-                        width: 100%;
-                    }
-            
-                    .carousel_item_telta_tocando_agora.next {
-                        transform: scale(0.3);
-                        width: 80%;
-                    }
-            
-                    #next_btn_telta_tocando_agora, #prev_btn_telta_tocando_agora {
-                        position: absolute;
-                        top: 50%;
-                        transform: translateY(-50%);
-                        background-color: #0000006b;
-                        border: none;
-                        cursor: pointer;
-                        padding: 10px 11px;
-                        border-radius: 50%;
-                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-
-                        img {
-                            width: 15px;
-                            height: 15px;
                             object-fit: contain;
                         }
                     }
-            
-                    #next_btn_telta_tocando_agora {
-                        right: 10px;
-                    }
-            
-                    #prev_btn_telta_tocando_agora {
-                        left: 10px;
-                        display: none;
-                    }
-                }
-            }
-
-            div#texto_artista_tela_tocando_agora {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-
-                div {
-                    p {
-                        font-weight: bold;
-                    }
-    
-                    span {
-                        font-size: 12px;
-                        color: var(--white_transparent);
-                    }
-                }
-            }
-
-            button {
-                background-color: transparent;
-                border: 1px solid var(--white);
-                color: var(--white);
-                padding: 5px 10px;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-        }
-
-        div#container_creditos_tela_tocando_agora {
-            background-color: var(--black_transparent);
-            padding: 10px;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            // gap: 20px;
-
-            div {
-                display: flex;
-                justify-content: space-between;
-
-                h1 {
-                    font-size: 1.3em;
                 }
 
-                button {
-                    width: 50px;
-                    height: 50px;
-                    background-color: transparent;
-                    border: none;
-                    cursor: pointer;
-
-                    img {
-                        width: 100%;
-                        height: 100%;
-                        object-fit: contain;
-                    }
+                hr {
+                    width: 100%;
+                    border-color: rgba(180, 180, 180, 0.24);
+                    margin: 10px 0;
                 }
-            }
 
-            hr {
-                width: 100%;
-                border-color: rgba(180, 180, 180, 0.24);
-                margin: 10px 0;
-            }
-
-            p {
-                font-size: 14px;
-            }
-
-            span#nome_qm_postou_creditos_tela_tocando_agora {
-                text-decoration: none;
-
-                &.active:hover {
-                    text-decoration: underline;
-                    cursor: pointer;
+                p {
+                    font-size: 14px;
                 }
-            }
 
-            span {
-                font-size: 13px;
-                color: var(--fonte_meio_transparente);
-                display: block;
-                margin: 5px 0 10px;
-                cursor: default;
+                span#nome_qm_postou_creditos_tela_tocando_agora {
+                    text-decoration: none;
 
-                &#nome_qm_postou_creditos {
                     &.active:hover {
                         text-decoration: underline;
                         cursor: pointer;
                     }
                 }
 
-                p {
-                    font-size: 13px !important;
+                span {
+                    font-size: 13px;
+                    color: var(--white_transparent);
+                    display: block;
+                    margin: 5px 0 10px;
+                    cursor: default;
 
-                    span {
-                        font-size: 13px;
-                        color: var(--fonte_meio_transparente);
-                        margin: 0 !important;
-                        display: inline;
-
-                        &:first-child {
-                            padding: 0;
-                        }
-
-                        &:hover {
+                    &#nome_qm_postou_creditos {
+                        &.active:hover {
                             text-decoration: underline;
                             cursor: pointer;
                         }
                     }
+
+                    p {
+                        font-size: 13px !important;
+
+                        span {
+                            font-size: 13px;
+                            color: var(--white_transparent);
+                            margin: 0 !important;
+                            display: inline;
+
+                            &:first-child {
+                                padding: 0;
+                            }
+
+                            &:hover {
+                                text-decoration: underline;
+                                cursor: pointer;
+                            }
+                        }
+                    }
                 }
             }
-        }
 
-        div#fila_tela_tocando_agora {
-            background-color: var(--black_transparent);
-            padding: 10px;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            // gap: 20px;
-
-            div#primeira_parte_a_seguir_tela_tocando_agora {
+            div#fila_tela_tocando_agora {
+                background-color: var(--black_transparent);
+                padding: 10px;
+                border-radius: 6px;
                 display: flex;
-                align-items: center;
-                justify-content: space-between;
+                flex-direction: column;
+                // gap: 20px;
 
-                h3 {
-                    font-size: 1em;
+                div#primeira_parte_a_seguir_tela_tocando_agora {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    h3 {
+                        font-size: 1em;
+                    }
+
+                    p {
+                        font-size: 13px;
+                        color: var(--white_transparent);
+                        cursor: pointer;
+
+                        span {
+                            color: var(--white_transparent);
+                        }
+                    }
                 }
 
-                p {
-                    font-size: 13px;
-                    color: var(--white_transparent);
-                    cursor: pointer;
-                }
-            }
-
-            div#contanier_fila_tela_tocando_agora {
-                margin-top: 20px;
-                
-                div.musica_linha {
-                    background-color: transparent;
+                div#contanier_fila_tela_tocando_agora {
+                    margin-top: 20px;
+                    
+                    div.musica_linha {
+                        background-color: transparent;
+                    }
                 }
             }
         }
@@ -4063,6 +4078,10 @@ body {
         border-radius: 8px;
         transition: 500ms right ease-in-out;
         overflow: auto;
+
+        div.gradient-bg {
+            min-height: calc(-112px + 100vh);
+        }
         
         article {
             width: 100%;
@@ -4070,6 +4089,7 @@ body {
             display: flex;
             justify-content: space-between;
             flex-direction: column;
+            overflow: auto;
             
             p#texto_fila {
                 margin-left: 8px;
@@ -4314,6 +4334,10 @@ body {
         border-radius: 8px;
         padding: 8px;
         
+        div.gradient-bg {
+            min-height: auto;
+        }
+
         article {
             width: 100%;
             display: flex;
@@ -4539,7 +4563,7 @@ body {
                         justify-content: center;
 
                         img {
-                            transition: all 5s ease-in-out;
+                            // transition: all 5s ease-in-out;
                         }
                     }
 

@@ -5,9 +5,8 @@
   --fonte_khmer: "Khmer", sans-serif;
   --fonte_Tiny5:"Tiny5", sans-serif;
   --white: #fff;
-  --white_pouco_transparent: #ffffff9c;
-  --white_transparent: #ffffff8a;
-  --black: #000;
+  --white_pouco_transparent: rgba(255, 255, 255, 0.612);
+  --white_transparent: rgba(255, 255, 255, 0.541);
   --black_transparent: #0000001a;
   --padrao1: rgba(58, 62, 64, 0.404);
   --padrao15: rgba(35, 38, 39, 0.404);
@@ -604,4 +603,20 @@ div#container_carregamento_tela_innteira #message_carregamento {
 #copyNotification.show, #avisos_rapidos.show {
   bottom: 120px; /* Desliza para dentro da tela */
   opacity: 1;
+}
+
+#cores_imgs {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 6;
+}
+
+.color-box {
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
 }/*# sourceMappingURL=Geral.css.map */

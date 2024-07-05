@@ -146,7 +146,8 @@ function Recarregar_Infos_Url() {
             Abrir_Pagina('meuperfil', `meuperfil_${id_page}`)
 
         } else if(page == 'verletra') {
-            Abrir_Ver_Letra_PC()
+            Abrir_Ver_Letra_PC(id_page)
+
         } else if(page == 'biblioteca') {
             Abrir_Pagina('biblioteca') 
         } else if(page == 'aceitarmatch') {

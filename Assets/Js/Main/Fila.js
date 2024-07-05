@@ -46,8 +46,10 @@ function Abrir_Fila() {
         
                 container_fila.style.right = '8px'
                 if(notificacao_tempo_real_aberta) {
-                    document.getElementById('container_notificacoes_tempo_real').className = 'active2'
+                    Mostrar_Notificacao_Na_Tela(2)
                 }
+
+                Atualizar_Cores_Partes_Site()
         
                 setTimeout(() => {
                     main.style.transition = 'none'
@@ -74,7 +76,7 @@ function Fechar_Fila() {
     nav_main.style.transition = '500ms width ease-in-out'
     nav_main.style.width = 'calc(100vw - 96px)'
     if(!telca_tocando_agora_aberta && notificacao_tempo_real_aberta) {
-        document.getElementById('container_notificacoes_tempo_real').className = 'active1'
+        Mostrar_Notificacao_Na_Tela(1)
     }
 
     
