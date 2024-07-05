@@ -201,10 +201,11 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
             } else {
                 mudarTemaParaClaro()
             }   
+
+            Atualizar_Cores_Partes_Site()
+            Adicionar_Opacidade_Das_Cores_Fundo_Interativo()
         }
 
-        Atualizar_Cores_Partes_Site()
-        Adicionar_Opacidade_Das_Cores_Fundo_Interativo()
     } else {
         Remover_Opacidade_Das_Cores_Fundo_Interativo()
     }
