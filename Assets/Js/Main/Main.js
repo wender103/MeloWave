@@ -1158,6 +1158,32 @@ function Abrir_Creditos(ID_Musica) {
             }
         })
 
+        document.getElementById('data_musica_postada_creditos').innerText = TodasMusicas[c].Data
+        document.getElementById('views_musica_creditos').innerText = TodasMusicas[c].Views
+
+        const generos = TodasMusicas[c].Genero.split(',').map(item => item.trim())
+        document.getElementById('generos_musicais_musica_credito').innerHTML = ''
+
+        for (let c = 0; c < generos.length; c++) {
+            const span = document.createElement('span')
+            span.innerText = generos[c]
+            document.getElementById('generos_musicais_musica_credito').appendChild(span)
+
+            if (c + 1 < generos.length) {
+                const comma = document.createTextNode(', ')
+                document.getElementById('generos_musicais_musica_credito').appendChild(comma)
+            }
+
+            span.addEventListener('click', () => {
+                document.getElementById('input_pesquisar').value = span.innerText
+                Pesquisar()
+                Abrir_Pagina('pesquisar', '')
+            })
+        }
+
+        Tempo_Musica(TodasMusicas[c], true).then((resp) => {
+            document.getElementById('duracao_musica_creditos').innerText = resp
+        })
         break
        }
         
@@ -1167,6 +1193,13 @@ function Abrir_Creditos(ID_Musica) {
 function Fechar_Creditos() {
     document.getElementById('contanier_creditos_musica').style.display = 'none'
 }
+
+document.addEventListener('click', (e) => {
+    let el = e.target.id
+    if(el == 'contanier_creditos_musica') {
+        Fechar_Creditos()
+    } 
+})
 
 //! Vai pausar a música usando a telca de espaço
 document.addEventListener('keydown', function(event) {

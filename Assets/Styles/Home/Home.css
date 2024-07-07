@@ -4151,6 +4151,8 @@ body section#contanier_creditos_musica {
   align-items: center;
   justify-content: center;
   z-index: 6;
+  overflow: hidden;
+  cursor: pointer;
 }
 body section#contanier_creditos_musica article {
   width: 90%;
@@ -4159,6 +4161,8 @@ body section#contanier_creditos_musica article {
   border-radius: 8px;
   padding: 30px;
   background-color: var(--background_black);
+  overflow: auto;
+  cursor: default;
 }
 body section#contanier_creditos_musica article div {
   display: flex;
@@ -4212,6 +4216,19 @@ body section#contanier_creditos_musica article span p span:first-child {
   padding: 0;
 }
 body section#contanier_creditos_musica article span p span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+body section#contanier_creditos_musica article span span {
+  font-size: 13px;
+  color: var(--fonte_meio_transparente);
+  margin: 0 !important;
+  display: inline;
+}
+body section#contanier_creditos_musica article span span:first-child {
+  padding: 0;
+}
+body section#contanier_creditos_musica article span span:hover {
   text-decoration: underline;
   cursor: pointer;
 }

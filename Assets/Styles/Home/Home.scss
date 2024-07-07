@@ -4240,6 +4240,8 @@ body {
         align-items: center;
         justify-content: center;
         z-index: 6;
+        overflow: hidden;
+        cursor: pointer;
 
         article {
             width: 90%;
@@ -4249,6 +4251,8 @@ body {
             border-radius: 8px;
             padding: 30px;
             background-color: var(--background_black);
+            overflow: auto;
+            cursor: default;
 
             div {
                 display: flex;
@@ -4314,6 +4318,22 @@ body {
                             text-decoration: underline;
                             cursor: pointer;
                         }
+                    }
+                }
+
+                span {
+                    font-size: 13px;
+                    color: var(--fonte_meio_transparente);
+                    margin: 0 !important;
+                    display: inline;
+
+                    &:first-child {
+                        padding: 0;
+                    }
+
+                    &:hover {
+                        text-decoration: underline;
+                        cursor: pointer;
                     }
                 }
             }

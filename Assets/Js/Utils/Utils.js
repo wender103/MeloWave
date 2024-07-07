@@ -744,6 +744,57 @@ async function somarTempos(Musicas) {
     }
 }
 
+async function Tempo_Musica(Musica, Formatado=false) {
+    let resultado = ''
+
+    let totalSegundos = 0
+  
+    const audio = new Audio(Musica.Audio)
+    await new Promise((resolve) => {
+        audio.addEventListener('loadedmetadata', () => {
+            totalSegundos += audio.duration
+            resolve()
+        })
+    })
+  
+    let Horas = Math.floor(totalSegundos / 3600)
+    let Minutos = Math.floor((totalSegundos % 3600) / 60)
+    let Segundos = Math.floor(totalSegundos % 3600 % 60)
+  
+    if(!Formatado) {
+        return {
+            Horas,
+            Minutos,
+            Segundos
+        }
+    } else {
+
+        if(Horas > 0) {
+            resultado += `${Horas} horas`
+        }
+
+        if(Minutos > 0) {
+            if(resultado != '') {
+                resultado += `, ${Minutos} min`
+
+            } else {
+                resultado += `${Minutos} min`
+            }
+        }
+
+        if(Segundos > 0) {
+            if(resultado != '') {
+                resultado += ` e ${Segundos} s`
+
+            } else {
+                resultado += `${Segundos} s`
+            }
+        }
+
+        return resultado
+    }
+}
+
 //! Detecta imgs pon!@# e | ou violentas
 
 function validateImage(imageUrl, Qm_Chamou) {

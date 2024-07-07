@@ -127,6 +127,9 @@ function Logar_Na_Conta() {
                                 Loja: {
                                     Pontos: 0,
                                 },
+                                Configuracoes: {
+                                    Tema: 'Claro',
+                                },
                                 Social: {
                                     Seguindo: [],
                                     Seguidores: [],
