@@ -1333,3 +1333,14 @@ function corEhClara(cor) {
     // Retorna verdadeiro se a cor for clara demais (brilho acima do limite)
     return brilho > limiteBrilho;
 }
+
+function limitarTamanhoArray(array, tamanhoMaximo = 10, removerPrimeiros = false) {
+    if (array.length > tamanhoMaximo) {
+        if (removerPrimeiros) {
+            array.splice(0, array.length - tamanhoMaximo) // Remove os primeiros elementos
+        } else {
+            array.splice(tamanhoMaximo) // Remove os últimos elementos
+        }
+    }
+    return array
+}

@@ -22,6 +22,9 @@ function monitorarDesempenho() {
         if (delta >= 1000) {
             fps = (frames * 1000) / delta
             fpsValues.push(fps)
+
+            fpsValues = limitarTamanhoArray(fpsValues, 10, true)
+
             frames = 0
             ultimoTempo = tempoAtual
 

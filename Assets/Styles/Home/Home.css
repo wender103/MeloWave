@@ -551,7 +551,7 @@ div#container_carregamento_tela_innteira .loader {
 div#container_carregamento_tela_innteira .loader .bar {
   width: 10px;
   height: 40px;
-  background-color: var(--white);
+  background-color: white;
   animation: jump 0.6s infinite;
   border-radius: 4px;
 }
@@ -581,7 +581,7 @@ div#container_carregamento_tela_innteira .loader .bar:nth-child(7) {
 div#container_carregamento_tela_innteira #message_carregamento {
   position: absolute;
   bottom: 20px;
-  color: var(--white);
+  color: white;
 }
 
 #copyNotification, #avisos_rapidos {
@@ -591,13 +591,13 @@ div#container_carregamento_tela_innteira #message_carregamento {
   left: 50%;
   transform: translateX(-50%);
   padding: 15px 20px;
-  background-color: var(--white);
-  color: var(--black);
+  background-color: white;
+  color: black;
   border-radius: 5px;
   opacity: 0;
   transition: opacity 0.5s, bottom 0.5s;
   z-index: 5;
-  box-shadow: 2px 2px 5px var(--black);
+  box-shadow: 2px 2px 5px black;
   box-sizing: content-box;
 }
 
@@ -4849,7 +4849,7 @@ body section#container_notificacao_infos article #div_notificacao_infos {
   width: 100%;
   display: none;
   font-family: var(--fonte_inter);
-  color: var(--white);
+  color: white;
   background-color: var(--background-color); /* Ajuste a cor de fundo conforme necessário */
   white-space: pre-wrap; /* Faz as linhas quebrarem, mantendo os espaços em branco */
   word-wrap: break-word; /* Quebra as palavras longas para evitar a rolagem horizontal */
@@ -4883,6 +4883,9 @@ body section#container_notificacao_infos article #div_notificacao_infos ul li {
   list-style: disc; /* Marcador de lista padrão */
   margin-bottom: 5px; /* Espaçamento entre os itens da lista */
 }
+body section#container_notificacao_infos article p {
+  color: white;
+}
 body section#container_notificacao_infos article div {
   width: 100%;
   display: flex;
@@ -4896,7 +4899,7 @@ body section#container_notificacao_infos article div button {
   height: 44px;
   padding: 10px 15px;
   background-color: rgba(57, 65, 71, 0.7019607843);
-  color: var(--white);
+  color: white;
   font-weight: bold;
   font-size: 15px;
   border: none;
@@ -4914,7 +4917,7 @@ body section#container_notificacao_infos article div a#link_notificar_infos {
   height: 44px;
   padding: 10px 15px;
   background-color: rgba(57, 65, 71, 0.7019607843);
-  color: var(--white);
+  color: white;
   font-weight: bold;
   font-size: 15px;
   border: none;
