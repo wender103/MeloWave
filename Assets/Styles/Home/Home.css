@@ -4883,10 +4883,6 @@ body section#container_notificacao_infos article #div_notificacao_infos ul li {
   list-style: disc; /* Marcador de lista padrão */
   margin-bottom: 5px; /* Espaçamento entre os itens da lista */
 }
-body section#container_notificacao_infos article p {
-  text-align: justify;
-  margin: 30px 0;
-}
 body section#container_notificacao_infos article div {
   width: 100%;
   display: flex;

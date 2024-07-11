@@ -480,24 +480,36 @@ function Destacar_linhas() {
                 pre_letra_da_musica.innerHTML += linhas[c] + '\n'
             }
 
-            const text = document.getElementById('linha_atual_sincronizar_ver_letra')
-            const letters = text.textContent.split('')
-            text.innerHTML = ''
+            if(!Modo_Desempenho_Ativado) {
+                const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+                const letters = text.textContent.split('')
+                text.innerHTML = ''
 
-            letters.forEach((letter, index) => {
+                letters.forEach((letter, index) => {
+                    const span = document.createElement('span')
+                    if (letter === ' ' && text.lastElementChild) {
+                        text.lastElementChild.textContent += letter
+                    } else {
+                        span.textContent = letter
+                        span.className = 'animated-span'
+                        text.appendChild(span)
+
+                        setTimeout(() => {
+                            span.classList.add('animated')
+                        }, index * duracao_transicao) 
+                    }
+                })
+            } else {
+                const text = document.getElementById('linha_atual_sincronizar_ver_letra')
                 const span = document.createElement('span')
-                if (letter === ' ' && text.lastElementChild) {
-                    text.lastElementChild.textContent += letter
-                } else {
-                    span.textContent = letter
-                    span.className = 'animated-span'
-                    text.appendChild(span)
-
-                    setTimeout(() => {
-                        span.classList.add('animated')
-                    }, index * duracao_transicao) 
-                }
-            })
+                span.innerText = text.innerText
+                span.className = 'animated-span'
+                text.innerHTML = ''
+                text.appendChild(span)
+                setTimeout(() => {
+                    span.classList.add('animated')
+                }, 100)
+            }
             //? Faz o scroll para a linha atual
             try {
                 document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })

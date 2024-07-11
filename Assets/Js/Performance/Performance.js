@@ -1,4 +1,8 @@
- // ! Função para medir a taxa de quadros por segundo (FPS)
+let Modo_Desempenho_Ativado = false
+
+
+// ! Função para medir a taxa de quadros por segundo (FPS)
+let Qtns_Travamentos = 0
 function monitorarDesempenho() {
     let fps = 0
     let frames = 0
@@ -17,7 +21,19 @@ function monitorarDesempenho() {
 
             // & Se o FPS for menor que 20, consideramos que está travando
             if (fps < 20) {
+                Qtns_Travamentos++
                 document.getElementById('status').textContent = 'Status: Travando'
+                document.getElementById('Qtns_Travamentos').textContent = `Qtns Travamentos: ${Qtns_Travamentos}`
+
+                //! Vai perguntar se o user quer usar o site no modo de desempenho
+                if(Qtns_Travamentos > 2 && !Modo_Desempenho_Ativado) {
+                    Notificar_Infos('🚨 Detectamos que o site está tendo um desempenho ruim no seu dispositivo. 🚀 Deseja usar o site no modo de desempenho para evitar travamentos? 😊', 'Confirmar', 'Sim').then(resp => {
+                        if(resp) {
+                            Modo_Desempenho()
+                        }
+                    })
+                }
+
             } else {
                 document.getElementById('status').textContent = 'Status: Normal'
             }
@@ -63,3 +79,12 @@ monitorarDesempenho()
 
 // ? Torna a caixinha movível
 tornarMovivel(document.getElementById('fpsMonitor'))
+
+//! -------------- Performance -----------------
+function Modo_Desempenho(Ativar=true) {
+    Modo_Desempenho_Ativado = Ativar
+
+    if(Ativar) {
+
+    }
+}
