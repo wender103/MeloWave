@@ -4,7 +4,11 @@ let Infos_Desempenho = {
     FPS_Values: [],
     Niveis_Desempenho: 0,
     Media_FPS: 0,
-    Status: 'Normal'
+    Status: 'Normal',
+
+    Nivel1: 50,
+    Nivel2: 30,
+    Nivel3: 20
 }
 
 
@@ -101,17 +105,16 @@ let ultimo_nivel_desempenho = 0
 let ultima_musica_tocando = null
 function Modo_Desempenho(Ativar=true) {
 
-    if(Infos_Desempenho.Media_FPS <= 20) {
+    if(Infos_Desempenho.Media_FPS <= Infos_Desempenho.Nivel3) {
         Infos_Desempenho.Niveis_Desempenho = 3
         Remover_Background_Animado()
         
-    } else if(Infos_Desempenho.Media_FPS > 20 && Infos_Desempenho.Media_FPS <= 30) {
+    } else if(Infos_Desempenho.Media_FPS > Infos_Desempenho.Nivel3 && Infos_Desempenho.Media_FPS <= Infos_Desempenho.Nivel1) {
         Infos_Desempenho.Niveis_Desempenho = 2
         Remover_Background_Animado()
 
-    } else if(Infos_Desempenho.Media_FPS > 30) {
+    } else if(Infos_Desempenho.Media_FPS > Infos_Desempenho.Nivel2 && Infos_Desempenho.Media_FPS <= Infos_Desempenho.Nivel1) {
         Infos_Desempenho.Niveis_Desempenho = 1
-        Retornar_Background_Animado()
 
     } else {
         Infos_Desempenho.Niveis_Desempenho = 0
