@@ -139,60 +139,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Função para atualizar as cores das bolinhas
 function updateColors(Todas_Cores) {
-    let colors_backgrounds = Todas_Cores.slice(0, 2)
-    let colors = Todas_Cores.slice(1, 7)
+    if(Infos_Desempenho.Niveis_Desempenho < 2) {
 
-    // if (colors.length !== 4) {
-    //     console.error('Array deve conter exatamente 5 cores.')
-    //     return
-    // }
+        let colors_backgrounds = Todas_Cores.slice(0, 2)
+        let colors = Todas_Cores.slice(1, 7)
 
-    const gradient_bg = document.querySelectorAll('.gradient-bg')
+        // if (colors.length !== 4) {
+        //     console.error('Array deve conter exatamente 5 cores.')
+        //     return
+        // }
 
-    gradient_bg.forEach((element, index) => {
-        let color = hexToRgb(colors_backgrounds[0])
-        let color2 = hexToRgb(colors_backgrounds[1])
-        const rgbaColor1 = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`
-        const rgbaColor2 = `rgba(${color2[0]}, ${color2[1]}, ${color2[2]}, 1)`
-        element.style.background = `linear-gradient(40deg, ${rgbaColor1}, ${rgbaColor1})`
-    })
+        const gradient_bg = document.querySelectorAll('.gradient-bg')
+
+        gradient_bg.forEach((element, index) => {
+            let color = hexToRgb(colors_backgrounds[0])
+            let color2 = hexToRgb(colors_backgrounds[1])
+            const rgbaColor1 = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`
+            const rgbaColor2 = `rgba(${color2[0]}, ${color2[1]}, ${color2[2]}, 1)`
+            element.style.background = `linear-gradient(40deg, ${rgbaColor1}, ${rgbaColor1})`
+        })
 
 
-    //! Esferas --------------
+        //! Esferas --------------
 
-    function getRandomDuration() {
-        return `${Math.floor(Math.random() * 40) + 10}s`
-    }
-    
-    // Função para selecionar uma animação aleatória
-    function getRandomAnimation() {
-        const animations = ['moveVertical', 'moveInCircle', 'moveHorizontal']
-        return animations[Math.floor(Math.random() * animations.length)]
-    }
-
-    const esferas_animacao_letra = document.querySelectorAll('.esferas_animacao_letra')
-    esferas_animacao_letra.forEach((element, index) => {
-        if (colors.length > 0) {
-            const colorIndex = index % colors.length
-            const color = hexToRgb(colors[colorIndex])
-    
-            const rgbaColor1 = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.8)`
-            const rgbaColor2 = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0)`
-            element.style.background = `radial-gradient(circle at center, ${rgbaColor1} 0, ${rgbaColor2} 50%) no-repeat`
-    
-            // Aplicar duração e animação aleatórias
-            const randomDuration = getRandomDuration()
-            const randomAnimation = getRandomAnimation()
-            element.style.animation = `${randomAnimation} ${randomDuration} ease infinite`
+        function getRandomDuration() {
+            return `${Math.floor(Math.random() * 40) + 10}s`
         }
-    })
+        
+        // Função para selecionar uma animação aleatória
+        function getRandomAnimation() {
+            const animations = ['moveVertical', 'moveInCircle', 'moveHorizontal']
+            return animations[Math.floor(Math.random() * animations.length)]
+        }
 
-    const interactive = document.querySelectorAll('.interactive')
-    let core_interactive = hexToRgb(Todas_Cores[1])
+        const esferas_animacao_letra = document.querySelectorAll('.esferas_animacao_letra')
+        esferas_animacao_letra.forEach((element, index) => {
+            if (colors.length > 0) {
+                const colorIndex = index % colors.length
+                const color = hexToRgb(colors[colorIndex])
+        
+                const rgbaColor1 = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.8)`
+                const rgbaColor2 = `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0)`
+                element.style.background = `radial-gradient(circle at center, ${rgbaColor1} 0, ${rgbaColor2} 50%) no-repeat`
+        
+                // Aplicar duração e animação aleatórias
+                const randomDuration = getRandomDuration()
+                const randomAnimation = getRandomAnimation()
+                element.style.animation = `${randomAnimation} ${randomDuration} ease infinite`
+            }
+        })
 
-    interactive.forEach((element) => {
-        const rgbaColor1 = `rgba(${core_interactive[0]}, ${core_interactive[1]}, ${core_interactive[2]}, 0.8)`
-        const rgbaColor2 = `rgba(${core_interactive[0]}, ${core_interactive[1]}, ${core_interactive[2]}, 0)`
-        element.style.background = `radial-gradient(circle at center, ${rgbaColor1} 0, ${rgbaColor2} 50%) no-repeat`
-    })
+        const interactive = document.querySelectorAll('.interactive')
+        let core_interactive = hexToRgb(Todas_Cores[1])
+
+        interactive.forEach((element) => {
+            const rgbaColor1 = `rgba(${core_interactive[0]}, ${core_interactive[1]}, ${core_interactive[2]}, 0.8)`
+            const rgbaColor2 = `rgba(${core_interactive[0]}, ${core_interactive[1]}, ${core_interactive[2]}, 0)`
+            element.style.background = `radial-gradient(circle at center, ${rgbaColor1} 0, ${rgbaColor2} 50%) no-repeat`
+        })
+    }
 }

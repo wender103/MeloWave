@@ -480,7 +480,7 @@ function Destacar_linhas() {
                 pre_letra_da_musica.innerHTML += linhas[c] + '\n'
             }
 
-            if(!Modo_Desempenho_Ativado) {
+            if(Infos_Desempenho.Niveis_Desempenho < 3) {
                 const text = document.getElementById('linha_atual_sincronizar_ver_letra')
                 const letters = text.textContent.split('')
                 text.innerHTML = ''
