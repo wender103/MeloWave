@@ -157,5 +157,6 @@ function Remover_Background_Animado() {
         })
 
         ultimo_nivel_desempenho = Infos_Desempenho.Niveis_Desempenho
+        Remover_Opacidade_Das_Cores_Fundo_Interativo()
     }
 }
