@@ -90,6 +90,11 @@ function Abrir_Playlist(ID_PLaylist) {
         }
     }
 
+    if(!user_faz_parte_playlist) {
+        document.getElementById('btn_config_match').style.display = 'none'
+        document.getElementById('opcoes_click_direito').style.display = 'none'
+    }
+
     if(Playlist.Estado == 'Particular' && user_faz_parte_playlist || Playlist.Estado == 'Pública') {
     
         for (let b = 0; b < Playlist.Musicas.length; b++) {

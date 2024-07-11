@@ -287,6 +287,36 @@ function Mostrar_Notificaco_Tempo_Real() {
                 texto_notificacao_tempo_real.querySelector('strong').addEventListener('click', () => {
                     Abrir_Pagina('playlist', Playlist_Carregada.ID)
                 }) 
+            } else if(Notificacao.Comando.includes('Playlist Deletada')) {
+                Abrir_Pagina('home') 
+
+            } else if(Notificacao.Comando.includes('User Banido Match:')) {
+                img_notificacao_tempo_real.style.cursor = 'pointer'
+                img_notificacao_tempo_real.addEventListener('click', () => {
+                    Carregar_Perfil(User)
+                })
+
+                texto_notificacao_tempo_real.querySelector('strong').style.cursor = 'pointer'
+
+                const strong = document.querySelector('#texto_notificacao_tempo_real').querySelector('strong')
+
+                for (let c = 0; c < TodosMatchs.length; c++) {
+                    if(TodosMatchs[c].ID == strong.innerText) {
+
+                        for (let b = 0; b < Todos_Usuarios.length; b++) {
+                            if(TodosMatchs[c].Admin == Todos_Usuarios[b].ID) {
+                                strong.innerText = Todos_Usuarios[b].Nome
+
+                                strong.addEventListener('click', () => {
+                                    Abrir_Pagina('match', TodosMatchs[c].ID)
+                                })
+                                break
+                            }
+                        }
+
+                        break
+                    }
+                }
             }
         } 
 

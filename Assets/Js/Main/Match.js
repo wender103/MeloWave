@@ -313,7 +313,8 @@ function Criar_Match_Add_Participante() {
                             Admin: Adm_Match.ID,
                             Participantes: [new_participante_adm, new_participante],
                             Data: getDataAtual(),
-                            Background: gerarCorAleatoria(false)
+                            Background: gerarCorAleatoria(false),
+                            Banidos: []
                         }
 
                         TodosMatchs.push(new_match)
@@ -413,6 +414,9 @@ function Abrir_Match(ID=undefined) {
 
             if(user_e_participante) {
                 btn_config_match.style.display = 'block'
+            } else {
+                btn_config_match.style.display = 'none'
+                opcoes_click_direito.style.display = 'none'
             }
     
             const container_infos_foto_perfil_match = document.getElementById('container_infos_foto_perfil_match')
@@ -584,6 +588,7 @@ function Retornar_Musicas_Match(Users) {
         span.appendChild(Retornar_Artistas_Da_Musica(todas_musicas_match[c]))
         p_contador.innerText = c + 1
         img_perfil.src = todas_musicas_match[c].User_Match.Img
+        container_img_perfil.title = `Sugerida com base nos gostos de: ${todas_musicas_match[c].User_Match.Nome}`
 
         if(todas_musicas_match[c].Views <= 0) {
             views.style.display = 'none'
@@ -833,3 +838,23 @@ btn_config_match.addEventListener('click', (event) => {
         }
     }
 })
+
+//! -------------------------------------- Listen Match -----------------------------------
+function listenToMatch() {
+    db.collection('Matchs').onSnapshot((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+            TodosMatchs = doc.data().Matchs
+        })
+
+        //! Vai checar se a playlist atualizada está aberta e vai atualiza-la na tela
+        if(Pagina_Atual.Nome == 'match') {
+            for (let c = 0; c < TodosMatchs.length; c++) {
+                if(TodosMatchs[c].ID == Pagina_Atual.ID) {
+                        Abrir_Pagina('match', Pagina_Atual.ID) 
+
+                    break
+                }
+            }
+        }
+    })
+} listenToMatch()

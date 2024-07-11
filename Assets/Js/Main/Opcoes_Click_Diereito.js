@@ -1,5 +1,6 @@
 const opcoes2_click_direito = document.getElementById('opcoes2_click_direito')
 let Is_Banir_Amigo_Playlist = false
+let Is_Banir_Amigo_Match = false
 function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Artista, Perfil) {
     opcoes2_click_direito.style.display = 'none'
     //! ---------------- Uls ----------------------
@@ -23,20 +24,20 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
     ul3div2_opcs.innerHTML = ''
 
     //! ---------------- Buttons ----------------------
-    let Add_Playlist = `<li onclick="Adicionar_Playlist_Fila('${Musica.ID}')"><img src="Assets/Imgs/Plus_icos.svg"><p>Adicionar à playlist</p></li>`
+    let Add_Playlist = `<li onclick="Adicionar_Playlist_Fila('${Musica.ID}')"><img src="Assets/Imgs/Plus_icos.svg"><p>Adicionar À Playlist</p></li>`
 
-    let Remover_Musica_Curtida = `<li onclick="Remover_Musica_Curtida_Opcoes_Click_Direito('${Musica.ID}', 'Fila')"><img src="Assets/Imgs/Like.svg"><p>Remover de Músicas Curtidas</p></li>`
+    let Remover_Musica_Curtida = `<li onclick="Remover_Musica_Curtida_Opcoes_Click_Direito('${Musica.ID}', 'Fila')"><img src="Assets/Imgs/Like.svg"><p>Remover De Músicas Curtidas</p></li>`
 
-    let Adicionar_Musica_Curtida = `<li onclick="Adicionar_Musica_Curtida_Opcoes_Click_Direito('${Musica.ID}', 'Fila')"><img src="Assets/Imgs/Like_Vazio.svg"><p>Adicionar à Músicas Curtidas</p></li>`
+    let Adicionar_Musica_Curtida = `<li onclick="Adicionar_Musica_Curtida_Opcoes_Click_Direito('${Musica.ID}', 'Fila')"><img src="Assets/Imgs/Like_Vazio.svg"><p>Adicionar À Músicas Curtidas</p></li>`
 
-    let Add_Fila = `<li onclick="Adicionar_a_Fila('${Musica.ID}')"><img src="Assets/Imgs/Fila.svg"><p>Adicionar a fila</p></li>`
-    let Add_Fila_Seguir = `<li onclick="Adicionar_a_Fila_Seguir('${Musica.ID}')"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar a seguir</p></li>`
+    let Add_Fila = `<li onclick="Adicionar_a_Fila('${Musica.ID}')"><img src="Assets/Imgs/Fila.svg"><p>Adicionar A Fila</p></li>`
+    let Add_Fila_Seguir = `<li onclick="Adicionar_a_Fila_Seguir('${Musica.ID}')"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar A Seguir</p></li>`
 
-    let Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('${Modo}', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover da fila</p></li>`
+    let Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('${Modo}', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover Da Fila</p></li>`
 
-    let Ir_Para_Artista = `<li onclick="Ir_Para_Artista_Opcoes_Click_Direito('${Musica.ID}')"><img src="Assets/Imgs/Ir_Para_Artista.svg"><p>Ir para  o artista</p></li>`
+    let Ir_Para_Artista = `<li onclick="Ir_Para_Artista_Opcoes_Click_Direito('${Musica.ID}')"><img src="Assets/Imgs/Ir_Para_Artista.svg"><p>Ir Para  O Artista</p></li>`
 
-    let About = `<li onclick="Abrir_Creditos('${Musica.ID}')"><img src="Assets/Imgs/About.png"><p>Ver creditos</p></li>`
+    let About = `<li onclick="Abrir_Creditos('${Musica.ID}')"><img src="Assets/Imgs/About.png"><p>Ver Creditos</p></li>`
 
     let Share = `<li onclick="Comapartilhar_Musica_E_Artista('${Musica.ID}', '${ID_Artista}')"><img src="Assets/Imgs/Share.svg"><p>Compartilhar</p></li>`
 
@@ -44,38 +45,40 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
 
     if (Artista_Seguir) {
         if (Seguir_Artista(Artista_Seguir, 'Checar')) {
-            Btn_Seguir_Artsta = `<li onclick="Seguir_Artista('${Artista_Seguir}')"><img src="Assets/Imgs/remover-participante.png"><p>Deixar de seguir</p></li>`
+            Btn_Seguir_Artsta = `<li onclick="Seguir_Artista('${Artista_Seguir}')"><img src="Assets/Imgs/remover-participante.png"><p>Deixar De Seguir</p></li>`
         } else {
-            Btn_Seguir_Artsta = `<li onclick="Seguir_Artista('${Artista_Seguir}')"><img src="Assets/Imgs/convite.png"><p>Seguir artista</p></li>`
+            Btn_Seguir_Artsta = `<li onclick="Seguir_Artista('${Artista_Seguir}')"><img src="Assets/Imgs/convite.png"><p>Seguir Artista</p></li>`
         }
     }
 
-    let Btn_Seguir_User = `<li onclick="Seguir_Perfil('${Perfil}')"><img src="Assets/Imgs/convite.png"><p>Seguir usuário</p></li>`
+    let Btn_Seguir_User = `<li onclick="Seguir_Perfil('${Perfil}')"><img src="Assets/Imgs/convite.png"><p>Seguir Usuário</p></li>`
 
-    let Share_Perfil = `<li onclick="Comapartilhar_Perfil('${Perfil}')"><img src="Assets/Imgs/Share.svg"><p>Compartilhar perfil</p></li>`
+    let Share_Perfil = `<li onclick="Comapartilhar_Perfil('${Perfil}')"><img src="Assets/Imgs/Share.svg"><p>Compartilhar Perfil</p></li>`
 
     //! Match
+    let Sair_Match = `<li onclick="Sair_Do_Match()"><img src="Assets/Imgs/remover-participante.png"><p>Sair do match</p></li>`
+    let Baniar_Amigo_Match = `<li onclick="Abrir_Remover_Amigo_Playlist_Match(true, 'Match')" class="N_Fechar_Opcoes"><img src="Assets/Imgs/Hide song.svg" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Banir Amigo Do Match</p></li>`
     let Apagar_Match = `<li onclick="Apagar_Match('${Pagina_Atual.ID}')"><img src="Assets/Imgs/lixeira_branca.png"><p>Apagar Match</p></li>`
     let Abrir_Remover_Participante_Match = `<li onclick="Abrir_Remover_Participante_Match()" class="N_Fechar_Opcoes"><img src="Assets/Imgs/remover-participante.png" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Remover Participante</p></li>`
     let Convidar_Para_Match = `<li onclick="Convidar_Para_Match('${Pagina_Atual.ID}')"><img src="Assets/Imgs/convite.png"><p>Adicionar Amigo</p></li>`
     let Share_Match = `<li onclick="Comapartilhar_Match('${Pagina_Atual.ID}')"><img src="Assets/Imgs/Share.svg"><p>Compartilhar Match</p></li>`
 
     //! Crirar Playlist
-    let Editar_Detalhes_criar_playlist = `<li onclick="Abrir_Editar_Header_CriarPlaylist()"><img src="Assets/Imgs/pen.png"><p>Editar detalhes</p></li>`
-    let btn_tornar_particular_criar_playlist = `<li onclick="TornarPlaylist_Particular()"><img src="Assets/Imgs/cadeado.png"><p>Tornar particular</p></li>`
-    let btn_tornar_publica_criar_playlist = `<li onclick="TornarPlaylist_Publica()"><img src="Assets/Imgs/mundo.png"><p>Tornar pública</p></li>`
+    let Editar_Detalhes_criar_playlist = `<li onclick="Abrir_Editar_Header_CriarPlaylist()"><img src="Assets/Imgs/pen.png"><p>Editar Detalhes</p></li>`
+    let btn_tornar_particular_criar_playlist = `<li onclick="TornarPlaylist_Particular()"><img src="Assets/Imgs/cadeado.png"><p>Tornar Particular</p></li>`
+    let btn_tornar_publica_criar_playlist = `<li onclick="TornarPlaylist_Publica()"><img src="Assets/Imgs/mundo.png"><p>Tornar Pública</p></li>`
 
     //! Playlist
-    let Baniar_Amigo_Playlist = `<li onclick="Abrir_Remover_Amigo_Playlist(true)" class="N_Fechar_Opcoes"><img src="Assets/Imgs/Hide song.svg" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Banir amigo da playlist</p></li>`
-    let Editar_Detalhes_playlist = `<li onclick="Abrir_Editar_Playlist()"><img src="Assets/Imgs/pen.png"><p>Editar playlist</p></li>`
-    let Convidar_Amido_playlist = `<li onclick="Convidar_Amigo_Playlist()"><img src="Assets/Imgs/convite.png"><p>Convidar amigo</p></li>`
-    let btn_tornar_particular_playlist = `<li onclick="Tornar_Playlist_Particular()"><img src="Assets/Imgs/cadeado.png"><p>Tornar particular</p></li>`
-    let Abrir_Remover_Amigo_playlist = `<li onclick="Abrir_Remover_Amigo_Playlist()" class="N_Fechar_Opcoes"><img src="Assets/Imgs/remover-participante.png" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Remover amigo</p></li>`
-    let btn_tornar_publica_playlist = `<li onclick="Tornar_Playlist_Publica()"><img src="Assets/Imgs/mundo.png"><p>Tornar pública</p></li>`
-    let btn_apagar_playlist = `<li onclick="Apagar_playlist()"><img src="Assets/Imgs/lixeira_branca.png"><p>Apagar playlist</p></li>`
-    let btn_adicionar_a_fila_playlist = `<li onclick="Adicionar_Playlisy_Fila()"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar a fila</p></li>`
-    let Share_playlist = `<li onclick="Comapartilhar_playlist()"><img src="Assets/Imgs/Share.svg"><p>Compartilhar playlist</p></li>`
-    let Sair_playlist = `<li onclick="Sair_Da_Playlist()"><img src="Assets/Imgs/remover-participante.png"><p>Sair da playlist</p></li>`
+    let Baniar_Amigo_Playlist = `<li onclick="Abrir_Remover_Amigo_Playlist_Match(true)" class="N_Fechar_Opcoes"><img src="Assets/Imgs/Hide song.svg" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Banir Amigo Da Playlist</p></li>`
+    let Editar_Detalhes_playlist = `<li onclick="Abrir_Editar_Playlist()"><img src="Assets/Imgs/pen.png"><p>Editar Playlist</p></li>`
+    let Convidar_Amido_playlist = `<li onclick="Convidar_Amigo_Playlist()"><img src="Assets/Imgs/convite.png"><p>Convidar Amigo</p></li>`
+    let btn_tornar_particular_playlist = `<li onclick="Tornar_Playlist_Particular()"><img src="Assets/Imgs/cadeado.png"><p>Tornar Particular</p></li>`
+    let Abrir_Remover_Amigo_playlist = `<li onclick="Abrir_Remover_Amigo_Playlist_Match()" class="N_Fechar_Opcoes"><img src="Assets/Imgs/remover-participante.png" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Remover Amigo</p></li>`
+    let btn_tornar_publica_playlist = `<li onclick="Tornar_Playlist_Publica()"><img src="Assets/Imgs/mundo.png"><p>Tornar Pública</p></li>`
+    let btn_apagar_playlist = `<li onclick="Apagar_playlist()"><img src="Assets/Imgs/lixeira_branca.png"><p>Apagar Playlist</p></li>`
+    let btn_adicionar_a_fila_playlist = `<li onclick="Adicionar_Playlisy_Fila()"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar A Fila</p></li>`
+    let Share_playlist = `<li onclick="Comapartilhar_playlist()"><img src="Assets/Imgs/Share.svg"><p>Compartilhar Playlist</p></li>`
+    let Sair_playlist = `<li onclick="Sair_Da_Playlist()"><img src="Assets/Imgs/remover-participante.png"><p>Sair Da Playlist</p></li>`
 
     let pode_add_a_fila = true
 
@@ -196,7 +199,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
         for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
             if (Musica.ID == Listas_Prox.Lista_Musicas[c].ID) {
                 tem_na_fila = true
-                Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('Fila Próximas', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover da fila</p></li>`
+                Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('Fila Próximas', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover Da Fila</p></li>`
                 opcoes_fila_ul.innerHTML += Remover_Musica_Fila
                 break
             }
@@ -206,7 +209,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
             for (let c = 0; c < Listas_Prox.A_Seguir.length; c++) {
                 if (Musica.ID == Listas_Prox.A_Seguir[c].ID) {
                     tem_na_fila = true
-                    Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('Fila a Seguir', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover da fila</p></li>`
+                    Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('Fila a Seguir', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover Da Fila</p></li>`
                     opcoes_fila_ul.innerHTML += Remover_Musica_Fila
                     break
                 }
@@ -249,7 +252,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
         for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
             if (Musica.ID == Listas_Prox.Lista_Musicas[c].ID) {
                 tem_na_fila = true
-                Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('Fila Próximas', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover da fila</p></li>`
+                Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('Fila Próximas', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover Da Fila</p></li>`
                 opcoes_fila_ul.innerHTML += Remover_Musica_Fila
                 break
             }
@@ -259,7 +262,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
             for (let c = 0; c < Listas_Prox.A_Seguir.length; c++) {
                 if (Musica.ID == Listas_Prox.A_Seguir[c].ID) {
                     tem_na_fila = true
-                    Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('Fila a Seguir', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover da fila</p></li>`
+                    Remover_Musica_Fila = `<li onclick="Remover_Da_Fila('Fila a Seguir', '${Musica.ID}')"><img src="Assets/Imgs/Hide song.svg" id="remover_da_fila"><p>Remover Da Fila</p></li>`
                     opcoes_fila_ul.innerHTML += Remover_Musica_Fila
                     break
                 }
@@ -285,6 +288,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
 
     } else if (Modo == 'Match Adm') {
         opcoes_fila_ul.innerHTML += Apagar_Match
+        opcoes_fila_ul.innerHTML += Baniar_Amigo_Match
         opcoes_fila_ul.innerHTML += Abrir_Remover_Participante_Match
         opcoes_fila_ul.innerHTML += '<hr>'
 
@@ -293,6 +297,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
 
         for (let a = 0; a < TodosMatchs.length; a++) {
             if (TodosMatchs[a].ID == Pagina_Atual.ID) {
+
                 for (let b = 0; b < TodosMatchs[a].Participantes.length; b++) {
                     for (let c = 0; c < Todos_Usuarios.length; c++) {
                         if (TodosMatchs[a].Participantes[b].ID == Todos_Usuarios[c].ID && TodosMatchs[a].Participantes[b].ID != TodosMatchs[a].Admin) {
@@ -311,7 +316,12 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
 
                             li.addEventListener('click', () => {
                                 if (TodosMatchs[a].Participantes.length > 2) {
-                                    Remover_Participante_Match(TodosMatchs[a].ID, TodosMatchs[a].Participantes[b].ID)
+                                    if(Is_Banir_Amigo_Match) {
+                                        Banir_Amigo_Match(TodosMatchs[a].ID, TodosMatchs[a].Participantes[b].ID)
+
+                                    } else {
+                                        Remover_Participante_Match(TodosMatchs[a].ID, TodosMatchs[a].Participantes[b].ID)
+                                    }
                                 } else {
                                     Notificar_Infos('⚠️ O mínimo de participantes em um match é dois. Antes de remover esse participante, convide outro amigo para o match! 👥🎧✨', 'Confirmar', 'Convidar').then((resp) => {
                                         if (resp) {
@@ -335,6 +345,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
 
     } else if (Modo == 'Match Participante') {
         opcoes_musica_ul.innerHTML += Convidar_Para_Match
+        opcoes_musica_ul.innerHTML += Sair_Match
         opcoes_musica_ul.innerHTML += Share_Match
 
     } else if (Modo == 'Criar Playlist') {
@@ -363,8 +374,8 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
         }
 
         if (Playlist_Aberta.Colaboradores.length > 0) {
-            opcoes_musica2_ul.innerHTML += Abrir_Remover_Amigo_playlist
             opcoes_musica2_ul.innerHTML += Baniar_Amigo_Playlist
+            opcoes_musica2_ul.innerHTML += Abrir_Remover_Amigo_playlist
         }
 
         opcoes_musica2_ul.innerHTML += '<hr>'
@@ -391,7 +402,6 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
                     ul1div2_opcs.appendChild(li)
 
                     li.addEventListener('click', () => {
-                        console.log('is banir do li:' + Is_Banir_Amigo_Playlist);
                         if(Is_Banir_Amigo_Playlist) {
                             Banir_Amigo_Playlist(Pagina_Atual.ID, Playlist_Aberta.Colaboradores[c])
 
@@ -628,6 +638,7 @@ function Convidar_Para_Match(ID) {
                 let id_convite
                 for (let d = 0; d < user_admin_match.Social.Matchs.Convites.length; d++) {
                     if (user_admin_match.Social.Matchs.Convites[d].ID == ID) {
+                        console.log('Caiu no if do match')
                         id_convite = user_admin_match.Social.Matchs.Convites[d].ID_Convite
                         break
                     }
@@ -706,6 +717,92 @@ function Remover_Participante_Match(Match_ID, Participante_ID) {
                                 db.collection('Matchs').doc(Matchs.id).update({ Matchs: TodosMatchs }).then(() => {
                                     Notificar_Infos('✅ Participante removido com sucesso! 👋✨', 'Emojis:🎉,🥳,🎊,🍾,🎈,👏')
                                     Abrir_Match(TodosMatchs[c].ID)
+                                })
+                                break
+                            }
+                        }
+                        break
+                    }
+                }
+            }
+        })
+    })
+}
+
+function Banir_Amigo_Match(ID_Match, ID_Participante) {
+    let feito = false
+    db.collection('Matchs').get().then((snapshot) => {
+        snapshot.docs.forEach(Matchs => {
+            TodosMatchs = Matchs.data().Matchs
+
+            if (!feito) {
+                feito = true
+
+                let Participante_Removido
+                for (let c = 0; c < Todos_Usuarios.length; c++) {
+                    if(Todos_Usuarios[c].ID == ID_Participante) {
+                        Participante_Removido = Todos_Usuarios[c]
+                        break
+                    }
+                }
+
+                for (let c = 0; c < TodosMatchs.length; c++) {
+                    if(TodosMatchs[c].ID == ID_Match) {
+                        TodosMatchs[c].Banidos.push(ID_Participante)
+
+                        for (let f = 0; f < TodosMatchs[c].Participantes.length; f++) {
+                            if(TodosMatchs[c].Participantes[f].ID == ID_Participante) {
+                                TodosMatchs[c].Participantes.splice(f, 1)
+                                break
+                            }
+                        }
+
+                        db.collection('Matchs').doc(Matchs.id).update({ Matchs: TodosMatchs }).then(() => {
+                            Avisos_Rapidos('Amigo banido do Match!')
+                            Abrir_Pagina('match', ID_Match)
+
+                            Enviar_Notificacao_Tempo_Real(Participante_Removido.ID, 'Match', `🎵😔 Você foi banido permanentemente do Match de *#00ceff*${TodosMatchs[c].ID}*#00ceff*.🎶✨`, 'Modelo1', `User Banido Match:${Participante_Removido.ID}`, Participante_Removido.Perfil.Img_Perfil, null, 'Fehcar')
+
+                            //! Vai notificar os colaboradores que o user foi removido da playlist
+                            for (let f = 0; f < TodosMatchs[c].Participantes.length; f++) {
+                                if(TodosMatchs[c].Participantes[f].ID != User.ID) {
+                                    Enviar_Notificacao_Tempo_Real(TodosMatchs[c].Participantes[f].ID, 'Match', `🎵😔 *#00ceff*${Participante_Removido.Nome}*#00ceff* foi banido permanentemente do Match.🎶✨`, 'Modelo1', `User Removido Match:${Participante_Removido.ID}`, Participante_Removido.Perfil.Img_Perfil, null, 'Fehcar')
+                                }
+                            }
+                        })
+                        break
+                    }
+                }
+            }
+        })
+    })
+}
+
+function Sair_Do_Match() {
+    let feito = false
+    db.collection('Matchs').get().then((snapshot) => {
+        snapshot.docs.forEach(Matchs => {
+            TodosMatchs = Matchs.data().Matchs
+
+            if (!feito) {
+                feito = true
+
+                for (let c = 0; c < TodosMatchs.length; c++) {
+                    if(TodosMatchs[c].ID == Pagina_Atual.ID) {
+                        for (let e = 0; e < TodosMatchs[c].Participantes.length; e++) {
+                            if(TodosMatchs[c].Participantes[e].ID == User.ID) {
+                                TodosMatchs[c].Participantes.splice(e, 1)
+
+                                db.collection('Matchs').doc(Matchs.id).update({ Matchs: TodosMatchs }).then(() => {
+                                    Avisos_Rapidos('Você saiu do match!')
+                                    Abrir_Pagina('playlist', ID_Playlist)
+                                    Enviar_Notificacao_Tempo_Real(TodosMatchs[c].Admin, 'Match', `🎵😔 *#00ceff*${User.Nome}*#00ceff* saiu do match.🎶✨`, 'Modelo1', `User Removido Match:${TodosMatchs[c].ID}`, User.Perfil.Img_Perfil, null, 'Fehcar')
+
+                                    for (let f = 0; f < TodosMatchs[c].Colaboradores.length; f++) {
+                                        if(TodosMatchs[c].Colaboradores[f] != User.ID) {
+                                            Enviar_Notificacao_Tempo_Real(TodosMatchs[c].Colaboradores[f], 'Match', `🎵😔 *#00ceff*${User.Nome}*#00ceff* saiu do match.🎶✨`, 'Modelo1', `User Removido Match:${TodosMatchs[c].ID}`, User.Perfil.Img_Perfil, null, 'Fehcar')
+                                        }
+                                    }
                                 })
                                 break
                             }
@@ -810,9 +907,16 @@ function Tornar_Playlist_Particular() {
     })
 }
 
-function Abrir_Remover_Amigo_Playlist(Banir=false) {
-    console.log(Banir)
-    Is_Banir_Amigo_Playlist = Banir
+function Abrir_Remover_Amigo_Playlist_Match(Banir=false, Local='Playlist') {
+    Is_Banir_Amigo_Playlist = false
+    Is_Banir_Amigo_Match = false
+
+    if(Local == 'Playlist') {
+        Is_Banir_Amigo_Playlist = Banir
+
+    } else if(Local == 'Match') {
+        Is_Banir_Amigo_Match = Banir
+    }
 
     document.getElementById('opcoes_click_direito').style.display = 'flex'
     opcoes2_click_direito.style.display = 'block'
@@ -859,14 +963,23 @@ function Apagar_playlist() {
                     if (!feito) {
                         feito = true
 
+                        let Backup_esta_playlist = []
                         for (let c = 0; c < TodasPlaylists.length; c++) {
                             if (TodasPlaylists[c].ID == Playlist_Aberta.ID) {
+                                Backup_esta_playlist = TodasPlaylists[c]
                                 TodasPlaylists.splice(c, 1)
 
                                 db.collection('Playlists').doc(Playlists.id).update({ Playlists: TodasPlaylists }).then(() => {
                                     Carreagr_Artistas_Seguindo()
                                     Avisos_Rapidos('A playlist foi apagada com sucesso!')
                                     Abrir_Pagina('home')
+
+                                    //! Vai notificar os colaboradores que o user foi removido da playlist
+                                    for (let f = 0; f < Backup_esta_playlist.Colaboradores.length; f++) {
+                                        if(Backup_esta_playlist.Colaboradores[f] != User.ID) {
+                                            Enviar_Notificacao_Tempo_Real(Backup_esta_playlist.Colaboradores[f], 'Playlist', `🎵😔 A playlist: *#00ceff*${Backup_esta_playlist.Nome}*#00ceff* foi apagada.🎶✨`, 'Modelo2', `Playlist Deletada`, null, false, 'Fehcar')
+                                        }
+                                    }
                                 })
                             }
                         }
@@ -934,7 +1047,6 @@ function Remover_Amigo_Playlist(ID_Playlist, ID_Amigo) {
 }
 
 function Banir_Amigo_Playlist(ID_Playlist, ID_Amigo) {
-    console.log('Na função de banir')
     let feito = false
     db.collection('Playlists').get().then((snapshot) => {
         snapshot.docs.forEach(Playlists => {

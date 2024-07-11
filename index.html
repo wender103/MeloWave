@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="Assets/Styles/Home/Responsivo/Home_Responsivo.css">
     <link rel="stylesheet" href="Assets/Styles/Wallpapers/wallpapers.css">
     <link rel="stylesheet" href="Assets/Styles/Letra/Letra.css">
+    <link rel="stylesheet" href="Assets/Styles/Performance/Performance.css">
 </head>
 <body>
     <div id="background_wallpaper">
@@ -1060,6 +1061,8 @@
             <span id="nome_musica_cretido">Dollar</span>
             <p>Postada por:</p>
             <span id="nome_qm_postou_creditos">Gabriel Rocha</span>
+            <p>Já possue letra:</p>
+            <span id="ja_tem_letra_sincronizada_creditos">Não</span>
             <p>Postada em:</p>
             <span id="data_musica_postada_creditos"></span>
             <p>Views</p>
@@ -1299,9 +1302,14 @@
     <!--! Audio -->
     <audio id="audio_player" style="display: none;"></audio>
 
-    <!--! Remover ------------------------------------ -->
+    <!--! Remover ---------------------------------------------------------------------- Remover ----------------------------- -->
     <div id="cores_imgs">
 
+    </div>
+
+    <div id="fpsMonitor">
+        <div id="fps">FPS: 0</div>
+        <div id="status">Status: Normal</div>
     </div>
 
     <!--? Firebase -->
@@ -1364,5 +1372,11 @@
     <script src="Assets/Js/Main/AceitarPlaylist.js"></script>
     <script src="Assets/Js/Main/Cores_Imgs.js"></script>
     <script src="Assets/Js/Nav/Navegation.js"></script>
+
+    <!-- <script src="Codigos_A_Parte/Salvar_Cores_Img.js"></script> -->
+
+
+    <!--! Testes de Performance -->
+    <script src="Assets/Js/Performance/Performance.js"></script>
 </body>
 </html>

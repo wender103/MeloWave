@@ -151,8 +151,8 @@ function Pegar_Todas_Musicas() {
                                             } catch{}
                                         }
                                         }).catch(error => {
-                                        console.error('Ocorreu um erro:', error);
-                                        });                                          
+                                            console.error('Ocorreu um erro:', error)
+                                        })                                        
                                     }
                                 })
                         
@@ -741,29 +741,37 @@ function Proxima_Musica(Chamado_Por) {
 }
 
 function Musica_Anterior() {
-    audio_player.currentTime = 0
-    let feito = false
-    if(Tocando_Musica_A_Seguir) {
-        Tocando_Musica_A_Seguir = false
-        Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[Listas_Prox.Indice]
-        Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual)
 
-    } else {
+    //! Vai checar se o tempo do audio é menor q trez para voltar para a música anterior
+    if(audio_player.currentTime < 3) {
+        audio_player.currentTime = 0
+        let feito = false
+        if(Tocando_Musica_A_Seguir) {
+            Tocando_Musica_A_Seguir = false
+            Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[Listas_Prox.Indice]
+            Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual)
 
-        for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
-            if(Listas_Prox.Lista_Musicas[c].ID == Listas_Prox.MusicaAtual.ID && !feito) {
-                feito = true
-    
-                if(c == 0) {
-                    Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[Listas_Prox.Lista_Musicas.length - 1]
-    
-                } else {
-                    Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[c - 1]
+        } else {
+
+            for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
+                if(Listas_Prox.Lista_Musicas[c].ID == Listas_Prox.MusicaAtual.ID && !feito) {
+                    feito = true
+        
+                    if(c == 0) {
+                        Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[Listas_Prox.Lista_Musicas.length - 1]
+        
+                    } else {
+                        Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[c - 1]
+                    }
+        
+                    Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual)
                 }
-    
-                Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual)
             }
         }
+
+    //! Caso contrario vai tocar de novo
+    } else {
+        audio_player.currentTime = 0
     }
 }
 
@@ -1157,6 +1165,13 @@ function Abrir_Creditos(ID_Musica) {
                 Fechar_Creditos()
             }
         })
+
+        if(!Array.isArray(TodasMusicas[c].Letra)) {
+            document.getElementById('ja_tem_letra_sincronizada_creditos').innerText = 'Sim'
+
+        } else {
+            document.getElementById('ja_tem_letra_sincronizada_creditos').innerText = 'Não'
+        }
 
         document.getElementById('data_musica_postada_creditos').innerText = TodasMusicas[c].Data
         document.getElementById('views_musica_creditos').innerText = TodasMusicas[c].Views
