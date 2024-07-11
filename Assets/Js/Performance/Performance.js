@@ -121,7 +121,14 @@ function Modo_Desempenho(Ativar=true) {
 }
 
 function Retornar_Background_Animado() {
-    if(ultimo_nivel_desempenho != Infos_Desempenho.Niveis_Desempenho && Listas_Prox.MusicaAtual.Cores.length > 0 && ultima_musica_tocando != Listas_Prox.MusicaAtual.ID) {
+    let tem_cores = false
+    if(Listas_Prox.MusicaAtual.Cores != undefined) {
+        if(Listas_Prox.MusicaAtual.Cores.length > 0) {
+            tem_cores = true
+        }
+    }
+
+    if(ultimo_nivel_desempenho != Infos_Desempenho.Niveis_Desempenho && tem_cores && ultima_musica_tocando != Listas_Prox.MusicaAtual.ID) {
         const gradients_container = document.querySelectorAll('.gradients-container')
         gradients_container.forEach(gradiente_container => {
             gradiente_container.innerHTML = ''
