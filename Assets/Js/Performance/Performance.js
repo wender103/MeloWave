@@ -109,7 +109,7 @@ function Modo_Desempenho(Ativar=true) {
         Infos_Desempenho.Niveis_Desempenho = 3
         Remover_Background_Animado()
         
-    } else if(Infos_Desempenho.Media_FPS > Infos_Desempenho.Nivel3 && Infos_Desempenho.Media_FPS <= Infos_Desempenho.Nivel1) {
+    } else if(Infos_Desempenho.Media_FPS > Infos_Desempenho.Nivel3 && Infos_Desempenho.Media_FPS <= Infos_Desempenho.Nivel2) {
         Infos_Desempenho.Niveis_Desempenho = 2
         Remover_Background_Animado()
 
