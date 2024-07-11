@@ -1,8 +1,16 @@
 let Modo_Desempenho_Ativado = false
+let fpsValues = []
+let Qtns_Travamentos = 0
 
+
+//! Função para calcular a média de FPS
+function calcularMediaFPS() {
+    const soma = fpsValues.reduce((a, b) => a + b, 0)
+    const media = (soma / fpsValues.length) || 0
+    return media.toFixed(1)
+}
 
 // ! Função para medir a taxa de quadros por segundo (FPS)
-let Qtns_Travamentos = 0
 function monitorarDesempenho() {
     let fps = 0
     let frames = 0
@@ -13,11 +21,13 @@ function monitorarDesempenho() {
         const delta = tempoAtual - ultimoTempo
         if (delta >= 1000) {
             fps = (frames * 1000) / delta
+            fpsValues.push(fps)
             frames = 0
             ultimoTempo = tempoAtual
 
             // ! Atualiza a exibição do FPS
             document.getElementById('fps').textContent = `FPS: ${fps.toFixed(1)}`
+            document.getElementById('Media_FPS').textContent = `Média de FPS: ${calcularMediaFPS()}`
 
             // & Se o FPS for menor que 20, consideramos que está travando
             if (fps < 20) {
