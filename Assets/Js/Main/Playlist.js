@@ -151,7 +151,7 @@ function Abrir_Playlist(ID_PLaylist) {
         container_imgs_playlist_zoom.innerHTML =  ''
         if(Playlist.Img != null) {
             container_imgs_criar_playlist_page.classList.remove('active')
-            container_imgs_playlist_zoom.classList.remove('active')
+            container_imgs_playlist_zoom.className = ''
             const img = document.createElement('img')
             const img2 = document.createElement('img')
             img.src = Playlist.Img
@@ -161,7 +161,7 @@ function Abrir_Playlist(ID_PLaylist) {
     
         } else if(Playlist.Musicas.length <= 3) {
             container_imgs_criar_playlist_page.classList.remove('active')
-            container_imgs_playlist_zoom.classList.remove('active')
+            container_imgs_playlist_zoom.className = 'active'
             const img = document.createElement('img')
             const img2 = document.createElement('img')
             img.src = musicas_playlist[0].Img
@@ -177,7 +177,7 @@ function Abrir_Playlist(ID_PLaylist) {
                 img.src = musicas_playlist[b].Img
                 img2.src = musicas_playlist[b].Img
                 container_imgs_criar_playlist_page.classList.add('active')
-                container_imgs_playlist_zoom.classList.add('active')
+                container_imgs_playlist_zoom.className = 'active'
                 container_imgs_criar_playlist_page.appendChild(img)
                 container_imgs_playlist_zoom.appendChild(img2)
             }

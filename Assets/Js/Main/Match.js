@@ -321,10 +321,36 @@ function Criar_Match_Add_Participante() {
                     }
                     
                     if(!salvo) {
+                        let nomes = ''
+                        let num = TodosMatchs.length - 1
+                        for (let f = 0; f < TodosMatchs[num].Participantes.length; f++) {
+                            for (let c = 0; c < Todos_Usuarios.length; c++) {
+                                if(Todos_Usuarios[c].ID == TodosMatchs[num].ID && Todos_Usuarios[c].ID != User.ID) {
+                                    nomes += Todos_Usuarios[c]
+
+                                    if(c + 1 != TodosMatchs.length) {
+                                        nomes += ' + '
+                                    }
+                                }
+                            }
+
+                            if(TodosMatchs[num].Participantes[f]) {
+
+                            }
+                        }
+
                         salvo = true
                         db.collection('Matchs').doc(Matchs.id).update({Matchs: TodosMatchs}).then(() => {
                             Notificar_Infos('🎉 Uhuu! Você entrou no Match! 🎉 Bem-vindo à playlist entre amigos, onde vamos reunir as músicas mais ouvidas de cada um! 🎶👯‍♂️ Prepare-se para descobrir novas músicas e curtir com a galera! 🚀🔥', 'Comemorar')
-                            Abrir_Pagina('match', ID_Match_Participar)
+                            Abrir_Pagina('match', ID_Match_Participar) 
+
+                            Enviar_Notificacao_Tempo_Real(TodosMatchs[num].Admin, 'Match', `🎵😎 *#00ceff*${User.Nome}*#00ceff* entrou no seu match.🎶✨`, 'Modelo1', `User Entrou No Match:${TodosMatchs[num].ID}`, User.Perfil.Img_Perfil, null, 'Fehcar', 'Ver', {ID: TodosMatchs[num].ID})
+
+                            for (let f = 0; f < TodosMatchs[num].Participantes.length; f++) {
+                                if(TodosMatchs[num].Participantes[f].ID != User.ID) {
+                                    Enviar_Notificacao_Tempo_Real(TodosMatchs[num].Participantes[f], 'Match', `🎵😎 *#00ceff*${User.Nome}*#00ceff* entrou no match de: ${nomes}.🎶✨`, 'Modelo1', `User Entrou No Match:${TodosMatchs[num].ID}`, User.Perfil.Img_Perfil, null, 'Fehcar', 'Ver', {ID: TodosMatchs[num].ID})
+                                }
+                            }
                         })
                     }
                 }
@@ -402,68 +428,74 @@ function Abrir_Match(ID=undefined) {
                 }
             }
 
-            match_aberto = Match_Carregar
-
-            let user_e_participante = false
-            for (let c = 0; c < match_aberto.Participantes.length; c++) {
-                if(match_aberto.Participantes[c].ID == User.ID) {
-                    user_e_participante = true
-                    break
-                }
-            }
-
-            if(user_e_participante) {
-                btn_config_match.style.display = 'block'
+            if(Match_Carregar == undefined || Match_Carregar.Participantes.length <= 0) {
+                Abrir_Pagina('home')
+                Notificar_Infos('Esse match não foi encontrado 🔍. Talvez tenha sido removido 🐧')
+                
             } else {
-                btn_config_match.style.display = 'none'
-                opcoes_click_direito.style.display = 'none'
-            }
-    
-            const container_infos_foto_perfil_match = document.getElementById('container_infos_foto_perfil_match')
-            const esferas_perfil_match = document.getElementById('esferas_perfil_match')
-            const traco_perfil_match = document.getElementById('traco_perfil_match')
-    
-            esferas_perfil_match.innerHTML = ''
-    
-            let cor_adm
-            let nomes_participantes = ''
-            let array_participantes = []
-            for (let c = 0; c < Match_Carregar.Participantes.length; c++) {
-                const esfera = document.createElement('div')
-                esfera.className = 'esferas'
-                esfera.style.background = Match_Carregar.Participantes[c].Cor
-                esferas_perfil_match.appendChild(esfera)
+                 match_aberto = Match_Carregar
 
-                if(Match_Carregar.Participantes[c].ID == Match_Carregar.Admin) {
-                    cor_adm = Match_Carregar.Participantes[c].Cor
-                }
-
-                for (let a = 0; a < Todos_Usuarios.length; a++) {
-                    if(Todos_Usuarios[a].ID == Match_Carregar.Participantes[c].ID) {
-                        array_participantes.push(Todos_Usuarios[a])
-
-                        if(c + 1 >= Match_Carregar.Participantes.length) {
-                            nomes_participantes += Todos_Usuarios[a].Nome
-
-                        } else {
-                            nomes_participantes += `${Todos_Usuarios[a].Nome} + `
-                        }
+                let user_e_participante = false
+                for (let c = 0; c < match_aberto.Participantes.length; c++) {
+                    if(match_aberto.Participantes[c].ID == User.ID) {
+                        user_e_participante = true
                         break
                     }
                 }
+
+                if(user_e_participante) {
+                    btn_config_match.style.display = 'block'
+                } else {
+                    btn_config_match.style.display = 'none'
+                    opcoes_click_direito.style.display = 'none'
+                }
+        
+                const container_infos_foto_perfil_match = document.getElementById('container_infos_foto_perfil_match')
+                const esferas_perfil_match = document.getElementById('esferas_perfil_match')
+                const traco_perfil_match = document.getElementById('traco_perfil_match')
+        
+                esferas_perfil_match.innerHTML = ''
+        
+                let cor_adm
+                let nomes_participantes = ''
+                let array_participantes = []
+                for (let c = 0; c < Match_Carregar.Participantes.length; c++) {
+                    const esfera = document.createElement('div')
+                    esfera.className = 'esferas'
+                    esfera.style.background = Match_Carregar.Participantes[c].Cor
+                    esferas_perfil_match.appendChild(esfera)
+
+                    if(Match_Carregar.Participantes[c].ID == Match_Carregar.Admin) {
+                        cor_adm = Match_Carregar.Participantes[c].Cor
+                    }
+
+                    for (let a = 0; a < Todos_Usuarios.length; a++) {
+                        if(Todos_Usuarios[a].ID == Match_Carregar.Participantes[c].ID) {
+                            array_participantes.push(Todos_Usuarios[a])
+
+                            if(c + 1 >= Match_Carregar.Participantes.length) {
+                                nomes_participantes += Todos_Usuarios[a].Nome
+
+                            } else {
+                                nomes_participantes += `${Todos_Usuarios[a].Nome} + `
+                            }
+                            break
+                        }
+                    }
+                }
+
+                Retornar_Musicas_Match(array_participantes)
+                
+                container_infos_foto_perfil_match.style.background = Match_Carregar.Background
+                traco_perfil_match.style.background = cor_adm
+                document.getElementById('nome_match').innerText = nomes_participantes
+                document.getElementById('para_qm_match').innerText = `Um Match de músicas feito para ${nomes_participantes}. Atualizado todos os dias.`
+
+                const container_header_img_match = document.getElementById('container_header_img_match')
+                const container_imgs_playlist_zoom = document.getElementById('container_imgs_playlist_zoom')
+                container_imgs_playlist_zoom.innerHTML = container_header_img_match.cloneNode(true).innerHTML
+                container_imgs_playlist_zoom.className = 'active_match'
             }
-
-            Retornar_Musicas_Match(array_participantes)
-            
-            container_infos_foto_perfil_match.style.background = Match_Carregar.Background
-            traco_perfil_match.style.background = cor_adm
-            document.getElementById('nome_match').innerText = nomes_participantes
-            document.getElementById('para_qm_match').innerText = `Um Match de músicas feito para ${nomes_participantes}. Atualizado todos os dias.`
-
-            const container_header_img_match = document.getElementById('container_header_img_match')
-            const container_imgs_playlist_zoom = document.getElementById('container_imgs_playlist_zoom')
-            container_imgs_playlist_zoom.innerHTML = container_header_img_match.cloneNode(true).innerHTML
-            container_imgs_playlist_zoom.className = 'active_match'
         }
     }
 
@@ -581,6 +613,7 @@ function Retornar_Musicas_Match(Users) {
         views.className = 'Views_Musica_Linha'
         span.className = 'Autor_Musica_Linha'
         container_img_perfil.className = 'container_img_perfil_musica_linha_match'
+        img_perfil.className = 'img_perfil_participantes_do_match'
 
         //! Valores
         img.src = todas_musicas_match[c].Img
@@ -635,7 +668,7 @@ function Retornar_Musicas_Match(Users) {
             let Musicas_Recebidas = [...todas_musicas_match]
             let el = e.target.className
 
-            if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar' && el != 'bnt_carrinho_editar' && el != 'img_carrinho_editar') {
+            if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar' && el != 'bnt_carrinho_editar' && el != 'img_carrinho_editar' && el != 'container_img_perfil_musica_linha_match' && el != 'img_perfil_participantes_do_match') {
                 Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c], '', Pagina_Atual.ID, 'match', 'match')
                 Listas_Prox.Nome_Album = 'match'
                 User_Tocando_Agora = false
@@ -646,6 +679,15 @@ function Retornar_Musicas_Match(Users) {
             let Musicas_Recebidas = [...todas_musicas_match]
             Ativar_Opcoes_Click_Direita('Músicas Linha', Musicas_Recebidas[c], c)
             posicionarElemento(event, document.getElementById('opcoes_click_direito'))
+        })
+
+        container_img_perfil.addEventListener('click', () => {
+            for (let g = 0; g < Todos_Usuarios.length; g++) {
+                if(Todos_Usuarios[g].ID == todas_musicas_match[c].User_Match.ID) {
+                    Carregar_Perfil(Todos_Usuarios[g])
+                    break
+                }
+            }
         })
         
     }
@@ -848,13 +890,7 @@ function listenToMatch() {
 
         //! Vai checar se a playlist atualizada está aberta e vai atualiza-la na tela
         if(Pagina_Atual.Nome == 'match') {
-            for (let c = 0; c < TodosMatchs.length; c++) {
-                if(TodosMatchs[c].ID == Pagina_Atual.ID) {
-                        Abrir_Pagina('match', Pagina_Atual.ID) 
-
-                    break
-                }
-            }
+            Abrir_Pagina('match', Pagina_Atual.ID) 
         }
     })
 } listenToMatch()

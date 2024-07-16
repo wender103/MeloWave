@@ -2,6 +2,11 @@
 
 $blur: 0px;
 
+html {
+    max-height: 100vh;
+    overflow: hidden;
+}
+
 body {
     // width: calc(100vw - 16px);
     // min-height: calc(100vh - 16px);
@@ -14,7 +19,7 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     padding: 8px;
-    overflow: auto;
+    overflow: hidden;
     user-select: none;  
 
     //! Background blur
@@ -571,6 +576,71 @@ body {
             }
 
             //! -------------- Paginas # ---------------------------
+            &#Pagina_configuracoes {
+                h1 {
+                    font-size: 2em;
+                    margin-bottom: 50px;
+                }
+
+                
+                article {
+                    flex-direction: column;
+
+                    div.container_config_unica {
+                        width: 100%;
+
+                        strong {
+                            font-size: 1.1em;
+                            display: block;
+                            margin: 20px 0 5px;  
+                        }
+
+
+                        ul {
+                            width: 100%;
+
+                            li {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                color: var(--fonte_meio_transparente);
+                                padding: 5px 0;
+
+                                input.inputs_config_background {
+                                    background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
+                                    border: none;
+                                    border-radius: 8px;
+                                    height: 5px;
+                                    // width: 100%;
+                                    outline: none;
+                                    transition: background 450ms ease-in;
+                                    -webkit-appearance: none;
+                                    cursor: pointer;
+                                }
+                                
+                                /* Hides the thumb (slider handle) */
+                                input.inputs_config_background::-webkit-slider-thumb {
+                                    -webkit-appearance: none;
+                                    width: 10px; /* ajuste conforme necessário */
+                                    height: 10px; /* ajuste conforme necessário */
+                                    background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+                                    border-radius: 50%; /* para fazer uma bolinha */
+                                    transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+                                    opacity: 0; /* inicia invisível */
+                                }
+                            
+                                input.inputs_config_background:hover::-webkit-slider-thumb,
+                                input.inputs_config_background:focus::-webkit-slider-thumb {
+                                    opacity: 1; /* torna visível ao passar o mouse ou focar */
+                                }
+                            }
+                        }
+                    }
+                }
+
+                color: var(--white);
+            }
+
             &#Pagina_meuperfil {
                 article#container_header_meu_perfil {
                     display: flex;

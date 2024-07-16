@@ -344,7 +344,17 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
         }
 
     } else if (Modo == 'Match Participante') {
-        opcoes_musica_ul.innerHTML += Convidar_Para_Match
+        for (let a = 0; a < TodosMatchs.length; a++) {
+            if (TodosMatchs[a].ID == Pagina_Atual.ID) {
+                
+                if(TodosMatchs[a].Participantes.length < 5) {
+                    opcoes_musica_ul.innerHTML += Convidar_Para_Match
+                }
+
+                break
+            }
+        }
+
         opcoes_musica_ul.innerHTML += Sair_Match
         opcoes_musica_ul.innerHTML += Share_Match
 
@@ -546,35 +556,108 @@ function Comapartilhar_Perfil(ID) {
 }
 
 //! Match
-function Apagar_Match(ID) {
+function Apagar_Match(ID, Comando='') {
+    let user_adm = undefined
     for (let c = 0; c < TodosMatchs.length; c++) {
-        if (TodosMatchs[c].ID == ID && TodosMatchs[c].Admin == User.ID) {
-            Notificar_Infos('❓ Você tem certeza que deseja deletar este match? Essa ação não pode ser desfeita. 🔥⚠️', 'Confirmar', 'Deletar').then(resp => {
-                if (resp) {
-                    let feito = false
-                    db.collection('Matchs').get().then((snapshot) => {
-                        snapshot.docs.forEach(Matchs => {
-                            TodosMatchs = Matchs.data().Matchs
+        if(TodosMatchs[c].ID == ID) {c
 
-                            if (!feito) {
-                                feito = true
+            for (let b = 0; b < Todos_Usuarios.length; b++) {
+                if(Todos_Usuarios[b].ID == TodosMatchs[c].Admin) {
+                    user_adm = Todos_Usuarios[b]
+                    break
+                }
+            }
+            break
+        }
+    }
 
-                                for (let b = 0; b < TodosMatchs.length; b++) {
-                                    if (TodosMatchs[b].ID == ID) {
-                                        TodosMatchs.splice(b, 1)
-                                        db.collection('Matchs').doc(Matchs.id).update({ Matchs: TodosMatchs }).then(() => {
-                                            Abrir_Pagina('home')
-                                            Carreagr_Artistas_Seguindo()
-                                            Notificar_Infos('✅ Match deletado com sucesso! 🎉✨', 'Emojis:🎉,🥳,🎊,🍾,🎈,👏')
-                                        })
-                                    }
+    if(Comando.includes('Match Deletado Por Falta De Participantes')) {
+        Remover_Convites(ID)
+        Deletar_Match(ID)
+
+    } else {
+        Notificar_Infos('❓ Você tem certeza que deseja deletar este match? Essa ação não pode ser desfeita. 🔥⚠️', 'Confirmar', 'Deletar').then(resp => {
+            if (resp) {
+                Remover_Convites(ID)
+                Deletar_Match(ID)
+            }
+        })
+    }
+
+    function Remover_Convites(ID) {
+        let convite_encontrado = false
+        const Convites = user_adm.Social.Matchs.Convites
+        for (let a = 0; a < Convites.length; a++) {
+            if(Convites[a].ID == ID) {
+                user_adm.Social.Matchs.Convites.splice(a, 1)
+                convite_encontrado = true
+
+                for (let b = 0; b < Todos_Usuarios.length; b++) {
+                    if(Todos_Usuarios[b].ID == user_adm.ID) {
+                        Todos_Usuarios[b].Social.Matchs.Convites = user_adm.Social.Matchs.Convites
+
+                        db.collection('Users').doc(user_adm.ID).update({ Social: user_adm.Social }).then(() => {
+                            return true
+                        })
+                        break
+                    }
+                }
+                break
+            }
+        }
+
+        if(!convite_encontrado) {
+            console.log('Convite n econtrado deletando msm assim');
+            return false
+        }
+    }
+
+    function Deletar_Match(ID) {
+        let BackUp_Match = null
+        for (let c = 0; c < TodosMatchs.length; c++) {
+            if (TodosMatchs[c].ID == ID) {
+                BackUp_Match = TodosMatchs[c]
+
+                let feito = false
+                db.collection('Matchs').get().then((snapshot) => {
+                    snapshot.docs.forEach(Matchs => {
+                        TodosMatchs = Matchs.data().Matchs
+
+                        if (!feito) {
+                            feito = true
+
+                            for (let b = 0; b < TodosMatchs.length; b++) {
+                                if (TodosMatchs[b].ID == ID) {
+                                    TodosMatchs.splice(b, 1)
+                                    db.collection('Matchs').doc(Matchs.id).update({ Matchs: TodosMatchs }).then(() => {
+                                        Abrir_Pagina('home')
+                                        Carreagr_Artistas_Seguindo()
+
+                                        let obj_adicional = {
+                                            ID: BackUp_Match.ID
+                                        }
+
+                                        if(Comando.includes('Match Deletado Por Falta De Participantes')) {
+                                            Enviar_Notificacao_Tempo_Real(BackUp_Match.Admin, 'Match', `🎵😔 Todos os participantes saíram do seu Match 😢. Por isso, ele foi apagado. Esperamos que você crie um novo em breve! ✨🎶✨`, 'Modelo2', `Match Deletado`, null, false, 'Fehcar', null, obj_adicional)
+
+                                        } else {
+                                            Avisos_Rapidos('✅ Match deletado com sucesso! 🎉✨')
+
+                                            for (let f = 0; f < BackUp_Match.Participantes.length; f++) {
+                                                if(BackUp_Match.Participantes[f].ID != User.ID) {
+
+                                                    Enviar_Notificacao_Tempo_Real(BackUp_Match.Participantes[f].ID, 'Match', `🎵😔 O match de: *#00ceff*${User.Nome}*#00ceff* foi apagado.🎶✨`, 'Modelo2', `Match Deletado`, null, false, 'Fehcar', null, obj_adicional)
+                                                }
+                                            }
+                                        }
+                                    })
                                 }
                             }
-                        })
+                        }
                     })
-                }
-            })
-            break
+                })
+                break
+            }
         }
     }
 }
@@ -634,15 +717,17 @@ function Convidar_Para_Match(ID) {
                 }
             }
 
-            if (!link_expirou && match_carregado.Participantes.length < 5 && user_admin_match.Social.Matchs.Convites.length > 0) {
-                let id_convite
-                for (let d = 0; d < user_admin_match.Social.Matchs.Convites.length; d++) {
-                    if (user_admin_match.Social.Matchs.Convites[d].ID == ID) {
-                        console.log('Caiu no if do match')
-                        id_convite = user_admin_match.Social.Matchs.Convites[d].ID_Convite
-                        break
-                    }
+            let id_convite
+            for (let d = 0; d < user_admin_match.Social.Matchs.Convites.length; d++) {
+                if (user_admin_match.Social.Matchs.Convites[d].ID == ID) {
+                    id_convite = user_admin_match.Social.Matchs.Convites[d].ID_Convite
+                    break
+                } else {
+                    link_expirou = true
                 }
+            }
+
+            if (!link_expirou && match_carregado.Participantes.length < 5 && user_admin_match.Social.Matchs.Convites.length > 0) {
 
                 let url = window.location.href
                 let baseUrl = url.split('?')[0]
@@ -795,13 +880,20 @@ function Sair_Do_Match() {
 
                                 db.collection('Matchs').doc(Matchs.id).update({ Matchs: TodosMatchs }).then(() => {
                                     Avisos_Rapidos('Você saiu do match!')
-                                    Abrir_Pagina('playlist', ID_Playlist)
                                     Enviar_Notificacao_Tempo_Real(TodosMatchs[c].Admin, 'Match', `🎵😔 *#00ceff*${User.Nome}*#00ceff* saiu do match.🎶✨`, 'Modelo1', `User Removido Match:${TodosMatchs[c].ID}`, User.Perfil.Img_Perfil, null, 'Fehcar')
 
-                                    for (let f = 0; f < TodosMatchs[c].Colaboradores.length; f++) {
-                                        if(TodosMatchs[c].Colaboradores[f] != User.ID) {
-                                            Enviar_Notificacao_Tempo_Real(TodosMatchs[c].Colaboradores[f], 'Match', `🎵😔 *#00ceff*${User.Nome}*#00ceff* saiu do match.🎶✨`, 'Modelo1', `User Removido Match:${TodosMatchs[c].ID}`, User.Perfil.Img_Perfil, null, 'Fehcar')
+                                    for (let f = 0; f < TodosMatchs[c].Participantes.length; f++) {
+                                        if(TodosMatchs[c].Participantes[f].ID != User.ID) {
+                                            Enviar_Notificacao_Tempo_Real(TodosMatchs[c].Participantes[f].ID, 'Match', `🎵😔 *#00ceff*${User.Nome}*#00ceff* saiu do match.🎶✨`, 'Modelo1', `User Removido Match:${TodosMatchs[c].ID}`, User.Perfil.Img_Perfil, null, 'Fehcar')
                                         }
+                                    }
+
+                                    if(TodosMatchs[c].Participantes.length <= 1) {
+                                        console.log('apagando match por falta de pessoal qualificado')
+                                        Apagar_Match(TodosMatchs[c].ID, 'Match Deletado Por Falta De Participantes')
+                                        Abrir_Pagina('home')
+                                    } else {
+                                        Abrir_Pagina('match', TodosMatchs[c].ID)
                                     }
                                 })
                                 break
@@ -977,7 +1069,10 @@ function Apagar_playlist() {
                                     //! Vai notificar os colaboradores que o user foi removido da playlist
                                     for (let f = 0; f < Backup_esta_playlist.Colaboradores.length; f++) {
                                         if(Backup_esta_playlist.Colaboradores[f] != User.ID) {
-                                            Enviar_Notificacao_Tempo_Real(Backup_esta_playlist.Colaboradores[f], 'Playlist', `🎵😔 A playlist: *#00ceff*${Backup_esta_playlist.Nome}*#00ceff* foi apagada.🎶✨`, 'Modelo2', `Playlist Deletada`, null, false, 'Fehcar')
+                                            let obj_adicional = {
+                                                    ID: Backup_esta_playlist.ID
+                                                }
+                                            Enviar_Notificacao_Tempo_Real(Backup_esta_playlist.Colaboradores[f], 'Playlist', `🎵😔 A playlist: *#00ceff*${Backup_esta_playlist.Nome}*#00ceff* foi apagada.🎶✨`, 'Modelo2', `Playlist Deletada`, null, false, 'Fehcar', null, obj_adicional)
                                         }
                                     }
                                 })

@@ -1344,3 +1344,33 @@ function limitarTamanhoArray(array, tamanhoMaximo = 10, removerPrimeiros = false
     }
     return array
 }
+
+//! Vai fazer uma transição de volume
+function ajustarVolume(audioElement, novoVolume, duracao) {
+    const passos = 50; // Número de passos para a transição
+    const intervalo = duracao / passos; // Intervalo entre cada passo
+
+    // Converte o volume de 0-100 para 0-1
+    const volumeFinal = Math.max(0, Math.min(100, novoVolume)) / 100;
+
+    // Calcula o incremento de volume a cada passo
+    const volumeAtual = audioElement.volume;
+    const incremento = (volumeFinal - volumeAtual) / passos;
+
+    // Cria um intervalo para ajustar gradualmente o volume
+    const interval = setInterval(function() {
+        try {
+            // Atualiza o volume do áudio
+            audioElement.volume = Math.max(0, Math.min(1, audioElement.volume + incremento));
+
+            // Verifica se atingiu o novo volume
+            if ((incremento > 0 && audioElement.volume >= volumeFinal) || (incremento < 0 && audioElement.volume <= volumeFinal)) {
+                audioElement.volume = volumeFinal;
+                clearInterval(interval); // Para o intervalo
+            }
+        } catch (error) {
+            console.error('Erro ao ajustar o volume:', error);
+            clearInterval(interval); // Para o intervalo em caso de erro
+        }
+    }, intervalo);
+}

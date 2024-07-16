@@ -622,6 +622,36 @@ div#container_carregamento_tela_innteira #message_carregamento {
   border-radius: 5px;
 }
 
+div.btn_marcar_config {
+  width: 40px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.308);
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.2s background ease-in-out;
+}
+div.btn_marcar_config.active {
+  background: var(--verde_azul);
+}
+div.btn_marcar_config.active div.boll_config {
+  left: 20px;
+}
+div.btn_marcar_config div.boll_config {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  transition: 0.2s left ease-in-out;
+}
+
+html {
+  max-height: 100vh;
+  overflow: hidden;
+}
+
 body {
   width: 100vw;
   min-height: 100vh;
@@ -631,7 +661,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   padding: 8px;
-  overflow: auto;
+  overflow: hidden;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -1076,6 +1106,59 @@ body main section.Paginas article div.artista_caixa div.texto_musica span {
   font-size: 13px;
   color: var(--fonte_meio_transparente);
   cursor: pointer;
+}
+body main section.Paginas#Pagina_configuracoes {
+  color: var(--white);
+}
+body main section.Paginas#Pagina_configuracoes h1 {
+  font-size: 2em;
+  margin-bottom: 50px;
+}
+body main section.Paginas#Pagina_configuracoes article {
+  flex-direction: column;
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica {
+  width: 100%;
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica strong {
+  font-size: 1.1em;
+  display: block;
+  margin: 20px 0 5px;
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul {
+  width: 100%;
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--fonte_meio_transparente);
+  padding: 5px 0;
+  /* Hides the thumb (slider handle) */
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li input.inputs_config_background {
+  background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
+  border: none;
+  border-radius: 8px;
+  height: 5px;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li input.inputs_config_background::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px; /* ajuste conforme necessário */
+  height: 10px; /* ajuste conforme necessário */
+  background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+  border-radius: 50%; /* para fazer uma bolinha */
+  -webkit-transition: opacity 0.1s ease-in-out;
+  transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+  opacity: 0; /* inicia invisível */
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li input.inputs_config_background:hover::-webkit-slider-thumb,
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li input.inputs_config_background:focus::-webkit-slider-thumb {
+  opacity: 1; /* torna visível ao passar o mouse ou focar */
 }
 body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil {
   display: flex;

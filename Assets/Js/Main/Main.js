@@ -168,7 +168,7 @@ function Pegar_Todas_Musicas() {
 } Pegar_Todas_Musicas()
 
 //! --------------------------------- Tocar Musica -------------------------------
-const audio_player = document.getElementById('audio_player')
+let audio_player = document.getElementById('audio_player')
 
 //? Controlar inputs
 let cor_input_agora = '#fff'
@@ -188,8 +188,10 @@ let Tocando_Musica_A_Seguir = false
 let tmp_ouvindo_musica = 0
 let interval_view
 const img_btn_mic_letra = document.querySelectorAll('.img_btn_mic_letra')
-
+let Musica_Antiga_Transicao = undefined
+let Comando_Tocar_Musica = ''
 function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {
+    Comando_Tocar_Musica = Comando
     //! Vai deixar as cores pretas caso o background interativo for branco
 
     if(MusicaAtual.Cores.length > 0) {
@@ -270,7 +272,13 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     Carregar_Tela_Tocando_Agora(MusicaAtual)
 
-    audio_player.src = MusicaAtual.Audio
+    if(User.Configuracoes.Transicoes_De_Faixas && Musica_Antiga_Transicao != undefined) {
+        Criar_Transicao(Musica_Antiga_Transicao.Audio, MusicaAtual.Audio)
+
+    } else {
+        audio_player.src = MusicaAtual.Audio
+    }
+
     if(!Comando.includes('Pausar')) {
         document.title = `${MusicaAtual.Nome} - ${MusicaAtual.Autor}`
         Play()
@@ -464,37 +472,8 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     audio_player.removeEventListener('loadedmetadata', carregar_metadados_audio)
     audio_player.addEventListener('loadedmetadata', carregar_metadados_audio)
-
-    function carregar_metadados_audio() {
-        let feito = false
-        if(!feito) {
-            feito = true
-
-            obterDuracaoOuTempoAtualAudio(audio_player, true).then((resp) => {
-                document.getElementById('tempo_max_musica').innerText = resp.formattedDuration
-                document.getElementById('tempo_max_musica_fullscreen').innerText = resp.formattedDuration
-            })
-
-            obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
-                document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
-                document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
-            })
-        }
-    }
-
     audio_player.removeEventListener('ended', fim_audio)
     audio_player.addEventListener('ended', fim_audio)
-    
-    function fim_audio() {
-        if(!Comando.includes('Pausar Ao Finalizar')) {
-            if(!feito_musica_tocar) {
-                feito_musica_tocar = true
-                Proxima_Musica('fim_do_audio')
-                //! Resolver ---------------------------------------------------------------------------------------------------------
-                //* Está repetindo a chamada
-            }
-        }
-    }
 
     setTimeout(() => {
         feito_musica_tocar = false
@@ -531,17 +510,60 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
             Atualizar_Linha_Letra_Input()
         }, 300)
     })
+
+    Musica_Antiga_Transicao = MusicaAtual
 }
 
 //! Adicionar view na música
+function fim_audio() {
+    if(!Comando_Tocar_Musica.includes('Pausar Ao Finalizar')) {
+        if(!feito_musica_tocar) {
+            feito_musica_tocar = true
+            if(!User.Configuracoes.Transicoes_De_Faixas) {
+                Proxima_Musica('fim_do_audio')
+            }
+        }
+    }
+}
+
+function carregar_metadados_audio() {
+    let feito = false
+    if(!feito) {
+        feito = true
+
+        obterDuracaoOuTempoAtualAudio(audio_player, true).then((resp) => {
+            document.getElementById('tempo_max_musica').innerText = resp.formattedDuration
+            document.getElementById('tempo_max_musica_fullscreen').innerText = resp.formattedDuration
+        })
+
+        obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
+            document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
+            document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
+        })
+    }
+}
+
 let interval_audio_tocando
-audio_player.addEventListener('play', () => {
+audio_player.addEventListener('play', Audio_Play_Function)
+audio_player.addEventListener('pause', Audio_Pause_Function)
+
+function Audio_Play_Function() {
     interval_view = setInterval(() => {
         if (!audio_player.paused && !audio_player.ended) {
             tmp_ouvindo_musica++
             if (tmp_ouvindo_musica >= 30) {
                 Adicionar_View_Musica(Listas_Prox.MusicaAtual)
                 clearInterval(interval_view)
+            }
+
+            if(User.Configuracoes.Transicoes_De_Faixas) {
+                const currentTime = audio_player.currentTime
+                const duration = audio_player.duration
+
+                // Verifica se falta menos de 5 segundos para o fim da música
+                if (duration - currentTime <= 5) {
+                    Proxima_Musica()
+                }
             }
         }
     }, 1000)
@@ -555,12 +577,12 @@ audio_player.addEventListener('play', () => {
         //! Vai atualizar a letra
         Atualizar_Letra_PC()
     }, 300)
-})
+}
 
-audio_player.addEventListener('pause', () => {
+function Audio_Pause_Function() {
     clearInterval(interval_view)
     clearInterval(interval_audio_tocando)
-})
+}
 
 // audio_player.addEventListener('seeked', () => {
 //     tmp_ouvindo_musica = 0
@@ -649,7 +671,10 @@ function Pausar() {
     icone_play_pc.forEach(element => {
         element.src = 'Assets/Imgs/play_pc.svg'
     })
-    audio_player.pause()
+
+    document.querySelectorAll('.audios_transitions').forEach(element => {
+        element.pause()
+    })
 
     document.title = 'MeloWave - Home'
     Musica_Pausada = true
@@ -661,7 +686,10 @@ function Play() {
     icone_play_pc.forEach(element => {
         element.src = 'Assets/Imgs/Pause.svg'
     })
-    audio_player.play()
+    
+    document.querySelectorAll('.audios_transitions').forEach(element => {
+        element.play()
+    })
 
     document.title = `${Listas_Prox.MusicaAtual.Nome} - ${Listas_Prox.MusicaAtual.Autor}`
     Musica_Pausada = false
@@ -679,7 +707,9 @@ function Proxima_Musica(Chamado_Por) {
             Repetir_Musica()
         }
 
-        audio_player.currentTime = 0
+        if(!User.Configuracoes.Transicoes_De_Faixas) {
+            audio_player.currentTime = 0
+        }
 
         if(Listas_Prox.A_Seguir.length <= 0) {
             if(Tocando_Musica_A_Seguir) {

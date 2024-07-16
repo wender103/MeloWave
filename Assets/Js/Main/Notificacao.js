@@ -56,7 +56,7 @@ function Remover_Notificacao_User(Notificacao) {
 }
 
 //! Notificações em tempo real
-function Enviar_Notificacao_Tempo_Real(Destinatario, Titulo, Desc, Modelo='Modelo2', Comando=null, Img=null, Temporaria=false, Btn1='Fechar', Btn2=null) {
+function Enviar_Notificacao_Tempo_Real(Destinatario, Titulo, Desc, Modelo='Modelo2', Comando=null, Img=null, Temporaria=false, Btn1='Fechar', Btn2=null, Adicional=null) {
     const Nova_Notificacao = {
         Titulo,
         Desc,
@@ -69,7 +69,8 @@ function Enviar_Notificacao_Tempo_Real(Destinatario, Titulo, Desc, Modelo='Model
         Enviada_Por: User.ID,
         Destinatario,
         Modelo,
-        Comando
+        Comando,
+        Adicional
     }
 
     let Todas_Notificacoes = []
@@ -288,7 +289,9 @@ function Mostrar_Notificaco_Tempo_Real() {
                     Abrir_Pagina('playlist', Playlist_Carregada.ID)
                 }) 
             } else if(Notificacao.Comando.includes('Playlist Deletada')) {
-                Abrir_Pagina('home') 
+                if(Pagina_Atual.ID == Notificacao.Adicional.ID) {
+                    Abrir_Pagina('home') 
+                }
 
             } else if(Notificacao.Comando.includes('User Banido Match:')) {
                 img_notificacao_tempo_real.style.cursor = 'pointer'
@@ -317,7 +320,17 @@ function Mostrar_Notificaco_Tempo_Real() {
                         break
                     }
                 }
+
+            } else if(Notificacao.Comando.includes('Match Deletado')) {
+                if(Pagina_Atual.ID == Notificacao.Adicional.ID) {
+                    Abrir_Pagina('home') 
+                }
+            } else if(Notificacao.Comando.includes('User Entrou No Match:')) {
+                document.getElementById('btn_notificacao_tempo_real').addEventListener('click', () => {
+                    Abrir_Pagina('match', Notificacao.Adicional.ID) 
+                }) 
             }
+
         } 
 
         if(Todas_Notificacoes_Tempo_Real_User.length > 0) {

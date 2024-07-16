@@ -11,9 +11,15 @@ function Carregar_Perfil_Anonimo_User() {
 
     } else {
         User = {
-            Email: 'anonimo@gmail.com',
-            Nome: 'Anônimo',
+           Email: val.email,
+            Nome: val.displayName,
             Musicas_Curtidas: [],
+            Loja: {
+                Pontos: 0,
+            },
+            Configuracoes: {
+                Tema: 'Claro',
+            },
             Social: {
                 Seguindo: [],
                 Seguidores: [],
@@ -40,14 +46,20 @@ function Carregar_Perfil_Anonimo_User() {
                 Todos: [],
                 Atual: []
             },
-            Estado_Da_Conta: 'Anônima',
+            Estado_Da_Conta: {
+                Estado: 'Ativo',
+                Motivo: '',
+                Tempo: '',
+                Historico_De_Infracoes: [],
+            },
             Notificacao: [],
             Perfil: {
-                Img_Perfil: 'Assets/Imgs/user_anonimo.png',
+                Img_Perfil: val.photoURL,
                 Img_Background: null,
+                Img_Email: val.photoURL,
                 Ouvintes: 0,
                 Horas_Ouvindo: 0,
-                Data_Criacao_Conta: getDataAtualCadastro()
+                Data_Criacao_Conta: getDataAtual()
             },
         }
     }

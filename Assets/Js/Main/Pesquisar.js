@@ -100,8 +100,14 @@ function Pesquisar() {
 
             let nome_adm_formatado = formatarString(Adm.Nome)
 
+            let inclues_nome_playlist = false
             let includes_descricao = false
             let includes_nome = false
+
+            let nome_playlist = 'playlist'
+            if(nome_playlist.includes(pesquisa_formatada) || pesquisa_formatada.includes(nome_playlist)) {
+                inclues_nome_playlist = true
+            }
 
             if(nome_adm_formatado.includes(pesquisa_formatada) || pesquisa_formatada.includes(nome_adm_formatado)) {
                 includes_nome = true
@@ -114,13 +120,13 @@ function Pesquisar() {
             }
 
             if(TodasPlaylists[c].Estado == 'Pública') {
-                if(pesquisa_formatada.includes(nome_playlist_formatado) || nome_playlist_formatado.includes(pesquisa_formatada) || includes_descricao || includes_nome) {
+                if(pesquisa_formatada.includes(nome_playlist_formatado) || nome_playlist_formatado.includes(pesquisa_formatada) || includes_descricao || includes_nome || inclues_nome_playlist) {
                     array_playlists.push(TodasPlaylists[c])
                     pesquisa_encotrada = true
                 }
 
             } else {
-                if(pesquisa_formatada.includes(nome_playlist_formatado) || nome_playlist_formatado.includes(pesquisa_formatada) || includes_descricao || includes_nome) {
+                if(pesquisa_formatada.includes(nome_playlist_formatado) || nome_playlist_formatado.includes(pesquisa_formatada) || includes_descricao || includes_nome || inclues_nome_playlist) {
                     if(User.ID == TodasPlaylists[c].Admin) {
                         array_playlists.push(TodasPlaylists[c])
                     } else {
@@ -621,8 +627,8 @@ function Retornar_Match(Lista, Local) {
 }
 
 function Retornar_Playlists(Lista, Local) {    
-    let musicas_playlist = []
     for (let c = 0; c < Lista.length; c++) {
+        let musicas_playlist = []
         for (let b = 0; b < Lista[c].Musicas.length; b++) {
             for (let a = 0; a < TodasMusicas.length; a++) {
                 if(TodasMusicas[a].ID == Lista[c].Musicas[b].ID_Musica) {
@@ -639,7 +645,7 @@ function Retornar_Playlists(Lista, Local) {
                 break
             }
         }
-        
+
         const container_playlist = document.createElement('div')
         const container_img_playlist_playlist = document.createElement('div')
         const container_texto_playlist = document.createElement('div')

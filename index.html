@@ -6,7 +6,7 @@
     <!-- <meta name="theme-color" content="#ff6600"> -->
     <title>MeloWave - Home</title>
 
-    <!-- <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css"> -->
+    <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css">
     <link rel="stylesheet" href="Assets/Styles/Home/Home.css">
     <link rel="stylesheet" href="Assets/Styles/Home/Responsivo/Home_Responsivo.css">
     <link rel="stylesheet" href="Assets/Styles/Wallpapers/wallpapers.css">
@@ -35,6 +35,10 @@
                     <!-- <div class="interactive"></div> -->
                 </div>
             </div>
+            <li class="li_icon" id="li_icon_config" title="Configurações">
+                <img src="Assets/Imgs/config.png" id="id_img_config" class="icone">
+            </li>
+
             <li class="li_icon" id="li_icon_perfil_user_nav" title="Meu Perfil">
                 <img src="Assets/Imgs/user_anonimo.png" id="id_img_nav_perfil_user" class="icone">
             </li>
@@ -199,6 +203,30 @@
 
     <!--! Main -->
     <main>
+
+        <section class="Paginas" id="Pagina_configuracoes">
+            <h1>Configurações</h1>
+
+            <article id="container_configs">
+                <div class="container_config_unica">
+                    <strong>Reproduções</strong>
+
+                    <ul>
+                        <li>Fazer transição gradual de faixas <div class="btn_marcar_config" id="btn_fazer_transicao"><div class="boll_config"></div></div></li>
+                    </ul>
+                </div>
+
+                <div class="container_config_unica">
+                    <strong>Background</strong>
+                    <ul>
+                        <li>Blur <input type="range" value="20" min="0" max="100" class="inputs_config_background" id="input_blur_config"></li>
+                        <li>Contraste <input type="range" value="100" min="0" max="100" class="inputs_config_background" id="input_contraste_config"></li>
+                        <li>Saturação <input type="range" value="100" min="0" max="100" class="inputs_config_background" id="input_saturacao_config"></li>
+                        <li>Brilho <input type="range" value="100" min="0" max="100" class="inputs_config_background" id="input_brilho_config"></li>
+                    </ul>
+                </div>
+            </article>
+        </section>
 
         <section class="Paginas" id="Pagina_meuperfil">
             <article id="container_header_meu_perfil">
@@ -1270,7 +1298,9 @@
     </div>
 
     <!--! Audio -->
-    <audio id="audio_player" style="display: none;"></audio>
+    <div id="container_audios_transition">
+        <audio class="audios_transitions" id="audio_player" style="display: none;"></audio>
+    </div>
 
     <!--! Remover ---------------------------------------------------------------------- Remover ----------------------------- -->
     <div id="cores_imgs">
@@ -1348,6 +1378,9 @@
     <script src="Assets/Js/Main/AceitarPlaylist.js"></script>
     <script src="Assets/Js/Main/Cores_Imgs.js"></script>
     <script src="Assets/Js/Nav/Navegation.js"></script>
+    
+    <!--* Configurações -->
+    <script src="Assets/Configs/Configs.js"></script>
 
     <!-- <script src="Codigos_A_Parte/Salvar_Cores_Img.js"></script> -->
 </body>

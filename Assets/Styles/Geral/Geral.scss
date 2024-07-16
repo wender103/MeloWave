@@ -713,3 +713,33 @@ width: 50px;
 height: 50px;
 border-radius: 5px;
 }
+
+//! ---------------------- Btns Configs ----------------------------
+div.btn_marcar_config {
+    width: 40px;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.308);
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s background ease-in-out;
+    
+
+    &.active {
+        background: var(--verde_azul);
+
+        div.boll_config {
+            left: 20px;
+        }
+    }
+
+    div.boll_config {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: white;
+        position: absolute;
+        left: 0;
+        transition: 0.2s left ease-in-out;
+    }
+}
