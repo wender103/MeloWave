@@ -141,6 +141,10 @@ function Retornar_Background_Animado() {
                 esferas_animacao_letra.className = 'esferas_animacao_letra'
                 gradiente_container.appendChild(esferas_animacao_letra)
             }
+
+            const interactive = document.createElement('div')
+            interactive.className = 'interactive'
+            gradiente_container.appendChild(interactive)
         })
 
         updateColors(Listas_Prox.MusicaAtual.Cores)

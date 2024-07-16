@@ -130,23 +130,19 @@ function aplicar_filtros(filtros, comando='') {
     const filtro = `blur(${filtros.blur}px) contrast(${filtros.contraste}%) brightness(${filtros.brilho}%) saturate(${filtros.saturacao}%)`
 
     elementos.forEach(elemento => {
+        // Adiciona a transição suave
+        elemento.style.transition = 'backdrop-filter 1s ease'
         elemento.style.backdropFilter = filtro
     })
 
-    
     if(comando == 'Aplicar') {
         inputs_config_background.forEach(element => {
             if (element.id == 'input_blur_config') {
-                
                 element.value = filtrosAplicados.blur
-
             } else if (element.id == 'input_contraste_config') {
-                
                 element.value = filtrosAplicados.contraste
-                
             } else if (element.id == 'input_brilho_config') {
                 element.value = filtrosAplicados.brilho
-
             } else if (element.id == 'input_saturacao_config') {
                 element.value = filtrosAplicados.saturacao
             }
@@ -162,7 +158,7 @@ function aplicar_filtros(filtros, comando='') {
         time_salvar_confings_background = setTimeout(() => {
             User.Configuracoes.Background = filtrosAplicados
             Salvar_Configs()
-        }, 1000)
+        }, 2000)
     }
 }
 

@@ -105,7 +105,6 @@ function Abrir_Pagina(Pagina, ID) {
             }, 200)
 
         } else if(Pagina == 'musicascurtidas') {
-            desativar_blur = true
             Retornar_Musicas_Curtidas()
 
         } else if(Pagina == 'notificacao') {
@@ -158,8 +157,17 @@ function Abrir_Pagina(Pagina, ID) {
     }
 
     if(desativar_blur) {
-        decreaseBlur()
+        setTimeout(() => {
+            aplicar_filtros(reset_background, 'Aplicar')
+        }, 500)
     } else {
-        increaseBlur()
+        aplicar_filtros(filtrosAplicados, 'Aplicar')
     }
+}
+
+const reset_background = {
+  blur: 0,
+  contraste: 100,
+  brilho: 100,
+  saturacao: 100
 }
