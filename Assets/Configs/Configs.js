@@ -75,7 +75,17 @@ function Criar_Transicao(musicaAtual, proximaMusica) {
             novoAudio.addEventListener('play', Audio_Play_Function)
             novoAudio.addEventListener('pause', Audio_Pause_Function)
 
+            Audio_Pause_Function()
             Audio_Play_Function()
+            carregar_metadados_audio()
+            Carregar_Navegor(TodasMusicas[0])
+            Carregar_Navegor(Listas_Prox.MusicaAtual)
+
+            setTimeout(() => {
+                Audio_Pause_Function()
+                Audio_Play_Function()
+                carregar_metadados_audio()
+            }, 1000)
         })
     } else {
         ajustarVolume(audio_player, 0, 1500)
@@ -89,10 +99,16 @@ function Criar_Transicao(musicaAtual, proximaMusica) {
             audio_player.addEventListener('play', Audio_Play_Function)
             audio_player.addEventListener('pause', Audio_Pause_Function)
 
+            Audio_Pause_Function()
             Audio_Play_Function()
+            carregar_metadados_audio()
+            Carregar_Navegor(TodasMusicas[0])
+            Carregar_Navegor(Listas_Prox.MusicaAtual)
 
             setTimeout(() => {
+                Audio_Pause_Function()
                 Audio_Play_Function()
+                carregar_metadados_audio()
             }, 1000)
         }, 1700)
     }
