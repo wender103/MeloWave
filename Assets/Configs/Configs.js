@@ -70,8 +70,8 @@ function Criar_Transicao(proximaMusica) {
         // Define um evento para remover a tag de áudio antiga quando a música atual acabar
         audio_player.addEventListener('ended', function() {
             
-
             container.removeChild(audio_player)
+            audio_player.remove()
             novoAudio.id = 'audio_player'
             audio_player = novoAudio
 
@@ -97,6 +97,7 @@ function Criar_Transicao(proximaMusica) {
         setTimeout(() => {
 
             container.removeChild(audio_player)
+            audio_player.remove()
             novoAudio.id = 'audio_player'
             audio_player = novoAudio
 
