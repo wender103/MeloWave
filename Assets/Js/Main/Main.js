@@ -169,6 +169,7 @@ function Pegar_Todas_Musicas() {
 
 //! ---------------- Navegador ----------------------------------
 function Carregar_Navegor(MusicaAtual, Comando='') {
+    
     let audio_certo = audio_player
 
     let audios = document.querySelectorAll('.audios_transitions')
@@ -177,7 +178,6 @@ function Carregar_Navegor(MusicaAtual, Comando='') {
             audio_certo = element
         }  
     })
-
     
     navigator.mediaSession.metadata = new MediaMetadata({
         title: MusicaAtual.Nome,
@@ -275,6 +275,8 @@ let interval_view
 const img_btn_mic_letra = document.querySelectorAll('.img_btn_mic_letra')
 let Musica_Antiga_Transicao = undefined
 let Comando_Tocar_Musica = ''
+let ja_ativou_transicao = false
+
 function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {
     Comando_Tocar_Musica = Comando
     //! Vai deixar as cores pretas caso o background interativo for branco
@@ -357,9 +359,8 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     Carregar_Tela_Tocando_Agora(MusicaAtual)
 
-    if(User.Configuracoes.Transicoes_De_Faixas && Musica_Antiga_Transicao != undefined && !audio_player.paused) {
-        
-        Criar_Transicao(Musica_Antiga_Transicao.Audio, MusicaAtual.Audio)
+    if(User.Configuracoes.Transicoes_De_Faixas && !audio_player.paused) {
+        Criar_Transicao(MusicaAtual.Audio)
 
     } else {
         audio_player.src = MusicaAtual.Audio
@@ -487,62 +488,76 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         }  
     })
 
-    Carregar_Navegor(MusicaAtual, Comando)
+    if(!User.Configuracoes.Transicoes_De_Faixas || !ja_ativou_transicao) {
+        Carregar_Navegor(MusicaAtual, Comando)
+    }
 
     //! ---------------- Fim Navegador ----------------------------------
 
-    //! ---------------- Audio ------------------------------------------
+    Carregar_Inputs_Tempo_Musica()
+    Audio_Play_Function()
+}
+
+function Carregar_Inputs_Tempo_Musica() {
     //? Vai atualizar a barra de progresso da música
     let input_range_musica_pc = document.getElementById('input_range_musica_pc') //? Progresso barra para pc
     let input_range_musica_pc_fullscreen = document.getElementById('input_range_musica_pc_fullscreen') //? Progresso barra para pc
+    let audio_certo = audio_player
 
-    audio_certo.removeEventListener('loadedmetadata', carregar_metadados_audio)
-    audio_certo.addEventListener('loadedmetadata', carregar_metadados_audio)
-    audio_certo.removeEventListener('ended', fim_audio)
-    audio_certo.addEventListener('ended', fim_audio)
+    let audios = document.querySelectorAll('.audios_transitions')
+    audios.forEach(element => {
+        if (element.src == Listas_Prox.MusicaAtual.Audio) {
+            audio_certo = element
+        }
+    })
 
-    setTimeout(() => {
-        feito_musica_tocar = false
-    }, 1000)
+    //? Remove os event listeners existentes
+    input_range_musica_pc.removeEventListener('input', handleInputRangeMusicaPC)
+    input_range_musica_pc_fullscreen.removeEventListener('input', handleInputRangeMusicaPCFullscreen)
 
-    //! ---------------- Fim Audio ----------------------------------
-
-    let debounceTimeout1
-    input_range_musica_pc.addEventListener('input', function() {
+    //? Função handler para input_range_musica_pc
+    function handleInputRangeMusicaPC() {
         const newTime = (input_range_musica_pc.value / 100) * audio_certo.duration
         audio_certo.currentTime = newTime
         atualizar_cor_progresso_input(input_range_musica_pc)
-
-        audio_certo.currentTime = newTime
         atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
 
         clearTimeout(debounceTimeout1)
         debounceTimeout1 = setTimeout(function() {
             Atualizar_Linha_Letra_Input()
         }, 300)
-    })
+    }
 
-    let debounceTimeout2
-    input_range_musica_pc_fullscreen.addEventListener('input', function() {
+    //? Função handler para input_range_musica_pc_fullscreen
+    function handleInputRangeMusicaPCFullscreen() {
         const newTime = (input_range_musica_pc_fullscreen.value / 100) * audio_certo.duration
         audio_certo.currentTime = newTime
         atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
-
-        audio_certo.currentTime = newTime
         atualizar_cor_progresso_input(input_range_musica_pc)
 
         clearTimeout(debounceTimeout2)
         debounceTimeout2 = setTimeout(function() {
             Atualizar_Linha_Letra_Input()
         }, 300)
-    })
+    }
 
-    Musica_Antiga_Transicao = MusicaAtual
+    let debounceTimeout1
+    input_range_musica_pc.addEventListener('input', handleInputRangeMusicaPC)
+
+    let debounceTimeout2
+    input_range_musica_pc_fullscreen.addEventListener('input', handleInputRangeMusicaPCFullscreen)
 }
+
+//! ---------------- Audio ------------------------------------------
+audio_player.addEventListener('loadedmetadata', carregar_metadados_audio)
+audio_player.addEventListener('ended', fim_audio)
+
+//! ---------------- Fim Audio ----------------------------------
 
 //! Adicionar view na música
 let fim_do_audio_feito = false
 function fim_audio() {
+    
     if(!Comando_Tocar_Musica.includes('Pausar Ao Finalizar') && !fim_do_audio_feito) {
         if(!feito_musica_tocar) {
             feito_musica_tocar = true
@@ -606,14 +621,17 @@ function Audio_Play_Function() {
                 clearInterval(interval_view)
             }
 
-            if(User.Configuracoes.Transicoes_De_Faixas) {
-                const currentTime = audio_certo.currentTime
-                const duration = audio_certo.duration
+        }
 
-                // Verifica se falta menos de 5 segundos para o fim da música
-                if (duration - currentTime <= 5) {
-                    Proxima_Musica()
-                }
+        if(!audio_certo.paused && User.Configuracoes.Transicoes_De_Faixas) {
+            const currentTime = audio_certo.currentTime
+            const duration = audio_certo.duration
+
+            
+
+            // Verifica se falta menos de 5 segundos para o fim da música
+            if (duration - currentTime <= 5) {
+                Proxima_Musica()
             }
         }
     }, 1000)

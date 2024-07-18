@@ -65,6 +65,7 @@ function monitorarDesempenho() {
 
 // ? Função para tornar a caixinha movível
 function tornarMovivel(elemento) {
+    elemento.classList.add('Move')
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0
     elemento.onmousedown = arrastarMouse
 

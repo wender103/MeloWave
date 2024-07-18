@@ -644,4 +644,9 @@ div.btn_marcar_config div.boll_config {
   position: absolute;
   left: 0;
   transition: 0.2s left ease-in-out;
+}
+
+.Move {
+  position: fixed;
+  cursor: move;
 }/*# sourceMappingURL=Geral.css.map */

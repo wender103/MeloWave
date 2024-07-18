@@ -41,7 +41,10 @@ function Salvar_Configs() {
 }
 
 //! ---------------------------------- Criar Transições ------------------------------
-function Criar_Transicao(musicaAtual, proximaMusica) {
+function Criar_Transicao(proximaMusica) {
+    ja_ativou_transicao = true
+    
+    
     
     // Pega o container onde os áudios serão inseridos
     const container = document.getElementById('container_audios_transition')
@@ -66,9 +69,11 @@ function Criar_Transicao(musicaAtual, proximaMusica) {
     if (duration - currentTime <= 5) {
         // Define um evento para remover a tag de áudio antiga quando a música atual acabar
         audio_player.addEventListener('ended', function() {
+            
+
             container.removeChild(audio_player)
             novoAudio.id = 'audio_player'
-            audio_player = document.getElementById('audio_player')
+            audio_player = novoAudio
 
             novoAudio.addEventListener('loadedmetadata', carregar_metadados_audio)
             novoAudio.addEventListener('ended', fim_audio)
@@ -78,8 +83,8 @@ function Criar_Transicao(musicaAtual, proximaMusica) {
             Audio_Pause_Function()
             Audio_Play_Function()
             carregar_metadados_audio()
-            Carregar_Navegor(TodasMusicas[0])
             Carregar_Navegor(Listas_Prox.MusicaAtual)
+            Carregar_Inputs_Tempo_Musica()
 
             setTimeout(() => {
                 Audio_Pause_Function()
@@ -88,22 +93,23 @@ function Criar_Transicao(musicaAtual, proximaMusica) {
             }, 1000)
         })
     } else {
-        ajustarVolume(audio_player, 0, 1500)
+        ajustarVolume(document.getElementById('audio_player'), 0, 1500)
         setTimeout(() => {
+
             container.removeChild(audio_player)
             novoAudio.id = 'audio_player'
-            audio_player = document.getElementById('audio_player')
+            audio_player = novoAudio
 
-            audio_player.addEventListener('loadedmetadata', carregar_metadados_audio)
-            audio_player.addEventListener('ended', fim_audio)
-            audio_player.addEventListener('play', Audio_Play_Function)
-            audio_player.addEventListener('pause', Audio_Pause_Function)
+            novoAudio.addEventListener('loadedmetadata', carregar_metadados_audio)
+            novoAudio.addEventListener('ended', fim_audio)
+            novoAudio.addEventListener('play', Audio_Play_Function)
+            novoAudio.addEventListener('pause', Audio_Pause_Function)
 
             Audio_Pause_Function()
             Audio_Play_Function()
             carregar_metadados_audio()
-            Carregar_Navegor(TodasMusicas[0])
             Carregar_Navegor(Listas_Prox.MusicaAtual)
+            Carregar_Inputs_Tempo_Musica()
 
             setTimeout(() => {
                 Audio_Pause_Function()
