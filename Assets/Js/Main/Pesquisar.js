@@ -255,6 +255,9 @@ function Retornar_Musicas(Musicas_Recebidas, Local) {
                 let el = e.target.className
     
                 if(el == 'musica_caixa' || el == 'Nome_musicas_caixa' || el == 'Img_musica_caixa') {
+                    Listas_Prox.Tocando.Nome = 'Pesquisa'
+                    Listas_Prox.Tocando.ID = Pagina_Atual.ID
+
                     Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
                 }
             })
@@ -459,6 +462,8 @@ function Retornar_Melhor_Resultado(Musica, Tipo) {
                     let Musicas_Recebidas = [...Musicas]
                     let el = e.target.classList
                     if(el.contains('musica_linha')) {
+                        Listas_Prox.Tocando.Nome = 'Pesquisa'
+                        Listas_Prox.Tocando.ID = Pagina_Atual.ID
                         Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c])
                     }
                 })

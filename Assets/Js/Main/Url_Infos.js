@@ -65,6 +65,10 @@ function Recarregar_Infos_Url() {
                 Lista_Musicas: [],
                 Indice: undefined,
                 A_Seguir: [],
+                Tocando: {
+                    Nome: '',
+                    ID: undefined
+                }
             }
 
             for (let a = 0; a < memoria.A_Seguir.length; a++) {

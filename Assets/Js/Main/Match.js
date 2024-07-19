@@ -838,6 +838,8 @@ function Pesquisar_Matchs(Pesquisa) {
     
                 if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar' && el != 'bnt_carrinho_editar' && el != 'img_carrinho_editar') {
                     Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c], '', Pagina_Atual.ID, 'match', 'match')
+                    Listas_Prox.Tocando.Nome = 'Match'
+                    Listas_Prox.Tocando.ID = Pagina_Atual.ID
                     Listas_Prox.Nome_Album = 'match'
                     User_Tocando_Agora = false
                 }
@@ -856,6 +858,8 @@ function Pesquisar_Matchs(Pesquisa) {
 const img_play_match = document.getElementById('img_play_match')
 img_play_match.addEventListener('click', () => {
     let new_arrey = [...pesquisa_match]
+    Listas_Prox.Tocando.Nome = 'Match'
+    Listas_Prox.Tocando.ID = Pagina_Atual.ID
     Tocar_Musica(new_arrey, pesquisa_match[0], '', Pagina_Atual.ID, 'match')
 })
 

@@ -50,6 +50,13 @@ function Abrir_PLaylistMix(Array, Nome, svg) {
     Trocar_Background(new_array[0].Img, document.body)
 }
 
+const img_play_playlistmix = document.getElementById('img_play_playlistmix')
+img_play_playlistmix.addEventListener('click', () => {
+    Listas_Prox.Tocando.Nome = 'PlaylistMix'
+    Listas_Prox.Tocando.ID = Pagina_Atual.ID
+    Tocar_Musica(Arraay_PlaylistMix, Arraay_PlaylistMix[0], '', undefined, 'PlaylistMix')
+})
+
 //! --------------------------------- Abrir Playlist ----------------------------------------
 let Musicas_Pesquisa_Playlist = []
 let Playlist_Aberta
@@ -407,6 +414,9 @@ function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
             if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar' && el != 'bnt_carrinho_editar' && el != 'img_carrinho_editar' && el != 'container_img_perfil' && el != 'img_perfil_playlist') {
                 User_Tocando_Agora = undefined
 
+                Listas_Prox.Tocando.Nome = 'Playlist'
+                Listas_Prox.Tocando.ID = Playlist.ID
+
                 Tocar_Musica(Musicas_Recebidas, Musicas_Playlist[c].Musica, '', Playlist.ID, 'Playlist', `Playlist - ${Playlist.Nome}`)
                 Listas_Prox.Nome_Album = `Playlist - ${Playlist.Nome}`
             }
@@ -443,7 +453,9 @@ img_play_playlist_page.addEventListener('click', () => {
         }
     }
 
-    Tocar_Musica(new_array, new_array[0], '', User.ID, 'playlist', Playlist_Aberta.Nome)
+    Listas_Prox.Tocando.Nome = 'Playlist'
+    Listas_Prox.Tocando.ID = Pagina_Atual.ID
+    Tocar_Musica(new_array, new_array[0], '', Pagina_Atual.ID, 'playlist', Playlist_Aberta.Nome)
 })
 
 function Pesquisar_Musica_Playlist_Page(Pesquisa) {

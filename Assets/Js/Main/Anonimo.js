@@ -37,10 +37,7 @@ function Carregar_Perfil_Anonimo_User() {
             },
             Historico: {
                 Musicas: [],
-                Playlists: [],
-                Users: [],
-                Artistas: [],
-                Pesquisa: [],
+                Outros: []
             },
             Dispositivos: {
                 Todos: [],

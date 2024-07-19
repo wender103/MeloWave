@@ -9,6 +9,10 @@ let Listas_Prox = {
     Lista_Musicas: [],
     Indice: undefined,
     A_Seguir: [],
+    Tocando: {
+        Nome: '',
+        ID: undefined
+    }
 }
 
 function Quantas_musicas() {
@@ -343,6 +347,10 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         Lista_Musicas: [],
         Indice: undefined,
         A_Seguir: [],
+        Tocando: {
+            Nome: Listas_Prox.Tocando.Nome,
+            ID: Listas_Prox.Tocando.ID,
+        },
     }
 
     for (let c = 0; c < Listas_Prox.A_Seguir.length; c++) {
@@ -449,32 +457,40 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     User.Historico.Musicas.push(MusicaAtual)
     User.Gosto_Musical.Artistas.push(...Separar_Por_Virgula(MusicaAtual.Autor))
 
-    if(User_Tocando_Agora != undefined) {
-        User.Historico.Artistas.push(User_Tocando_Agora)
+    if(Listas_Prox.Tocando.Nome == 'Match') {
+        User.Historico.Outros.push(`Match: ${IDPagina}`)
+
+    } else if(Listas_Prox.Tocando.Nome == 'Playlist') {
+        User.Historico.Outros.push(`Playlist: ${IDPagina}`)
+
     } else {
-        let musica_do_autor = false
-        if(Nome_Artista_Pagina_Aberta != undefined) {
-            let autores_musica = Separar_Por_Virgula(MusicaAtual.Autor)
-            for (let c = 0; c < autores_musica.length; c++) {
-                const ab = formatarString(autores_musica[c])
-                const bb = formatarString(Nome_Artista_Pagina_Aberta)
-        
-                if(ab == bb) {
-                    musica_do_autor = true
-                    break
+        if(User_Tocando_Agora != undefined) {
+            User.Historico.Outros.push(User_Tocando_Agora)
+        } else {
+            let musica_do_autor = false
+            if(Nome_Artista_Pagina_Aberta != undefined) {
+                let autores_musica = Separar_Por_Virgula(MusicaAtual.Autor)
+                for (let c = 0; c < autores_musica.length; c++) {
+                    const ab = formatarString(autores_musica[c])
+                    const bb = formatarString(Nome_Artista_Pagina_Aberta)
+            
+                    if(ab == bb) {
+                        musica_do_autor = true
+                        break
+                    }
                 }
             }
-        }
-    
-        if(Nome_Artista_Pagina_Aberta != undefined && musica_do_autor) {
-            User.Historico.Artistas.push(Nome_Artista_Pagina_Aberta)
-        } else {
-            User.Historico.Artistas.push(Separar_Por_Virgula(MusicaAtual.Autor)[0])
+        
+            if(Nome_Artista_Pagina_Aberta != undefined && musica_do_autor) {
+                User.Historico.Outros.push(Nome_Artista_Pagina_Aberta)
+            } else {
+                User.Historico.Outros.push(Separar_Por_Virgula(MusicaAtual.Autor)[0])
+            }
         }
     }
 
-    User.Historico.Artistas = removerDuplicados(User.Historico.Artistas.reverse()).reverse()
 
+    User.Historico.Outros = removerDuplicados(User.Historico.Outros.reverse()).reverse()
     Salvar_Historico()
     Salvar_GostoMusical()
 
@@ -1203,6 +1219,8 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
                             User_Tocando_Agora = undefined
                         }
 
+                        Listas_Prox.Tocando.Nome = Qm_Chamou
+                        Listas_Prox.Tocando.ID = ID_Pagina
                         Tocar_Musica(Musicas_Recebidas, Musicas_Recebidas[c], '', ID_Pagina, Qm_Chamou, Nome_Album)
                         Listas_Prox.Nome_Album = Qm_Chamou
                     } else {

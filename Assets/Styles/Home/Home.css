@@ -647,6 +647,11 @@ div.btn_marcar_config div.boll_config {
   transition: 0.2s left ease-in-out;
 }
 
+.Move {
+  position: fixed;
+  cursor: move;
+}
+
 html {
   max-height: 100vh;
   overflow: hidden;
@@ -1284,25 +1289,123 @@ body main section.Paginas#Pagina_home section#autores_recentes {
   grid-gap: 12px;
   grid-template-rows: repeat(2, auto);
 }
-body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curtidas {
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes {
   display: flex;
   align-items: center;
   color: var(--white);
   justify-content: space-between;
   cursor: pointer;
   background-color: var(--black_transparent);
-  border-radius: 5px;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 700;
+  overflow: hidden;
 }
-body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curtidas div {
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container {
+  width: 100%;
+  overflow: hidden;
   display: flex;
   align-items: center;
+  min-height: 47px;
+  max-height: 47px;
   gap: 20px;
 }
-body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curtidas:hover button {
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.container_match {
+  min-width: 47px;
+  max-width: 47px;
+  height: 47px;
+  overflow: hidden;
+  border-radius: 1px;
+  position: relative;
+  background-color: black;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.container_match div.container_container_header_match {
+  width: 100%;
+  height: 100%;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.container_match div.container_container_header_match div.container_esferas {
+  width: 100%;
+  height: 70%;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.container_match div.container_container_header_match div.container_esferas div.esferas {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-left: -6px;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.container_match div.container_container_header_match p {
+  position: absolute;
+  left: 2px;
+  bottom: 3px;
+  font-size: 7px;
+  font-weight: 600;
+  color: white;
+  display: block;
+  z-index: 1;
+  background-color: transparent;
+  top: auto;
+  opacity: 1;
+  border-radius: 0;
+  padding: 0;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.container_match div.container_container_header_match div.traco_match {
+  width: 20px;
+  height: 3px;
+  position: absolute;
+  left: 2px;
+  bottom: 0;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.Playlist_Img {
+  min-width: 47px;
+  max-width: 47px;
+  height: 47px;
+  overflow: hidden;
+  border-radius: 1px;
+  position: relative;
+  background-color: black;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.Playlist_Img.Active {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.Playlist_Img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.User_Foto {
+  min-width: 47px;
+  max-width: 47px;
+  height: 47px;
+  overflow: hidden;
+  border-radius: 1px;
+  position: relative;
+  background-color: black;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div.container div.User_Foto img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes .paragrafo {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes:hover button {
   opacity: 1;
   transition: 200ms opacity linear;
 }
-body main section.Paginas#Pagina_home section#autores_recentes div#musicas_curtidas button {
+body main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes button {
   background: transparent;
   border: none;
   opacity: 0;

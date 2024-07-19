@@ -147,10 +147,7 @@ function Logar_Na_Conta() {
                                 },
                                 Historico: {
                                     Musicas: [],
-                                    Playlists: [],
-                                    Users: [],
-                                    Artistas: [],
-                                    Pesquisa: [],
+                                    Outros: []
                                 },
                                 Dispositivos: {
                                     Todos: [],

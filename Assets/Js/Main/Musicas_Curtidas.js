@@ -218,6 +218,8 @@ function Pesquisar_Musicas_Curtidas(Pesquisa) {
 const img_play_musicas_curtidas = document.getElementById('img_play_musicas_curtidas')
 img_play_musicas_curtidas.addEventListener('click', () => {
     let new_arrey = [...Musicas_Curtidas_Array]
+    Listas_Prox.Tocando.Nome = 'Músicas Curtidas'
+    Listas_Prox.Tocando.ID = Pagina_Atual.ID
     Tocar_Musica(new_arrey.reverse(), Musicas_Curtidas_Array[Musicas_Curtidas_Array.length - 1], '', `musicascurtidas_${User.ID}`, 'musicascurtidas')
 })
 

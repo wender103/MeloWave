@@ -95,6 +95,7 @@ function Abrir_Pagina(Pagina, ID) {
             Mostrar_Max_Musicas()
             Artistas_Tocados_Recentemente()
             Retornar_Artistas_Mais_Vistos()
+            Retornar_Tocados_Recentemente_Primeira_Parte()
 
             setTimeout(() => {
                 Mostrar_Max_Musicas()
