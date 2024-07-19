@@ -774,9 +774,21 @@ function Pausar() {
         element.src = 'Assets/Imgs/play_pc.svg'
     })
 
-    document.querySelectorAll('.audios_transitions').forEach(element => {
-        element.pause()
-    })
+    if(User.Configuracoes.Transicoes_De_Faixas) {
+        Volume_Antigo = Volume_Atual
+        document.querySelectorAll('.audios_transitions').forEach(element => {
+            ajustarVolume(element, 0, 500)
+
+            setTimeout(() => {
+                element.pause()
+            }, 550)
+        })
+
+    } else {
+        document.querySelectorAll('.audios_transitions').forEach(element => {
+            element.pause()
+        })
+    }
 
     document.title = 'MeloWave - Home'
     Musica_Pausada = true
@@ -791,6 +803,7 @@ function Play() {
     
     document.querySelectorAll('.audios_transitions').forEach(element => {
         element.play()
+        ajustarVolume(element, Volume_Antigo, 500)
     })
 
     document.title = `${Listas_Prox.MusicaAtual.Nome} - ${Listas_Prox.MusicaAtual.Autor}`
