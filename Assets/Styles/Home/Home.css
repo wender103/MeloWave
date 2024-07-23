@@ -5026,6 +5026,7 @@ body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell di
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_creditos_pag_cell span {
   display: block;
   margin: 5px 0 20px;
+  color: var(--fonte_meio_transparente);
 }
 body div#container_img_click_img_barra {
   width: 72px;

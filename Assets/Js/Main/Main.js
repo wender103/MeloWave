@@ -884,10 +884,6 @@ container_barra_musica_cell.addEventListener('click', (e) => {
 
 document.getElementById('btn_fechar_pag_musica_tocando_agora').addEventListener('click', () => {
     Desativar_Pag_Musica_Tocando()
-
-    setTimeout(() => {
-        Ativar_Barra_Musica_Cell()
-    }, 500)
 })
 
 function Ativar_Pag_Musica_Tocando(Musica=Listas_Prox.MusicaAtual) {
@@ -939,9 +935,11 @@ function Ativar_Pag_Musica_Tocando(Musica=Listas_Prox.MusicaAtual) {
     } else {
         document.getElementById('container_letra_cell').style.display = 'block'
     }
+
+    Carregar_Creditos_Cell(Musica)
 }
 
-function Desativar_Pag_Musica_Tocando() {
+function Desativar_Pag_Musica_Tocando(Ativar_Barra=true) {
     Fechar_Letra_Cell()
     Mostrar_Menos_Creditos_Pag_Cell()
     document.querySelector('main').style.overflow = 'auto'
@@ -951,6 +949,12 @@ function Desativar_Pag_Musica_Tocando() {
     setTimeout(() => {
         pag_musica_tocando_agr.classList.remove('dark')
     }, 1000)
+
+    if(Ativar_Barra) {
+        setTimeout(() => {
+            Ativar_Barra_Musica_Cell()
+        }, 500)
+    }
 }
 
 let mostar_mais_creditos_pag_cell_ativo = false
@@ -967,13 +971,94 @@ const container_creditos_pag_cell = document.getElementById('container_creditos_
 function Mostrar_Mais_Creditos_Pag_Cell() {
     btn_mostrar_mais_creditos_cell.innerText = 'Mostrar Menos'
     mostar_mais_creditos_pag_cell_ativo = true
-    container_creditos_pag_cell.style.height = '607px'
+    container_creditos_pag_cell.style.height = '587px'
 }
 
 function Mostrar_Menos_Creditos_Pag_Cell() {
     btn_mostrar_mais_creditos_cell.innerText = 'Mostrar Mais'
     mostar_mais_creditos_pag_cell_ativo = false
-    container_creditos_pag_cell.style.height = '270px'
+    container_creditos_pag_cell.style.height = '250px'
+}
+
+function Carregar_Creditos_Cell(Musica=Listas_Prox.MusicaAtual) {
+    const nome_artistas_credito_cell = document.getElementById('nome_artistas_credito_cell')
+    const nome_musica_cretido_cell = document.getElementById('nome_musica_cretido_cell')
+    const nome_qm_postou_creditos_cell = document.getElementById('nome_qm_postou_creditos_cell')
+    const ja_tem_letra_sincronizada_creditos_cell = document.getElementById('ja_tem_letra_sincronizada_creditos_cell')
+    const data_musica_postada_creditos_cell = document.getElementById('data_musica_postada_creditos_cell')
+    const views_musica_creditos_cell = document.getElementById('views_musica_creditos_cell')
+    const generos_musicais_musica_credito_cell = document.getElementById('generos_musicais_musica_credito_cell')
+    const duracao_musica_creditos_cell = document.getElementById('duracao_musica_creditos_cell')
+
+    nome_artistas_credito_cell.innerHTML = ''
+    nome_artistas_credito_cell.appendChild(Retornar_Artistas_Da_Musica(Musica))
+
+    nome_artistas_credito_cell.addEventListener('click', () => {
+        Desativar_Pag_Musica_Tocando()
+    })
+
+    if(Separar_Por_Virgula(Musica.Autor).length > 1) {
+        document.getElementById('p_artista_creditos_cell').innerText = 'Artistas:'
+
+    } else {
+        document.getElementById('p_artista_creditos_cell').innerText = 'Artista:'
+    }
+
+    nome_musica_cretido_cell.innerText = Musica.Nome
+
+    if(Array.isArray(Musica.Letra)) {
+        ja_tem_letra_sincronizada_creditos_cell.innerText = 'Não'
+
+    } else {
+        ja_tem_letra_sincronizada_creditos_cell.innerText = 'Sim'
+    }
+
+    for (let c = 0; c < Todos_Usuarios.length; c++) {
+        if(Todos_Usuarios[c].Email == Musica.Email) {
+            nome_qm_postou_creditos_cell.innerText = Todos_Usuarios[c].Nome
+
+            nome_qm_postou_creditos_cell.addEventListener('click', () => {
+                Carregar_Perfil(Todos_Usuarios[c])
+                Desativar_Pag_Musica_Tocando()
+            })
+            break
+        }
+    }
+
+    data_musica_postada_creditos_cell.innerText = Musica.Data
+    views_musica_creditos_cell.innerText = Musica.Views
+    
+    const generos = Musica.Genero.split(',').map(item => item.trim())
+    generos_musicais_musica_credito_cell.innerHTML = ''
+
+    if(generos.length <= 1) {
+        document.getElementById('p_generos_creditos_cell').innerText = 'Gênero Musical'
+
+    } else {
+        document.getElementById('p_generos_creditos_cell').innerText = 'Gêneros Musicais'
+    }
+
+    for (let c = 0; c < generos.length; c++) {
+        const span = document.createElement('span')
+        span.innerText = generos[c]
+        generos_musicais_musica_credito_cell.appendChild(span)
+
+        if (c + 1 < generos.length) {
+            const comma = document.createTextNode(', ')
+            generos_musicais_musica_credito_cell.appendChild(comma)
+        }
+
+        span.addEventListener('click', () => {
+            document.getElementById('input_pesquisar').value = span.innerText
+            Pesquisar()
+            Abrir_Pagina('pesquisar', '')
+            Desativar_Pag_Musica_Tocando()
+        })
+    }
+
+    Tempo_Musica(Musica, true).then((resp) => {
+       duracao_musica_creditos_cell.innerText = resp
+    })
 }
 
 //! -------------------------------- Funções do audio --------------------------------
@@ -1551,7 +1636,7 @@ function Abrir_Creditos(ID_Musica) {
         document.getElementById('contanier_creditos_musica').style.display = 'flex'
         document.getElementById('nome_artistas_credito').innerHTML = ''
         document.getElementById('nome_artistas_credito').appendChild(Retornar_Artistas_Da_Musica((TodasMusicas[c])))
-        if(Separar_Por_Virgula(TodasMusicas[c].Autor).length > 0) {
+        if(Separar_Por_Virgula(TodasMusicas[c].Autor).length > 1) {
             document.getElementById('p_artista_creditos').innerText = 'Artistas:'
 
         } else {
