@@ -2,6 +2,34 @@ let TodasMusicas = []
 let TodosMatchs = []
 let TodasPlaylists
 let Audio_Mutado = false
+let Device = {
+    Tipo: 'Desktop'
+}
+
+window.addEventListener('resize', Atualizar_Tamanho_Tela)
+
+function Atualizar_Tamanho_Tela() {
+    let largura = obterDimensoesTela().largura
+    let altura = obterDimensoesTela().altura
+
+    if(largura <= 700) {
+        // Notificar_Infos(`Altura: ${altura}, largura: ${largura}`)
+        document.querySelector('body').style.width = `${largura}px`
+        document.querySelector('body').style.height = `${altura}px`
+        document.querySelector('#pag_musica_tocando_agr').style.height = `${altura}px`
+        document.querySelector('#container_parte_musica').style.height = `${altura - 100}px`
+        document.querySelector('#container_background_container_parte_musica').style.height = `${altura - 100}px`
+
+        const gradient_bg = document.querySelectorAll('.gradient-bg')
+        gradient_bg.forEach(element => {
+            element.remove()  
+        })
+
+    } else {
+        document.querySelector('body').style.width = `100vw`
+        document.querySelector('body').style.height = `100vh`
+    }
+} Atualizar_Tamanho_Tela()
 
 let Listas_Prox = {
     Nome_Album: '',
@@ -31,96 +59,98 @@ function Quantas_musicas() {
 }
 
 //! Vai mostrar na tela apenas a quantidade de música que caiba no enquadro
-function Mostrar_Max_Musicas() {
-    const max_musicas = Quantas_musicas()
-    document.querySelectorAll('.Container_Musicas_Caixa').forEach(container => {
-        if(container.id != 'container_pesquisa') {
-            container = container.querySelector('article')
-    
-            if(container.querySelectorAll('.musica_caixa')){
-    
-                const musicas = container.querySelectorAll('.musica_caixa')  
+function Mostrar_Max_Musicas(Ativar=false) {
+    if(window.innerWidth > 700 || Ativar) {
+        const max_musicas = Quantas_musicas()
+        document.querySelectorAll('.Container_Musicas_Caixa').forEach(container => {
+            if(container.id != 'container_pesquisa') {
+                container = container.querySelector('article')
         
-                if(musicas.length > max_musicas && max_musicas > 4) {
+                if(container.querySelectorAll('.musica_caixa')){
+        
+                    const musicas = container.querySelectorAll('.musica_caixa')  
+            
+                    if(musicas.length > max_musicas && max_musicas > 4) {
+                        container.style.justifyContent = 'space-around'
+                    } else {
+                        container.style.justifyContent = 'start'
+                    }
+                    
+                    for (let c = 0; c < musicas.length; c++) {
+                        if(c >= max_musicas) {
+                            musicas[c].style.display = 'none'
+                        } else {
+                            musicas[c].style.display = 'flex'
+                        }   
+                    }
+                }
+            }
+        })
+
+        document.querySelectorAll('.Container_Autor_Caixa').forEach(container => {
+            container = container.querySelector('article')
+            
+            if(container.querySelectorAll('.artista_caixa').length > 0) { 
+                const artista = container.querySelectorAll('.artista_caixa')  
+
+                if(artista.length > max_musicas && max_musicas > 4) {
                     container.style.justifyContent = 'space-around'
                 } else {
                     container.style.justifyContent = 'start'
                 }
                 
-                for (let c = 0; c < musicas.length; c++) {
+                for (let c = 0; c < artista.length; c++) {
                     if(c >= max_musicas) {
-                        musicas[c].style.display = 'none'
+                        artista[c].style.display = 'none'
                     } else {
-                        musicas[c].style.display = 'flex'
+                        artista[c].style.display = 'flex'
                     }   
                 }
             }
-        }
-    })
+        })
 
-    document.querySelectorAll('.Container_Autor_Caixa').forEach(container => {
-        container = container.querySelector('article')
-        
-        if(container.querySelectorAll('.artista_caixa').length > 0) { 
-            const artista = container.querySelectorAll('.artista_caixa')  
+        try {
+            const container_artista_caixa = document.getElementById('container_artistas_playlist_tocadas_recentemente').querySelectorAll('.container_artista_caixa')
 
-            if(artista.length > max_musicas && max_musicas > 4) {
-                container.style.justifyContent = 'space-around'
-            } else {
-                container.style.justifyContent = 'start'
-            }
-            
-            for (let c = 0; c < artista.length; c++) {
-                if(c >= max_musicas) {
-                    artista[c].style.display = 'none'
+            if(container_artista_caixa.length > 0) { 
+
+                if(container_artista_caixa.length > max_musicas && max_musicas > 4) {
+                    document.getElementById('container_artistas_playlist_tocadas_recentemente').style.justifyContent = 'space-around'
                 } else {
-                    artista[c].style.display = 'flex'
-                }   
-            }
-        }
-    })
+                    document.getElementById('container_artistas_playlist_tocadas_recentemente').style.justifyContent = 'start'
+                }
+                
+                for (let c = 0; c < container_artista_caixa.length; c++) {
+                    if(c >= max_musicas) {
+                        container_artista_caixa[c].style.display = 'none'
+                    } else {
+                        container_artista_caixa[c].style.display = 'flex'
+                    }   
+                }
+            }   
+        } catch {}
 
-    try {
-        const container_artista_caixa = document.getElementById('container_artistas_playlist_tocadas_recentemente').querySelectorAll('.container_artista_caixa')
+        try {
+            const container_artista_caixa = document.getElementById('container_artistas_favoritos_article').querySelectorAll('.container_artista_caixa')
 
-        if(container_artista_caixa.length > 0) { 
+            if(container_artista_caixa.length > 0) { 
 
-            if(container_artista_caixa.length > max_musicas && max_musicas > 4) {
-                document.getElementById('container_artistas_playlist_tocadas_recentemente').style.justifyContent = 'space-around'
-            } else {
-                document.getElementById('container_artistas_playlist_tocadas_recentemente').style.justifyContent = 'start'
-            }
-            
-            for (let c = 0; c < container_artista_caixa.length; c++) {
-                if(c >= max_musicas) {
-                    container_artista_caixa[c].style.display = 'none'
+                if(container_artista_caixa.length > max_musicas && max_musicas > 4) {
+                    document.getElementById('container_artistas_favoritos_article').style.justifyContent = 'space-around'
                 } else {
-                    container_artista_caixa[c].style.display = 'flex'
-                }   
-            }
-        }   
-    } catch {}
-
-    try {
-        const container_artista_caixa = document.getElementById('container_artistas_favoritos_article').querySelectorAll('.container_artista_caixa')
-
-        if(container_artista_caixa.length > 0) { 
-
-            if(container_artista_caixa.length > max_musicas && max_musicas > 4) {
-                document.getElementById('container_artistas_favoritos_article').style.justifyContent = 'space-around'
-            } else {
-                document.getElementById('container_artistas_favoritos_article').style.justifyContent = 'start'
-            }
-            
-            for (let c = 0; c < container_artista_caixa.length; c++) {
-                if(c >= max_musicas) {
-                    container_artista_caixa[c].style.display = 'none'
-                } else {
-                    container_artista_caixa[c].style.display = 'flex'
-                }   
-            }
-        }   
-    } catch{}
+                    document.getElementById('container_artistas_favoritos_article').style.justifyContent = 'start'
+                }
+                
+                for (let c = 0; c < container_artista_caixa.length; c++) {
+                    if(c >= max_musicas) {
+                        container_artista_caixa[c].style.display = 'none'
+                    } else {
+                        container_artista_caixa[c].style.display = 'flex'
+                    }   
+                }
+            }   
+        } catch{}
+    }
 }
 
 let Execultar_Funcoes_Ao_Carregar_execultado = false
@@ -270,6 +300,18 @@ function atualizar_cor_progresso_input(inputElement) {
     } else {
         inputElement.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
     }
+
+    if(Device.Tipo == 'Mobile') {
+        document.getElementById('traco_barra_musica_cell').style.width = `${value}%`
+        const input_range_musica_cell = document.getElementById('input_range_musica_cell')
+
+        if(Tema_Atual_Pagina == 'Claro') {
+            input_range_musica_cell.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
+
+        } else {
+            input_range_musica_cell.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
+        }
+    }
 }
 
 let feito_musica_tocar = false
@@ -285,7 +327,8 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     Comando_Tocar_Musica = Comando
     //! Vai deixar as cores pretas caso o background interativo for branco
 
-    if(MusicaAtual.Cores.length > 0) {
+    if(MusicaAtual.Cores.length > 0 && Device.Tipo != 'Mobile') {
+        console.log('Não era pra cair aki');
         if(pd_atualizar_letra_pc) {
             Montar_Cores_Na_Tela(MusicaAtual)
 
@@ -512,12 +555,17 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     Carregar_Inputs_Tempo_Musica()
     Audio_Play_Function()
+
+    if(Device.Tipo == 'Mobile' && pag_musica_tocando_aberta) {
+        Ativar_Pag_Musica_Tocando(MusicaAtual)
+    }
 }
 
 function Carregar_Inputs_Tempo_Musica() {
     //? Vai atualizar a barra de progresso da música
     let input_range_musica_pc = document.getElementById('input_range_musica_pc') //? Progresso barra para pc
     let input_range_musica_pc_fullscreen = document.getElementById('input_range_musica_pc_fullscreen') //? Progresso barra para pc
+    let input_range_musica_cell = document.getElementById('input_range_musica_cell') //? Progresso barra cell
     let audio_certo = audio_player
 
     let audios = document.querySelectorAll('.audios_transitions')
@@ -530,13 +578,21 @@ function Carregar_Inputs_Tempo_Musica() {
     //? Remove os event listeners existentes
     input_range_musica_pc.removeEventListener('input', handleInputRangeMusicaPC)
     input_range_musica_pc_fullscreen.removeEventListener('input', handleInputRangeMusicaPCFullscreen)
+    input_range_musica_cell.removeEventListener('input', handleInputRangeMusicaPCFullscreen)
 
     //? Função handler para input_range_musica_pc
     function handleInputRangeMusicaPC() {
         const newTime = (input_range_musica_pc.value / 100) * audio_certo.duration
         audio_certo.currentTime = newTime
-        atualizar_cor_progresso_input(input_range_musica_pc)
-        atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+
+        if(fullscreen_aberta) {
+            atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+
+        } else if(Device.Tipo != 'Mobile') {
+            atualizar_cor_progresso_input(input_range_musica_pc)
+        } else {
+            atualizar_cor_progresso_input(input_range_musica_cell)
+        }
 
         clearTimeout(debounceTimeout1)
         debounceTimeout1 = setTimeout(function() {
@@ -548,11 +604,40 @@ function Carregar_Inputs_Tempo_Musica() {
     function handleInputRangeMusicaPCFullscreen() {
         const newTime = (input_range_musica_pc_fullscreen.value / 100) * audio_certo.duration
         audio_certo.currentTime = newTime
-        atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
-        atualizar_cor_progresso_input(input_range_musica_pc)
+        
+        if(fullscreen_aberta) {
+            atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+
+        } else if(Device.Tipo != 'Mobile') {
+            atualizar_cor_progresso_input(input_range_musica_pc)
+
+        } else {
+            atualizar_cor_progresso_input(input_range_musica_cell)
+        }
 
         clearTimeout(debounceTimeout2)
         debounceTimeout2 = setTimeout(function() {
+            Atualizar_Linha_Letra_Input()
+        }, 300)
+    }
+
+    //? Função handler para input_range_musica_cell
+    function handleInputRangeMusicaPCFullscreen() {
+        const newTime = (input_range_musica_cell.value / 100) * audio_certo.duration
+        audio_certo.currentTime = newTime
+        
+        if(fullscreen_aberta) {
+            atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+
+        } else if(Device.Tipo != 'Mobile') {
+            atualizar_cor_progresso_input(input_range_musica_pc)
+            
+        } else {
+            atualizar_cor_progresso_input(input_range_musica_cell)
+        }
+
+        clearTimeout(debounceTimeout3)
+        debounceTimeout3 = setTimeout(function() {
             Atualizar_Linha_Letra_Input()
         }, 300)
     }
@@ -562,6 +647,9 @@ function Carregar_Inputs_Tempo_Musica() {
 
     let debounceTimeout2
     input_range_musica_pc_fullscreen.addEventListener('input', handleInputRangeMusicaPCFullscreen)
+
+    let debounceTimeout3
+    input_range_musica_cell.addEventListener('input', handleInputRangeMusicaPCFullscreen)
 }
 
 //! ---------------- Audio ------------------------------------------
@@ -606,11 +694,13 @@ function carregar_metadados_audio() {
         obterDuracaoOuTempoAtualAudio(audio_certo, true).then((resp) => {
             document.getElementById('tempo_max_musica').innerText = resp.formattedDuration
             document.getElementById('tempo_max_musica_fullscreen').innerText = resp.formattedDuration
+            document.getElementById('tempo_max_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
         })
 
         obterDuracaoOuTempoAtualAudio(audio_certo, true, 'currentTime', true).then((resp) => {
             document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
             document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
+            document.getElementById('contador_segundos_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
         })
     }
 }
@@ -665,11 +755,12 @@ function Audio_Play_Function() {
         obterDuracaoOuTempoAtualAudio(audio_certo, true, 'currentTime', true).then((resp) => {
             document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
             document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
+            document.getElementById('contador_segundos_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
         })
 
         //! Vai atualizar a letra
         Atualizar_Letra_PC()
-    }, 300)
+    }, 1000)
 }
 
 function Audio_Pause_Function() {
@@ -683,35 +774,41 @@ function Audio_Pause_Function() {
 
 //! --------------------------------- Fim Tocar Musica -------------------------------
 
+const container_barra_musica_cell = document.getElementById('container_barra_musica_cell')
 function Ativar_Musica(Musica) {
-    const nav = document.querySelector('nav')
-    nav.classList.add('Musica_On')
+    if(Device.Tipo != 'Mobile') {
+        const nav = document.querySelector('nav')
+        nav.classList.add('Musica_On')
 
-    const main = document.querySelector('main')
-    main.classList.add('Musica_On')
+        const main = document.querySelector('main')
+        main.classList.add('Musica_On')
 
-    main.style.transition = '500ms height ease-in-out'
-    nav.style.transition = '500ms height ease-in-out'
-    nav.style.height = 'calc(100vh - 112px)'
-    main.style.height = 'calc(100vh - 112px)'
+        main.style.transition = '500ms height ease-in-out'
+        nav.style.transition = '500ms height ease-in-out'
+        nav.style.height = 'calc(100vh - 112px)'
+        main.style.height = 'calc(100vh - 112px)'
 
-    if(notificacao_tempo_real_aberta) {
-        Mostrar_Notificacao_Na_Tela(2)
+        if(notificacao_tempo_real_aberta) {
+            Mostrar_Notificacao_Na_Tela(2)
+        }
+        
+        const container_barra_musica = document.querySelector('#container_barra_musica')
+        container_barra_musica.style.bottom = '8px'
+
+        setTimeout(() => {
+            main.classList.remove('Musica_On')
+            nav.classList.remove('Musica_On')
+        }, 1000)
+
+        document.getElementById('nome_musica_barra_musica').innerText = Musica.Nome
+        const autor_musica_barra_musica = document.getElementById('autor_musica_barra_musica')
+        autor_musica_barra_musica.innerHTML = ''
+        autor_musica_barra_musica.appendChild(Retornar_Artistas_Da_Musica(Musica))
+        document.getElementById('img_musica_barra_musica').src = Musica.Img
+
+    } else {
+        Ativar_Barra_Musica_Cell(Musica)
     }
-    
-    const container_barra_musica = document.querySelector('#container_barra_musica')
-    container_barra_musica.style.bottom = '8px'
-
-    setTimeout(() => {
-        main.classList.remove('Musica_On')
-        nav.classList.remove('Musica_On')
-    }, 1000)
-
-    document.getElementById('nome_musica_barra_musica').innerText = Musica.Nome
-    const autor_musica_barra_musica = document.getElementById('autor_musica_barra_musica')
-    autor_musica_barra_musica.innerHTML = ''
-    autor_musica_barra_musica.appendChild(Retornar_Artistas_Da_Musica(Musica))
-    document.getElementById('img_musica_barra_musica').src = Musica.Img
 }
 
 function Desativar_Musica() {
@@ -745,6 +842,140 @@ function Desativar_Musica() {
     }, 1000)
 }
 
+//! Barra Música Cell
+function Desativar_Barra_Musica_Cell() {
+    container_barra_musica_cell.style.bottom = '-300px'
+}
+
+function Ativar_Barra_Musica_Cell(Musica=Listas_Prox.MusicaAtual) {
+    container_barra_musica_cell.style.bottom = '57px'
+
+    if(Musica.Cores.length > 0) {
+        container_barra_musica_cell.style.backgroundColor = Musica.Cores[0]
+
+    } else {
+        container_barra_musica_cell.style.backgroundColor = gerarCorAleatoria()
+    }
+    if(corEhClara(Musica.Cores[0])) {
+        container_barra_musica_cell.classList.add('escuro')
+    } else {
+        container_barra_musica_cell.classList.remove('escuro')
+    }
+    
+    document.getElementById('img_musica_barra_cell').src = Musica.Img
+    document.getElementById('nome_musica_barra_musica_cell').innerText = Musica.Nome
+    document.getElementById('autor_musica_barra_musica_cell').innerText = Musica.Autor
+}
+
+//! Pag Música Tocando Agora
+let pag_musica_tocando_aberta = false
+container_barra_musica_cell.addEventListener('click', (e) => {
+    let el = e.target.id
+
+    if(el != 'btn_play_barra_musica_cell' && el != 'btn_like_barra_musica_cell') {
+        Desativar_Barra_Musica_Cell()
+
+        setTimeout(() => {
+            Ativar_Pag_Musica_Tocando()
+        }, 500)
+    }
+
+})
+
+document.getElementById('btn_fechar_pag_musica_tocando_agora').addEventListener('click', () => {
+    Desativar_Pag_Musica_Tocando()
+
+    setTimeout(() => {
+        Ativar_Barra_Musica_Cell()
+    }, 500)
+})
+
+function Ativar_Pag_Musica_Tocando(Musica=Listas_Prox.MusicaAtual) {
+    document.querySelector('main').style.overflow = 'hidden'
+    pag_musica_tocando_aberta = true
+    const pag_musica_tocando_agr = document.getElementById('pag_musica_tocando_agr')
+    pag_musica_tocando_agr.style.top = 0
+    pag_musica_tocando_agr.classList.add('active')
+    const containers_pag_cell = document.querySelectorAll('.containers_pag_cell')
+    console.log(containers_pag_cell)
+
+    let cor_background = '#636363'
+
+    if(Musica.Cores.length > 0) {
+        cor_background = alterarTransparencia(Musica.Cores[0], 0.5)
+    }
+
+    if(Musica.Cores.length > 0) {
+        pag_musica_tocando_agr.style.background = Musica.Cores[0]
+
+        containers_pag_cell.forEach(element => {
+            element.style.background = cor_background
+        })
+
+        if(corEhClara(Musica.Cores[0])) {
+            console.log('É clara')
+            pag_musica_tocando_agr.classList.add('dark')
+        } else {
+            pag_musica_tocando_agr.classList.remove('dark')
+        }
+
+    } else {
+        pag_musica_tocando_agr.style.background = 'black'
+
+        containers_pag_cell.forEach(element => {
+            element.style.background = cor_background
+        })
+    }
+
+    document.getElementById('background_container_parte_musica').style.backgroundImage = `url("${Musica.Img}")`
+    document.getElementById('img_musica_pag_tocando_agora').src = Musica.Img
+    document.getElementById('nome_musica_pag_tocando_agora').innerText = Musica.Nome
+    document.getElementById('nome_autores_musica_pag_tocando_agora').innerHTML = ''
+    document.getElementById('nome_autores_musica_pag_tocando_agora').appendChild(Retornar_Artistas_Da_Musica(Musica))
+
+    if(Array.isArray(Musica.Letra)) {
+        document.getElementById('container_letra_cell').style.display = 'none'
+        Fechar_Letra_Cell()
+    } else {
+        document.getElementById('container_letra_cell').style.display = 'block'
+    }
+}
+
+function Desativar_Pag_Musica_Tocando() {
+    Fechar_Letra_Cell()
+    Mostrar_Menos_Creditos_Pag_Cell()
+    document.querySelector('main').style.overflow = 'auto'
+    pag_musica_tocando_agr.classList.remove('active')
+    pag_musica_tocando_aberta = false
+    document.getElementById('pag_musica_tocando_agr').style.top = '100vh'
+    setTimeout(() => {
+        pag_musica_tocando_agr.classList.remove('dark')
+    }, 1000)
+}
+
+let mostar_mais_creditos_pag_cell_ativo = false
+const btn_mostrar_mais_creditos_cell = document.getElementById('btn_mostrar_mais_creditos_cell')
+btn_mostrar_mais_creditos_cell.addEventListener('click', () => {
+    if(!mostar_mais_creditos_pag_cell_ativo) {
+        Mostrar_Mais_Creditos_Pag_Cell()
+    } else {
+        Mostrar_Menos_Creditos_Pag_Cell()
+    }
+})
+
+const container_creditos_pag_cell = document.getElementById('container_creditos_pag_cell')
+function Mostrar_Mais_Creditos_Pag_Cell() {
+    btn_mostrar_mais_creditos_cell.innerText = 'Mostrar Menos'
+    mostar_mais_creditos_pag_cell_ativo = true
+    container_creditos_pag_cell.style.height = '607px'
+}
+
+function Mostrar_Menos_Creditos_Pag_Cell() {
+    btn_mostrar_mais_creditos_cell.innerText = 'Mostrar Mais'
+    mostar_mais_creditos_pag_cell_ativo = false
+    container_creditos_pag_cell.style.height = '270px'
+}
+
 //! -------------------------------- Funções do audio --------------------------------
 const icone_play_pc = document.querySelectorAll('.icone_play_pc')
 
@@ -771,7 +1002,11 @@ icone_play_pc.forEach(element => {
 let Musica_Pausada = true
 function Pausar() {
     icone_play_pc.forEach(element => {
-        element.src = 'Assets/Imgs/play_pc.svg'
+        if(Device.Tipo != 'Mobile' || element.id == 'icone_play_normal') {
+            element.src = 'Assets/Imgs/play_pc.svg'
+        } else {
+            element.src = 'Assets/Imgs/botao_play_sem_fundo.png'
+        }
     })
 
     if(User.Configuracoes.Transicoes_De_Faixas) {
@@ -792,13 +1027,18 @@ function Pausar() {
 
     document.title = 'MeloWave - Home'
     Musica_Pausada = true
+
     btn_pausar_letra_sincronizar.querySelector('img').src = 'Assets/Imgs/botao_play_sem_fundo.png'
     btn_pausar_letra_sincronizar.title = 'Play'
 }
 
 function Play() {
     icone_play_pc.forEach(element => {
-        element.src = 'Assets/Imgs/Pause.svg'
+        if(Device.Tipo != 'Mobile' || element.id == 'icone_play_normal') {
+            element.src = 'Assets/Imgs/Pause.svg'
+        } else {
+            element.src = 'Assets/Imgs/pausa_icon_sem_fundo.png'
+        }
     })
     
     document.querySelectorAll('.audios_transitions').forEach(element => {
@@ -1025,6 +1265,10 @@ function Volume(volume = 0, input = undefined) {
     //? Vai salvar o volume do local Storage
     localStorage.setItem('Volume_Melo_Wave', volume)
     atualizar_cor_progresso_input(input_volume_pc)
+}
+
+if(Device.Tipo == 'Mobile') {
+    Volume(100)
 }
 
 //! -------------------------------- Fim Som - Volume --------------------------------
@@ -1397,4 +1641,9 @@ document.addEventListener('keydown', function(event) {
         event.preventDefault()
         togglePlayPause()
     }
+})
+
+document.getElementById('fpsMonitor').addEventListener('click',() => {
+    Avisos_Rapidos(`Novo volume: ${Volume_Atual}`)
+    Volume(100)
 })

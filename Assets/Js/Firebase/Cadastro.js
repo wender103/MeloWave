@@ -187,7 +187,9 @@ function Logar_Na_Conta() {
                 alert('Este email não é um email verificado!')
             }
         } else {
-            Carregar_Perfil_Anonimo_User()
+            try {
+                Carregar_Perfil_Anonimo_User()
+            } catch{closeLoadingScreen()}
         }
     })
 }

@@ -502,7 +502,12 @@ function Retornar_Todas_Secoes() {
                     const img = document.createElement('img')
     
                     container_genero_secao.className = 'container_genero_secao'
-                    container_genero_secao.style.background = gerarCorAleatoria(true, 0.7)
+                    if(TodasMusicas[b].Cores.length <= 0) {
+                        
+                        container_genero_secao.style.background = `linear-gradient(-45deg, ${gerarCorAleatoria(true, 1)}, ${gerarCorAleatoria(true, 1)})`
+                    } else {
+                        container_genero_secao.style.backgroundImage = `linear-gradient(-45deg, ${TodasMusicas[b].Cores[1]}, ${TodasMusicas[b].Cores[0]})`
+                    }
     
                     h1_genero.innerText = Todos_Os_Generos[c]
                     img.src = TodasMusicas[b].Img

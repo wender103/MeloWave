@@ -131,3 +131,16 @@ container_input_volume_fullscreen.addEventListener('mouseleave', () => {
         }
     }, 500)
 })
+
+//! Cell 
+let tela_cheia_cell = false
+const btn_tela_cheia_cell = document.getElementById('btn_tela_cheia_cell')
+btn_tela_cheia_cell.addEventListener('click', () => {
+    if(!tela_cheia_cell) {
+        tela_cheia_cell = true
+        entrarEmTelaCheia()
+    } else {
+        tela_cheia_cell = false
+        sairTelaCheia()
+    }
+})

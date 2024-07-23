@@ -17,7 +17,7 @@ document.getElementById('config_lista_prox_musica_tocando_agora').addEventListen
 })
 
 function Abrir_Fila() {
-    if(pd_abrir_lista) {
+    if(pd_abrir_lista && Device.Tipo != 'Mobile') {
         let time_esperar = 0
 
         if(telca_tocando_agora_aberta) {

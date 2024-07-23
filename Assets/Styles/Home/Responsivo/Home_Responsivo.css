@@ -1,3 +1,4 @@
+@import url("../../Geral/Geral.scss");
 @media screen and (max-width: 1000px) {
   pre {
     font-size: 2.5vw !important;
@@ -7,5 +8,232 @@
   }
   textarea#text_area_add_letra {
     font-size: 2.5vw !important;
+  }
+  #nome_match {
+    font-size: 4vw !important;
+  }
+  #primeira_parte_postar_musica > h1, #container_infos_musicas_curtidas > h1, #Pagina_criarmatch > article > h1 {
+    font-size: 6vw !important;
+  }
+  #nome_playlist_page {
+    font-size: 6vw !important;
+  }
+}
+@media screen and (max-width: 700px) {
+  #fpsMonitor {
+    display: none !important;
+  }
+  body {
+    min-height: auto !important;
+  }
+  nav {
+    display: none !important;
+  }
+  #nav_main {
+    width: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    padding: 15px 5px !important;
+    border-radius: 0 !important;
+  }
+  #nav_main div#btns_esquerda {
+    width: calc(100% - 40px) !important;
+  }
+  #nav_main button#btn_novidades_div_nav, #nav_main button#btn_amigos_div_nav, #nav_main button#btn_pontos_nav {
+    display: none !important;
+  }
+  main {
+    width: 100% !important;
+    min-height: 100vh !important;
+    left: 0 !important;
+    top: 0 !important;
+    border-radius: 0 !important;
+  }
+  main section.Paginas {
+    min-height: 100vh !important;
+    padding: 15px 5px 100px !important;
+  }
+  main section.Paginas#Pagina_home section article {
+    overflow-x: auto;
+  }
+  main section.Paginas#Pagina_home section#autores_recentes {
+    grid-gap: 5px !important;
+  }
+  main section.Paginas#Pagina_home section#autores_recentes {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes div {
+    gap: 5px !important;
+  }
+  main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes p {
+    font-size: 12px !important;
+  }
+  main section.Paginas#Pagina_home section#autores_recentes div.tocados_recentes button {
+    display: none;
+  }
+  main section.Paginas#Pagina_home section#container_musicas_home section.container_mixes_daily article.container_playlits_daily div.daily_caixa {
+    width: 150px;
+    height: 170px;
+    padding: 0;
+    border-radius: 0px !important;
+    background-color: transparent;
+  }
+  main section.Paginas#Pagina_home section#container_musicas_home section.container_mixes_daily article.container_playlits_daily div.daily_caixa div.container_img_musica {
+    height: calc(100% - 20px);
+    border-radius: 3px;
+  }
+  main section.Paginas#Pagina_home section#container_musicas_home section.container_mixes_daily article.container_playlits_daily div.daily_caixa div.texto_musica {
+    display: none;
+  }
+  main section.Paginas#Pagina_home section#container_tocados_recentemente article#container_artistas_playlist_tocadas_recentemente div.container_artista_caixa {
+    width: 150px;
+    height: 225px;
+  }
+  main section.Paginas#Pagina_home section#container_artistas_favoritos article#container_artistas_favoritos_article div.container_artista_caixa {
+    width: 150px;
+    height: 225px;
+  }
+  main section.Paginas#Pagina_home section#container_artistas_favoritos article#container_artistas_favoritos_article div.container_artista_caixa div.container_img_artista_caixa {
+    width: 105%;
+  }
+  main section.Paginas#Pagina_musicascurtidas {
+    margin-top: 0;
+    padding-top: 74px !important;
+  }
+  main section.Paginas#Pagina_musicascurtidas div#container_infos_musicas_curtidas {
+    display: flex;
+    flex-direction: column;
+    gap: 5px !important;
+  }
+  main section.Paginas#Pagina_musicascurtidas div#container_infos_musicas_curtidas h1 {
+    font-size: 7vw !important;
+  }
+  main section.Paginas#Pagina_musicascurtidas div#container_infos_musicas_curtidas span {
+    display: none;
+  }
+  main section.Paginas#Pagina_musicascurtidas div#container_infos_musicas_curtidas p {
+    font-weight: normal;
+    color: var(--white_pouco_transparent);
+    font-size: 12px;
+  }
+  main section.Paginas#Pagina_musicascurtidas div#container_infos_musicas_curtidas p span {
+    display: inline;
+  }
+  main section.Paginas#Pagina_musicascurtidas div#container_header_img_musicas_curtidas {
+    display: none !important;
+  }
+  main section.Paginas#Pagina_musicascurtidas div#container_pesquisar_musicas_curtidas {
+    width: 65% !important;
+  }
+  main section.Paginas#Pagina_pesquisar section#Pesquisar_Home article#container_todas_as_secoes {
+    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)) !important;
+    gap: 10px !important;
+  }
+  main section.Paginas#Pagina_pesquisar section#Pesquisar_Home article#container_todas_as_secoes div.container_genero_secao {
+    min-width: auto !important;
+    height: 100px !important;
+    display: block !important;
+    border-radius: 4px !important;
+  }
+  main section.Paginas#Pagina_pesquisar section#Pesquisar_Home article#container_todas_as_secoes div.container_genero_secao h1 {
+    z-index: 2;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: start;
+    padding: 20px !important;
+    margin: 0 !important;
+  }
+  main section.Paginas#Pagina_pesquisar section#Pesquisar_Home article#container_todas_as_secoes div.container_genero_secao img {
+    width: 70px !important;
+    height: 70px !important;
+    z-index: 1 !important;
+    border-radius: 3px !important;
+    bottom: -4px !important;
+  }
+  main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+  }
+  main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_item_biblioteca, main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_playlist {
+    width: 120px !important;
+    height: 160px !important;
+    padding: 0 !important;
+    background-color: transparent !important;
+    min-width: auto !important;
+    border-radius: 5px !important;
+  }
+  main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_item_biblioteca div.container_img_match_item_biblioteca, main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_playlist div.container_img_match_item_biblioteca {
+    border-radius: 5px !important;
+  }
+  main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_item_biblioteca div.container_img_playlist_playlist, main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_playlist div.container_img_playlist_playlist {
+    border-radius: 5px !important;
+  }
+  main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_item_biblioteca div.container_img_item_biblioteca, main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_playlist div.container_img_item_biblioteca {
+    border-radius: 5px !important;
+  }
+  main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_item_biblioteca div.container_img_item_biblioteca img, main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_playlist div.container_img_item_biblioteca img {
+    width: 105% !important;
+    height: 105% !important;
+    margin: -2.5% 0 0 -2.5%;
+  }
+  main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_item_biblioteca.container_item_biblioteca_artista div.container_img_item_biblioteca, main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_playlist.container_item_biblioteca_artista div.container_img_item_biblioteca {
+    width: 115px !important;
+    height: 111px !important;
+  }
+  main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_item_biblioteca.container_item_biblioteca_artista div.container_img_item_biblioteca img, main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca div.container_playlist.container_item_biblioteca_artista div.container_img_item_biblioteca img {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+  }
+  main section.Paginas section#container_pag_artista {
+    height: auto !important;
+    min-height: 100vh !important;
+    padding: 200px 0 100px !important;
+  }
+  div.musica_linha div.primeira_parte_musica_linha p.p_contador_musica_curtida {
+    display: none;
+  }
+  div.musica_linha .Views_Musica_Linha {
+    display: none;
+  }
+  div.musica_linha div.segunda_parte_musica_linha {
+    display: none;
+  }
+  div#container_nav_cell {
+    position: fixed;
+    z-index: 5;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.212);
+    padding: 10px 0;
+    display: block !important;
+  }
+  div#container_nav_cell ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  div#container_nav_cell ul li {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+  }
+  div#container_nav_cell ul li img {
+    width: 20px;
+    height: 20px;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+  div#container_nav_cell ul li span {
+    color: var(--white_pouco_transparent);
+    text-align: center;
+    font-size: 10px;
+  }
+  section#container_barra_musica_cell {
+    display: flex !important;
+  }
+  pre {
+    font-size: 1.2em !important;
   }
 }/*# sourceMappingURL=Home_Responsivo.css.map */

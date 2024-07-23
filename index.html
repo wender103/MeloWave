@@ -6,12 +6,12 @@
     <!-- <meta name="theme-color" content="#ff6600"> -->
     <title>MeloWave - Home</title>
 
-    <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css">
+    <!-- <link rel="stylesheet" href="Assets/Styles/Geral/Geral.css"> -->
     <link rel="stylesheet" href="Assets/Styles/Home/Home.css">
-    <link rel="stylesheet" href="Assets/Styles/Home/Responsivo/Home_Responsivo.css">
     <link rel="stylesheet" href="Assets/Styles/Wallpapers/wallpapers.css">
     <link rel="stylesheet" href="Assets/Styles/Letra/Letra.css">
     <link rel="stylesheet" href="Assets/Styles/Performance/Performance.css">
+    <link rel="stylesheet" href="Assets/Styles/Home/Responsivo/Home_Responsivo.css">
 </head>
 <body>
     <div id="background_wallpaper">
@@ -137,7 +137,7 @@
                 <img src="Assets/Imgs/pen.png" alt="" class="icone">
             </button>
             
-            <button onclick="Abrir_Pagina('notificacao')">
+            <button onclick="Abrir_Pagina('notificacao')" id="btn_novidades_div_nav">
                 <div class="bolinbha_notificacao" id="bolinha_icone_noficacao"></div>
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="icone">
                     <g clip-path="url(#clip0_2_494)">
@@ -151,7 +151,7 @@
                 </svg>    
             </button>
 
-            <button>
+            <button id="btn_amigos_div_nav">
                 <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg" class="icone">
                     <path d="M2.4 5.59999C3.2825 5.59999 4 4.88249 4 3.99999C4 3.11749 3.2825 2.39999 2.4 2.39999C1.5175 2.39999 0.8 3.11749 0.8 3.99999C0.8 4.88249 1.5175 5.59999 2.4 5.59999ZM13.6 5.59999C14.4825 5.59999 15.2 4.88249 15.2 3.99999C15.2 3.11749 14.4825 2.39999 13.6 2.39999C12.7175 2.39999 12 3.11749 12 3.99999C12 4.88249 12.7175 5.59999 13.6 5.59999ZM14.4 6.39999H12.8C12.36 6.39999 11.9625 6.57749 11.6725 6.86499C12.68 7.41749 13.395 8.41499 13.55 9.59999H15.2C15.6425 9.59999 16 9.24249 16 8.79999V7.99999C16 7.11749 15.2825 6.39999 14.4 6.39999ZM8 6.39999C9.5475 6.39999 10.8 5.14749 10.8 3.59999C10.8 2.05249 9.5475 0.799988 8 0.799988C6.4525 0.799988 5.2 2.05249 5.2 3.59999C5.2 5.14749 6.4525 6.39999 8 6.39999ZM9.92 7.19999H9.7125C9.1925 7.44999 8.615 7.59999 8 7.59999C7.385 7.59999 6.81 7.44999 6.2875 7.19999H6.08C4.49 7.19999 3.2 8.48999 3.2 10.08V10.8C3.2 11.4625 3.7375 12 4.4 12H11.6C12.2625 12 12.8 11.4625 12.8 10.8V10.08C12.8 8.48999 11.51 7.19999 9.92 7.19999ZM4.3275 6.86499C4.0375 6.57749 3.64 6.39999 3.2 6.39999H1.6C0.7175 6.39999 0 7.11749 0 7.99999V8.79999C0 9.24249 0.3575 9.59999 0.8 9.59999H2.4475C2.605 8.41499 3.32 7.41749 4.3275 6.86499Z" fill="white" class="icone"/>
                 </svg>                        
@@ -389,6 +389,15 @@
         </section>
 
         <section class="Paginas" id="Pagina_biblioteca">
+            <div id="container_primeira_parte_biblioteca">
+                <h1>Sua Biblioteca</h1>
+
+                <div id="container_input" class="container_inputs_pesquisar">
+                    <img src="Assets/Imgs/Searchsvg.svg" class="icon_pesquisar">
+                    <input type="text" placeholder="Buque na Sua Biblioteca" autocomplete="off" id="input_biblioteca">
+                </div>
+            </div>
+
             <article id="container_itens_biblioteca">
                 <div class="container_item_biblioteca" id="musicas_curtidas_biblioteca">
                     <div class="container_img_item_biblioteca">
@@ -1075,7 +1084,7 @@
         </article>
     </section>
 
-    <!--! Container Barra Música -->
+    <!--! Container Barra Música PC -->
     <section id="container_barra_musica">
         <div class="gradient-bg">
             <svg xmlns="http://www.w3.org/2000/svg" class="icone">
@@ -1145,6 +1154,113 @@
                 </div>
 
                 <img src="Assets/Imgs/Maximizar.svg" onclick="Ativar_Fullscreen()" class="icone">                 
+            </div>
+        </article>
+    </section>
+
+    <!--! Container Barra Música Cell -->
+    <section id="container_barra_musica_cell">
+        <article id="primeira_parte_barra_cell">
+            <div id="container_img_musica_barra_cell">
+                <img src="Assets/Imgs/music1.png" id="img_musica_barra_cell">
+            </div>
+            <div id="container_texto_barra_musica_cell">
+                <p id="nome_musica_barra_musica_cell">Thank You Lord</p>
+                <span id="autor_musica_barra_musica_cell">Chris Tomlin</span>
+            </div>
+        </article>
+        <article id="segunda_parte_barra_cell">
+            <img src="./Assets/Imgs/Like_Vazio.svg" id="btn_like_barra_musica_cell" class="icons_like_barra_musica icone">
+            <img src="./Assets/Imgs/botao_play_sem_fundo.png" id="btn_play_barra_musica_cell" class="icone_play_pc icone">
+        </article>
+
+        <div id="traco_barra_musica_cell"></div>
+    </section>
+
+    <!--! Pag Música Tocando Agora -->
+    <section id="pag_musica_tocando_agr">
+        <article id="container_parte_musica">
+            <div id="container_background_container_parte_musica">
+                <div id="background_container_parte_musica"></div>
+            </div>
+
+            <div id="container_header_pag_musica_tocando">
+                <img src="Assets/Imgs/arrow_down.png" id="btn_fechar_pag_musica_tocando_agora" class="icone_pag_cell">
+
+                <p>Tocando Agora</p>
+                <span>...</span>
+            </div>
+
+            <div id="container_main_pag_musica_tocando_agora">
+                <div id="cotainer_img_musica_pag_tocando_agora">
+                    <img src="Assets/Imgs/music3.png" id="img_musica_pag_tocando_agora">
+                </div>
+
+                <div id="container_textos_pag_tocando_agora">
+                    <div>
+                        <p id="nome_musica_pag_tocando_agora">He Is Faithful</p>
+                        <span id="nome_autores_musica_pag_tocando_agora">Doung Pison, aaron crane</span>
+                    </div>
+                    <img src="./Assets/Imgs/Like_Vazio.svg" class="icons_like_barra_musica icone icone_pag_cell">
+                </div>
+
+                <div id="container_barra_pag_musica_tocando_agora">
+                    <span id="contador_segundos_musica_pag_musica_tocando_agora">4:16</span>
+                    <input type="range" min="0" max="100" value="36" id="input_range_musica_cell">
+                    <span id="tempo_max_musica_pag_musica_tocando_agora">6:23</span>
+                </div>
+
+                <div id="container_controles_pag_musica_tocando_agora">
+
+                    <img src="Assets/Imgs/Ramdon.svg" class="icone_pag_cell">                     
+                    <img src="Assets/Imgs/Back.svg" onclick="Musica_Anterior()" class="icone icone_pag_cell">
+                    <img src="Assets/Imgs/Pause.svg" class="icone_play_pc icone icone_pag_cell" id="icone_play_normal">                                           
+                    <img src="Assets/Imgs/Next.svg" onclick="Proxima_Musica()" class="icone icone_pag_cell">
+                    <img src="Assets/Imgs/Repeat.svg" id="repeat_song_pag_musica_tocando_agora" class="repeat_icons icone icone_pag_cell">                       
+                </div>
+
+                <div id="conatiner_btns_compartilhar_pag_musica_tocando_agora">
+                    <img src="Assets/Imgs/Share.png" id="btn_compartilhar_pag_musica_tocando_agora" class="icone_pag_cell">
+                    <img src="Assets/Imgs/Maximizar.svg" id="btn_tela_cheia_cell" class="icone_pag_cell">
+                </div>
+            </div>
+        </article>
+
+        <article id="container_parte_sobre_musica_cell">
+            <div id="container_letra_cell" class="containers_pag_cell">
+                <div id="top_letra_cell">
+                    <h3>Letra</h3>
+                    <button id="btn_mostrar_letra_cell">Mostrar Letra</button>
+                </div>
+
+                <pre id="pre_letra_cell"></pre>
+                
+            </div>
+ 
+            <div id="container_creditos_pag_cell" class="containers_pag_cell">
+                <div id="top_creditos_pag_cell">
+                    <h3>Créditos</h3>
+                    <span id="btn_mostrar_mais_creditos_cell">Mostrar Mais</span>
+                </div>
+
+                <hr>
+
+                <p id="p_artista_creditos">Artistas:</p>
+                <span id="nome_artistas_credito"><p class="p_nomes_artistas"><span class="span_nomes_artistas">Henrik</span>, <span class="span_nomes_artistas">LOGE</span>, <span class="span_nomes_artistas">gio</span></p></span>
+                <p>Nome da música:</p>
+                <span id="nome_musica_cretido">if i tried</span>
+                <p>Postada por:</p>
+                <span id="nome_qm_postou_creditos" class="active">&lt;Wender ;-;/&gt;</span>
+                <p>Já possue letra:</p>
+                <span id="ja_tem_letra_sincronizada_creditos">Sim</span>
+                <p>Postada em:</p>
+                <span id="data_musica_postada_creditos">28/05/2024</span>
+                <p>Views</p>
+                <span id="views_musica_creditos">228</span>
+                <p>Gêneros musicais:</p>
+                <span id="generos_musicais_musica_credito"><span>Christian</span></span>
+                <p>Duração</p>
+                <span id="duracao_musica_creditos">2 min e 13 s</span>
             </div>
         </article>
     </section>
@@ -1300,6 +1416,15 @@
     <!--! Audio -->
     <div id="container_audios_transition">
         <audio class="audios_transitions" id="audio_player" style="display: none;"></audio>
+    </div>
+
+    <div id="container_nav_cell" style="display: none;">
+        <ul>
+            <li onclick="Abrir_Pagina('home')"><img src="Assets/Imgs/Home.svg"> <span>Início</span></li>
+            <li onclick="Abrir_Pagina('pesquisar')"><img src="Assets/Imgs/Searchsvg.svg"> <span>Buscar</span></li>
+            <li onclick="Abrir_Pagina('biblioteca')"><img src="Assets/Imgs/Library.svg"> <span>Sua Biblioteca</span></li>
+            <li onclick="Abrir_Pagina('adicionarmusicas')"><img src="Assets/Imgs/Plus.svg"> <span>Adicionar Música</span></li>
+        </ul>
     </div>
 
     <!--! Remover ---------------------------------------------------------------------- Remover ----------------------------- -->

@@ -1374,3 +1374,56 @@ function ajustarVolume(audioElement, novoVolume, duracao) {
         }
     }, intervalo);
 }
+
+//! Obtem o tamanho usavel da tela do celular
+function obterDimensoesTela() {
+    let larguraTela = Math.max(
+    document.documentElement.clientWidth,
+    window.innerWidth || 0
+    )
+    
+    let alturaTela = Math.max(
+    document.documentElement.clientHeight,
+    window.innerHeight || 0
+    )
+    
+
+    if(larguraTela < 700) {
+        Device.Tipo = 'Mobile'
+    } else {
+        Device.Tipo = 'Desktop'
+    }
+
+    return { largura: larguraTela, altura: alturaTela }
+}
+
+//! Altera transparencia
+function alterarTransparencia(cor, transparencia) {
+    // Verificar se a cor é HEX
+    if (cor.startsWith('#')) {
+        if (cor.length === 7) {
+            // Converter HEX para RGBA
+            const r = parseInt(cor.slice(1, 3), 16)
+            const g = parseInt(cor.slice(3, 5), 16)
+            const b = parseInt(cor.slice(5, 7), 16)
+            return `rgba(${r}, ${g}, ${b}, ${transparencia})`
+        } else if (cor.length === 4) {
+            // Converter HEX curto (#RGB) para RGBA
+            const r = parseInt(cor[1] + cor[1], 16)
+            const g = parseInt(cor[2] + cor[2], 16)
+            const b = parseInt(cor[3] + cor[3], 16)
+            return `rgba(${r}, ${g}, ${b}, ${transparencia})`
+        }
+    }
+
+    // Verificar se a cor é RGB ou RGBA
+    const rgbMatch = cor.match(/^rgb(a?)\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})(?:, ?([01]?\.?\d*))?\)$/)
+    if (rgbMatch) {
+        const r = parseInt(rgbMatch[2])
+        const g = parseInt(rgbMatch[3])
+        const b = parseInt(rgbMatch[4])
+        return `rgba(${r}, ${g}, ${b}, ${transparencia})`
+    }
+
+    throw new Error('Formato de cor inválido')
+}

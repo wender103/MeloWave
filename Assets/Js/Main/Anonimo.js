@@ -11,8 +11,8 @@ function Carregar_Perfil_Anonimo_User() {
 
     } else {
         User = {
-           Email: val.email,
-            Nome: val.displayName,
+            Email: 'anonimo@gmail.com',
+            Nome: 'Anônimo',
             Musicas_Curtidas: [],
             Loja: {
                 Pontos: 0,

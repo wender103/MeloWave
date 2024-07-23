@@ -549,6 +549,7 @@ body {
                             height: 100%;
                             object-fit: cover;
                             object-position: center;
+                            margin-top: -18px;
                         }
                     }
 
@@ -4791,6 +4792,466 @@ body {
                     input:hover::-webkit-slider-thumb,
                     input:focus::-webkit-slider-thumb {
                         opacity: 1; /* torna visível ao passar o mouse ou focar */
+                    }
+                }
+            }
+        }
+    }
+
+    //! Cotnainer Barra Música Cell
+    section#container_barra_musica_cell {
+        width: 99%;
+        min-height: 47px;
+        bottom: -300px;
+        z-index: 5;
+        position: fixed;
+        transition: 1s bottom ease-in-out;
+        left: 0.5%;
+        background-color: rgba(0, 0, 0, 0.616);
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+        padding: 7px;
+        border-radius: 2px;
+
+        &.escuro {
+            article {
+                p, span, img.icone {
+                    color: black !important; /* Para texto (p, span) */
+                    filter: brightness(0%) !important; /* Para imagens */
+                }
+            }
+
+            div#traco_barra_musica_cell {
+                background-color: black !important;
+            }
+        }
+
+        article {
+            display: flex;
+            gap: 10px;
+
+            &#primeira_parte_barra_cell {
+                div#container_img_musica_barra_cell {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 4px;
+                    overflow: hidden;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                div#container_texto_barra_musica_cell {
+                    p {
+                        color: var(--white);
+                        font-weight: 700;
+                        font-size: 13px;
+                    }
+
+                    span {
+                        color: var(--white_pouco_transparent);
+                        font-weight: 500;
+                        font-size: 13px;
+                    }
+                }
+            }
+
+            img.icone {
+                width: 20px;
+                height: 20px;
+                object-fit: contain;
+            }
+        }
+
+        div#traco_barra_musica_cell {
+            width: 0%;
+            transition: 1s width ease-in-out;
+            height: 2px;
+            left: 0;
+            background-color: white;
+            position: absolute;
+            bottom: 0;
+        }
+    }
+
+    //! Pag Música Tocando Agora
+    section#pag_musica_tocando_agr {
+        width: 100vw;
+        // min-height: 100vh;
+        position: fixed;
+        top: 100vh;
+        left: 0;
+        z-index: 6;
+        transition: 0.7s top ease-in-out;
+        background-color: #000000;
+        padding: 20px;
+        color: var(--white);
+        overflow: auto;
+
+        &.active {
+            article#container_parte_musica {
+                div#container_background_container_parte_musica::before {
+                    top: 0;
+                }
+            }
+        }
+
+        &.dark {
+            color: black !important;
+
+            span {
+                color: #00000080 !important;
+            }
+
+            img.icone_pag_cell, svg {
+                filter: brightness(0%) grayscale(100%) !important;
+            }
+
+            button {
+                color: black !important;
+                border-color: black !important;
+            }
+
+            pre {
+                color: rgba(0, 0, 0, 0.2509803922) !important;
+
+                span {
+                    &.linha_pre_anterior_add_letra {
+                        color: rgba(0, 0, 0, 0.2509803922) !important;
+                    }
+
+                    &.linha_pre_em_destaque_cell {
+                        .animated-span {
+                            color: rgba(0, 0, 0, 0.23) !important;
+                        }
+                            
+                        .animated-span.animated {
+                            color: black !important;
+                            text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0) !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        article#container_parte_musica {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+
+            div#container_background_container_parte_musica {
+                width: 100%;
+                height: 100%;
+                top: 0;
+                z-index: -1;
+                position: absolute;
+
+                &::before {
+                    content: '';
+                    position: fixed; 
+                    top: 100vh;
+                    transition: 0.7s top ease-in-out;
+                    left: 0;
+                    width: 100%;
+                    height: calc(100% + 100px);
+                    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.575), transparent);
+                    pointer-events: none; 
+                }
+
+                div#background_container_parte_musica {
+                    width: 100%;    
+                    height: 80%;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    -webkit-mask-image: linear-gradient(to bottom, #1a1a1d 70%, rgba(0, 0, 0, 0));
+                    mask-image: linear-gradient(to bottom, #1a1a1d 70%, rgba(0, 0, 0, 0));
+                }
+            }
+
+            div#container_header_pag_musica_tocando {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                p {
+                    font-size: 13px;
+                    font-weight: 300;
+                }
+
+                span {
+                    rotate: 90deg;
+                    font-size: 20px;
+                }
+
+                img {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+
+            div#container_main_pag_musica_tocando_agora {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                gap: 20px;
+
+                div#cotainer_img_musica_pag_tocando_agora {
+                    width: calc(100vw - 40px);
+                    height: calc(100vw - 40px);
+                    border-radius: 7px;
+                    overflow: hidden;
+                    display: none;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+
+                div#container_textos_pag_tocando_agora {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    div {
+                        width: 100%;
+
+                        p {
+                            font-size: 18px;
+                            font-weight: 600;
+                        }
+
+                        span {
+                            font-size: 13px;
+                            color: var(--fonte_meio_transparente);
+                        }
+
+                        span.animated {
+                            color: black !important;
+                        }
+                    }
+
+                    img {
+                        width: 25px;
+                        height: 25px;
+                    }
+                }
+
+                div#container_barra_pag_musica_tocando_agora { 
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    color: var(--fonte_meio_transparente);
+                    gap: 12px;
+                    font-size: 12px;
+                    margin: 5px 0 0;
+                    position: relative;
+
+                    span {
+                        position: absolute;
+                        min-width: 42px;
+                        width: 42px;
+
+                        &#contador_segundos_musica_pag_musica_tocando_agora {
+                            text-align: start;
+                            left: 0;
+                            top: 15px;
+                        }
+
+                        &#tempo_max_musica_pag_musica_tocando_agora {
+                            text-align: end;
+                            right: 0;
+                            top: 15px;
+                        }
+                    }
+
+                    input {
+                        background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
+                        border: none;
+                        border-radius: 8px;
+                        height: 5px;
+                        width: 100%;
+                        outline: none;
+                        transition: background 450ms ease-in;
+                        -webkit-appearance: none;
+                        cursor: pointer;
+                    }
+                    
+                    /* Hides the thumb (slider handle) */
+                    input::-webkit-slider-thumb {
+                        -webkit-appearance: none;
+                        width: 10px; /* ajuste conforme necessário */
+                        height: 10px; /* ajuste conforme necessário */
+                        background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+                        border-radius: 50%; /* para fazer uma bolinha */
+                        transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+                        opacity: 0; /* inicia invisível */
+                    }
+                
+                    input:hover::-webkit-slider-thumb,
+                    input:focus::-webkit-slider-thumb {
+                        opacity: 1; /* torna visível ao passar o mouse ou focar */
+                    }
+                }
+
+                div#container_controles_pag_musica_tocando_agora {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin: 30px auto;
+
+                    img {
+                        cursor: pointer;
+                        width: 27px;
+                        height: 27px;
+
+                        &.icone_play_pc {
+                            width: 60px;
+                            height: 60px;
+                        }
+                    }
+                }
+
+                div#conatiner_btns_compartilhar_pag_musica_tocando_agora {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-top: -35px;
+
+                    img {
+                        width: 18px;
+                        height: 18px;
+                    }
+                }
+            }
+
+        }
+
+        article#container_parte_sobre_musica_cell {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow: hidden;
+ 
+            div.containers_pag_cell {
+                width: 100%;
+                border-radius: 6px;
+                background-color: #636363;
+                padding: 0 10px;
+                overflow: hidden;
+
+                &#container_letra_cell {
+                    height: 48px;
+                    position: relative;
+                    transition: 0.5s height ease-out;
+                    overflow: hidden;
+
+                    div#top_letra_cell {
+                        width: calc(100% - 20px);
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        position: absolute;
+                        top: 10px;
+                        left: 10px;
+
+                        button {
+                            background-color: transparent;
+                            border: 1px solid white;
+                            color: white;
+                            padding: 5px 10px;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            font-weight: 700;
+                        }
+                    }
+
+                    pre {
+                        width: 100%;
+                        height: 80%;
+                        background-color: transparent;
+                        border: none;
+                        color: var(--fonte_transparente);
+                        outline: none;
+                        font-size: 4rem;
+                        overflow: auto;
+                        font-weight: bold;
+                        // text-align: center;
+                        white-space: pre-wrap;
+                        padding: 150px 0;
+                        margin-top: 48px;
+                        mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
+                        overflow: auto;
+
+                        span {
+                            cursor: pointer;
+
+                            &.linha_pre_anterior_cell {
+                                color: var(--fonte_meio_transparente);
+                            }
+
+                            &.linha_pre_em_destaque_cell {
+                                .animated-span {
+                                    font-size: 1em;
+                                    color: rgba(255, 255, 255, 0.23);
+                                    transition: font-size 0.3s, color 0.3s;
+                                }
+                                    
+                                .animated-span.animated {
+                                    font-size: 1.1em;
+                                    color: white;
+                                    text-shadow: 0 0 5px rgb(255 255 255 / 0%), 0 0 10px rgb(255 255 255 / 83%), 0 0 15px rgb(255 255 255 / 38%);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &#container_creditos_pag_cell {
+                    height: 255px;
+                    overflow: hidden;
+                    transition: 0.5s height ease-out;
+
+                    div#top_creditos_pag_cell {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin-top: 10px;
+ 
+                        span {
+                            color: var(--verde_azul) !important;
+                            margin: 0;
+                        }
+                    }
+
+                    hr {
+                        margin: 10px 0 20px 0;
+                    }
+
+                    p {
+                        span {
+                            display: inline;
+                        }
+                    }
+
+                    span {
+                        display: block;
+                        margin: 5px 0 20px;
                     }
                 }
             }

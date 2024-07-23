@@ -150,8 +150,12 @@ function Atualizar_Infos_Pagina_Musicas_Curtidas(Comando='') {
         }
 
         const p_infos_musicas_curtidas = document.getElementById('p_infos_musicas_curtidas')
-        p_infos_musicas_curtidas.innerText = `${User.Nome}`
-        p_infos_musicas_curtidas.innerHTML += ` - <span id="quantidade_musicas_playlist_musicas_curtidas">${musicas_curtidas_atualizadas.length} ${name_msuicas}, ${resultado}</span>`
+        p_infos_musicas_curtidas.innerHTML = ''
+        if(Device.Tipo != 'Mobile') {
+            p_infos_musicas_curtidas.innerText = `${User.Nome} - `
+        }
+
+        p_infos_musicas_curtidas.innerHTML += `<span id="quantidade_musicas_playlist_musicas_curtidas">${musicas_curtidas_atualizadas.length} ${name_msuicas}, ${resultado}</span>`
     })
 }
 

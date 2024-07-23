@@ -234,8 +234,17 @@ function Retornar_Daily() {
                 span.className = 'nome_autores_daily'
                 p_container_span.className = 'nome_autores_daily'
 
-                contaier_svg_daily.style.backgroundImage = `linear-gradient(to top, ${gerarCorAleatoria(false)}, transparent)`
+                contaier_svg_daily.style.backgroundImage = `linear-gradient(to top, black, transparent)`
                 let Cor_svg = gerarCorAleatoria()
+
+                if(array_daily[array_daily.length - 1].Cores.length > 0) {
+                    let Cores = array_daily[array_daily.length - 1].Cores
+                    Cor_svg = Cores[0]
+                }
+
+                if(corEhClara(Cor_svg)) {
+                    p_daily.style.color = 'black'
+                }
 
                 if(qts_vezes_chamadaS_feito_pra_voce % 2 != 0) {
                     // Criar o elemento SVG com a cor aleatória correspondente

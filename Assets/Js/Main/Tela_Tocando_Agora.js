@@ -269,7 +269,7 @@ function Abrir_Tela_Tocando_Agora() {
     }
     Fechar_Fila()
 
-    if(pd_abrir_tela_tocando_agora) {
+    if(pd_abrir_tela_tocando_agora && Device.Tipo != 'Mobile') {
         pd_abrir_tela_tocando_agora = false
 
         setTimeout(() => {

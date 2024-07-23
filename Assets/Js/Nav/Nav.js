@@ -38,6 +38,13 @@ document.addEventListener('click', () => {
         }
 
         container_config_email.style.display = 'flex'
+
+        if(fila_aberta || telca_tocando_agora_aberta) {
+            container_config_email.style.right = '320px'
+        } else {
+            container_config_email.style.right = '8px'
+        }
+
         pd_fehcar_container_config_email = false
 
     } else {

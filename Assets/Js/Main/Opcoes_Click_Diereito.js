@@ -39,7 +39,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
 
     let About = `<li onclick="Abrir_Creditos('${Musica.ID}')"><img src="Assets/Imgs/About.png"><p>Ver Creditos</p></li>`
 
-    let Share = `<li onclick="Comapartilhar_Musica_E_Artista('${Musica.ID}', '${ID_Artista}')"><img src="Assets/Imgs/Share.svg"><p>Compartilhar</p></li>`
+    let Share = `<li onclick="Comapartilhar_Musica_E_Artista('${Musica.ID}', '${ID_Artista}')"><img src="Assets/Imgs/Share.png"><p>Compartilhar</p></li>`
 
     let Btn_Seguir_Artsta
 
@@ -53,7 +53,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
 
     let Btn_Seguir_User = `<li onclick="Seguir_Perfil('${Perfil}')"><img src="Assets/Imgs/convite.png"><p>Seguir Usuário</p></li>`
 
-    let Share_Perfil = `<li onclick="Comapartilhar_Perfil('${Perfil}')"><img src="Assets/Imgs/Share.svg"><p>Compartilhar Perfil</p></li>`
+    let Share_Perfil = `<li onclick="Comapartilhar_Perfil('${Perfil}')"><img src="Assets/Imgs/Share.png"><p>Compartilhar Perfil</p></li>`
 
     //! Match
     let Sair_Match = `<li onclick="Sair_Do_Match()"><img src="Assets/Imgs/remover-participante.png"><p>Sair do match</p></li>`
@@ -61,7 +61,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
     let Apagar_Match = `<li onclick="Apagar_Match('${Pagina_Atual.ID}')"><img src="Assets/Imgs/lixeira_branca.png"><p>Apagar Match</p></li>`
     let Abrir_Remover_Participante_Match = `<li onclick="Abrir_Remover_Participante_Match()" class="N_Fechar_Opcoes"><img src="Assets/Imgs/remover-participante.png" class="N_Fechar_Opcoes"><p class="N_Fechar_Opcoes">Remover Participante</p></li>`
     let Convidar_Para_Match = `<li onclick="Convidar_Para_Match('${Pagina_Atual.ID}')"><img src="Assets/Imgs/convite.png"><p>Adicionar Amigo</p></li>`
-    let Share_Match = `<li onclick="Comapartilhar_Match('${Pagina_Atual.ID}')"><img src="Assets/Imgs/Share.svg"><p>Compartilhar Match</p></li>`
+    let Share_Match = `<li onclick="Comapartilhar_Match('${Pagina_Atual.ID}')"><img src="Assets/Imgs/Share.png"><p>Compartilhar Match</p></li>`
 
     //! Crirar Playlist
     let Editar_Detalhes_criar_playlist = `<li onclick="Abrir_Editar_Header_CriarPlaylist()"><img src="Assets/Imgs/pen.png"><p>Editar Detalhes</p></li>`
@@ -77,7 +77,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
     let btn_tornar_publica_playlist = `<li onclick="Tornar_Playlist_Publica()"><img src="Assets/Imgs/mundo.png"><p>Tornar Pública</p></li>`
     let btn_apagar_playlist = `<li onclick="Apagar_playlist()"><img src="Assets/Imgs/lixeira_branca.png"><p>Apagar Playlist</p></li>`
     let btn_adicionar_a_fila_playlist = `<li onclick="Adicionar_Playlisy_Fila()"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar A Fila</p></li>`
-    let Share_playlist = `<li onclick="Comapartilhar_playlist()"><img src="Assets/Imgs/Share.svg"><p>Compartilhar Playlist</p></li>`
+    let Share_playlist = `<li onclick="Comapartilhar_playlist()"><img src="Assets/Imgs/Share.png"><p>Compartilhar Playlist</p></li>`
     let Sair_playlist = `<li onclick="Sair_Da_Playlist()"><img src="Assets/Imgs/remover-participante.png"><p>Sair Da Playlist</p></li>`
 
     let pode_add_a_fila = true
