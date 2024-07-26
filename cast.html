@@ -1,29 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transmitir Música para TV</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/CrV8WmDLdpqG2ZtwDhol/Gavn____Topic_thumbnail.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .cover {
+            width: 300px;
+            height: 300px;
+            background: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Gavn____Topic_thumbnail.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 10px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-  <cast-media-player></cast-media-player>
-  <style>
-    body {
-      --playback-logo-image: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/CrV8WmDLdpqG2ZtwDhol/Gavn____Topic_thumbnail.jpg');
-    }
-    cast-media-player {
-      --theme-hue: 100;
-      --progress-color: rgb(0, 255, 0);
-      --splash-image: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/CrV8WmDLdpqG2ZtwDhol/Gavn____Topic_thumbnail.jpg');
-    }
-  </style>
-  <script>
-    const context = cast.framework.CastReceiverContext.getInstance();
+    <div class="container">
+        <div class="cover"></div>
+        <button id="cast-button">Transmitir Música para TV</button>
+    </div>
 
-    // Update style using javascript
-    let playerElement = document.getElementsByTagName("cast-media-player")[0];
-    playerElement.style.setProperty('--splash-image', 'url("https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/CrV8WmDLdpqG2ZtwDhol/Gavn____Topic_thumbnail.jpg")');
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const castButton = document.getElementById('cast-button')
 
-    context.start();
-  </script>
+            castButton.addEventListener('click', function() {
+                if (navigator['presentation'] && navigator['presentation'].receiver) {
+                    const url = 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Open_Arms__Hallelujah__audio.mp3'
+                    const mediaInfo = new chrome.cast.media.MediaInfo(url, 'audio/mp3')
+                    const request = new chrome.cast.media.LoadRequest(mediaInfo)
+
+                    chrome.cast.requestSession(function(session) {
+                        session.loadMedia(request).then(() => {
+                            console.log('Música transmitida com sucesso!')
+                        }).catch(err => {
+                            console.error('Falha ao transmitir música:', err)
+                        })
+                    }, function(err) {
+                        console.error('Falha ao conectar com a TV:', err)
+                    })
+                } else {
+                    alert('O Google Cast não está disponível neste navegador.')
+                }
+            })
+        })
+    </script>
+    <script src="https://www.gstatic.com/cast/sdk/libs/cast_sender/1.4.0/cast_sender.js"></script>
 </body>
 </html>
