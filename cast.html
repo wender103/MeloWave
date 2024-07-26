@@ -1,147 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Transmissão de Música</title>
-  <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    #castButton, #playButton, #pauseButton, #nextButton, #prevButton {
-      background-color: #4285f4;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 16px;
-      margin: 5px;
-    }
-    #controls {
-      margin-top: 20px;
-    }
-  </style>
+  <script type="text/javascript" src="//www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js">
+  </script>
 </head>
 <body>
-  <h1>Melo Wave - Transmissão de Música</h1>
-  <button id="castButton">Transmitir Música</button>
-  
-  <div id="controls">
-    <button id="playButton">Play</button>
-    <button id="pauseButton">Pause</button>
-    <button id="prevButton">Anterior</button>
-    <button id="nextButton">Próxima</button>
-  </div>
-
+  <cast-media-player></cast-media-player>
+  <style>
+    body {
+      --playback-logo-image: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/CrV8WmDLdpqG2ZtwDhol/Gavn____Topic_thumbnail.jpg');
+    }
+    cast-media-player {
+      --theme-hue: 100;
+      --progress-color: rgb(0, 255, 0);
+      --splash-image: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/CrV8WmDLdpqG2ZtwDhol/Gavn____Topic_thumbnail.jpg');
+    }
+  </style>
   <script>
-    let mediaSession = null;
-    let isCasting = false;
-    let currentTrackIndex = 0;
+    const context = cast.framework.CastReceiverContext.getInstance();
 
-    // Lista de músicas
-    const trackList = [
-      'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Open_Arms__Hallelujah__audio.mp3',
-      'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/QdMkmtU4SdrxMB30zyqV/LIKE_YOU__Feat__Tauren_Wells___Toby_Mac__audio.mp3'
-      // Adicione mais URLs de músicas aqui
-    ];
+    // Update style using javascript
+    let playerElement = document.getElementsByTagName("cast-media-player")[0];
+    playerElement.style.setProperty('--splash-image', 'url("https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/CrV8WmDLdpqG2ZtwDhol/Gavn____Topic_thumbnail.jpg")');
 
-    window['__onGCastApiAvailable'] = (isAvailable) => {
-      if (isAvailable) {
-        initializeCastApi();
-      }
-    };
-
-    function initializeCastApi() {
-      const context = cast.framework.CastContext.getInstance();
-      context.setOptions({
-        receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
-        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-      });
-
-      document.getElementById('castButton').addEventListener('click', () => {
-        let session = context.getCurrentSession();
-        if (!session) {
-          context.requestSession().then(() => {
-            session = context.getCurrentSession();
-            castMedia(session);
-          });
-        } else {
-          castMedia(session);
-        }
-      });
-
-      document.getElementById('playButton').addEventListener('click', () => {
-        if (isCasting && mediaSession) {
-          mediaSession.play();
-        }
-      });
-
-      document.getElementById('pauseButton').addEventListener('click', () => {
-        if (isCasting && mediaSession) {
-          mediaSession.pause();
-        }
-      });
-
-      document.getElementById('nextButton').addEventListener('click', () => {
-        if (isCasting) {
-          nextTrack();
-        }
-      });
-
-      document.getElementById('prevButton').addEventListener('click', () => {
-        if (isCasting) {
-          prevTrack();
-        }
-      });
-    }
-
-    function castMedia(session) {
-      const mediaInfo = new chrome.cast.media.MediaInfo(trackList[currentTrackIndex], 'audio/mp3');
-      const metadata = new chrome.cast.media.MusicTrackMediaMetadata();
-      metadata.title = 'Título da Música'; // Atualize com informações apropriadas
-      metadata.artist = 'Artista';
-      metadata.albumArtist = 'Álbum Artista';
-      metadata.albumName = 'Nome do Álbum';
-      metadata.releaseDate = '2024-07-23';
-      metadata.albumArt = [
-        { url: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/QdMkmtU4SdrxMB30zyqV/Aaron_Cole___Topic_thumbnail.jpg' }
-      ];
-      mediaInfo.metadata = metadata;
-      const request = new chrome.cast.media.LoadRequest(mediaInfo);
-      session.loadMedia(request).then(
-        () => {
-          console.log('Mídia carregada com sucesso');
-          isCasting = true;
-          mediaSession = session.getMediaSession();
-          document.querySelector('audio').pause();
-        },
-        (errorCode) => console.error('Falha ao carregar mídia:', errorCode)
-      );
-
-      session.addEventListener(chrome.cast.SessionEventType.SESSION_STOPPED, () => {
-        isCasting = false;
-        mediaSession = null;
-        document.querySelector('audio').play();
-      });
-    }
-
-    function nextTrack() {
-      currentTrackIndex = (currentTrackIndex + 1) % trackList.length;
-      const session = cast.framework.CastContext.getInstance().getCurrentSession();
-      if (session) {
-        castMedia(session);
-      }
-    }
-
-    function prevTrack() {
-      currentTrackIndex = (currentTrackIndex - 1 + trackList.length) % trackList.length;
-      const session = cast.framework.CastContext.getInstance().getCurrentSession();
-      if (session) {
-        castMedia(session);
-      }
-    }
+    context.start();
   </script>
-
-  <audio src="https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Open_Arms__Hallelujah__audio.mp3" controls></audio>
 </body>
 </html>
