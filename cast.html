@@ -1,77 +1,190 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transmitir Música para TV</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/CrV8WmDLdpqG2ZtwDhol/Gavn____Topic_thumbnail.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .cover {
-            width: 300px;
-            height: 300px;
-            background: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Gavn____Topic_thumbnail.jpg') no-repeat center center;
-            background-size: cover;
-            border-radius: 10px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Transmissão de Música</title>
+  <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    body {
+      --playback-logo-image: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/CrV8WmDLdpqG2ZtwDhol/Gavn____Topic_thumbnail.jpg');
+    }
+    cast-media-player {
+      --theme-hue: 100;
+      --progress-color: rgb(0, 255, 0);
+      --splash-image: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Gavn____Topic_thumbnail.jpg');
+    }
+
+    h1 {
+      margin: 20px 0;
+    }
+    #castButton, #playButton, #pauseButton, #nextButton, #prevButton {
+      background-color: #4285f4;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+    }
+    #controls {
+      margin-top: 20px;
+    }
+    #mediaInfo {
+      margin: 20px 0;
+    }
+    #mediaInfo img {
+      max-width: 100px;
+      border-radius: 8px;
+    }
+    audio {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="cover"></div>
-        <button id="cast-button">Transmitir Música para TV</button>
-    </div>
+  <cast-media-player></cast-media-player>
+  <h1>Melo Wave - Transmissão de Música</h1>
+  <button id="castButton">Transmitir Música</button>
+  
+  <div id="controls">
+    <button id="playButton">Play</button>
+    <button id="pauseButton">Pause</button>
+    <button id="prevButton">Anterior</button>
+    <button id="nextButton">Próxima</button>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const castButton = document.getElementById('cast-button')
+  <div id="mediaInfo">
+    <img id="currentTrackImage" src="https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Gavn____Topic_thumbnail.jpg" alt="Capa da Música">
+    <p id="currentTrackTitle">Título da Música</p>
+  </div>
 
-            castButton.addEventListener('click', function() {
-                if (navigator['presentation'] && navigator['presentation'].receiver) {
-                    const url = 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Open_Arms__Hallelujah__audio.mp3'
-                    const mediaInfo = new chrome.cast.media.MediaInfo(url, 'audio/mp3')
-                    const request = new chrome.cast.media.LoadRequest(mediaInfo)
+  <audio id="audioPlayer" src="https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Open_Arms__Hallelujah__audio.mp3" controls></audio>
 
-                    chrome.cast.requestSession(function(session) {
-                        session.loadMedia(request).then(() => {
-                            console.log('Música transmitida com sucesso!')
-                        }).catch(err => {
-                            console.error('Falha ao transmitir música:', err)
-                        })
-                    }, function(err) {
-                        console.error('Falha ao conectar com a TV:', err)
-                    })
-                } else {
-                    alert('O Google Cast não está disponível neste navegador.')
-                }
-            })
-        })
-    </script>
-    <script src="https://www.gstatic.com/cast/sdk/libs/cast_sender/1.4.0/cast_sender.js"></script>
+  <script>
+    let mediaSession = null;
+    let isCasting = false;
+    let currentTrackIndex = 0;
+
+    // Lista de músicas
+    const trackList = [
+      {
+        audio: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Open_Arms__Hallelujah__audio.mp3',
+        image: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Gavn____Topic_thumbnail.jpg',
+        title: 'Open Arms (Hallelujah)'
+      },
+      {
+        audio: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/jou3yZGwZgsnnxlYqbmR/All_To_Myself_audio.mp3',
+        image: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/aBU9DSDrwS1Ah4HCLRMY/Henrik___Topic_thumbnail.jpg',
+        title: 'All To Myself'
+      }
+      // Adicione mais URLs de músicas aqui
+    ];
+
+    window['__onGCastApiAvailable'] = (isAvailable) => {
+      if (isAvailable) {
+        initializeCastApi();
+      }
+    };
+
+    function initializeCastApi() {
+      const context = cast.framework.CastContext.getInstance();
+      
+      context.setOptions({
+        receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+        autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+      });
+
+      document.getElementById('castButton').addEventListener('click', () => {
+        let session = context.getCurrentSession();
+        if (!session) {
+          context.requestSession().then(() => {
+            session = context.getCurrentSession();
+            castMedia(session);
+          });
+        } else {
+          castMedia(session);
+        }
+      });
+
+      document.getElementById('playButton').addEventListener('click', () => {
+        if (isCasting && mediaSession) {
+          mediaSession.play();
+        }
+      });
+
+      document.getElementById('pauseButton').addEventListener('click', () => {
+        if (isCasting && mediaSession) {
+          mediaSession.pause();
+        }
+      });
+
+      document.getElementById('nextButton').addEventListener('click', () => {
+        if (isCasting) {
+          nextTrack();
+        }
+      });
+
+      document.getElementById('prevButton').addEventListener('click', () => {
+        if (isCasting) {
+          prevTrack();
+        }
+      });
+    }
+
+    function castMedia(session) {
+      const mediaInfo = new chrome.cast.media.MediaInfo(trackList[currentTrackIndex].audio, 'video/mp4');
+      const metadata = new chrome.cast.media.MusicTrackMediaMetadata();
+      metadata.title = trackList[currentTrackIndex].title;
+      metadata.albumArt = [{ url: trackList[currentTrackIndex].image }];
+      mediaInfo.metadata = metadata;
+      const request = new chrome.cast.media.LoadRequest(mediaInfo);
+      session.loadMedia(request).then(
+        () => {
+          console.log('Mídia carregada com sucesso');
+          isCasting = true;
+          mediaSession = session.getMediaSession();
+          document.getElementById('audioPlayer').pause();
+          updateUI();
+        },
+        (errorCode) => console.error('Falha ao carregar mídia:', errorCode)
+      );
+
+      session.addEventListener(chrome.cast.SessionEventType.SESSION_STOPPED, () => {
+        isCasting = false;
+        mediaSession = null;
+        document.getElementById('audioPlayer').play();
+      });
+    }
+
+    function nextTrack() {
+      currentTrackIndex = (currentTrackIndex + 1) % trackList.length;
+      const session = cast.framework.CastContext.getInstance().getCurrentSession();
+      if (session) {
+        castMedia(session);
+      }
+    }
+
+    function prevTrack() {
+      currentTrackIndex = (currentTrackIndex - 1 + trackList.length) % trackList.length;
+      const session = cast.framework.CastContext.getInstance().getCurrentSession();
+      if (session) {
+        castMedia(session);
+      }
+    }
+
+    function updateUI() {
+      document.getElementById('currentTrackImage').src = trackList[currentTrackIndex].image;
+      document.getElementById('currentTrackTitle').textContent = trackList[currentTrackIndex].title;
+    }
+  </script>
 </body>
 </html>
