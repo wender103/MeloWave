@@ -537,7 +537,7 @@ div#container_carregamento_tela_innteira {
   display: flex;
   top: 0;
   left: 0;
-  z-index: 7;
+  z-index: 8;
   align-items: center;
   justify-content: center;
   background-color: #181818;
