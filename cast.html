@@ -14,9 +14,6 @@
       color: #ffffff;
     }
 
-    body {
-      --playback-logo-image: url('https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/CrV8WmDLdpqG2ZtwDhol/Gavn____Topic_thumbnail.jpg');
-    }
     cast-media-player {
       --theme-hue: 100;
       --progress-color: rgb(0, 255, 0);
@@ -26,7 +23,7 @@
     h1 {
       margin: 20px 0;
     }
-    #castButton, #playButton, #pauseButton, #nextButton, #prevButton {
+    button {
       background-color: #4285f4;
       color: white;
       border: none;
@@ -48,6 +45,9 @@
     audio {
       display: none;
     }
+    #seekBar {
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -62,128 +62,229 @@
     <button id="nextButton">Próxima</button>
   </div>
 
+  <div id="seekBar">
+    <input type="range" id="seekBarInput" min="0" max="100" value="0">
+  </div>
+
   <div id="mediaInfo">
-    <img id="currentTrackImage" src="https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Gavn____Topic_thumbnail.jpg" alt="Capa da Música">
-    <p id="currentTrackTitle">Título da Música</p>
+    <img id="currentTrackImage" src="" alt="Capa da Música">
+    <p id="currentTrackTitle"></p>
+    <p id="currentTrackAuthor"></p>
+    <p id="currentTrackGenre"></p>
+    <p id="currentTrackDate"></p>
+    <p id="currentTrackVideo"><a href="" target="_blank">Assistir no YouTube</a></p>
   </div>
 
   <audio id="audioPlayer" src="https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Open_Arms__Hallelujah__audio.mp3" controls></audio>
 
   <script>
-    let mediaSession = null;
-    let isCasting = false;
-    let currentTrackIndex = 0;
+    let mediaSession = null
+    let isCasting = false
+    let currentTrackIndex = 0
 
     // Lista de músicas
     const trackList = [
       {
-        audio: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Open_Arms__Hallelujah__audio.mp3',
-        image: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/E5no0LiHJtLViXYEPbbW/Gavn____Topic_thumbnail.jpg',
-        title: 'Open Arms (Hallelujah)'
+        audio: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/OxPPhrOit6quZ7kKua33/We_All_Need_Jesus_audio.mp3',
+        image: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/OxPPhrOit6quZ7kKua33/Danny_Gokey___Topic_thumbnail.jpg',
+        title: 'We All Need Jesus',
+        author: 'Danny Gokey',
+        colors: ['#335369', '#203c4f', '#86a0b1', '#b299a5', '#c3d5e3', '#6c505c', '#382831'],
+        date: '08/05/2024',
+        genre: 'Christian',
+        videoURL: 'https://music.youtube.com/watch?v=Qqk5K9X3f8M&list=RDAMVMZxP8g-bV7tM'
       },
       {
-        audio: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/jou3yZGwZgsnnxlYqbmR/All_To_Myself_audio.mp3',
-        image: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/aBU9DSDrwS1Ah4HCLRMY/Henrik___Topic_thumbnail.jpg',
-        title: 'All To Myself'
+        audio: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/R1Z7Tp1NTOJgRQHvSqMk/No_Longer_Bound__I_M_Free__audio.mp3',
+        image: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/R1Z7Tp1NTOJgRQHvSqMk/Maverick_City_Music___Topic_thumbnail.jpg',
+        title: 'No Longer Bound (I\'m Free)',
+        author: 'Maverick City Music',
+        colors: ['#456e93', '#cd5143', '#ca7d46', '#995161', '#c54449', '#9f6354', '#b78141'],
+        date: '08/05/2024',
+        genre: 'Christian',
+        videoURL: 'https://music.youtube.com/watch?v=5-WeeaktHtY&list=RDAMVMZxP8g-bV7tM'
+      },
+      {
+        audio: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/DqQZoeDzPC8rOoMyciBS/Can_T_Tell_It_All__Remix__audio.mp3',
+        image: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/DqQZoeDzPC8rOoMyciBS/Hulvey___Topic_thumbnail.jpg',
+        title: 'Can’t Tell It All (Remix)',
+        author: 'Hulvey',
+        colors: ['#201d1b', '#6d554e', '#bc9484', '#18181b', '#201a1b', '#1a1d1b', '#d2060a'],
+        date: '08/05/2024',
+        genre: 'Christian',
+        videoURL: 'https://music.youtube.com/watch?v=9LJdiSjd9Ck&list=RDAMVMZxP8g-bV7tM'
+      },
+      {
+        audio: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/KZEgbwkiypCGuvJmMB3G/Up_audio.mp3',
+        image: 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/KZEgbwkiypCGuvJmMB3G/Tauren_Wells___Topic_thumbnail.jpg',
+        title: 'Up',
+        author: 'Tauren Wells',
+        colors: ['#ab4126', '#260906', '#1f0d11', '#da9e4b', '#872317', '#f0c962', '#61545b'],
+        date: '08/05/2024',
+        genre: 'Pop, Rock, Christian',
+        videoURL: 'https://music.youtube.com/watch?v=cXs5cMFaoww&list=RDAMVMZxP8g-bV7tM'
       }
-      // Adicione mais URLs de músicas aqui
-    ];
+    ]
 
     window['__onGCastApiAvailable'] = (isAvailable) => {
       if (isAvailable) {
-        initializeCastApi();
+        initializeCastApi()
       }
-    };
+    }
 
     function initializeCastApi() {
-      const context = cast.framework.CastContext.getInstance();
-      
+      const context = cast.framework.CastContext.getInstance()
+
       context.setOptions({
         receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
         autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-      });
+      })
 
       document.getElementById('castButton').addEventListener('click', () => {
-        let session = context.getCurrentSession();
+        let session = context.getCurrentSession()
         if (!session) {
           context.requestSession().then(() => {
-            session = context.getCurrentSession();
-            castMedia(session);
-          });
+            session = context.getCurrentSession()
+            castMedia(session)
+          })
         } else {
-          castMedia(session);
+          castMedia(session)
         }
-      });
+      })
 
       document.getElementById('playButton').addEventListener('click', () => {
         if (isCasting && mediaSession) {
-          mediaSession.play();
+          mediaSession.play()
         }
-      });
+      })
 
       document.getElementById('pauseButton').addEventListener('click', () => {
         if (isCasting && mediaSession) {
-          mediaSession.pause();
+          mediaSession.pause()
         }
-      });
+      })
 
       document.getElementById('nextButton').addEventListener('click', () => {
         if (isCasting) {
-          nextTrack();
+          nextTrack()
         }
-      });
+      })
 
       document.getElementById('prevButton').addEventListener('click', () => {
         if (isCasting) {
-          prevTrack();
+          prevTrack()
         }
-      });
+      })
+
+      document.getElementById('audioPlayer').addEventListener('volumechange', () => {
+        if (isCasting && mediaSession) {
+          const volume = document.getElementById('audioPlayer').volume
+          mediaSession.setVolumeLevel(volume)
+        }
+      })
+
+      document.getElementById('audioPlayer').addEventListener('timeupdate', () => {
+        if (isCasting && mediaSession) {
+          const currentTime = document.getElementById('audioPlayer').currentTime
+
+          try {
+            mediaSession.seek(currentTime)
+          } catch{}
+          updateSeekBar()
+        }
+      })
+
+     document.getElementById('seekBarInput').addEventListener('input', (event) => {
+      const seekTime = (event.target.value / 100) * document.getElementById('audioPlayer').duration
+      document.getElementById('audioPlayer').currentTime = seekTime
+      
+      if (isCasting && mediaSession) {
+        // Criar um objeto com a propriedade currentTime
+        const seekRequest = { currentTime: seekTime }
+        
+        // Verificar se mediaSession.seek existe antes de chamar
+        if (typeof mediaSession.seek === 'function') {
+          mediaSession.seek(seekRequest)
+        } else {
+          console.error('Método seek não disponível em mediaSession')
+        }
+      }
+    })
     }
 
     function castMedia(session) {
-      const mediaInfo = new chrome.cast.media.MediaInfo(trackList[currentTrackIndex].audio, 'video/mp4');
-      const metadata = new chrome.cast.media.MusicTrackMediaMetadata();
-      metadata.title = trackList[currentTrackIndex].title;
-      metadata.albumArt = [{ url: trackList[currentTrackIndex].image }];
-      mediaInfo.metadata = metadata;
-      const request = new chrome.cast.media.LoadRequest(mediaInfo);
-      session.loadMedia(request).then(
-        () => {
-          console.log('Mídia carregada com sucesso');
-          isCasting = true;
-          mediaSession = session.getMediaSession();
-          document.getElementById('audioPlayer').pause();
-          updateUI();
-        },
-        (errorCode) => console.error('Falha ao carregar mídia:', errorCode)
-      );
+      const currentTrack = trackList[currentTrackIndex]
+      const mediaInfo = new chrome.cast.media.MediaInfo(currentTrack.audio, 'audio/mp4')
+      const metadata = new chrome.cast.media.MusicTrackMediaMetadata()
+      metadata.title = currentTrack.title
+      metadata.artist = currentTrack.author
+      metadata.albumArtist = 'Various Artists'
+      metadata.albumName = currentTrack.title
+      mediaInfo.metadata = metadata
+      mediaInfo.streamType = chrome.cast.media.StreamType.BUFFERED
+      mediaInfo.metadata.images = [{ url: currentTrack.image }]
+      mediaInfo.metadata.title = currentTrack.title
+      mediaInfo.metadata.artist = currentTrack.author
+      mediaInfo.metadata.albumName = currentTrack.title
 
-      session.addEventListener(chrome.cast.SessionEventType.SESSION_STOPPED, () => {
-        isCasting = false;
-        mediaSession = null;
-        document.getElementById('audioPlayer').play();
-      });
+      const request = new chrome.cast.media.LoadRequest(mediaInfo)
+      session.loadMedia(request).then(() => {
+        mediaSession = session.getMediaSession()
+        isCasting = true
+        updateUI()
+      }).catch((error) => {
+        console.error('Erro ao carregar mídia: ', error)
+      })
     }
 
     function nextTrack() {
-      currentTrackIndex = (currentTrackIndex + 1) % trackList.length;
-      const session = cast.framework.CastContext.getInstance().getCurrentSession();
-      if (session) {
-        castMedia(session);
+      currentTrackIndex = (currentTrackIndex + 1) % trackList.length
+      const currentTrack = trackList[currentTrackIndex]
+      document.getElementById('audioPlayer').src = currentTrack.audio
+      updateUI()
+      const context = cast.framework.CastContext.getInstance()
+      let session = context.getCurrentSession()
+      if (!session) {
+        context.requestSession().then(() => {
+          session = context.getCurrentSession()
+          castMedia(session)
+        })
+      } else {
+        castMedia(session)
       }
     }
 
     function prevTrack() {
-      currentTrackIndex = (currentTrackIndex - 1 + trackList.length) % trackList.length;
-      const session = cast.framework.CastContext.getInstance().getCurrentSession();
-      if (session) {
-        castMedia(session);
+      currentTrackIndex = (currentTrackIndex - 1 + trackList.length) % trackList.length
+      const currentTrack = trackList[currentTrackIndex]
+      document.getElementById('audioPlayer').src = currentTrack.audio
+      updateUI()
+      const context = cast.framework.CastContext.getInstance()
+      let session = context.getCurrentSession()
+      if (!session) {
+        context.requestSession().then(() => {
+          session = context.getCurrentSession()
+          castMedia(session)
+        })
+      } else {
+        castMedia(session)
       }
     }
 
     function updateUI() {
-      document.getElementById('currentTrackImage').src = trackList[currentTrackIndex].image;
-      document.getElementById('currentTrackTitle').textContent = trackList[currentTrackIndex].title;
+      const currentTrack = trackList[currentTrackIndex]
+      document.getElementById('currentTrackImage').src = currentTrack.image
+      document.getElementById('currentTrackTitle').textContent = currentTrack.title
+      document.getElementById('currentTrackAuthor').textContent = `Autor: ${currentTrack.author}`
+      document.getElementById('currentTrackGenre').textContent = `Gênero: ${currentTrack.genre}`
+      document.getElementById('currentTrackDate').textContent = `Data: ${currentTrack.date}`
+      document.getElementById('currentTrackVideo').href = currentTrack.videoURL
+    }
+
+    function updateSeekBar() {
+      const audioPlayer = document.getElementById('audioPlayer')
+      const seekBarInput = document.getElementById('seekBarInput')
+      seekBarInput.value = (audioPlayer.currentTime / audioPlayer.duration) * 100
     }
   </script>
 </body>

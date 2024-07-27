@@ -649,4 +649,9 @@ div.btn_marcar_config div.boll_config {
 .Move {
   position: fixed;
   cursor: move;
+}
+
+.icone.active {
+  fill: var(--verde_azul) !important;
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(190deg) !important;
 }/*# sourceMappingURL=Geral.css.map */

@@ -291,7 +291,54 @@ let audio_player = document.getElementById('audio_player')
 
 //? Controlar inputs
 let cor_input_agora = '#fff'
+let timeout_atulizar_inputs_range
 function atualizar_cor_progresso_input(inputElement) {
+//     const err = new Error();
+//   const stack = err.stack || '';
+  
+//   // O stack trace pode variar entre navegadores. Normalmente, o primeiro item é o próprio erro e o segundo item é a função que chamou.
+//   // Extraímos a parte que contém o stack trace.
+//   const stackLines = stack.split('\n');
+  
+//   // Exibimos a segunda linha do stack trace que geralmente corresponde à chamada da função.
+//   console.log('Função chamada por:', stackLines[2]);
+
+    if(inputElement.className == 'input_range_musica') {
+        if (timeout_atulizar_inputs_range) {
+            clearTimeout(timeout_atulizar_inputs_range)
+        
+        }
+        timeout_atulizar_inputs_range = setTimeout(() => {
+            if (isCasting && mediaSession) {
+                let audio_certo = audio_player
+
+                let audios = document.querySelectorAll('.audios_transitions')
+                audios.forEach(element => {
+                    if(element.src == Listas_Prox.MusicaAtual.Audio) {
+                        audio_certo = element
+                    }  
+                })
+
+                let seekTime = audio_certo.currentTime
+
+                try {
+                    // Criar um objeto com a propriedade currentTime
+                    const seekRequest = { currentTime: seekTime }
+                    
+                    // Verificar se mediaSession.seek existe antes de chamar
+                    if (typeof mediaSession.seek === 'function') {
+                        mediaSession.seek(seekRequest)
+                    } else {
+                        console.error('Método seek não disponível em mediaSession')
+                    }
+                } catch (error) {
+                    console.warn('Algo de errado deu errado');
+                    console.error(error);
+                }
+            }
+        }, 500)
+    }
+
     var value = (inputElement.value-inputElement.min)/(inputElement.max-inputElement.min)*100;
 
     if(Tema_Atual_Pagina == 'Claro') {
@@ -301,17 +348,15 @@ function atualizar_cor_progresso_input(inputElement) {
         inputElement.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
     }
 
-    if(Device.Tipo == 'Mobile') {
-        document.getElementById('traco_barra_musica_cell').style.width = `${value}%`
-        const input_range_musica_cell = document.getElementById('input_range_musica_cell')
+    // if(Device.Tipo == 'Mobile' && inputElement.id == 'traco_barra_musica_cell') {
+    //     inputElement.style.width = `${value}%`
+    //     if(Tema_Atual_Pagina == 'Claro') {
+    //         inputElement.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
 
-        if(Tema_Atual_Pagina == 'Claro') {
-            input_range_musica_cell.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
-
-        } else {
-            input_range_musica_cell.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
-        }
-    }
+    //     } else {
+    //         inputElement.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
+    //     }
+    // }
 }
 
 let feito_musica_tocar = false
@@ -558,6 +603,11 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     if(Device.Tipo == 'Mobile' && pag_musica_tocando_aberta) {
         Ativar_Pag_Musica_Tocando(MusicaAtual)
+    }
+
+    //? --------------------------------- Cast --------------------------------------------
+    if (isCasting && mediaSession) {
+        nextTrack()
     }
 }
 
@@ -947,6 +997,7 @@ function Desativar_Pag_Musica_Tocando(Ativar_Barra=true) {
     pag_musica_tocando_aberta = false
     document.getElementById('pag_musica_tocando_agr').style.top = '100vh'
     setTimeout(() => {
+        scrollToTop(pag_musica_tocando_agr)
         pag_musica_tocando_agr.classList.remove('dark')
     }, 1000)
 
@@ -1115,6 +1166,21 @@ function Pausar() {
 
     btn_pausar_letra_sincronizar.querySelector('img').src = 'Assets/Imgs/botao_play_sem_fundo.png'
     btn_pausar_letra_sincronizar.title = 'Play'
+
+    //? --------------------------------- Cast --------------------------------------------
+    if (isCasting && mediaSession) {
+        mediaSession.pause()
+
+        let audio_certo = audio_player
+
+        let audios = document.querySelectorAll('.audios_transitions')
+        audios.forEach(element => {
+            if(element.src == Listas_Prox.MusicaAtual.Audio) {
+                audio_certo = element
+            }  
+        })
+        ajustarVolume(audio_certo, 0, 0)
+    }
 }
 
 function Play() {
@@ -1136,6 +1202,20 @@ function Play() {
     btn_pausar_letra_sincronizar.querySelector('img').src = 'Assets/Imgs/pausa_icon_sem_fundo.png'
     btn_pausar_letra_sincronizar.title = 'Pausar'
 
+    //? --------------------------------- Cast --------------------------------------------
+    if (isCasting && mediaSession) {
+        mediaSession.play()
+
+        let audio_certo = audio_player
+
+        let audios = document.querySelectorAll('.audios_transitions')
+        audios.forEach(element => {
+            if(element.src == Listas_Prox.MusicaAtual.Audio) {
+                audio_certo = element
+            }  
+        })
+        ajustarVolume(audio_certo, 0, 0)
+    }
 }
 
 let prox_ativo = false
@@ -1303,7 +1383,7 @@ input_volume_pc.onmouseleave = function() {
     atualizar_cor_progresso_input(this)
 }
 
-function Volume(volume = 0, input = undefined) {
+function Volume(volume = 0, input = undefined, Comando='') {
     let audio_certo = audio_player
 
     let audios = document.querySelectorAll('.audios_transitions')
@@ -1350,6 +1430,11 @@ function Volume(volume = 0, input = undefined) {
     //? Vai salvar o volume do local Storage
     localStorage.setItem('Volume_Melo_Wave', volume)
     atualizar_cor_progresso_input(input_volume_pc)
+
+    //? --------------------------------- Cast --------------------------------------------
+    if (isCasting && mediaSession) {
+        mediaSession.setVolumeLevel(volume)
+    }
 }
 
 if(Device.Tipo == 'Mobile') {

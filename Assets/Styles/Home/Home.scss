@@ -5132,6 +5132,18 @@ body {
                     justify-content: space-between;
                     margin-top: -35px;
 
+                    div {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        gap: 15px;
+
+                        img {
+                            width: 18px;
+                            height: 18px;
+                        }
+                    }
+
                     img {
                         width: 18px;
                         height: 18px;
@@ -5233,10 +5245,10 @@ body {
                         justify-content: space-between;
                         margin-top: 10px;
  
-                        span {
+                        span { 
                             color: var(--verde_azul) !important;
                             margin: 0;
-                        }
+                        } 
                     }
 
                     hr {

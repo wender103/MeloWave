@@ -750,3 +750,11 @@ div.btn_marcar_config {
     position: fixed;
     cursor: move;
 }
+
+//! Icones 
+.icone {
+    &.active {
+        fill: var(--verde_azul) !important;
+        filter: invert(1) sepia(1) saturate(5) hue-rotate(190deg) !important;
+    }
+}

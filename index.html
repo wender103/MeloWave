@@ -1134,7 +1134,7 @@
 
                 <div id="container_barra">
                     <p id="contador_segundos_musica"></p>
-                    <input type="range" min="0" max="100" value="0" id="input_range_musica_pc">
+                    <input type="range" min="0" max="100" value="0" id="input_range_musica_pc" class="input_range_musica">
                     <p id="tempo_max_musica"></p>
                 </div>
             </div>
@@ -1143,7 +1143,7 @@
                 <img src="Assets/Imgs/Mic.svg" onclick="Abrir_Ver_Letra_PC()" class="img_btn_mic_letra icone">
                 <img src="Assets/Imgs/icon_tela_tocando_agora.png" class="img_btn_tela_tocando_agora icone" onclick="Abrir_Tela_Tocando_Agora()">
                 <img src="Assets/Imgs/Fila.svg" onclick="Abrir_Fila()" class="icone">
-                <img src="Assets/Imgs/Pc.svg" class="icone">
+                <img src="Assets/Imgs/Pc.svg" class="icone Btn_Cast_Google">
 
                 <div class="container_icon_som">
                     <div id="container_icon_volume">
@@ -1206,7 +1206,7 @@
 
                 <div id="container_barra_pag_musica_tocando_agora">
                     <span id="contador_segundos_musica_pag_musica_tocando_agora">4:16</span>
-                    <input type="range" min="0" max="100" value="36" id="input_range_musica_cell">
+                    <input type="range" min="0" max="100" value="36" id="input_range_musica_cell" class="input_range_musica">
                     <span id="tempo_max_musica_pag_musica_tocando_agora">6:23</span>
                 </div>
 
@@ -1220,7 +1220,11 @@
                 </div>
 
                 <div id="conatiner_btns_compartilhar_pag_musica_tocando_agora">
-                    <img src="Assets/Imgs/Share.png" id="btn_compartilhar_pag_musica_tocando_agora" class="icone_pag_cell">
+                    <div>
+                        <img src="Assets/Imgs/Share.png" id="btn_compartilhar_pag_musica_tocando_agora" class="icone_pag_cell">
+                        <img src="Assets/Imgs/Pc.svg" class="icone Btn_Cast_Google">
+                    </div>
+                    
                     <img src="Assets/Imgs/Maximizar.svg" id="btn_tela_cheia_cell" class="icone_pag_cell">
                 </div>
             </div>
@@ -1287,7 +1291,7 @@
 
             <div id="barra_musica_fullscreen">
                 <p id="contador_segundos_musica_fullscreen">0:00</p>
-                <input type="range" min="0" max="100" value="0" id="input_range_musica_pc_fullscreen">
+                <input type="range" min="0" max="100" value="0" id="input_range_musica_pc_fullscreen" class="input_range_musica">
                 <p id="tempo_max_musica_fullscreen">3:37</p>
             </div>
 
@@ -1448,9 +1452,13 @@
     <script src="Assets/Js/Firebase/Firebase.js"></script>
 
     <!--? Extras -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script> 
+    <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script> 
 
     <!--? My Scripts -->
+
+    <!--* Cast Google -->
+    <script src="Assets/Js/Cast/Cast.js"></script>
 
     <!--* Cadastro -->
     <script src="Assets/Js/Firebase/Cadastro.js"></script>

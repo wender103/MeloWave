@@ -944,15 +944,33 @@ function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'd
                 const percentProgress = (audioPlayer.currentTime / audioPlayer.duration) * 100
                 const inputRangeMusicaPC = document.getElementById('input_range_musica_pc')
                 const inputRangeMusicaPCFullscreen = document.getElementById('input_range_musica_pc_fullscreen')
+                const input_range_musica_cell = document.getElementById('input_range_musica_cell')
+                const traco_barra_musica_cell = document.getElementById('traco_barra_musica_cell')
+
+                let audio_certo = audio_player
+
+                let audios = document.querySelectorAll('.audios_transitions')
+                audios.forEach(element => {
+                    if(element.src == Listas_Prox.MusicaAtual.Audio) {
+                        audio_certo = element
+                    }  
+                })
                 
-                if (inputRangeMusicaPC) {
-                    inputRangeMusicaPC.value = percentProgress
-                    atualizar_cor_progresso_input(inputRangeMusicaPC)
-                }
-                
-                if (inputRangeMusicaPCFullscreen) {
-                    inputRangeMusicaPCFullscreen.value = percentProgress
-                    atualizar_cor_progresso_input(inputRangeMusicaPCFullscreen)
+                if(!audio_certo.paused) {
+                    if(Device.Tipo != 'Mobile') {
+                        if (fullscreen_aberta) {
+                            inputRangeMusicaPCFullscreen.value = percentProgress
+                            atualizar_cor_progresso_input(inputRangeMusicaPCFullscreen)
+                        } else {
+                            inputRangeMusicaPC.value = percentProgress
+                            atualizar_cor_progresso_input(inputRangeMusicaPC)
+                        }
+
+                    } else {
+                        traco_barra_musica_cell.style.width = `${percentProgress}%`
+                        input_range_musica_cell.value = percentProgress
+                        atualizar_cor_progresso_input(input_range_musica_cell)
+                    }
                 }
             }
         }
@@ -961,6 +979,7 @@ function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'd
             if (!audioPlayer.paused || audioPlayer.currentTime > 0) {
                 processTime()
             } else {
+                audioPlayer.removeEventListener('play', processTime, { once: true })
                 audioPlayer.addEventListener('play', processTime, { once: true })
                 audioPlayer.play().then(() => {
                     audioPlayer.pause()
@@ -970,13 +989,14 @@ function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'd
             if (audioPlayer.duration) {
                 processTime()
             } else {
+                audioPlayer.removeEventListener('loadedmetadata', processTime, { once: true })
                 audioPlayer.addEventListener('loadedmetadata', processTime, { once: true })
             }
         }
 
-        audioPlayer.addEventListener('error', (e) => {
-            reject(e)
-        })
+        // audioPlayer.addEventListener('error', (e) => {
+        //     reject(e)
+        // })
     })
 }
 
@@ -1426,4 +1446,12 @@ function alterarTransparencia(cor, transparencia) {
     }
 
     throw new Error('Formato de cor inválido')
+}
+
+//! Srolla ao Topo
+function scrollToTop(element) {
+  element.scrollTo({
+    top: 0,
+    behavior: 'smooth' // ? Isso faz com que o scroll seja suave
+  })
 }

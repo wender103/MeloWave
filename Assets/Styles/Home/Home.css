@@ -652,6 +652,11 @@ div.btn_marcar_config div.boll_config {
   cursor: move;
 }
 
+.icone.active {
+  fill: var(--verde_azul) !important;
+  filter: invert(1) sepia(1) saturate(5) hue-rotate(190deg) !important;
+}
+
 html {
   max-height: 100vh;
   overflow: hidden;
@@ -4926,6 +4931,16 @@ body section#pag_musica_tocando_agr article#container_parte_musica div#container
   align-items: center;
   justify-content: space-between;
   margin-top: -35px;
+}
+body section#pag_musica_tocando_agr article#container_parte_musica div#container_main_pag_musica_tocando_agora div#conatiner_btns_compartilhar_pag_musica_tocando_agora div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+body section#pag_musica_tocando_agr article#container_parte_musica div#container_main_pag_musica_tocando_agora div#conatiner_btns_compartilhar_pag_musica_tocando_agora div img {
+  width: 18px;
+  height: 18px;
 }
 body section#pag_musica_tocando_agr article#container_parte_musica div#container_main_pag_musica_tocando_agora div#conatiner_btns_compartilhar_pag_musica_tocando_agora img {
   width: 18px;
