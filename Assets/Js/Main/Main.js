@@ -19,12 +19,6 @@ function Atualizar_Tamanho_Tela() {
         document.querySelector('#pag_musica_tocando_agr').style.height = `${altura}px`
         document.querySelector('#container_parte_musica').style.height = `${altura - 100}px`
         document.querySelector('#container_background_container_parte_musica').style.height = `${altura - 100}px`
-
-        const gradient_bg = document.querySelectorAll('.gradient-bg')
-        gradient_bg.forEach(element => {
-            element.remove()  
-        })
-
     } else {
         document.querySelector('body').style.width = `100vw`
         document.querySelector('body').style.height = `100vh`

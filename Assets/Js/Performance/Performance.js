@@ -125,46 +125,46 @@ function Modo_Desempenho(Ativar=true) {
 }
 
 function Retornar_Background_Animado() {
-    let tem_cores = false
-    if(Listas_Prox.MusicaAtual.Cores != undefined) {
-        if(Listas_Prox.MusicaAtual.Cores.length > 0) {
-            tem_cores = true
-        }
-    }
+    // let tem_cores = false
+    // if(Listas_Prox.MusicaAtual.Cores != undefined) {
+    //     if(Listas_Prox.MusicaAtual.Cores.length > 0) {
+    //         tem_cores = true
+    //     }
+    // }
 
-    if(ultimo_nivel_desempenho != Infos_Desempenho.Niveis_Desempenho && tem_cores && ultima_musica_tocando != Listas_Prox.MusicaAtual.ID) {
-        const gradients_container = document.querySelectorAll('.gradients-container')
-        gradients_container.forEach(gradiente_container => {
-            gradiente_container.innerHTML = ''
+    // if(ultimo_nivel_desempenho != Infos_Desempenho.Niveis_Desempenho && tem_cores && ultima_musica_tocando != Listas_Prox.MusicaAtual.ID) {
+    //     const gradients_container = document.querySelectorAll('.gradients-container')
+    //     gradients_container.forEach(gradiente_container => {
+    //         gradiente_container.innerHTML = ''
 
-            for (let c = 0; c < 5; c++) {
-                const esferas_animacao_letra = document.createElement('div')
-                esferas_animacao_letra.className = 'esferas_animacao_letra'
-                gradiente_container.appendChild(esferas_animacao_letra)
-            }
+    //         for (let c = 0; c < 5; c++) {
+    //             const esferas_animacao_letra = document.createElement('div')
+    //             esferas_animacao_letra.className = 'esferas_animacao_letra'
+    //             gradiente_container.appendChild(esferas_animacao_letra)
+    //         }
 
-            const interactive = document.createElement('div')
-            interactive.className = 'interactive'
-            gradiente_container.appendChild(interactive)
-        })
+    //         const interactive = document.createElement('div')
+    //         interactive.className = 'interactive'
+    //         gradiente_container.appendChild(interactive)
+    //     })
 
-        updateColors(Listas_Prox.MusicaAtual.Cores)
-        ultimo_nivel_desempenho = Infos_Desempenho.Niveis_Desempenho
-        ultima_musica_tocando = Listas_Prox.MusicaAtual.ID
-    }
+    //     updateColors(Listas_Prox.MusicaAtual.Cores)
+    //     ultimo_nivel_desempenho = Infos_Desempenho.Niveis_Desempenho
+    //     ultima_musica_tocando = Listas_Prox.MusicaAtual.ID
+    // }
 }
 
 function Remover_Background_Animado() {
-    if(ultimo_nivel_desempenho != Infos_Desempenho.Niveis_Desempenho) {
-        const gradients_container = document.querySelectorAll('.gradients-container')
-        gradients_container.forEach(gradiente_container => {
-            const esferas_animacao_letra = gradiente_container.querySelectorAll('.esferas_animacao_letra')
-            esferas_animacao_letra.forEach(element => {
-                element.remove()
-            })
-        })
+    // if(ultimo_nivel_desempenho != Infos_Desempenho.Niveis_Desempenho) {
+    //     const gradients_container = document.querySelectorAll('.gradients-container')
+    //     gradients_container.forEach(gradiente_container => {
+    //         const esferas_animacao_letra = gradiente_container.querySelectorAll('.esferas_animacao_letra')
+    //         esferas_animacao_letra.forEach(element => {
+    //             element.remove()
+    //         })
+    //     })
 
-        ultimo_nivel_desempenho = Infos_Desempenho.Niveis_Desempenho
-        Remover_Opacidade_Das_Cores_Fundo_Interativo()
-    }
+    //     ultimo_nivel_desempenho = Infos_Desempenho.Niveis_Desempenho
+    //     Remover_Opacidade_Das_Cores_Fundo_Interativo()
+    // }
 }
