@@ -344,7 +344,7 @@ function Salvar_Edicao_Musica() {
                                     if(element.classList.contains(`Musica_Linha_${musica_editando_meu_perfil.ID}`)) {
                                         const primeira_parte = element.querySelector('.primeira_parte_musica_linha')
                                         const texto_musica_linha = primeira_parte.querySelector('.texto_musica_linha')
-                                        primeira_parte.querySelector('.Img_musica_linha').src = TodasMusicas[c].Img
+                                        primeira_parte.querySelector('.Img_musica_linha').src = TodasMusicas[c].Imagens[0]
                                         texto_musica_linha.querySelector('.Nome_musica_linha').innerText = TodasMusicas[c].Nome
                                         texto_musica_linha.querySelector('.Autor_Musica_Linha').innerHTML = ''
                                         texto_musica_linha.querySelector('.Autor_Musica_Linha').appendChild(Retornar_Artistas_Da_Musica(TodasMusicas[c]))

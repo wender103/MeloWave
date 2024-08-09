@@ -238,7 +238,7 @@ function Retornar_Musicas(Musicas_Recebidas, Local) {
             img.className = 'Img_musica_caixa'
     
             //! Valores
-            img.src = Musicas[c].Img
+            img.src = Musicas[c].Imagens[1]
             img.loading = 'lazy'
             p.innerText = Musicas[c].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
@@ -394,7 +394,7 @@ function Retornar_Melhor_Resultado(Musica, Tipo) {
     document.getElementById('musicas_linha_melhor_resultado').innerHTML = ''
 
     const resultado = encontrarArtistas(Separar_Por_Virgula(Musica.Autor), input_pesquisar.value)
-    document.getElementById('img_melhor_resultado').src = Musica.Img
+    document.getElementById('img_melhor_resultado').src = Musica.Imagens[1]
     document.getElementById('nome_melhor_resultado').innerText = resultado.nomeMaisProximo
     document.getElementById('tipo_melhor_resultado').innerText = Tipo
 
@@ -426,7 +426,7 @@ function Retornar_Melhor_Resultado(Musica, Tipo) {
                 like.className = 'like_musicas_linha icone'
     
                 //! Valores
-                img.src = Musicas[c].Img
+                img.src = Musicas[c].Imagens[0]
                 img.loading = 'lazy'
                 p.innerText = Musicas[c].Nome
                 span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
@@ -513,7 +513,7 @@ function Retornar_Todas_Secoes() {
                     }
     
                     h1_genero.innerText = Todos_Os_Generos[c]
-                    img.src = TodasMusicas[b].Img
+                    img.src = TodasMusicas[b].Imagens[1]
                     img.loading = 'lazy'
     
                     container_genero_secao.appendChild(h1_genero)
@@ -686,14 +686,14 @@ function Retornar_Playlists(Lista, Local) {
             container_img_playlist_playlist.appendChild(img_so)
 
         } else if(musicas_playlist.length <= 3) {
-            img_so.src = musicas_playlist[0].Img
+            img_so.src = musicas_playlist[0].Imagens[1]
             container_img_playlist_playlist.appendChild(img_so)
 
         } else {
 
             for (let b = 0; b < 4; b++) {
                 const img = document.createElement('img')
-                img.src = musicas_playlist[b].Img
+                img.src = musicas_playlist[b].Imagens[1]
                 container_img_playlist_playlist.classList.add('active')
                 container_img_playlist_playlist.appendChild(img)
                 img.loading = 'lazy'

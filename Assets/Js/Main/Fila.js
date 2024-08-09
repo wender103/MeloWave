@@ -93,7 +93,7 @@ function Atualizar_Fila(Info) {
     const nome_tocando_agora_fila = document.getElementById('nome_tocando_agora_fila')
     const autor_tocando_agora_fila = document.getElementById('autor_tocando_agora_fila')
 
-    img_tocando_agora_fila.src = Listas_Prox.MusicaAtual.Img
+    img_tocando_agora_fila.src = Listas_Prox.MusicaAtual.Imagens[0]
     nome_tocando_agora_fila.innerText = Listas_Prox.MusicaAtual.Nome
     autor_tocando_agora_fila.innerHTML = ''
     autor_tocando_agora_fila.appendChild(Retornar_Artistas_Da_Musica(Listas_Prox.MusicaAtual))
@@ -150,7 +150,7 @@ function Atualizar_Fila(Info) {
                 const config = document.createElement('p')
 
                 img.loading = 'lazy'
-                img.src = TodasMusicas[b].Img
+                img.src = TodasMusicas[b].Imagens[0]
                 musica_resulmo.classList.add('musica_resulmo')
 
                 if(Modo.includes('Próximas')) {
@@ -336,7 +336,7 @@ function Removar_Varios_Fila(Musicas_Recebidas, Musica_Clicada) {
     const nome_tocando_agora_fila = document.getElementById('nome_tocando_agora_fila')
     const autor_tocando_agora_fila = document.getElementById('autor_tocando_agora_fila')
 
-    img_tocando_agora_fila.src = Musica_Clicada.Img
+    img_tocando_agora_fila.src = Musica_Clicada.Imagens[0]
     nome_tocando_agora_fila.innerText = Musica_Clicada.Nome
     autor_tocando_agora_fila.innerHTML = ''
     autor_tocando_agora_fila.appendChild(Retornar_Artistas_Da_Musica(Musica_Clicada))

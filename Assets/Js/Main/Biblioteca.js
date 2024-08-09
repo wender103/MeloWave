@@ -138,7 +138,7 @@ function Artistas_Biblioteca(Autor) {
     container_texto_item_biblioteca.classList.add('container_texto_item_biblioteca')
 
     img.loading = 'lazy'
-    img.src = musica_mais_view.Img
+    img.src = musica_mais_view.Imagens[1]
     span.innerText = 'Artista'
     p.innerText = Autor
 
@@ -190,11 +190,11 @@ function Playlist_Biblioteca(Playlist_Recebida) {
     span.innerText = 'Playlist'
 
     if(Playlist_Carregar.Img != null) {
-        img_so.src = Playlist_Carregar.Img
+        img_so.src = Playlist_Carregar.Imagens[1]
         container_img_playlist_playlist.appendChild(img_so)
 
     } else if(Playlist_Carregar.Musicas.length <= 3) {
-        img_so.src = musicas_playlist[0].Img
+        img_so.src = musicas_playlist[0].Imagens[1]
         container_img_playlist_playlist.appendChild(img_so)
 
     } else {
@@ -202,7 +202,7 @@ function Playlist_Biblioteca(Playlist_Recebida) {
         for (let b = 0; b < 4; b++) {
             const img = document.createElement('img')
             img.loading = 'lazy'
-            img.src = musicas_playlist[b].Img
+            img.src = musicas_playlist[b].Imagens[1]
             container_img_playlist_playlist.classList.add('active')
             container_img_playlist_playlist.appendChild(img)
         }

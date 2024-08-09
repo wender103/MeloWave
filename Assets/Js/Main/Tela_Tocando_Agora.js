@@ -11,7 +11,7 @@ function Carregar_Tela_Tocando_Agora(Musica) {
     infos_artistas_musica_tela_musica_tocando = []
     const container_letra_tela_tocando_agora = document.getElementById('container_letra_tela_tocando_agora')
     document.getElementById('carousel_telta_tocando_agora').innerHTML = ''
-    document.getElementById('img_musica_tela_tocando_agora').src = Musica.Img
+    document.getElementById('img_musica_tela_tocando_agora').src = Musica.Imagens[1]
     document.getElementById('nome_musica_tela_tocando_agora').innerText = Musica.Nome
     document.getElementById('nome_artistas_tela_tocando_agora').innerHTML = ''
     document.getElementById('nome_artistas_tela_tocando_agora').appendChild(Retornar_Artistas_Da_Musica(Musica))
@@ -65,7 +65,7 @@ function Carregar_Tela_Tocando_Agora(Musica) {
                 musica_artista_encontrada = true
                 user_encontrado = true
                 carousel_item_containder_telta_tocando_agora.classList.add('carousel_item_telta_tocando_agora')
-                carousel_item_telta_tocando_agora.src = TodasMusicas[contador2].Img
+                carousel_item_telta_tocando_agora.src = TodasMusicas[contador2].Imagens[1]
 
                 let new_infos = {
                     Artista: array_artistas[contador],

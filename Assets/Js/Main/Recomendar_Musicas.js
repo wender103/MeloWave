@@ -184,7 +184,7 @@ function Retornar_Daily() {
                 img.className = 'Img_daily_caixa'    
 
                 //! Valores
-                img.src = array_daily[array_daily.length -1].Img
+                img.src = array_daily[array_daily.length -1].Imagens[1]
                 p.innerText = `Seu Mix ${Todos_Os_Generos_Historico[qts_vezes_chamadaS_feito_pra_voce - 1]}`
                 p_daily.innerText = `Mix ${Todos_Os_Generos_Historico[qts_vezes_chamadaS_feito_pra_voce - 1]}`
 
@@ -354,7 +354,7 @@ function Retornar_Artistas_Caixa(Artista) {
     span.innerText = 'Artista'
     p.innerText = Artista
     try {
-        img.src = musicas_artista[0].Img
+        img.src = musicas_artista[0].Imagens[1]
         img.loading = 'lazy'
         
     } catch{}
@@ -551,7 +551,7 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
                             for (let g = 0; g < 4; g++) {
                                 const img = document.createElement('img')
                                 img.loading = 'lazy'
-                                img.src = Musicas_Playlist[g].Img
+                                img.src = Musicas_Playlist[g].Imagens[0]
                                 img_container.appendChild(img)
                             }
                             img_container.classList.add('Active')

@@ -115,7 +115,7 @@ function Artistas_Seguindo(Autor) {
     img.style.width = '100%'
     img.style.height = '100%'
 
-    img.src = musica_mais_view.Img
+    img.src = musica_mais_view.Imagens[0]
     img.loading = 'lazy'
 
     container_img_item_biblioteca.appendChild(img)
@@ -156,11 +156,11 @@ function Playlist_Seguindo(Playlist_Recebida) {
     img_so.loading = 'lazy'
 
     if(Playlist_Carregar.Img != null) {
-        img_so.src = Playlist_Carregar.Img
+        img_so.src = Playlist_Carregar.Imagens[0]
         container_img_playlist_playlist.appendChild(img_so)
 
     } else if(Playlist_Carregar.Musicas.length <= 3) {
-        img_so.src = musicas_playlist[0].Img
+        img_so.src = musicas_playlist[0].Imagens[0]
         container_img_playlist_playlist.appendChild(img_so)
 
     } else {
@@ -168,7 +168,7 @@ function Playlist_Seguindo(Playlist_Recebida) {
         for (let b = 0; b < 4; b++) {
             const img = document.createElement('img')
             img.loading = 'lazy'
-            img.src = musicas_playlist[b].Img
+            img.src = musicas_playlist[b].Imagens[0]
             container_img_playlist_playlist.classList.add('active')
             container_img_playlist_playlist.appendChild(img)
         }

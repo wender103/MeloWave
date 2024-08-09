@@ -341,7 +341,7 @@ function Pesquisar_Musica_Incrementar(Pesquisa='') {
         
                 //! Valores
                 img.loading = 'lazy'
-                img.src = array_musicas_encontradas[c].Img
+                img.src = array_musicas_encontradas[c].Imagens[0]
                 p.innerText = array_musicas_encontradas[c].Nome
                 span.appendChild(Retornar_Artistas_Da_Musica(array_musicas_encontradas[c]))
                 p_contador.innerText = c + 1
@@ -652,7 +652,7 @@ function Retornar_Musicas_Adicionadas_Criar_Playlist() {
     
             //! Valores
             img.loading = 'lazy'
-            img.src = musicas_nova_playlist[c].Img
+            img.src = musicas_nova_playlist[c].Imagens[0]
             p.innerText = musicas_nova_playlist[c].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(musicas_nova_playlist[c]))
             p_contador.innerText = c + 1

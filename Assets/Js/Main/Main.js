@@ -906,7 +906,7 @@ function Ativar_Barra_Musica_Cell(Musica=Listas_Prox.MusicaAtual) {
         container_barra_musica_cell.classList.remove('escuro')
     }
     
-    document.getElementById('img_musica_barra_cell').src = Musica.Img
+    document.getElementById('img_musica_barra_cell').src = Musica.Imagens[0]
     document.getElementById('nome_musica_barra_musica_cell').innerText = Musica.Nome
     document.getElementById('autor_musica_barra_musica_cell').innerText = Musica.Autor
 }
@@ -967,8 +967,8 @@ function Ativar_Pag_Musica_Tocando(Musica=Listas_Prox.MusicaAtual) {
         })
     }
 
-    document.getElementById('background_container_parte_musica').style.backgroundImage = `url("${Musica.Img}")`
-    document.getElementById('img_musica_pag_tocando_agora').src = Musica.Img
+    document.getElementById('background_container_parte_musica').style.backgroundImage = `url("${Musica.Imagens[2]}")`
+    document.getElementById('img_musica_pag_tocando_agora').src = Musica.Imagens[1]
     document.getElementById('nome_musica_pag_tocando_agora').innerText = Musica.Nome
     document.getElementById('nome_autores_musica_pag_tocando_agora').innerHTML = ''
     document.getElementById('nome_autores_musica_pag_tocando_agora').appendChild(Retornar_Artistas_Da_Musica(Musica))
@@ -1531,7 +1531,7 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
     
             //! Valores
             img.loading = 'lazy'
-            img.src = Musicas[c].Img
+            img.src = Musicas[c].Imagens[0]
             p.innerText = Musicas[c].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
             p_contador.innerText = c + 1

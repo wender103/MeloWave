@@ -617,7 +617,7 @@ function Retornar_Musicas_Match(Users) {
 
         //! Valores
         img.loading = 'lazy'
-        img.src = todas_musicas_match[c].Img
+        img.src = todas_musicas_match[c].Imagens[0]
         p.innerText = todas_musicas_match[c].Nome
         span.appendChild(Retornar_Artistas_Da_Musica(todas_musicas_match[c]))
         p_contador.innerText = c + 1
@@ -787,7 +787,7 @@ function Pesquisar_Matchs(Pesquisa) {
     
             //! Valores
             img.loading = 'lazy'
-            img.src = array_musicas[c].Img
+            img.src = array_musicas[c].Imagens[0]
             p.innerText = array_musicas[c].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(array_musicas[c]))
             p_contador.innerText = c + 1

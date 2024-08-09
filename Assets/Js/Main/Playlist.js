@@ -176,8 +176,8 @@ function Abrir_Playlist(ID_PLaylist) {
             const img2 = document.createElement('img')
             img.loading = 'lazy'
             img2.loading = 'lazy'
-            img.src = musicas_playlist[0].Img
-            img2.src = musicas_playlist[0].Img
+            img.src = musicas_playlist[0].Imagens[1]
+            img2.src = musicas_playlist[0].Imagens[1]
             container_imgs_criar_playlist_page.appendChild(img)
             container_imgs_playlist_zoom.appendChild(img2)
     
@@ -189,8 +189,8 @@ function Abrir_Playlist(ID_PLaylist) {
 
                 img.loading = 'lazy'
                 img2.loading = 'lazy'
-                img.src = musicas_playlist[b].Img
-                img2.src = musicas_playlist[b].Img
+                img.src = musicas_playlist[b].Imagens[1]
+                img2.src = musicas_playlist[b].Imagens[1]
                 container_imgs_criar_playlist_page.classList.add('active')
                 container_imgs_playlist_zoom.className = 'active'
                 container_imgs_criar_playlist_page.appendChild(img)
@@ -338,7 +338,7 @@ function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
 
         //! Valores
         img.loading = 'lazy'
-        img.src = Musicas_Playlist[c].Musica.Img
+        img.src = Musicas_Playlist[c].Musica.Imagens[0]
         p.innerText = Musicas_Playlist[c].Musica.Nome
         span.appendChild(Retornar_Artistas_Da_Musica(Musicas_Playlist[c].Musica))
         p_contador.innerText = c + 1
