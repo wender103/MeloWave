@@ -231,6 +231,7 @@ const container_header_img_musicas_curtidas = document.getElementById('container
 container_header_img_musicas_curtidas.addEventListener('click', () => {
     const container_imgs_playlist_zoom = document.getElementById('container_imgs_playlist_zoom')
     const img = document.createElement('img')
+    img.loading = 'lazy'
     img.src = container_header_img_musicas_curtidas.querySelector('img').src
     container_imgs_playlist_zoom.innerHTML = ''
     container_imgs_playlist_zoom.appendChild(img)

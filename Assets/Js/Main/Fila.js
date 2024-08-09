@@ -149,6 +149,7 @@ function Atualizar_Fila(Info) {
                 const span = document.createElement('span')
                 const config = document.createElement('p')
 
+                img.loading = 'lazy'
                 img.src = TodasMusicas[b].Img
                 musica_resulmo.classList.add('musica_resulmo')
 

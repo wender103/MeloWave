@@ -116,6 +116,7 @@ function Artistas_Seguindo(Autor) {
     img.style.height = '100%'
 
     img.src = musica_mais_view.Img
+    img.loading = 'lazy'
 
     container_img_item_biblioteca.appendChild(img)
     container_item_biblioteca.appendChild(container_img_item_biblioteca)
@@ -152,6 +153,8 @@ function Playlist_Seguindo(Playlist_Recebida) {
     container_playlist.classList.add('container_playlist_playlist')
     container_img_playlist_playlist.classList.add('container_img_playlist_playlist')
 
+    img_so.loading = 'lazy'
+
     if(Playlist_Carregar.Img != null) {
         img_so.src = Playlist_Carregar.Img
         container_img_playlist_playlist.appendChild(img_so)
@@ -164,6 +167,7 @@ function Playlist_Seguindo(Playlist_Recebida) {
 
         for (let b = 0; b < 4; b++) {
             const img = document.createElement('img')
+            img.loading = 'lazy'
             img.src = musicas_playlist[b].Img
             container_img_playlist_playlist.classList.add('active')
             container_img_playlist_playlist.appendChild(img)
@@ -198,6 +202,7 @@ function Retornar_User_Seguindo(Email) {
             nome_user.innerText = Todos_Usuarios[c].Nome
             span.innerText = 'Perfil'
             img.src = Todos_Usuarios[c].Perfil.Img_Perfil
+            img.loading = 'lazy'
 
             //! AppendChild
             div_container_img.appendChild(img)

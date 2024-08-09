@@ -246,6 +246,7 @@ function Checar_Notificacao_Artista_Seguindo() {
             like.className = 'like_musicas_linha icone'
 
             //! Valores
+            img.loading = 'lazy'
             img.src = array_novidades[c].Musicas[b].Img
             p.innerText = array_novidades[c].Musicas[b].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(array_novidades[c].Musicas[b]))
@@ -337,6 +338,7 @@ function Checar_Notificacao_Artista_Seguindo() {
             like.className = 'like_musicas_linha icone'
 
             //! Valores
+            img.loading = 'lazy'
             img.src = array_antiguidades[c].Musicas[b].Img
             p.innerText = array_antiguidades[c].Musicas[b].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(array_antiguidades[c].Musicas[b]))

@@ -134,6 +134,7 @@ function Abrir_Playlist(ID_PLaylist) {
         let z_index_imgs = Participantes_PLaylist.length
         for (let c = 0; c < Participantes_PLaylist.length; c++) {
             const img = document.createElement('img')
+            img.loading = 'lazy'
             img.src = Participantes_PLaylist[c].Perfil.Img_Perfil
             img.style.zIndex = z_index_imgs
             container_imgs_header_playlist_page.appendChild(img)
@@ -161,8 +162,10 @@ function Abrir_Playlist(ID_PLaylist) {
             container_imgs_playlist_zoom.className = ''
             const img = document.createElement('img')
             const img2 = document.createElement('img')
+            img.loading = 'lazy'
             img.src = Playlist.Img
             img2.src = Playlist.Img
+            img2.loading = 'lazy'
             container_imgs_criar_playlist_page.appendChild(img)
             container_imgs_playlist_zoom.appendChild(img2)
     
@@ -171,6 +174,8 @@ function Abrir_Playlist(ID_PLaylist) {
             container_imgs_playlist_zoom.className = 'active'
             const img = document.createElement('img')
             const img2 = document.createElement('img')
+            img.loading = 'lazy'
+            img2.loading = 'lazy'
             img.src = musicas_playlist[0].Img
             img2.src = musicas_playlist[0].Img
             container_imgs_criar_playlist_page.appendChild(img)
@@ -181,6 +186,9 @@ function Abrir_Playlist(ID_PLaylist) {
             for (let b = 0; b < 4; b++) {
                 const img = document.createElement('img')
                 const img2 = document.createElement('img')
+
+                img.loading = 'lazy'
+                img2.loading = 'lazy'
                 img.src = musicas_playlist[b].Img
                 img2.src = musicas_playlist[b].Img
                 container_imgs_criar_playlist_page.classList.add('active')
@@ -329,6 +337,7 @@ function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
         img_perfil.className = 'img_perfil_playlist'
 
         //! Valores
+        img.loading = 'lazy'
         img.src = Musicas_Playlist[c].Musica.Img
         p.innerText = Musicas_Playlist[c].Musica.Nome
         span.appendChild(Retornar_Artistas_Da_Musica(Musicas_Playlist[c].Musica))

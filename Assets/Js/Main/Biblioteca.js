@@ -137,6 +137,7 @@ function Artistas_Biblioteca(Autor) {
     container_img_item_biblioteca.classList.add('container_img_item_biblioteca')
     container_texto_item_biblioteca.classList.add('container_texto_item_biblioteca')
 
+    img.loading = 'lazy'
     img.src = musica_mais_view.Img
     span.innerText = 'Artista'
     p.innerText = Autor
@@ -183,6 +184,7 @@ function Playlist_Biblioteca(Playlist_Recebida) {
     container_img_playlist_playlist.classList.add('container_img_playlist_playlist')
     container_texto_playlist.classList.add('container_texto_playlist')
 
+    img_so.loading = 'lazy'
     p.innerText = Playlist_Carregar.Nome
 
     span.innerText = 'Playlist'
@@ -199,6 +201,7 @@ function Playlist_Biblioteca(Playlist_Recebida) {
 
         for (let b = 0; b < 4; b++) {
             const img = document.createElement('img')
+            img.loading = 'lazy'
             img.src = musicas_playlist[b].Img
             container_img_playlist_playlist.classList.add('active')
             container_img_playlist_playlist.appendChild(img)
@@ -236,6 +239,7 @@ function Retornar_User_Seguindo(Email) {
             nome_user.innerText = Todos_Usuarios[c].Nome
             span.innerText = 'Perfil'
             img.src = Todos_Usuarios[c].Perfil.Img_Perfil
+            img.loading = 'lazy'
 
             //! AppendChild
             div_container_img.appendChild(img)

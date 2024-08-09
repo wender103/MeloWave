@@ -1530,6 +1530,7 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
             img_carrinho_editar.className = 'img_carrinho_editar icone'
     
             //! Valores
+            img.loading = 'lazy'
             img.src = Musicas[c].Img
             p.innerText = Musicas[c].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))

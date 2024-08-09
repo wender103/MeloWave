@@ -70,6 +70,7 @@ function Carregar_Editar_Playlist(ID_PLaylist) {
     let z_index_imgs = Participantes_PLaylist.length
     for (let c = 0; c < Participantes_PLaylist.length; c++) {
         const img = document.createElement('img')
+        img.loading = 'lazy'
         img.src = Participantes_PLaylist[c].Perfil.Img_Perfil
         img.style.zIndex = z_index_imgs
         container_imgs_header_criarplaylist.appendChild(img)
@@ -339,6 +340,7 @@ function Pesquisar_Musica_Incrementar(Pesquisa='') {
                 adicionar_remover.className = 'adicionar_remover_musica_criarplaylist'
         
                 //! Valores
+                img.loading = 'lazy'
                 img.src = array_musicas_encontradas[c].Img
                 p.innerText = array_musicas_encontradas[c].Nome
                 span.appendChild(Retornar_Artistas_Da_Musica(array_musicas_encontradas[c]))
@@ -441,6 +443,7 @@ function Incrementar_Musica(Musica=undefined) {
     if(Nova_Playlist.Img == null) {
         if(musicas_nova_playlist.length < 4 && musicas_nova_playlist.length > 0) {
             const img = document.createElement('img')
+            img.loading = 'lazy'
             img.className = 'active'
             img.src = musicas_nova_playlist[0].Img
             container_imgs_criar_playlist[0].innerHTML = ''
@@ -448,6 +451,7 @@ function Incrementar_Musica(Musica=undefined) {
             container_imgs_criar_playlist[0].appendChild(img)
             
             const img2 = document.createElement('img')
+            img2.loading = 'lazy'
             img2.className = 'active'
             img2.src = musicas_nova_playlist[0].Img
             container_imgs_criar_playlist[1].innerHTML = ''
@@ -458,6 +462,7 @@ function Incrementar_Musica(Musica=undefined) {
             container_imgs_criar_playlist[0].innerHTML = ''
             for (let c = 0; c < 4; c++) {
                 const img = document.createElement('img')
+                img.loading = 'lazy'
                 img.className = 'active2'
                 img.src = musicas_nova_playlist[c].Img
                 container_imgs_criar_playlist[0].classList.add('active')
@@ -467,6 +472,7 @@ function Incrementar_Musica(Musica=undefined) {
             container_imgs_criar_playlist[1].innerHTML = ''
             for (let c = 0; c < 4; c++) {
                 const img = document.createElement('img')
+                img.loading = 'lazy'
                 img.className = 'active2'
                 img.src = musicas_nova_playlist[c].Img
                 container_imgs_criar_playlist[1].classList.add('active')
@@ -475,12 +481,14 @@ function Incrementar_Musica(Musica=undefined) {
 
         } else {
             const img = document.createElement('img')
+            img.loading = 'lazy'
             img.src = 'Assets/Imgs/Faixas.png'
             container_imgs_criar_playlist[0].innerHTML = ''
             container_imgs_criar_playlist[0].classList.remove('active')
             container_imgs_criar_playlist[0].appendChild(img)
             
             const img2 = document.createElement('img')
+            img2.loading = 'lazy'
             img2.src = 'Assets/Imgs/Faixas.png'
             container_imgs_criar_playlist[1].classList.remove('active')
             container_imgs_criar_playlist[1].innerHTML = ''
@@ -488,6 +496,7 @@ function Incrementar_Musica(Musica=undefined) {
         }
     } else { 
         const img = document.createElement('img')
+        img.loading = 'lazy'
         img.className = 'active'
         img.src = Nova_Playlist.Img
         container_imgs_criar_playlist[0].classList.remove('active')
@@ -495,6 +504,7 @@ function Incrementar_Musica(Musica=undefined) {
         container_imgs_criar_playlist[0].appendChild(img)
         
         const img2 = document.createElement('img')
+        img2.loading = 'lazy'
         img2.className = 'active'
         img2.src = Nova_Playlist.Img
         container_imgs_criar_playlist[1].classList.remove('active')
@@ -641,6 +651,7 @@ function Retornar_Musicas_Adicionadas_Criar_Playlist() {
             adicionar_remover.className = 'adicionar_remover_musica_criarplaylist'
     
             //! Valores
+            img.loading = 'lazy'
             img.src = musicas_nova_playlist[c].Img
             p.innerText = musicas_nova_playlist[c].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(musicas_nova_playlist[c]))

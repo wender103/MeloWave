@@ -355,6 +355,7 @@ function Retornar_Artistas_Caixa(Artista) {
     p.innerText = Artista
     try {
         img.src = musicas_artista[0].Img
+        img.loading = 'lazy'
         
     } catch{}
         
@@ -397,6 +398,7 @@ function Retornar_User_Historico(Email) {
             nome_user.innerText = Todos_Usuarios[c].Nome
             span.innerText = 'Perfil'
             img.src = Todos_Usuarios[c].Perfil.Img_Perfil
+            img.loading = 'lazy'
 
             //! AppendChild
             div_container_img.appendChild(img)
@@ -524,6 +526,7 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
 
                     if(TodasPlaylists[d].Img != null) {
                         const img = document.createElement('img')
+                        img.loading = 'lazy'
                         img.src = TodasPlaylists[d].Img
                         img_container.appendChild(img)
                     } else if(TodasPlaylists[d].Img == null) {
@@ -540,12 +543,14 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
 
                         if(TodasPlaylists[d].Musicas.length <= 3) {
                             const img = document.createElement('img')
+                            img.loading = 'lazy'
                             img.src = Musicas_Playlist[0].Img
                             img_container.appendChild(img)
 
                         } else {
                             for (let g = 0; g < 4; g++) {
                                 const img = document.createElement('img')
+                                img.loading = 'lazy'
                                 img.src = Musicas_Playlist[g].Img
                                 img_container.appendChild(img)
                             }
@@ -568,6 +573,7 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
             for (let d = 0; d < Todos_Usuarios.length; d++) {
                 if(Todos_Usuarios[d].Email == Outros[c]) {
                     const img = document.createElement('img')
+                    img.loading = 'lazy'
                     paragrafo.innerText = Todos_Usuarios[d].Nome
 
                     if(Todos_Usuarios[d].Perfil.Img_Perfil != null) {

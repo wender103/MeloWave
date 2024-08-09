@@ -239,6 +239,7 @@ function Retornar_Musicas(Musicas_Recebidas, Local) {
     
             //! Valores
             img.src = Musicas[c].Img
+            img.loading = 'lazy'
             p.innerText = Musicas[c].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
     
@@ -338,6 +339,7 @@ function Retornar_Artistas(Artista, Local, min) {
                 
                     //! Valores
                     img.src = TodasMusicas[c].Img
+                    img.loading = 'lazy'
 
                     let musica_atual = TodasMusicas[c]
                     let number = c
@@ -425,6 +427,7 @@ function Retornar_Melhor_Resultado(Musica, Tipo) {
     
                 //! Valores
                 img.src = Musicas[c].Img
+                img.loading = 'lazy'
                 p.innerText = Musicas[c].Nome
                 span.appendChild(Retornar_Artistas_Da_Musica(Musicas[c]))
     
@@ -511,6 +514,7 @@ function Retornar_Todas_Secoes() {
     
                     h1_genero.innerText = Todos_Os_Generos[c]
                     img.src = TodasMusicas[b].Img
+                    img.loading = 'lazy'
     
                     container_genero_secao.appendChild(h1_genero)
                     container_genero_secao.appendChild(img)
@@ -547,6 +551,7 @@ function Retornar_Perfis(Lista, Local) {
         nome_user.innerText = Lista[c].Nome
         span.innerText = 'Perfil'
         img.src = Lista[c].Perfil.Img_Perfil
+        img.loading = 'lazy'
 
         //! AppendChild
         div_container_img.appendChild(img)
@@ -674,6 +679,7 @@ function Retornar_Playlists(Lista, Local) {
         qm_postou_playlist.innerText = 'De ' + user_adm.Nome
     
         span.innerText = 'Playlist'
+        img_so.loading = 'lazy'
     
         if(Lista[c].Img != null) {
             img_so.src = Lista[c].Img
@@ -690,6 +696,7 @@ function Retornar_Playlists(Lista, Local) {
                 img.src = musicas_playlist[b].Img
                 container_img_playlist_playlist.classList.add('active')
                 container_img_playlist_playlist.appendChild(img)
+                img.loading = 'lazy'
             }
         }
     

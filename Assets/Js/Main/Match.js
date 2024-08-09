@@ -616,6 +616,7 @@ function Retornar_Musicas_Match(Users) {
         img_perfil.className = 'img_perfil_participantes_do_match'
 
         //! Valores
+        img.loading = 'lazy'
         img.src = todas_musicas_match[c].Img
         p.innerText = todas_musicas_match[c].Nome
         span.appendChild(Retornar_Artistas_Da_Musica(todas_musicas_match[c]))
@@ -785,6 +786,7 @@ function Pesquisar_Matchs(Pesquisa) {
             container_img_perfil.className = 'container_img_perfil_musica_linha_match'
     
             //! Valores
+            img.loading = 'lazy'
             img.src = array_musicas[c].Img
             p.innerText = array_musicas[c].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(array_musicas[c]))

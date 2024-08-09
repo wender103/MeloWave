@@ -308,6 +308,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
                             li.className = 'li_participantes_remover'
                             p.innerText = Todos_Usuarios[c].Nome
                             img.src = Todos_Usuarios[c].Perfil.Img_Perfil
+                            img.loading = 'lazy'
 
                             li.appendChild(p)
                             li.appendChild(img)
@@ -406,6 +407,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
                     li.className = 'li_participantes_remover'
                     p.innerText = Todos_Usuarios[b].Nome
                     img.src = Todos_Usuarios[b].Perfil.Img_Perfil
+                    img.loading = 'lazy'
 
                     li.appendChild(img)
                     li.appendChild(p)

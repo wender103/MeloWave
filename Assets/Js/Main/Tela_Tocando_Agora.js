@@ -55,6 +55,7 @@ function Carregar_Tela_Tocando_Agora(Musica) {
         let user_encontrado = false
         const carousel_item_containder_telta_tocando_agora = document.createElement('div')
         const carousel_item_telta_tocando_agora = document.createElement('img')
+        carousel_item_telta_tocando_agora.loading = 'lazy'
         const carousel_item_p = document.createElement('p')
         carousel_item_p.innerText = 'Artista'
         let musica_artista_encontrada = false
@@ -122,6 +123,7 @@ function Carregar_Tela_Tocando_Agora(Musica) {
         if(!user_encontrado) {
             const carousel_item_containder_telta_tocando_agora = document.createElement('div')
             const carousel_item_telta_tocando_agora = document.createElement('img')
+            carousel_item_telta_tocando_agora.loading = 'lazy'
             const carousel_item_p = document.createElement('p')
             carousel_item_p.innerText = 'Artista'
             carousel_item_containder_telta_tocando_agora.classList.add('carousel_item_telta_tocando_agora')
