@@ -787,7 +787,7 @@ function Audio_Play_Function() {
                 Proxima_Musica()
             }
         }
-    }, 100000)
+    }, 1000)
 
     interval_audio_tocando = setInterval(() => {
         let audio_certo = audio_player
@@ -807,7 +807,7 @@ function Audio_Play_Function() {
 
         //! Vai atualizar a letra
         Atualizar_Letra_PC()
-    }, 100000)
+    }, 1000)
 }
 
 function Audio_Pause_Function() {
