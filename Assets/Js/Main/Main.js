@@ -296,7 +296,6 @@ function atualizar_cor_progresso_input(inputElement) {
   
 //   // Exibimos a segunda linha do stack trace que geralmente corresponde à chamada da função.
 //   console.log('Função chamada por:', stackLines[2]);
-
     if(inputElement.className == 'input_range_musica') {
         if (timeout_atulizar_inputs_range) {
             clearTimeout(timeout_atulizar_inputs_range)
@@ -493,7 +492,11 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         Ativar_Musica(MusicaAtual)
 
         if(!pagina_igual) {
-            Trocar_Background(MusicaAtual.Img, document.body)
+            if(Device.Tipo == 'Mobile') {
+                Trocar_Background(MusicaAtual.Imagens[0], document.body)
+            } else {
+                Trocar_Background(MusicaAtual.Img, document.body)
+            }
         }
     }
 
