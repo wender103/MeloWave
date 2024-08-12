@@ -4731,6 +4731,7 @@ body section#pag_musica_tocando_agr {
   padding: 20px;
   color: var(--white);
   overflow: auto;
+  will-change: transform;
 }
 body section#pag_musica_tocando_agr.active article#container_parte_musica div#container_background_container_parte_musica::before {
   top: 0;

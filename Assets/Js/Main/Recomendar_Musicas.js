@@ -316,15 +316,21 @@ function Artistas_Tocados_Recentemente() {
         article.id = 'container_artistas_playlist_tocadas_recentemente'
     }
 
-    for (let c = artistas.length - 1; c >=0 ; c--) {
-        if(typeof artistas[c] == 'string' && !artistas[c].includes('Playlist') && !artistas[c].includes('Match')) {
-            if(!validarEmail(artistas[c])) {
-                article.appendChild(Retornar_Artistas_Caixa(artistas[c]))
-            } else {
-                article.appendChild(Retornar_User_Historico(artistas[c]))
+    let contador_divs = 0
+    for (let c = artistas.length - 1; c >= 0; c--) {
+        if(contador_divs < 10) {
+            if(typeof artistas[c] == 'string' && !artistas[c].includes('Playlist') && !artistas[c].includes('Match')) {
+                if(!validarEmail(artistas[c])) {
+                    article.appendChild(Retornar_Artistas_Caixa(artistas[c]))
+                    contador_divs++
+                } else {
+                    article.appendChild(Retornar_User_Historico(artistas[c]))
+                    contador_divs++
+                }
             }
+        } else {
+            break
         }
-
     }
 
     if(article.innerHTML != '' && !Artistas_Tocados_Recentemente_ja_carregados) {
@@ -436,7 +442,7 @@ function Retornar_Artistas_Mais_Vistos() {
         article.innerHTML = ''
     }
 
-    for (let c = 0; c < artistas.length; c++) {
+    for (let c = 0; c < artistas.length && c < 10; c++) {
         article.appendChild(Retornar_Artistas_Caixa(artistas[c]))
     }
 
