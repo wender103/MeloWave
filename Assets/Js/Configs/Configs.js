@@ -46,10 +46,10 @@ function Criar_Transicao(proximaMusica) {
     const audio_player = document.getElementById('audio_player')
     Volume_Antigo = Volume_Atual
 
-    ajustarVolume(audio_player, 0, 1500).then(() => {
+    ajustarVolume(audio_player, 0, 2000).then(() => {
         audio_player.src = proximaMusica
         Play('Sem Transição')
-        ajustarVolume(audio_player, Volume_Antigo, 1500).then(() => {
+        ajustarVolume(audio_player, Volume_Antigo, 2000).then(() => {
             em_transicao = false
         })
     })

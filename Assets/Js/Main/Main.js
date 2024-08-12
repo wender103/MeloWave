@@ -460,7 +460,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
                 linha_atual = -1
                 Destacar_linhas()
                 scrollToTopLetra()
-            }, 1500)
+            }, 2000)
         } else {
             pre_letra_da_musica.innerHTML = MusicaAtual.Letra.Letra_Musica
             letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
@@ -757,7 +757,7 @@ audio_player.addEventListener('play', () => {
                     pode_atualizar_letra_fullscreen = pode_atualizar_letra_fullscreen2
                     pode_atualizar_letra_tela_tocando_agora = pode_atualizar_letra_tela_tocando_agora2
                     letre_cell_aberta = letre_cell_aberta2
-                }, 1500)
+                }, 2000)
             }
         }
 
