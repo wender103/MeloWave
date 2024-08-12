@@ -42,13 +42,16 @@ function Salvar_Configs() {
 
 //! ---------------------------------- Criar Transições ------------------------------
 function Criar_Transicao(proximaMusica) {
+    em_transicao = true
     const audio_player = document.getElementById('audio_player')
     Volume_Antigo = Volume_Atual
 
     ajustarVolume(audio_player, 0, 1500).then(() => {
         audio_player.src = proximaMusica
         Play()
-        ajustarVolume(audio_player, Volume_Antigo, 1500)
+        ajustarVolume(audio_player, Volume_Antigo, 1500).then(() => {
+            em_transicao = false
+        })
     })
 }
 

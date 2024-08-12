@@ -1450,3 +1450,20 @@ function scrollToTop(element) {
     behavior: 'smooth' // ? Isso faz com que o scroll seja suave
   })
 }
+
+//! Informa qual é a próxima música
+function Qual_Proxima_Musica() {
+    if(Listas_Prox.A_Seguir.length > 0) {
+        return Listas_Prox.A_Seguir[0]
+    } else {
+        for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
+            if(Listas_Prox.Lista_Musicas[c].ID == Listas_Prox.MusicaAtual.ID) {
+                if(c + 1 < Listas_Prox.Lista_Musicas.length) {
+                    return Listas_Prox.Lista_Musicas[c + 1]
+                } else {
+                    return Listas_Prox.Lista_Musicas[0]
+                }
+            }
+        }
+    }
+}

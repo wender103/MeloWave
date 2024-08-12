@@ -347,7 +347,6 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     //! Vai deixar as cores pretas caso o background interativo for branco
 
     if(MusicaAtual.Cores.length > 0 && Device.Tipo != 'Mobile') {
-        console.log('Não era pra cair aki');
         if(pd_atualizar_letra_pc) {
             Montar_Cores_Na_Tela(MusicaAtual)
 
@@ -568,8 +567,6 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     //! ---------------- Fim Navegador ----------------------------------
 
-    Carregar_Inputs_Tempo_Musica()
-
     if(Device.Tipo == 'Mobile' && pag_musica_tocando_aberta) {
         Ativar_Pag_Musica_Tocando(MusicaAtual)
     }
@@ -580,88 +577,82 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     }
 }
 
-function Carregar_Inputs_Tempo_Musica() {
-    //? Vai atualizar a barra de progresso da música
-    let input_range_musica_pc = document.getElementById('input_range_musica_pc') //? Progresso barra para pc
-    let input_range_musica_pc_fullscreen = document.getElementById('input_range_musica_pc_fullscreen') //? Progresso barra para pc
-    let input_range_musica_cell = document.getElementById('input_range_musica_cell') //? Progresso barra cell
+//! --------------------------------- Inputs -----------------------------------------
+//? Vai atualizar a barra de progresso da música
+let input_range_musica_pc = document.getElementById('input_range_musica_pc') //? Progresso barra para pc
+let input_range_musica_pc_fullscreen = document.getElementById('input_range_musica_pc_fullscreen') //? Progresso barra para pc
+let input_range_musica_cell = document.getElementById('input_range_musica_cell') //? Progresso barra cell
 
-    //? Remove os event listeners existentes
-    input_range_musica_pc.removeEventListener('input', handleInputRangeMusicaPC)
-    input_range_musica_pc_fullscreen.removeEventListener('input', handleInputRangeMusicaPCFullscreen)
-    input_range_musica_cell.removeEventListener('input', handleInputRangeMusicaPCFullscreen)
+//? Função handler para input_range_musica_pc
+function handleInputRangeMusicaPC() {
+    const newTime = (input_range_musica_pc.value / 100) * audio_player.duration
+    audio_player.currentTime = newTime
 
-    //? Função handler para input_range_musica_pc
-    function handleInputRangeMusicaPC() {
-        const newTime = (input_range_musica_pc.value / 100) * audio_player.duration
-        audio_player.currentTime = newTime
+    if(fullscreen_aberta) {
+        atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
 
-        if(fullscreen_aberta) {
-            atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
-
-        } else if(Device.Tipo != 'Mobile') {
-            atualizar_cor_progresso_input(input_range_musica_pc)
-        } else {
-            atualizar_cor_progresso_input(input_range_musica_cell)
-        }
-
-        clearTimeout(debounceTimeout1)
-        debounceTimeout1 = setTimeout(function() {
-            Atualizar_Linha_Letra_Input()
-        }, 300)
+    } else if(Device.Tipo != 'Mobile') {
+        atualizar_cor_progresso_input(input_range_musica_pc)
+    } else {
+        atualizar_cor_progresso_input(input_range_musica_cell)
     }
 
-    //? Função handler para input_range_musica_pc_fullscreen
-    function handleInputRangeMusicaPCFullscreen() {
-        const newTime = (input_range_musica_pc_fullscreen.value / 100) * audio_player.duration
-        audio_player.currentTime = newTime
-        
-        if(fullscreen_aberta) {
-            atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
-
-        } else if(Device.Tipo != 'Mobile') {
-            atualizar_cor_progresso_input(input_range_musica_pc)
-
-        } else {
-            atualizar_cor_progresso_input(input_range_musica_cell)
-        }
-
-        clearTimeout(debounceTimeout2)
-        debounceTimeout2 = setTimeout(function() {
-            Atualizar_Linha_Letra_Input()
-        }, 300)
-    }
-
-    //? Função handler para input_range_musica_cell
-    function handleInputRangeMusicaPCFullscreen() {
-        const newTime = (input_range_musica_cell.value / 100) * audio_player.duration
-        audio_player.currentTime = newTime
-        
-        if(fullscreen_aberta) {
-            atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
-
-        } else if(Device.Tipo != 'Mobile') {
-            atualizar_cor_progresso_input(input_range_musica_pc)
-            
-        } else {
-            atualizar_cor_progresso_input(input_range_musica_cell)
-        }
-
-        clearTimeout(debounceTimeout3)
-        debounceTimeout3 = setTimeout(function() {
-            Atualizar_Linha_Letra_Input()
-        }, 300)
-    }
-
-    let debounceTimeout1
-    input_range_musica_pc.addEventListener('input', handleInputRangeMusicaPC)
-
-    let debounceTimeout2
-    input_range_musica_pc_fullscreen.addEventListener('input', handleInputRangeMusicaPCFullscreen)
-
-    let debounceTimeout3
-    input_range_musica_cell.addEventListener('input', handleInputRangeMusicaPCFullscreen)
+    clearTimeout(debounceTimeout1)
+    debounceTimeout1 = setTimeout(function() {
+        Atualizar_Linha_Letra_Input()
+    }, 300)
 }
+
+//? Função handler para input_range_musica_pc_fullscreen
+function handleInputRangeMusicaPCFullscreen() {
+    const newTime = (input_range_musica_pc_fullscreen.value / 100) * audio_player.duration
+    audio_player.currentTime = newTime
+    
+    if(fullscreen_aberta) {
+        atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+
+    } else if(Device.Tipo != 'Mobile') {
+        atualizar_cor_progresso_input(input_range_musica_pc)
+
+    } else {
+        atualizar_cor_progresso_input(input_range_musica_cell)
+    }
+
+    clearTimeout(debounceTimeout2)
+    debounceTimeout2 = setTimeout(function() {
+        Atualizar_Linha_Letra_Input()
+    }, 300)
+}
+
+//? Função handler para input_range_musica_cell
+function handleInputRangeMusicaPCFullscreen() {
+    const newTime = (input_range_musica_cell.value / 100) * audio_player.duration
+    audio_player.currentTime = newTime
+    
+    if(fullscreen_aberta) {
+        atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+
+    } else if(Device.Tipo != 'Mobile') {
+        atualizar_cor_progresso_input(input_range_musica_pc)
+        
+    } else {
+        atualizar_cor_progresso_input(input_range_musica_cell)
+    }
+
+    clearTimeout(debounceTimeout3)
+    debounceTimeout3 = setTimeout(function() {
+        Atualizar_Linha_Letra_Input()
+    }, 300)
+}
+
+let debounceTimeout1
+input_range_musica_pc.addEventListener('input', handleInputRangeMusicaPC)
+
+let debounceTimeout2
+input_range_musica_pc_fullscreen.addEventListener('input', handleInputRangeMusicaPCFullscreen)
+
+let debounceTimeout3
+input_range_musica_cell.addEventListener('input', handleInputRangeMusicaPCFullscreen)
 
 //! ---------------- Audio ------------------------------------------
 audio_player.addEventListener('loadedmetadata', () => {
@@ -703,6 +694,7 @@ audio_player.addEventListener('ended', () => {
 
 
 let interval_audio_tocando
+let em_transicao = false
 audio_player.addEventListener('play', () => {
     interval_view = setInterval(() => {
 
@@ -729,6 +721,13 @@ audio_player.addEventListener('play', () => {
     }, 1000)
 
     interval_audio_tocando = setInterval(() => {
+        
+        if(User.Configuracoes.Transicoes_De_Faixas && !em_transicao) {
+            let diferenca = Math.floor(audio_player.duration - audio_player.currentTime)
+            if(diferenca < 6) {
+                Proxima_Musica()
+            }
+        }
 
         obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
             document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
