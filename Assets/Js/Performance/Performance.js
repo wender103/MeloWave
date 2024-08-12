@@ -96,7 +96,7 @@ function tornarMovivel(elemento) {
 }
 
 // ? Inicia a monitorização do desempenho
-// monitorarDesempenho()
+monitorarDesempenho()
 
 // ? Torna a caixinha movível
 tornarMovivel(document.getElementById('fpsMonitor'))
