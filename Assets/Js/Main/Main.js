@@ -451,11 +451,23 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         }
     }
 
+    //! Letra
     if(!Array.isArray(MusicaAtual.Letra)) {
-        pre_letra_da_musica.innerHTML = MusicaAtual.Letra.Letra_Musica
-        letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
-        linha_atual = -1
-        Destacar_linhas()
+        if(User.Configuracoes.Transicoes_De_Faixas) {
+            setTimeout(() => {
+                pre_letra_da_musica.innerHTML = MusicaAtual.Letra.Letra_Musica
+                letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
+                linha_atual = -1
+                Destacar_linhas()
+                scrollToTopLetra()
+            }, 1500)
+        } else {
+            pre_letra_da_musica.innerHTML = MusicaAtual.Letra.Letra_Musica
+            letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
+            linha_atual = -1
+            Destacar_linhas()
+            scrollToTopLetra()
+        }
     }
 
     //! Vai remover o icone do mic caso a música não tenha letra
@@ -724,8 +736,28 @@ audio_player.addEventListener('play', () => {
         
         if(User.Configuracoes.Transicoes_De_Faixas && !em_transicao) {
             let diferenca = Math.floor(audio_player.duration - audio_player.currentTime)
+        
             if(diferenca < 6) {
+                let pd_atualizar_letra_pc2 = pd_atualizar_letra_pc
+                pd_atualizar_letra_pc = false
+
+                let pode_atualizar_letra_fullscreen2 = pode_atualizar_letra_fullscreen
+                pode_atualizar_letra_fullscreen = false
+
+                let pode_atualizar_letra_tela_tocando_agora2 = pode_atualizar_letra_tela_tocando_agora
+                pode_atualizar_letra_tela_tocando_agora = false
+
+                let letre_cell_aberta2 = letre_cell_aberta
+                letre_cell_aberta = false
+
                 Proxima_Musica()
+
+                setTimeout(() => {
+                    pd_atualizar_letra_pc = pd_atualizar_letra_pc2
+                    pode_atualizar_letra_fullscreen = pode_atualizar_letra_fullscreen2
+                    pode_atualizar_letra_tela_tocando_agora = pode_atualizar_letra_tela_tocando_agora2
+                    letre_cell_aberta = letre_cell_aberta2
+                }, 1500)
             }
         }
 
@@ -869,7 +901,6 @@ function Ativar_Pag_Musica_Tocando(Musica=Listas_Prox.MusicaAtual) {
     pag_musica_tocando_agr.style.top = 0
     pag_musica_tocando_agr.classList.add('active')
     const containers_pag_cell = document.querySelectorAll('.containers_pag_cell')
-    console.log(containers_pag_cell)
 
     let cor_background = '#636363'
 
@@ -1087,7 +1118,7 @@ function Pausar() {
     }
 }
 
-function Play() {
+function Play(Comando='') {
     icone_play_pc.forEach(element => {
         if(Device.Tipo != 'Mobile' || element.id == 'icone_play_normal') {
             element.src = 'Assets/Imgs/Pause.svg'
@@ -1097,7 +1128,9 @@ function Play() {
     })
     
     audio_player.play()
-    ajustarVolume(audio_player, Volume_Antigo, 500)
+    if(Comando != 'Sem Transição') {
+        ajustarVolume(audio_player, Volume_Antigo, 500)
+    }
 
     document.title = `${Listas_Prox.MusicaAtual.Nome} - ${Listas_Prox.MusicaAtual.Autor}`
     Musica_Pausada = false

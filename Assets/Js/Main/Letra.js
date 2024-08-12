@@ -548,7 +548,7 @@ function Destacar_linhas() {
                 }
 
                 if(Infos_Desempenho.Niveis_Desempenho < 3) {
-                    const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+                    const text = document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora')                        
                     const letters = text.textContent.split('')
                     text.innerHTML = ''
 
@@ -838,7 +838,7 @@ function Atualizar_Letra_PC() {
             info_dada_nao_aprendi = false
             let Tempo = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado
 
-            if(audio_player.currentTime + 0.50 > parseFloat(Tempo[linha_atual + 1])) {
+            if(audio_player.currentTime + 0.75 > parseFloat(Tempo[linha_atual + 1])) {
                 linha_atual++
                 Destacar_linhas()
             }

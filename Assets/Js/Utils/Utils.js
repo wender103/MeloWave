@@ -1467,3 +1467,16 @@ function Qual_Proxima_Musica() {
         }
     }
 }
+
+//! Scrolla até o topo, todas as letras
+function scrollToTopLetra() {
+    if(pd_atualizar_letra_pc) {
+        scrollToTop(document.getElementById('pre_letra_da_musica'))
+
+    } else if(pode_atualizar_letra_tela_tocando_agora) {
+        scrollToTop(document.getElementById('pre_letra_tocando_agora'))
+
+    } else if(letre_cell_aberta) {
+        scrollToTop(document.getElementById('pre_letra_cell'))
+    }
+}
