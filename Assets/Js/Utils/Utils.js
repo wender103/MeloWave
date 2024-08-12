@@ -946,17 +946,8 @@ function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'd
                 const inputRangeMusicaPCFullscreen = document.getElementById('input_range_musica_pc_fullscreen')
                 const input_range_musica_cell = document.getElementById('input_range_musica_cell')
                 const traco_barra_musica_cell = document.getElementById('traco_barra_musica_cell')
-
-                let audio_certo = audio_player
-
-                let audios = document.querySelectorAll('.audios_transitions')
-                audios.forEach(element => {
-                    if(element.src == Listas_Prox.MusicaAtual.Audio) {
-                        audio_certo = element
-                    }  
-                })
                 
-                if(!audio_certo.paused) {
+                if(!audio_player.paused) {
                     if(Device.Tipo != 'Mobile') {
                         if (fullscreen_aberta) {
                             inputRangeMusicaPCFullscreen.value = percentProgress
@@ -1367,32 +1358,36 @@ function limitarTamanhoArray(array, tamanhoMaximo = 10, removerPrimeiros = false
 
 //! Vai fazer uma transição de volume
 function ajustarVolume(audioElement, novoVolume, duracao) {
-    const passos = 50; // Número de passos para a transição
-    const intervalo = duracao / passos; // Intervalo entre cada passo
+    return new Promise((resolve, reject) => {
+        const passos = 50; // Número de passos para a transição
+        const intervalo = duracao / passos; // Intervalo entre cada passo
 
-    // Converte o volume de 0-100 para 0-1
-    const volumeFinal = Math.max(0, Math.min(100, novoVolume)) / 100;
+        // Converte o volume de 0-100 para 0-1
+        const volumeFinal = Math.max(0, Math.min(100, novoVolume)) / 100;
 
-    // Calcula o incremento de volume a cada passo
-    const volumeAtual = audioElement.volume;
-    const incremento = (volumeFinal - volumeAtual) / passos;
+        // Calcula o incremento de volume a cada passo
+        const volumeAtual = audioElement.volume;
+        const incremento = (volumeFinal - volumeAtual) / passos;
 
-    // Cria um intervalo para ajustar gradualmente o volume
-    const interval = setInterval(function() {
-        try {
-            // Atualiza o volume do áudio
-            audioElement.volume = Math.max(0, Math.min(1, audioElement.volume + incremento));
+        // Cria um intervalo para ajustar gradualmente o volume
+        const interval = setInterval(function() {
+            try {
+                // Atualiza o volume do áudio
+                audioElement.volume = Math.max(0, Math.min(1, audioElement.volume + incremento));
 
-            // Verifica se atingiu o novo volume
-            if ((incremento > 0 && audioElement.volume >= volumeFinal) || (incremento < 0 && audioElement.volume <= volumeFinal)) {
-                audioElement.volume = volumeFinal;
-                clearInterval(interval); // Para o intervalo
+                // Verifica se atingiu o novo volume
+                if ((incremento > 0 && audioElement.volume >= volumeFinal) || (incremento < 0 && audioElement.volume <= volumeFinal)) {
+                    audioElement.volume = volumeFinal;
+                    clearInterval(interval); // Para o intervalo
+                    return resolve(true)
+                }
+            } catch (error) {
+                console.error('Erro ao ajustar o volume:', error);
+                clearInterval(interval); // Para o intervalo em caso de erro
+                return reject('Algo deu errado ao tentar ajustar o volume: ' + error)
             }
-        } catch (error) {
-            console.error('Erro ao ajustar o volume:', error);
-            clearInterval(interval); // Para o intervalo em caso de erro
-        }
-    }, intervalo);
+        }, intervalo);
+    })
 }
 
 //! Obtem o tamanho usavel da tela do celular

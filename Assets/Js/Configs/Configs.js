@@ -42,83 +42,14 @@ function Salvar_Configs() {
 
 //! ---------------------------------- Criar Transições ------------------------------
 function Criar_Transicao(proximaMusica) {
-    ja_ativou_transicao = true
-    
-    
-    
-    // Pega o container onde os áudios serão inseridos
-    const container = document.getElementById('container_audios_transition')
+    const audio_player = document.getElementById('audio_player')
+    Volume_Antigo = Volume_Atual
 
-    // Cria uma nova tag de áudio para a próxima música
-    const novoAudio = document.createElement('audio')
-    novoAudio.className = 'audios_transitions'
-    novoAudio.id = 'audio_player_novo'
-    novoAudio.src = proximaMusica
-    novoAudio.style.display = 'none' // Esconde a nova tag de áudio
-    novoAudio.volume = 0
-
-    // Adiciona a nova tag de áudio ao container
-    container.appendChild(novoAudio)
-    novoAudio.play()
-    ajustarVolume(novoAudio, Volume_Atual, 1500)
-
-    const currentTime = audio_player.currentTime
-    const duration = audio_player.duration
-
-    // Verifica se falta menos de 5 segundos para o fim da música
-    if (duration - currentTime <= 5) {
-        // Define um evento para remover a tag de áudio antiga quando a música atual acabar
-        audio_player.addEventListener('ended', function() {
-            
-            container.removeChild(audio_player)
-            audio_player.remove()
-            novoAudio.id = 'audio_player'
-            audio_player = novoAudio
-
-            novoAudio.addEventListener('loadedmetadata', carregar_metadados_audio)
-            novoAudio.addEventListener('ended', fim_audio)
-            novoAudio.addEventListener('play', Audio_Play_Function)
-            novoAudio.addEventListener('pause', Audio_Pause_Function)
-
-            Audio_Pause_Function()
-            Audio_Play_Function()
-            carregar_metadados_audio()
-            Carregar_Navegor(Listas_Prox.MusicaAtual)
-            Carregar_Inputs_Tempo_Musica()
-
-            setTimeout(() => {
-                Audio_Pause_Function()
-                Audio_Play_Function()
-                carregar_metadados_audio()
-            }, 1000)
-        })
-    } else {
-        ajustarVolume(document.getElementById('audio_player'), 0, 1500)
-        setTimeout(() => {
-
-            container.removeChild(audio_player)
-            audio_player.remove()
-            novoAudio.id = 'audio_player'
-            audio_player = novoAudio
-
-            novoAudio.addEventListener('loadedmetadata', carregar_metadados_audio)
-            novoAudio.addEventListener('ended', fim_audio)
-            novoAudio.addEventListener('play', Audio_Play_Function)
-            novoAudio.addEventListener('pause', Audio_Pause_Function)
-
-            Audio_Pause_Function()
-            Audio_Play_Function()
-            carregar_metadados_audio()
-            Carregar_Navegor(Listas_Prox.MusicaAtual)
-            Carregar_Inputs_Tempo_Musica()
-
-            setTimeout(() => {
-                Audio_Pause_Function()
-                Audio_Play_Function()
-                carregar_metadados_audio()
-            }, 1000)
-        }, 1700)
-    }
+    ajustarVolume(audio_player, 0, 1500).then(() => {
+        audio_player.src = proximaMusica
+        Play()
+        ajustarVolume(audio_player, Volume_Antigo, 1500)
+    })
 }
 
 //! ------------------------------------ Modificar Backgrounds ---------------------------------------

@@ -197,16 +197,6 @@ function Pegar_Todas_Musicas() {
 
 //! ---------------- Navegador ----------------------------------
 function Carregar_Navegor(MusicaAtual, Comando='') {
-    
-    let audio_certo = audio_player
-
-    let audios = document.querySelectorAll('.audios_transitions')
-    audios.forEach(element => {
-        if(element.src == MusicaAtual.Audio) {
-            audio_certo = element
-        }  
-    })
-    
     navigator.mediaSession.metadata = new MediaMetadata({
         title: MusicaAtual.Nome,
         artist: MusicaAtual.Autor,
@@ -240,14 +230,14 @@ function Carregar_Navegor(MusicaAtual, Comando='') {
     // Manipulador para avançar a reprodução em 10 segundos
     navigator.mediaSession.setActionHandler('seekforward', function() {
         if(!Comando.includes('Pausar Ao Finalizar')) {
-            audio_certo.currentTime += 10 // Avança 10 segundos
+            audio_player.currentTime += 10 // Avança 10 segundos
         }
     })
 
     // Manipulador para retroceder a reprodução em 10 segundos
     navigator.mediaSession.setActionHandler('seekbackward', function() {
         if(!Comando.includes('Pausar Ao Finalizar')) {
-            audio_certo.currentTime -= 10 // Retrocede 10 segundos
+            audio_player.currentTime -= 10 // Retrocede 10 segundos
         }
     })
 
@@ -265,15 +255,15 @@ function Carregar_Navegor(MusicaAtual, Comando='') {
     navigator.mediaSession.setActionHandler('stop', function() {
         if(!Comando.includes('Pausar Ao Finalizar')) {
             Pausar() // Pausa a reprodução do áudio
-            audio_certo.currentTime = 0 // Reinicia a reprodução para o início
+            audio_player.currentTime = 0 // Reinicia a reprodução para o início
         }
     })
 
     // Manipulador para alterar a posição de reprodução para um tempo específico
     navigator.mediaSession.setActionHandler('seekto', function(details) {
         if(!Comando.includes('Pausar Ao Finalizar')) {
-            if (details.fastSeek && 'seekable' in audio_certo) {
-                audio_certo.currentTime = details.seekTime // Altera a posição de reprodução para o tempo especificado
+            if (details.fastSeek && 'seekable' in audio_player) {
+                audio_player.currentTime = details.seekTime // Altera a posição de reprodução para o tempo especificado
             }
         }
     })
@@ -303,16 +293,8 @@ function atualizar_cor_progresso_input(inputElement) {
         }
         timeout_atulizar_inputs_range = setTimeout(() => {
             if (isCasting && mediaSession) {
-                let audio_certo = audio_player
 
-                let audios = document.querySelectorAll('.audios_transitions')
-                audios.forEach(element => {
-                    if(element.src == Listas_Prox.MusicaAtual.Audio) {
-                        audio_certo = element
-                    }  
-                })
-
-                let seekTime = audio_certo.currentTime
+                let seekTime = audio_player.currentTime
 
                 try {
                     // Criar um objeto com a propriedade currentTime
@@ -359,7 +341,6 @@ let interval_view
 const img_btn_mic_letra = document.querySelectorAll('.img_btn_mic_letra')
 let Musica_Antiga_Transicao = undefined
 let Comando_Tocar_Musica = ''
-let ja_ativou_transicao = false
 
 function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {
     Comando_Tocar_Musica = Comando
@@ -580,23 +561,14 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     Salvar_GostoMusical()
 
     //! ---------------- Navegador ----------------------------------
-    let audio_certo = audio_player
 
-    let audios = document.querySelectorAll('.audios_transitions')
-    audios.forEach(element => {
-        if(element.src == MusicaAtual.Audio) {
-            audio_certo = element
-        }  
-    })
-
-    if(!User.Configuracoes.Transicoes_De_Faixas || !ja_ativou_transicao) {
+    if(!User.Configuracoes.Transicoes_De_Faixas) {
         Carregar_Navegor(MusicaAtual, Comando)
     }
 
     //! ---------------- Fim Navegador ----------------------------------
 
     Carregar_Inputs_Tempo_Musica()
-    Audio_Play_Function()
 
     if(Device.Tipo == 'Mobile' && pag_musica_tocando_aberta) {
         Ativar_Pag_Musica_Tocando(MusicaAtual)
@@ -613,14 +585,6 @@ function Carregar_Inputs_Tempo_Musica() {
     let input_range_musica_pc = document.getElementById('input_range_musica_pc') //? Progresso barra para pc
     let input_range_musica_pc_fullscreen = document.getElementById('input_range_musica_pc_fullscreen') //? Progresso barra para pc
     let input_range_musica_cell = document.getElementById('input_range_musica_cell') //? Progresso barra cell
-    let audio_certo = audio_player
-
-    let audios = document.querySelectorAll('.audios_transitions')
-    audios.forEach(element => {
-        if (element.src == Listas_Prox.MusicaAtual.Audio) {
-            audio_certo = element
-        }
-    })
 
     //? Remove os event listeners existentes
     input_range_musica_pc.removeEventListener('input', handleInputRangeMusicaPC)
@@ -629,8 +593,8 @@ function Carregar_Inputs_Tempo_Musica() {
 
     //? Função handler para input_range_musica_pc
     function handleInputRangeMusicaPC() {
-        const newTime = (input_range_musica_pc.value / 100) * audio_certo.duration
-        audio_certo.currentTime = newTime
+        const newTime = (input_range_musica_pc.value / 100) * audio_player.duration
+        audio_player.currentTime = newTime
 
         if(fullscreen_aberta) {
             atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
@@ -649,8 +613,8 @@ function Carregar_Inputs_Tempo_Musica() {
 
     //? Função handler para input_range_musica_pc_fullscreen
     function handleInputRangeMusicaPCFullscreen() {
-        const newTime = (input_range_musica_pc_fullscreen.value / 100) * audio_certo.duration
-        audio_certo.currentTime = newTime
+        const newTime = (input_range_musica_pc_fullscreen.value / 100) * audio_player.duration
+        audio_player.currentTime = newTime
         
         if(fullscreen_aberta) {
             atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
@@ -670,8 +634,8 @@ function Carregar_Inputs_Tempo_Musica() {
 
     //? Função handler para input_range_musica_cell
     function handleInputRangeMusicaPCFullscreen() {
-        const newTime = (input_range_musica_cell.value / 100) * audio_certo.duration
-        audio_certo.currentTime = newTime
+        const newTime = (input_range_musica_cell.value / 100) * audio_player.duration
+        audio_player.currentTime = newTime
         
         if(fullscreen_aberta) {
             atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
@@ -700,15 +664,28 @@ function Carregar_Inputs_Tempo_Musica() {
 }
 
 //! ---------------- Audio ------------------------------------------
-audio_player.addEventListener('loadedmetadata', carregar_metadados_audio)
-audio_player.addEventListener('ended', fim_audio)
+audio_player.addEventListener('loadedmetadata', () => {
+    let feito = false
+    if(!feito) {
+        feito = true
+
+        obterDuracaoOuTempoAtualAudio(audio_player, true).then((resp) => {
+            document.getElementById('tempo_max_musica').innerText = resp.formattedDuration
+            document.getElementById('tempo_max_musica_fullscreen').innerText = resp.formattedDuration
+            document.getElementById('tempo_max_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
+        })
+
+        obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
+            document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
+            document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
+            document.getElementById('contador_segundos_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
+        })
+    }
+})
 
 //! ---------------- Fim Audio ----------------------------------
-
-//! Adicionar view na música
 let fim_do_audio_feito = false
-function fim_audio() {
-    
+audio_player.addEventListener('ended', () => {
     if(!Comando_Tocar_Musica.includes('Pausar Ao Finalizar') && !fim_do_audio_feito) {
         if(!feito_musica_tocar) {
             feito_musica_tocar = true
@@ -722,52 +699,14 @@ function fim_audio() {
             }, 500)
         }
     }
-}
+})
 
-function carregar_metadados_audio() {
-    let feito = false
-    if(!feito) {
-        feito = true
-
-        let audio_certo = audio_player
-
-        let audios = document.querySelectorAll('.audios_transitions')
-        audios.forEach(element => {
-            if(element.src == Listas_Prox.MusicaAtual.Audio) {
-                audio_certo = element
-            }  
-        })
-
-        obterDuracaoOuTempoAtualAudio(audio_certo, true).then((resp) => {
-            document.getElementById('tempo_max_musica').innerText = resp.formattedDuration
-            document.getElementById('tempo_max_musica_fullscreen').innerText = resp.formattedDuration
-            document.getElementById('tempo_max_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
-        })
-
-        obterDuracaoOuTempoAtualAudio(audio_certo, true, 'currentTime', true).then((resp) => {
-            document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
-            document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
-            document.getElementById('contador_segundos_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
-        })
-    }
-}
 
 let interval_audio_tocando
-audio_player.addEventListener('play', Audio_Play_Function)
-audio_player.addEventListener('pause', Audio_Pause_Function)
-
-function Audio_Play_Function() {
+audio_player.addEventListener('play', () => {
     interval_view = setInterval(() => {
-        let audio_certo = audio_player
 
-        let audios = document.querySelectorAll('.audios_transitions')
-        audios.forEach(element => {
-            if(element.src == Listas_Prox.MusicaAtual.Audio) {
-                audio_certo = element
-            }  
-        })
-
-        if (!audio_certo.paused && !audio_certo.ended) {
+        if (!audio_player.paused && !audio_player.ended) {
             tmp_ouvindo_musica++
             if (tmp_ouvindo_musica >= 30) {
                 Adicionar_View_Musica(Listas_Prox.MusicaAtual)
@@ -776,9 +715,9 @@ function Audio_Play_Function() {
 
         }
 
-        if(!audio_certo.paused && User.Configuracoes.Transicoes_De_Faixas) {
-            const currentTime = audio_certo.currentTime
-            const duration = audio_certo.duration
+        if(!audio_player.paused && User.Configuracoes.Transicoes_De_Faixas) {
+            const currentTime = audio_player.currentTime
+            const duration = audio_player.duration
 
             
 
@@ -790,16 +729,8 @@ function Audio_Play_Function() {
     }, 1000)
 
     interval_audio_tocando = setInterval(() => {
-        let audio_certo = audio_player
 
-        let audios = document.querySelectorAll('.audios_transitions')
-        audios.forEach(element => {
-            if(element.src == Listas_Prox.MusicaAtual.Audio) {
-                audio_certo = element
-            }  
-        })
-
-        obterDuracaoOuTempoAtualAudio(audio_certo, true, 'currentTime', true).then((resp) => {
+        obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
             document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
             document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
             document.getElementById('contador_segundos_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
@@ -808,12 +739,11 @@ function Audio_Play_Function() {
         //! Vai atualizar a letra
         Atualizar_Letra_PC()
     }, 1000)
-}
-
-function Audio_Pause_Function() {
+})
+audio_player.addEventListener('pause', () => {
     clearInterval(interval_view)
     clearInterval(interval_audio_tocando)
-}
+})
 
 // audio_player.addEventListener('seeked', () => {
 //     tmp_ouvindo_musica = 0
@@ -1114,16 +1044,8 @@ const icone_play_pc = document.querySelectorAll('.icone_play_pc')
 
 icone_play_pc.forEach(element => {
     element.addEventListener('click', () => {
-        let audio_certo = audio_player
 
-        let audios = document.querySelectorAll('.audios_transitions')
-        audios.forEach(element => {
-            if(element.src == Listas_Prox.MusicaAtual.Audio) {
-                audio_certo = element
-            }  
-        })
-
-        if (audio_certo.paused) {
+        if (audio_player.paused) {
             Play()
     
         } else {
@@ -1144,18 +1066,12 @@ function Pausar() {
 
     if(User.Configuracoes.Transicoes_De_Faixas) {
         Volume_Antigo = Volume_Atual
-        document.querySelectorAll('.audios_transitions').forEach(element => {
-            ajustarVolume(element, 0, 500)
-
-            setTimeout(() => {
-                element.pause()
-            }, 550)
+        ajustarVolume(audio_player, 0, 500).then(() => {
+            audio_player.pause()
         })
 
     } else {
-        document.querySelectorAll('.audios_transitions').forEach(element => {
-            element.pause()
-        })
+        audio_player.pause()
     }
 
     document.title = 'MeloWave - Home'
@@ -1168,15 +1084,7 @@ function Pausar() {
     if (isCasting && mediaSession) {
         mediaSession.pause()
 
-        let audio_certo = audio_player
-
-        let audios = document.querySelectorAll('.audios_transitions')
-        audios.forEach(element => {
-            if(element.src == Listas_Prox.MusicaAtual.Audio) {
-                audio_certo = element
-            }  
-        })
-        ajustarVolume(audio_certo, 0, 0)
+        ajustarVolume(audio_player, 0, 0)
     }
 }
 
@@ -1189,10 +1097,8 @@ function Play() {
         }
     })
     
-    document.querySelectorAll('.audios_transitions').forEach(element => {
-        element.play()
-        ajustarVolume(element, Volume_Antigo, 500)
-    })
+    audio_player.play()
+    ajustarVolume(audio_player, Volume_Antigo, 500)
 
     document.title = `${Listas_Prox.MusicaAtual.Nome} - ${Listas_Prox.MusicaAtual.Autor}`
     Musica_Pausada = false
@@ -1202,31 +1108,12 @@ function Play() {
     //? --------------------------------- Cast --------------------------------------------
     if (isCasting && mediaSession) {
         mediaSession.play()
-
-        let audio_certo = audio_player
-
-        let audios = document.querySelectorAll('.audios_transitions')
-        audios.forEach(element => {
-            if(element.src == Listas_Prox.MusicaAtual.Audio) {
-                audio_certo = element
-            }  
-        })
-        ajustarVolume(audio_certo, 0, 0)
+        ajustarVolume(audio_player, 0, 0)
     }
 }
 
 let prox_ativo = false
 function Proxima_Musica(Chamado_Por) {
-    let audio_certo = audio_player
-
-    let audios = document.querySelectorAll('.audios_transitions')
-    audios.forEach(element => {
-        if(element.src == Listas_Prox.MusicaAtual.Audio) {
-            audio_certo = element
-        }
-    })
-           
-
     
     if(!prox_ativo && !repetir_musicas || !prox_ativo && Chamado_Por != 'fim_do_audio') {
         prox_ativo = true
@@ -1236,7 +1123,7 @@ function Proxima_Musica(Chamado_Por) {
         }
 
         if(!User.Configuracoes.Transicoes_De_Faixas) {
-            audio_certo.currentTime = 0
+            audio_player.currentTime = 0
         }
 
         if(Listas_Prox.A_Seguir.length <= 0) {
@@ -1291,7 +1178,7 @@ function Proxima_Musica(Chamado_Por) {
         }, 1000)
 
     } else if(repetir_musicas) {
-        audio_certo.currentTime = 0
+        audio_player.currentTime = 0
         feito_musica_tocar = false
         Play()
         Atualizar_Linha_Letra_Input()
@@ -1299,18 +1186,9 @@ function Proxima_Musica(Chamado_Por) {
 }
 
 function Musica_Anterior() {
-    let audio_certo = audio_player
-
-    let audios = document.querySelectorAll('.audios_transitions')
-    audios.forEach(element => {
-        if(element.src == Listas_Prox.MusicaAtual.Audio) {
-            audio_certo = element
-        }  
-    })
-
     //! Vai checar se o tempo do audio é menor q trez para voltar para a música anterior
-    if(audio_certo.currentTime < 3) {
-        audio_certo.currentTime = 0
+    if(audio_player.currentTime < 3) {
+        audio_player.currentTime = 0
         let feito = false
         if(Tocando_Musica_A_Seguir) {
             Tocando_Musica_A_Seguir = false
@@ -1337,7 +1215,7 @@ function Musica_Anterior() {
 
     //! Caso contrario vai tocar de novo
     } else {
-        audio_certo.currentTime = 0
+        audio_player.currentTime = 0
     }
 }
 
@@ -1381,20 +1259,11 @@ input_volume_pc.onmouseleave = function() {
 }
 
 function Volume(volume = 0, input = undefined, Comando='') {
-    let audio_certo = audio_player
-
-    let audios = document.querySelectorAll('.audios_transitions')
-    audios.forEach(element => {
-        if(element.src == Listas_Prox.MusicaAtual.Audio) {
-            audio_certo = element
-        }  
-    })
-
     volume = parseInt(volume)
 
     let volume_porcentagem = volume / 100
     //? Vai mudar o volume de acordo com o input
-    audio_certo.volume = volume_porcentagem
+    audio_player.volume = volume_porcentagem
 
     if(input) {
         input.value = parseInt(volume)
