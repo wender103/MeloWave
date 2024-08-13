@@ -54,7 +54,7 @@ function Quantas_musicas() {
 
 //! Vai mostrar na tela apenas a quantidade de música que caiba no enquadro
 function Mostrar_Max_Musicas(Ativar=false) {
-    if(window.innerWidth > 700 || Ativar) {
+    if(Device.Tipo != 'Mobile' && window.innerWidth > 700 || Device.Tipo != 'Mobile' && Ativar) {
         const max_musicas = Quantas_musicas()
         document.querySelectorAll('.Container_Musicas_Caixa').forEach(container => {
             if(container.id != 'container_pesquisa') {
