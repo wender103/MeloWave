@@ -746,6 +746,7 @@ audio_player.addEventListener('play', () => {
         
         //* Motivo de travar ao dar play no celular
         if(Device.Tipo != 'Mobile' || pag_musica_tocando_agr.style.top == '0px') {
+            Avisos_Rapidos('Obtendo o tempo')
             obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
                 if(Device.Tipo != 'Mobile') {
                     if(!pode_atualizar_letra_fullscreen) {

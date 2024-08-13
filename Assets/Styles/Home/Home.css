@@ -596,7 +596,7 @@ div#container_carregamento_tela_innteira #message_carregamento {
   border-radius: 5px;
   opacity: 0;
   transition: opacity 0.5s, bottom 0.5s;
-  z-index: 5;
+  z-index: 6;
   box-shadow: 2px 2px 5px black;
   box-sizing: content-box;
 }
