@@ -40,7 +40,7 @@ function Ativar_Fullscreen() {
 
 function Atualizar_Fullscreen() {
     entrarEmTelaCheia()
-    document.getElementById('img_musica_fullscreen').src = Listas_Prox.MusicaAtual.Img
+    document.getElementById('img_musica_fullscreen').src = Listas_Prox.MusicaAtual.Imagens[1]
     document.getElementById('nome_musica_fullscreen').innerText = Listas_Prox.MusicaAtual.Nome
     document.getElementById('nome_autor_fullscreen').innerText = Listas_Prox.MusicaAtual.Autor
 

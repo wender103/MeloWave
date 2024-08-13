@@ -790,7 +790,7 @@ function Ativar_Musica(Musica) {
         const autor_musica_barra_musica = document.getElementById('autor_musica_barra_musica')
         autor_musica_barra_musica.innerHTML = ''
         autor_musica_barra_musica.appendChild(Retornar_Artistas_Da_Musica(Musica))
-        document.getElementById('img_musica_barra_musica').src = Musica.Img
+        document.getElementById('img_musica_barra_musica').src = Musica.Imagens[1]
 
     } else {
         Ativar_Barra_Musica_Cell(Musica)

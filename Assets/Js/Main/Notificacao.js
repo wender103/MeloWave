@@ -186,7 +186,7 @@ function Mostrar_Notificaco_Tempo_Real() {
             btn_notificacao_tempo_real.id = 'btn_notificacao_tempo_real'
 
             notificacao_tempo_real_aberta = true
-            if(Notificacao.Img != null) {
+            if(Notificacao!= null) {
                 img_notificacao_tempo_real.src = Notificacao.Img
             }
         
