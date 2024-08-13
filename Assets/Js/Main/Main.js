@@ -646,6 +646,8 @@ input_range_musica_cell.addEventListener('input', handleInputRangeMusicaPCFullsc
 
 //! ---------------- Audio ------------------------------------------
 audio_player.addEventListener('loadedmetadata', () => {
+    console.log('Rapaz')
+    
     let feito = false
     if(!feito) {
         feito = true

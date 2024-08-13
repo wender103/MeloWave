@@ -906,103 +906,69 @@ function validateImage(imageUrl, Qm_Chamou) {
 }
 
 //! Mostra o time da música
+const inputRangeMusicaPC = document.getElementById('input_range_musica_pc')
+const inputRangeMusicaPCFullscreen = document.getElementById('input_range_musica_pc_fullscreen')
+const traco_barra_musica_cell = document.getElementById('traco_barra_musica_cell')
+
 function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'duration', atualizarInputs = false) {
     return new Promise((resolve, reject) => {
-        const durationObj = {
-            hours: 0,
-            minutes: 0,
-            seconds: 0
+        if (!audioPlayer) {
+            return reject(new Error('Elemento de áudio não fornecido'))
         }
 
-        if (formatado) {
-            return resolve({...durationObj, formattedDuration: "0:0:0"})
+        const processTime = () => {
+            let durationInSeconds = tipo === 'currentTime' ? audioPlayer.currentTime : audioPlayer.duration
+            const hours = Math.floor(durationInSeconds / 3600)
+            const minutes = Math.floor((durationInSeconds % 3600) / 60)
+            const seconds = Math.floor(durationInSeconds % 60)
+
+            const durationObj = { hours, minutes, seconds }
+            const formattedDuration = formatado ? (hours > 0 
+                ? `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` 
+                : `${minutes}:${seconds.toString().padStart(2, '0')}`) 
+                : null
+            
+            resolve({ ...durationObj, formattedDuration })
+            
+            if (atualizarInputs && !audioPlayer.paused) {
+                const percentProgress = (audioPlayer.currentTime / audioPlayer.duration) * 100
+                
+                if (Device.Tipo != 'Mobile') {
+                    if (fullscreen_aberta) {
+                        inputRangeMusicaPCFullscreen.value = percentProgress
+                        atualizar_cor_progresso_input(inputRangeMusicaPCFullscreen)
+                    } else {
+                        inputRangeMusicaPC.value = percentProgress
+                        atualizar_cor_progresso_input(inputRangeMusicaPC)
+                    }
+                } else {
+                    traco_barra_musica_cell.style.width = `${percentProgress}%`
+                    input_range_musica_cell.value = percentProgress
+                    atualizar_cor_progresso_input(input_range_musica_cell)
+                }
+            }
+        }
+
+        const onReady = () => {
+            processTime()
+            audioPlayer.removeEventListener(tipo === 'currentTime' ? 'play' : 'loadedmetadata', onReady, { once: true })
+        }
+
+        if (tipo === 'currentTime') {
+            if (!audioPlayer.paused || audioPlayer.currentTime > 0) {
+                processTime()
+            } else {
+                audioPlayer.addEventListener('play', onReady, { once: true })
+                audioPlayer.play().then(() => audioPlayer.pause()).catch(reject)
+            }
         } else {
-            return resolve(durationObj)
+            if (audioPlayer.duration) {
+                processTime()
+            } else {
+                audioPlayer.addEventListener('loadedmetadata', onReady, { once: true })
+            }
         }
     })
-
-    // return new Promise((resolve, reject) => {
-    //     if (!audioPlayer) {
-    //         return reject(new Error('Elemento de áudio não fornecido'))
-    //     }
-
-    //     const processTime = () => {
-    //         let durationInSeconds
-
-    //         if (tipo === 'currentTime') {
-    //             durationInSeconds = audioPlayer.currentTime
-    //         } else {
-    //             durationInSeconds = audioPlayer.duration
-    //         }
-
-    //         const hours = Math.floor(durationInSeconds / 3600)
-    //         const minutes = Math.floor((durationInSeconds % 3600) / 60)
-    //         const seconds = Math.floor(durationInSeconds % 60)
-
-    //         const durationObj = {
-    //             hours,
-    //             minutes,
-    //             seconds
-    //         }
-
-    //         if (formatado) {
-    //             const formattedDuration = hours > 0 
-    //                 ? `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` 
-    //                 : `${minutes}:${seconds.toString().padStart(2, '0')}`
-    //             resolve({ ...durationObj, formattedDuration })
-    //         } else {
-    //             resolve(durationObj)
-    //         }
-
-    //         if (atualizarInputs) {
-    //             const percentProgress = (audioPlayer.currentTime / audioPlayer.duration) * 100
-    //             const inputRangeMusicaPC = document.getElementById('input_range_musica_pc')
-    //             const inputRangeMusicaPCFullscreen = document.getElementById('input_range_musica_pc_fullscreen')
-    //             const input_range_musica_cell = document.getElementById('input_range_musica_cell')
-    //             const traco_barra_musica_cell = document.getElementById('traco_barra_musica_cell')
-                
-    //             if(!audio_player.paused) {
-    //                 if(Device.Tipo != 'Mobile') {
-    //                     if (fullscreen_aberta) {
-    //                         inputRangeMusicaPCFullscreen.value = percentProgress
-    //                         atualizar_cor_progresso_input(inputRangeMusicaPCFullscreen)
-    //                     } else {
-    //                         inputRangeMusicaPC.value = percentProgress
-    //                         atualizar_cor_progresso_input(inputRangeMusicaPC)
-    //                     }
-
-    //                 } else {
-    //                     traco_barra_musica_cell.style.width = `${percentProgress}%`
-    //                     input_range_musica_cell.value = percentProgress
-    //                     atualizar_cor_progresso_input(input_range_musica_cell)
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     if (tipo === 'currentTime') {
-    //         if (!audioPlayer.paused || audioPlayer.currentTime > 0) {
-    //             processTime()
-    //         } else {
-    //             audioPlayer.removeEventListener('play', processTime, { once: true })
-    //             audioPlayer.addEventListener('play', processTime, { once: true })
-    //             audioPlayer.play().then(() => {
-    //                 audioPlayer.pause()
-    //             }).catch(reject)
-    //         }
-    //     } else {
-    //         if (audioPlayer.duration) {
-    //             processTime()
-    //         } else {
-    //             audioPlayer.removeEventListener('loadedmetadata', processTime, { once: true })
-    //             audioPlayer.addEventListener('loadedmetadata', processTime, { once: true })
-    //         }
-    //     }
-
-    //     // audioPlayer.addEventListener('error', (e) => {
-    //     //     reject(e)
-    //     // })
-    // })
 }
 
 //! Vai calcular quanto tempo falta até a data e retornar de forma formatada
