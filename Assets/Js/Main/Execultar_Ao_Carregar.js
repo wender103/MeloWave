@@ -41,7 +41,9 @@ function Execultar_Funcoes_Ao_Carregar() {
           
           adicionarTarefa(() => {
             if(Pagina_Atual.Nome == 'home' && User.Perfil.Img_Background) {
-              Trocar_Background(User.Perfil.Img_Background, document.querySelector('body'));
+              if(Device.Tipo != 'Mobile') {
+                Trocar_Background(User.Perfil.Img_Background, document.querySelector('body'))
+              }
             }
           });
   

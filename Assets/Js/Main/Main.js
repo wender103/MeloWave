@@ -203,42 +203,42 @@ let audio_player = document.getElementById('audio_player')
 let cor_input_agora = '#fff'
 let timeout_atulizar_inputs_range
 function atualizar_cor_progresso_input(inputElement) {
-    // if(inputElement.className == 'input_range_musica') {
-    //     if (timeout_atulizar_inputs_range) {
-    //         clearTimeout(timeout_atulizar_inputs_range)
+    if(inputElement.className == 'input_range_musica') {
+        if (timeout_atulizar_inputs_range) {
+            clearTimeout(timeout_atulizar_inputs_range)
         
-    //     }
-    //     timeout_atulizar_inputs_range = setTimeout(() => {
-    //         if (isCasting && mediaSession) {
+        }
+        timeout_atulizar_inputs_range = setTimeout(() => {
+            if (isCasting && mediaSession) {
 
-    //             let seekTime = audio_player.currentTime
+                let seekTime = audio_player.currentTime
 
-    //             try {
-    //                 // Criar um objeto com a propriedade currentTime
-    //                 const seekRequest = { currentTime: seekTime }
+                try {
+                    // Criar um objeto com a propriedade currentTime
+                    const seekRequest = { currentTime: seekTime }
                     
-    //                 // Verificar se mediaSession.seek existe antes de chamar
-    //                 if (typeof mediaSession.seek === 'function') {
-    //                     mediaSession.seek(seekRequest)
-    //                 } else {
-    //                     console.error('Método seek não disponível em mediaSession')
-    //                 }
-    //             } catch (error) {
-    //                 console.warn('Algo de errado deu errado');
-    //                 console.error(error);
-    //             }
-    //         }
-    //     }, 500)
-    // }
+                    // Verificar se mediaSession.seek existe antes de chamar
+                    if (typeof mediaSession.seek === 'function') {
+                        mediaSession.seek(seekRequest)
+                    } else {
+                        console.error('Método seek não disponível em mediaSession')
+                    }
+                } catch (error) {
+                    console.warn('Algo de errado deu errado');
+                    console.error(error);
+                }
+            }
+        }, 500)
+    }
 
-    // var value = (inputElement.value-inputElement.min)/(inputElement.max-inputElement.min)*100;
+    var value = (inputElement.value-inputElement.min)/(inputElement.max-inputElement.min)*100;
 
-    // if(Tema_Atual_Pagina == 'Claro') {
-    //     inputElement.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
+    if(Tema_Atual_Pagina == 'Claro') {
+        inputElement.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
 
-    // } else {
-    //     inputElement.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
-    // }
+    } else {
+        inputElement.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
+    }
 }
 
 let feito_musica_tocar = false
@@ -396,9 +396,9 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
             if(Device.Tipo == 'Mobile') {
                 console.log('Rapaz')
                 
-                Trocar_Background(MusicaAtual.Imagens[0], document.body)
+                // Trocar_Background(MusicaAtual.Imagens[0], document.body)
             } else {
-                Trocar_Background(MusicaAtual.Imagens[0], document.body)
+                Trocar_Background(MusicaAtual.Img, document.body)
             }
         }
     }
