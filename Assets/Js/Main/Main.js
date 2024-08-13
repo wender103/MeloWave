@@ -741,11 +741,11 @@ audio_player.addEventListener('play', () => {
             }
         }
 
-        obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
-            document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
-            document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
-            document.getElementById('contador_segundos_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
-        })
+        // obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
+        //     document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
+        //     document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
+        //     document.getElementById('contador_segundos_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
+        // })
 
         //! Vai atualizar a letra
         Atualizar_Letra_PC()

@@ -910,8 +910,8 @@ const inputRangeMusicaPC = document.getElementById('input_range_musica_pc')
 const inputRangeMusicaPCFullscreen = document.getElementById('input_range_musica_pc_fullscreen')
 const traco_barra_musica_cell = document.getElementById('traco_barra_musica_cell')
 
-async function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'duration', atualizarInputs = false) {
-    return new Promise(async (resolve, reject) => {
+function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'duration', atualizarInputs = false) {
+    return new Promise((resolve, reject) => {
         if (!audioPlayer) {
             return reject(new Error('Elemento de áudio não fornecido'))
         }
