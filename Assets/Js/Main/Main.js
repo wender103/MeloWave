@@ -687,6 +687,9 @@ audio_player.addEventListener('ended', () => {
 
 let interval_audio_tocando
 let em_transicao = false
+const contador_segundos_musica  = document.getElementById('contador_segundos_musica')
+const contador_segundos_musica_fullscreen  = document.getElementById('contador_segundos_musica_fullscreen')
+const contador_segundos_musica_pag_musica_tocando_agora = document.getElementById('contador_segundos_musica_pag_musica_tocando_agora')
 audio_player.addEventListener('play', () => {
     interval_view = setInterval(() => {
 
@@ -740,12 +743,22 @@ audio_player.addEventListener('play', () => {
                 }, 2000)
             }
         }
+        
+        //* Motivo de travar ao dar play no celular
+        obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
+            if(Device.Tipo != 'Mobile') {
+                if(!pode_atualizar_letra_fullscreen) {
+                    contador_segundos_musica.innerText = resp.formattedDuration
+                } else {
+                   contador_segundos_musica_fullscreen.innerText = resp.formattedDuration
+                }
 
-        // obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
-        //     document.getElementById('contador_segundos_musica').innerText = resp.formattedDuration
-        //     document.getElementById('contador_segundos_musica_fullscreen').innerText = resp.formattedDuration
-        //     document.getElementById('contador_segundos_musica_pag_musica_tocando_agora').innerText = resp.formattedDuration
-        // })
+            } else {
+                if(pag_musica_tocando_agr.style.top == '0px') {
+                    contador_segundos_musica_pag_musica_tocando_agora.innerText = resp.formattedDuration        
+                }
+            }
+        })
 
         //! Vai atualizar a letra
         Atualizar_Letra_PC()
@@ -763,6 +776,7 @@ audio_player.addEventListener('pause', () => {
 //! --------------------------------- Fim Tocar Musica -------------------------------
 
 const container_barra_musica_cell = document.getElementById('container_barra_musica_cell')
+const container_barra_musica = document.querySelector('#container_barra_musica')
 function Ativar_Musica(Musica) {
     if(Device.Tipo != 'Mobile') {
         const nav = document.querySelector('nav')
@@ -780,7 +794,6 @@ function Ativar_Musica(Musica) {
             Mostrar_Notificacao_Na_Tela(2)
         }
         
-        const container_barra_musica = document.querySelector('#container_barra_musica')
         container_barra_musica.style.bottom = '8px'
 
         setTimeout(() => {
@@ -815,7 +828,6 @@ function Desativar_Musica() {
     const main = document.querySelector('main')
     main.classList.add('Musica_On')
 
-    const container_barra_musica = document.querySelector('#container_barra_musica')
     container_barra_musica.style.bottom = '-300px'
 
     main.style.transition = '500ms height ease-in-out'
