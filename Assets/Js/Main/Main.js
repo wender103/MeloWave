@@ -179,7 +179,7 @@ function Pegar_Todas_Musicas() {
                                             } catch{}
                                         }
                                         }).catch(error => {
-                                            console.error('Ocorreu um erro:', error)
+                                            console.warn('Ocorreu um erro:', error)
                                         })                                        
                                     }
                                 })

@@ -33,9 +33,9 @@ function Execultar_Funcoes_Ao_Carregar() {
             }
           }
   
-          adicionarTarefa(Retornar_Daily);
-          adicionarTarefa(Retornar_Todas_Secoes);
-          adicionarTarefa(Checar_Notificacao_Artista_Seguindo);
+          // adicionarTarefa(Retornar_Daily);
+          // adicionarTarefa(Retornar_Todas_Secoes);
+          // adicionarTarefa(Checar_Notificacao_Artista_Seguindo);
           adicionarTarefa(Carregar_Banimento);
           adicionarTarefa(Atualizar_Infos_Perfil_Loja);
           
@@ -50,12 +50,12 @@ function Execultar_Funcoes_Ao_Carregar() {
           adicionarTarefa(Carregar_Musica_Pendentes);
           adicionarTarefa(Remover_Musicas_Tempo_Exedido);
           adicionarTarefa(Carregar_Notificacaoes);
-          adicionarTarefa(Artistas_Tocados_Recentemente);
+          // adicionarTarefa(Artistas_Tocados_Recentemente);
           adicionarTarefa(Mostrar_Max_Musicas);
-          adicionarTarefa(Retornar_Artistas_Mais_Vistos);
+          // adicionarTarefa(Retornar_Artistas_Mais_Vistos);
           adicionarTarefa(Carregar_Configs)
           adicionarTarefa(Carregar_Configuracoes)
-          adicionarTarefa(Retornar_Tocados_Recentemente_Primeira_Parte)
+          // adicionarTarefa(Retornar_Tocados_Recentemente_Primeira_Parte)
   
           if (['/MeloWave/index.html', '/MeloWave/', '/', '/index.html'].includes(window.location.pathname)) {
             adicionarTarefa(() => {
