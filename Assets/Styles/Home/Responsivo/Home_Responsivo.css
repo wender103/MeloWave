@@ -229,7 +229,6 @@
   }
   section#container_barra_musica_cell {
     display: flex !important;
-    will-change: transform;
   }
   pre {
     font-size: 1.2em !important;

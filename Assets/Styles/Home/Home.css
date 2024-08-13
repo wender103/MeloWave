@@ -4731,7 +4731,6 @@ body section#pag_musica_tocando_agr {
   padding: 20px;
   color: var(--white);
   overflow: auto;
-  will-change: transform;
 }
 body section#pag_musica_tocando_agr.active article#container_parte_musica div#container_background_container_parte_musica::before {
   top: 0;
@@ -5035,6 +5034,7 @@ body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell di
 }
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_creditos_pag_cell hr {
   margin: 10px 0 20px 0;
+  opacity: 0;
 }
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_creditos_pag_cell p span {
   display: inline;

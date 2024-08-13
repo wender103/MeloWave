@@ -6,10 +6,12 @@ const maximo_infos_salvas = {
     Gosto_Musical_Genero: 100
 }
 function Salvar_Historico() {
+    
+    let Outos1 = [...User.Historico.Outros]
 
     let new_Historico = {
         Musicas: [...User.Historico.Musicas],
-        Outros: [...User.Historico.Outros],
+        Outros: Outos1.filter(item => typeof item === 'string'),
     }
 
     let Musicas = []
@@ -316,9 +318,15 @@ function Artistas_Tocados_Recentemente() {
         article.id = 'container_artistas_playlist_tocadas_recentemente'
     }
 
+    let max_tocados_recentemente = 14
+
+    if(Device.Tipo == 'Mobile') {
+        max_tocados_recentemente = 7
+    }
+
     let contador_divs = 0
     for (let c = artistas.length - 1; c >= 0; c--) {
-        if(contador_divs < 10) {
+        if(contador_divs < max_tocados_recentemente) {
             if(typeof artistas[c] == 'string' && !artistas[c].includes('Playlist') && !artistas[c].includes('Match')) {
                 if(!validarEmail(artistas[c])) {
                     article.appendChild(Retornar_Artistas_Caixa(artistas[c]))
@@ -429,6 +437,12 @@ function Retornar_User_Historico(Email) {
 
 let artistas_favoritos_retornados = false
 function Retornar_Artistas_Mais_Vistos() {
+    let max_artistas = 14
+
+    if(Device.Tipo == 'Mobile') {
+        max_artistas = 7
+    }
+    
     const section = document.createElement('section')
     const h1 = document.createElement('h1')
     let article = document.createElement('article')
@@ -442,7 +456,7 @@ function Retornar_Artistas_Mais_Vistos() {
         article.innerHTML = ''
     }
 
-    for (let c = 0; c < artistas.length && c < 10; c++) {
+    for (let c = 0; c < artistas.length && c < max_artistas; c++) {
         article.appendChild(Retornar_Artistas_Caixa(artistas[c]))
     }
 
@@ -465,14 +479,20 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
     const Outros = [...User.Historico.Outros]
     Outros.reverse()
 
-    for (let c = 0; c < Outros.length && c < 10; c++) {
+    let max_outros = 14
+
+    if(Device.Tipo == 'Mobile') {
+        max_outros = 7
+    }
+
+    for (let c = 0; c < Outros.length && c < max_outros; c++) {
         const div_container = document.createElement('div')
         const img_container = document.createElement('div')
         const paragrafo = document.createElement('p')
         paragrafo.className = 'paragrafo'
 
         //! Caso for um match
-        if(Outros[c].includes('Match:')) {
+        if(typeof Outros === 'string' && Outros[c].includes('Match:')) {
             let id_match = Outros[c].replace('Match:', '').trim()
             for (let d = 0; d < TodosMatchs.length; d++) {
                 if(TodosMatchs[d].ID == id_match) {

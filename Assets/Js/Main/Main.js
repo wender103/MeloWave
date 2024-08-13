@@ -484,8 +484,12 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         Ativar_Musica(MusicaAtual)
 
         if(!pagina_igual) {
+            console.log(Device.Tipo)
+            
             if(Device.Tipo == 'Mobile') {
-                Trocar_Background(MusicaAtual.Imagens[0], document.body)
+                console.log('Rapaz')
+                
+                Trocar_Background(MusicaAtual.Imagens[2], document.body)
             } else {
                 Trocar_Background(MusicaAtual.Img, document.body)
             }
