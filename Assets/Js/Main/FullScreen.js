@@ -70,7 +70,11 @@ function Atualizar_Fullscreen() {
         musica_escolhida = musicas_do_autor.sort((a, b) => b.Views - a.Views)[1]
     }
 
-    Trocar_Background(musica_escolhida.Img, document.getElementById('background_fullscreen'))
+    if(Device.Tipo != 'Mobile') {
+        Trocar_Background(musica_escolhida.Img, document.getElementById('background_fullscreen'))
+    } else {
+        document.getElementById('background_fullscreen').style.backgroundImage = 'none'
+    }
 }
 
 function Destivar_Fullscreen() {

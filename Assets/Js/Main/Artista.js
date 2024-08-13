@@ -33,7 +33,13 @@ function Abrir_Perfil_Artista(Artista, Musica) {
         musica_escolhida = musicas_do_autor.sort((a, b) => b.Views - a.Views)[0]
     }
     
-    document.getElementById('background_paginas_artista').style.backgroundImage = `url(${musica_escolhida.Img})`
+    if(Device.Tipo != 'Mobile') {
+        document.getElementById('background_paginas_artista').style.backgroundImage = `url(${musica_escolhida.Img})`
+
+    } else {
+        document.getElementById('background_paginas_artista').style.backgroundImage = `url(${musica_escolhida.Imagens[2]})`
+    }
+
     document.getElementById('nome_artista').innerText = Artista
 
     const btn_seguir_user = document.getElementById('btn_seguir_user')
