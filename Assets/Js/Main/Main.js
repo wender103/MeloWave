@@ -489,9 +489,9 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
             if(Device.Tipo == 'Mobile') {
                 console.log('Rapaz')
                 
-                Trocar_Background(MusicaAtual.Imagens[2], document.body)
+                Trocar_Background(MusicaAtual.Imagens[0], document.body)
             } else {
-                Trocar_Background(MusicaAtual.Img, document.body)
+                Trocar_Background(MusicaAtual.Imagens[0], document.body)
             }
         }
     }
