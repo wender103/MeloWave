@@ -195,80 +195,6 @@ function Pegar_Todas_Musicas() {
     })
 } Pegar_Todas_Musicas()
 
-//! ---------------- Navegador ----------------------------------
-function Carregar_Navegor(MusicaAtual, Comando='') {
-    navigator.mediaSession.metadata = new MediaMetadata({
-        title: MusicaAtual.Nome,
-        artist: MusicaAtual.Autor,
-        album: '...',
-        artwork: [
-            { 
-                src: MusicaAtual.Img, 
-                sizes: '300x300', 
-                type: 'image/png', 
-                purpose: 'cover', 
-                style: 'object-fit: cover'
-            }
-        ]
-    })
-
-    // Manipulador para avançar para a próxima faixa de áudio
-    navigator.mediaSession.setActionHandler('nexttrack', function() {
-        if(!Comando.includes('Pausar Ao Finalizar')) {
-            RepetirMusica = false
-            Proxima_Musica()
-        }
-    })
-
-    // Manipulador para retroceder para a faixa de áudio anterior
-    navigator.mediaSession.setActionHandler('previoustrack', function() {
-        if(!Comando.includes('Pausar Ao Finalizar')) {
-            Musica_Anterior()
-        }
-    })
-
-    // Manipulador para avançar a reprodução em 10 segundos
-    navigator.mediaSession.setActionHandler('seekforward', function() {
-        if(!Comando.includes('Pausar Ao Finalizar')) {
-            audio_player.currentTime += 10 // Avança 10 segundos
-        }
-    })
-
-    // Manipulador para retroceder a reprodução em 10 segundos
-    navigator.mediaSession.setActionHandler('seekbackward', function() {
-        if(!Comando.includes('Pausar Ao Finalizar')) {
-            audio_player.currentTime -= 10 // Retrocede 10 segundos
-        }
-    })
-
-    // Manipulador para iniciar a reprodução da mídia
-    navigator.mediaSession.setActionHandler('play', function() {
-        Play() // Inicia a reprodução do áudio
-    })
-
-    // Manipulador para pausar a reprodução da mídia
-    navigator.mediaSession.setActionHandler('pause', function() {
-        Pausar() // Pausa a reprodução do áudio
-    })
-
-    // Manipulador para parar a reprodução da mídia e reiniciar para o início
-    navigator.mediaSession.setActionHandler('stop', function() {
-        if(!Comando.includes('Pausar Ao Finalizar')) {
-            Pausar() // Pausa a reprodução do áudio
-            audio_player.currentTime = 0 // Reinicia a reprodução para o início
-        }
-    })
-
-    // Manipulador para alterar a posição de reprodução para um tempo específico
-    navigator.mediaSession.setActionHandler('seekto', function(details) {
-        if(!Comando.includes('Pausar Ao Finalizar')) {
-            if (details.fastSeek && 'seekable' in audio_player) {
-                audio_player.currentTime = details.seekTime // Altera a posição de reprodução para o tempo especificado
-            }
-        }
-    })
-} 
-//! ---------------- Fim Navegador ----------------------------------
 
 //! --------------------------------- Tocar Musica -------------------------------
 let audio_player = document.getElementById('audio_player')
@@ -277,60 +203,41 @@ let audio_player = document.getElementById('audio_player')
 let cor_input_agora = '#fff'
 let timeout_atulizar_inputs_range
 function atualizar_cor_progresso_input(inputElement) {
-//     const err = new Error();
-//   const stack = err.stack || '';
-  
-//   // O stack trace pode variar entre navegadores. Normalmente, o primeiro item é o próprio erro e o segundo item é a função que chamou.
-//   // Extraímos a parte que contém o stack trace.
-//   const stackLines = stack.split('\n');
-  
-//   // Exibimos a segunda linha do stack trace que geralmente corresponde à chamada da função.
-//   console.log('Função chamada por:', stackLines[2]);
-    if(inputElement.className == 'input_range_musica') {
-        if (timeout_atulizar_inputs_range) {
-            clearTimeout(timeout_atulizar_inputs_range)
+    // if(inputElement.className == 'input_range_musica') {
+    //     if (timeout_atulizar_inputs_range) {
+    //         clearTimeout(timeout_atulizar_inputs_range)
         
-        }
-        timeout_atulizar_inputs_range = setTimeout(() => {
-            if (isCasting && mediaSession) {
-
-                let seekTime = audio_player.currentTime
-
-                try {
-                    // Criar um objeto com a propriedade currentTime
-                    const seekRequest = { currentTime: seekTime }
-                    
-                    // Verificar se mediaSession.seek existe antes de chamar
-                    if (typeof mediaSession.seek === 'function') {
-                        mediaSession.seek(seekRequest)
-                    } else {
-                        console.error('Método seek não disponível em mediaSession')
-                    }
-                } catch (error) {
-                    console.warn('Algo de errado deu errado');
-                    console.error(error);
-                }
-            }
-        }, 500)
-    }
-
-    var value = (inputElement.value-inputElement.min)/(inputElement.max-inputElement.min)*100;
-
-    if(Tema_Atual_Pagina == 'Claro') {
-        inputElement.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
-
-    } else {
-        inputElement.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
-    }
-
-    // if(Device.Tipo == 'Mobile' && inputElement.id == 'traco_barra_musica_cell') {
-    //     inputElement.style.width = `${value}%`
-    //     if(Tema_Atual_Pagina == 'Claro') {
-    //         inputElement.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
-
-    //     } else {
-    //         inputElement.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
     //     }
+    //     timeout_atulizar_inputs_range = setTimeout(() => {
+    //         if (isCasting && mediaSession) {
+
+    //             let seekTime = audio_player.currentTime
+
+    //             try {
+    //                 // Criar um objeto com a propriedade currentTime
+    //                 const seekRequest = { currentTime: seekTime }
+                    
+    //                 // Verificar se mediaSession.seek existe antes de chamar
+    //                 if (typeof mediaSession.seek === 'function') {
+    //                     mediaSession.seek(seekRequest)
+    //                 } else {
+    //                     console.error('Método seek não disponível em mediaSession')
+    //                 }
+    //             } catch (error) {
+    //                 console.warn('Algo de errado deu errado');
+    //                 console.error(error);
+    //             }
+    //         }
+    //     }, 500)
+    // }
+
+    // var value = (inputElement.value-inputElement.min)/(inputElement.max-inputElement.min)*100;
+
+    // if(Tema_Atual_Pagina == 'Claro') {
+    //     inputElement.style.background = `linear-gradient(to right, ${cor_input_agora} 0%, ${cor_input_agora} ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
+
+    // } else {
+    //     inputElement.style.background = `linear-gradient(to right, #000000 0%, #000000 ${value}%, #4d4d4d52 ${value}%, #4d4d4d52 100%)`
     // }
 }
 
@@ -577,9 +484,76 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     //! ---------------- Navegador ----------------------------------
 
-    if(!User.Configuracoes.Transicoes_De_Faixas) {
-        Carregar_Navegor(MusicaAtual, Comando)
-    }
+    navigator.mediaSession.metadata = new MediaMetadata({
+        title: MusicaAtual.Nome,
+        artist: MusicaAtual.Autor,
+        album: '...',
+        artwork: [
+            { 
+                src: MusicaAtual.Imagens[1], 
+                sizes: '300x300', 
+                type: 'image/png', 
+                purpose: 'cover', 
+                style: 'object-fit: cover'
+            }
+        ]
+    })
+
+    // Manipulador para avançar para a próxima faixa de áudio
+    navigator.mediaSession.setActionHandler('nexttrack', function() {
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            RepetirMusica = false
+            Proxima_Musica()
+        }
+    })
+
+    // Manipulador para retroceder para a faixa de áudio anterior
+    navigator.mediaSession.setActionHandler('previoustrack', function() {
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            Musica_Anterior()
+        }
+    })
+
+    // Manipulador para avançar a reprodução em 10 segundos
+    navigator.mediaSession.setActionHandler('seekforward', function() {
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            audio_player.currentTime += 10 // Avança 10 segundos
+        }
+    })
+
+    // Manipulador para retroceder a reprodução em 10 segundos
+    navigator.mediaSession.setActionHandler('seekbackward', function() {
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            audio_player.currentTime -= 10 // Retrocede 10 segundos
+        }
+    })
+
+    // Manipulador para iniciar a reprodução da mídia
+    navigator.mediaSession.setActionHandler('play', function() {
+        Play() // Inicia a reprodução do áudio
+    })
+
+    // Manipulador para pausar a reprodução da mídia
+    navigator.mediaSession.setActionHandler('pause', function() {
+        Pausar() // Pausa a reprodução do áudio
+    })
+
+    // Manipulador para parar a reprodução da mídia e reiniciar para o início
+    navigator.mediaSession.setActionHandler('stop', function() {
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            Pausar() // Pausa a reprodução do áudio
+            audio_player.currentTime = 0 // Reinicia a reprodução para o início
+        }
+    })
+
+    // Manipulador para alterar a posição de reprodução para um tempo específico
+    navigator.mediaSession.setActionHandler('seekto', function(details) {
+        if(!Comando.includes('Pausar Ao Finalizar')) {
+            if (details.fastSeek && 'seekable' in audio_player) {
+                audio_player.currentTime = details.seekTime // Altera a posição de reprodução para o tempo especificado
+            }
+        }
+    })
 
     //! ---------------- Fim Navegador ----------------------------------
 
