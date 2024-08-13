@@ -449,250 +449,250 @@ function Voltar_Letra_Ver_Musica(index) {
 
 let pode_atualizar_letra_fullscreen = false
 function Destacar_linhas() {
-    if(linha_atual == -1 || linha_atual == 0) {
-        Pagina_verletra.classList.add('Tem_Letra')
-        pre_letra_da_musica.style.padding = '500px 10px 500px'
-    }
+    // if(linha_atual == -1 || linha_atual == 0) {
+    //     Pagina_verletra.classList.add('Tem_Letra')
+    //     pre_letra_da_musica.style.padding = '500px 10px 500px'
+    // }
     
-    let duracao_transicao = 50
+    // let duracao_transicao = 50
 
-    if(Device.Tipo != 'Mobile') {
-        if(pd_atualizar_letra_pc) {
-            pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
-            letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
-            let linhas = pre_letra_da_musica.innerHTML.split('\n')
+    // if(Device.Tipo != 'Mobile') {
+    //     if(pd_atualizar_letra_pc) {
+    //         pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
+    //         letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
+    //         let linhas = pre_letra_da_musica.innerHTML.split('\n')
             
-            if (linha_atual <= linhas.length) {
-                // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
-                for (let c = 0; c < linhas.length; c++) {
-                    if(c == linha_atual) {
-                        linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_ver_letra">' + letra_pre_ver_letra[c] + '</span>'
+    //         if (linha_atual <= linhas.length) {
+    //             // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+    //             for (let c = 0; c < linhas.length; c++) {
+    //                 if(c == linha_atual) {
+    //                     linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_ver_letra">' + letra_pre_ver_letra[c] + '</span>'
 
-                    } else if(c < linha_atual) {
-                        linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-                    } else {
-                        if(c == 0) {
-                            linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_ver_letra">` + letra_pre_ver_letra[c] + '</span>'
-                        } else {
-                            linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-                        }
-                    }
-                }
+    //                 } else if(c < linha_atual) {
+    //                     linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+    //                 } else {
+    //                     if(c == 0) {
+    //                         linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_ver_letra">` + letra_pre_ver_letra[c] + '</span>'
+    //                     } else {
+    //                         linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+    //                     }
+    //                 }
+    //             }
 
-                // Atualiza o conteúdo do <pre> com as linhas modificadas
-                pre_letra_da_musica.innerHTML = ''
-                for (let c = 0; c < linhas.length; c++) {
-                    pre_letra_da_musica.innerHTML += linhas[c] + '\n'
-                }
+    //             // Atualiza o conteúdo do <pre> com as linhas modificadas
+    //             pre_letra_da_musica.innerHTML = ''
+    //             for (let c = 0; c < linhas.length; c++) {
+    //                 pre_letra_da_musica.innerHTML += linhas[c] + '\n'
+    //             }
 
-                if(Infos_Desempenho.Niveis_Desempenho < 3) {
-                    const text = document.getElementById('linha_atual_sincronizar_ver_letra')
-                    const letters = text.textContent.split('')
-                    text.innerHTML = ''
+    //             if(Infos_Desempenho.Niveis_Desempenho < 3) {
+    //                 const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+    //                 const letters = text.textContent.split('')
+    //                 text.innerHTML = ''
 
-                    letters.forEach((letter, index) => {
-                        const span = document.createElement('span')
-                        if (letter === ' ' && text.lastElementChild) {
-                            text.lastElementChild.textContent += letter
-                        } else {
-                            span.textContent = letter
-                            span.className = 'animated-span'
-                            text.appendChild(span)
+    //                 letters.forEach((letter, index) => {
+    //                     const span = document.createElement('span')
+    //                     if (letter === ' ' && text.lastElementChild) {
+    //                         text.lastElementChild.textContent += letter
+    //                     } else {
+    //                         span.textContent = letter
+    //                         span.className = 'animated-span'
+    //                         text.appendChild(span)
 
-                            setTimeout(() => {
-                                span.classList.add('animated')
-                            }, index * duracao_transicao) 
-                        }
-                    })
-                } else {
-                    const text = document.getElementById('linha_atual_sincronizar_ver_letra')
-                    const span = document.createElement('span')
-                    span.innerText = text.innerText
-                    span.className = 'animated-span'
-                    text.innerHTML = ''
-                    text.appendChild(span)
-                    setTimeout(() => {
-                        span.classList.add('animated')
-                    }, 100)
-                }
-                //? Faz o scroll para a linha atual
-                try {
-                    document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
-                } catch{}
-            }
-        } else if(pode_atualizar_letra_tela_tocando_agora) {
-            pre_letra_tocando_agora.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
-            letra_pre_ver_letra = pre_letra_tocando_agora.innerText.split('\n')
-            let linhas = pre_letra_tocando_agora.innerHTML.split('\n')
+    //                         setTimeout(() => {
+    //                             span.classList.add('animated')
+    //                         }, index * duracao_transicao) 
+    //                     }
+    //                 })
+    //             } else {
+    //                 const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+    //                 const span = document.createElement('span')
+    //                 span.innerText = text.innerText
+    //                 span.className = 'animated-span'
+    //                 text.innerHTML = ''
+    //                 text.appendChild(span)
+    //                 setTimeout(() => {
+    //                     span.classList.add('animated')
+    //                 }, 100)
+    //             }
+    //             //? Faz o scroll para a linha atual
+    //             try {
+    //                 document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+    //             } catch{}
+    //         }
+    //     } else if(pode_atualizar_letra_tela_tocando_agora) {
+    //         pre_letra_tocando_agora.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
+    //         letra_pre_ver_letra = pre_letra_tocando_agora.innerText.split('\n')
+    //         let linhas = pre_letra_tocando_agora.innerHTML.split('\n')
             
-            if (linha_atual <= linhas.length) {
-                // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
-                for (let c = 0; c < linhas.length; c++) {
-                    if(c == linha_atual) {
-                        linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_aba_musica_tocando_agora">' + letra_pre_ver_letra[c] + '</span>'
-                    } else if(c < linha_atual) {
-                        linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-                    } else {
-                        if(c == 0) {
-                            linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_aba_musica_tocando_agora">` + letra_pre_ver_letra[c] + '</span>'
-                        } else {
-                            linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-                        }
-                    }
-                }
+    //         if (linha_atual <= linhas.length) {
+    //             // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+    //             for (let c = 0; c < linhas.length; c++) {
+    //                 if(c == linha_atual) {
+    //                     linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_aba_musica_tocando_agora">' + letra_pre_ver_letra[c] + '</span>'
+    //                 } else if(c < linha_atual) {
+    //                     linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+    //                 } else {
+    //                     if(c == 0) {
+    //                         linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_aba_musica_tocando_agora">` + letra_pre_ver_letra[c] + '</span>'
+    //                     } else {
+    //                         linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+    //                     }
+    //                 }
+    //             }
 
-                // Atualiza o conteúdo do <pre> com as linhas modificadas
-                pre_letra_tocando_agora.innerHTML = ''
-                for (let c = 0; c < linhas.length; c++) {
-                    pre_letra_tocando_agora.innerHTML += linhas[c] + '\n'   
-                }
+    //             // Atualiza o conteúdo do <pre> com as linhas modificadas
+    //             pre_letra_tocando_agora.innerHTML = ''
+    //             for (let c = 0; c < linhas.length; c++) {
+    //                 pre_letra_tocando_agora.innerHTML += linhas[c] + '\n'   
+    //             }
 
-                if(Infos_Desempenho.Niveis_Desempenho < 3) {
-                    const text = document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora')                        
-                    const letters = text.textContent.split('')
-                    text.innerHTML = ''
+    //             if(Infos_Desempenho.Niveis_Desempenho < 3) {
+    //                 const text = document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora')                        
+    //                 const letters = text.textContent.split('')
+    //                 text.innerHTML = ''
 
-                    letters.forEach((letter, index) => {
-                        const span = document.createElement('span')
-                        if (letter === ' ' && text.lastElementChild) {
-                            text.lastElementChild.textContent += letter
-                        } else {
-                            span.textContent = letter
-                            span.className = 'animated-span'
-                            text.appendChild(span)
+    //                 letters.forEach((letter, index) => {
+    //                     const span = document.createElement('span')
+    //                     if (letter === ' ' && text.lastElementChild) {
+    //                         text.lastElementChild.textContent += letter
+    //                     } else {
+    //                         span.textContent = letter
+    //                         span.className = 'animated-span'
+    //                         text.appendChild(span)
 
-                            setTimeout(() => {
-                                span.classList.add('animated')
-                            }, index * duracao_transicao) 
-                        }
-                    })
-                } else {
-                    const text = document.getElementById('linha_atual_sincronizar_ver_letra')
-                    const span = document.createElement('span')
-                    span.innerText = text.innerText
-                    span.className = 'animated-span'
-                    text.innerHTML = ''
-                    text.appendChild(span)
-                    setTimeout(() => {
-                        span.classList.add('animated')
-                    }, 100)
-                }
-                //? Faz o scroll para a linha atual
-                try {
-                    document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
-                } catch{}
+    //                         setTimeout(() => {
+    //                             span.classList.add('animated')
+    //                         }, index * duracao_transicao) 
+    //                     }
+    //                 })
+    //             } else {
+    //                 const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+    //                 const span = document.createElement('span')
+    //                 span.innerText = text.innerText
+    //                 span.className = 'animated-span'
+    //                 text.innerHTML = ''
+    //                 text.appendChild(span)
+    //                 setTimeout(() => {
+    //                     span.classList.add('animated')
+    //                 }, 100)
+    //             }
+    //             //? Faz o scroll para a linha atual
+    //             try {
+    //                 document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+    //             } catch{}
                 
-            }
+    //         }
 
-        } else if(pode_atualizar_letra_fullscreen) {
-            pre_letra_fullscreen.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
-            letra_pre_ver_letra = pre_letra_fullscreen.innerText.split('\n')
-            let linhas = pre_letra_fullscreen.innerHTML.split('\n')
+    //     } else if(pode_atualizar_letra_fullscreen) {
+    //         pre_letra_fullscreen.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
+    //         letra_pre_ver_letra = pre_letra_fullscreen.innerText.split('\n')
+    //         let linhas = pre_letra_fullscreen.innerHTML.split('\n')
             
-            if (linha_atual <= linhas.length) {
-                // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
-                for (let c = 0; c < linhas.length; c++) {
-                    if(c == linha_atual) {
-                        linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_fullscreen">' + letra_pre_ver_letra[c] + '</span>'
-                    } else if(c < linha_atual) {
-                        linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-                    } else {
-                        if(c == 0) {
-                            linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_fullscreen">` + letra_pre_ver_letra[c] + '</span>'
-                        } else {
-                            linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-                        }
-                    }
-                }
+    //         if (linha_atual <= linhas.length) {
+    //             // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+    //             for (let c = 0; c < linhas.length; c++) {
+    //                 if(c == linha_atual) {
+    //                     linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_fullscreen">' + letra_pre_ver_letra[c] + '</span>'
+    //                 } else if(c < linha_atual) {
+    //                     linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+    //                 } else {
+    //                     if(c == 0) {
+    //                         linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_fullscreen">` + letra_pre_ver_letra[c] + '</span>'
+    //                     } else {
+    //                         linhas[c] = `<span class="linha_pre_posterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+    //                     }
+    //                 }
+    //             }
 
-                // Atualiza o conteúdo do <pre> com as linhas modificadas
-                pre_letra_fullscreen.innerHTML = ''
-                for (let c = 0; c < linhas.length; c++) {
-                    pre_letra_fullscreen.innerHTML += linhas[c] + '\n'   
-                }
+    //             // Atualiza o conteúdo do <pre> com as linhas modificadas
+    //             pre_letra_fullscreen.innerHTML = ''
+    //             for (let c = 0; c < linhas.length; c++) {
+    //                 pre_letra_fullscreen.innerHTML += linhas[c] + '\n'   
+    //             }
 
-                if(Infos_Desempenho.Niveis_Desempenho < 3) {
-                    const text = document.getElementById('linha_atual_sincronizar_ver_letra')
-                    const letters = text.textContent.split('')
-                    text.innerHTML = ''
+    //             if(Infos_Desempenho.Niveis_Desempenho < 3) {
+    //                 const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+    //                 const letters = text.textContent.split('')
+    //                 text.innerHTML = ''
 
-                    letters.forEach((letter, index) => {
-                        const span = document.createElement('span')
-                        if (letter === ' ' && text.lastElementChild) {
-                            text.lastElementChild.textContent += letter
-                        } else {
-                            span.textContent = letter
-                            span.className = 'animated-span'
-                            text.appendChild(span)
+    //                 letters.forEach((letter, index) => {
+    //                     const span = document.createElement('span')
+    //                     if (letter === ' ' && text.lastElementChild) {
+    //                         text.lastElementChild.textContent += letter
+    //                     } else {
+    //                         span.textContent = letter
+    //                         span.className = 'animated-span'
+    //                         text.appendChild(span)
 
-                            setTimeout(() => {
-                                span.classList.add('animated')
-                            }, index * duracao_transicao) 
-                        }
-                    })
-                } else {
-                    const text = document.getElementById('linha_atual_sincronizar_ver_letra')
-                    const span = document.createElement('span')
-                    span.innerText = text.innerText
-                    span.className = 'animated-span'
-                    text.innerHTML = ''
-                    text.appendChild(span)
-                    setTimeout(() => {
-                        span.classList.add('animated')
-                    }, 100)
-                }
-                //? Faz o scroll para a linha atual
-                try {
-                    document.getElementById('linha_atual_sincronizar_fullscreen').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
-                } catch{}
+    //                         setTimeout(() => {
+    //                             span.classList.add('animated')
+    //                         }, index * duracao_transicao) 
+    //                     }
+    //                 })
+    //             } else {
+    //                 const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+    //                 const span = document.createElement('span')
+    //                 span.innerText = text.innerText
+    //                 span.className = 'animated-span'
+    //                 text.innerHTML = ''
+    //                 text.appendChild(span)
+    //                 setTimeout(() => {
+    //                     span.classList.add('animated')
+    //                 }, 100)
+    //             }
+    //             //? Faz o scroll para a linha atual
+    //             try {
+    //                 document.getElementById('linha_atual_sincronizar_fullscreen').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+    //             } catch{}
                 
-            }
-        }
-    } else {
-        if(letre_cell_aberta) {
-            pre_letra_cell.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
-            letra_pre_ver_letra = pre_letra_cell.innerText.split('\n')
-            let linhas = pre_letra_cell.innerHTML.split('\n')
+    //         }
+    //     }
+    // } else {
+    //     if(letre_cell_aberta) {
+    //         pre_letra_cell.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
+    //         letra_pre_ver_letra = pre_letra_cell.innerText.split('\n')
+    //         let linhas = pre_letra_cell.innerHTML.split('\n')
             
-            if (linha_atual <= linhas.length) {
-                // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
-                for (let c = 0; c < linhas.length; c++) {
-                    if(c == linha_atual) {
-                        linhas[c] = '<span class="linha_pre_em_destaque_cell" id="linha_atual_sincronizar_cell">' + letra_pre_ver_letra[c] + '</span>'
-                    } else if(c < linha_atual) {
-                        linhas[c] = `<span class="linha_pre_anterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-                    } else {
-                        if(c == 0) {
-                            linhas[c] = `<span class="linha_pre_posterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_cell">` + letra_pre_ver_letra[c] + '</span>'
-                        } else {
-                            linhas[c] = `<span class="linha_pre_posterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-                        }
-                    }
-                }
+    //         if (linha_atual <= linhas.length) {
+    //             // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+    //             for (let c = 0; c < linhas.length; c++) {
+    //                 if(c == linha_atual) {
+    //                     linhas[c] = '<span class="linha_pre_em_destaque_cell" id="linha_atual_sincronizar_cell">' + letra_pre_ver_letra[c] + '</span>'
+    //                 } else if(c < linha_atual) {
+    //                     linhas[c] = `<span class="linha_pre_anterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+    //                 } else {
+    //                     if(c == 0) {
+    //                         linhas[c] = `<span class="linha_pre_posterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_cell">` + letra_pre_ver_letra[c] + '</span>'
+    //                     } else {
+    //                         linhas[c] = `<span class="linha_pre_posterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+    //                     }
+    //                 }
+    //             }
 
-                // Atualiza o conteúdo do <pre> com as linhas modificadas
-                pre_letra_cell.innerHTML = ''
-                for (let c = 0; c < linhas.length; c++) {
-                    pre_letra_cell.innerHTML += linhas[c] + '\n'   
-                }
+    //             // Atualiza o conteúdo do <pre> com as linhas modificadas
+    //             pre_letra_cell.innerHTML = ''
+    //             for (let c = 0; c < linhas.length; c++) {
+    //                 pre_letra_cell.innerHTML += linhas[c] + '\n'   
+    //             }
 
-                const text = document.getElementById('linha_atual_sincronizar_cell')
-                const span = document.createElement('span')
-                span.innerText = text.innerText
-                span.className = 'animated-span'
-                text.innerHTML = ''
-                text.appendChild(span)
-                setTimeout(() => {
-                    span.classList.add('animated')
-                }, 100)
-                //? Faz o scroll para a linha atual
-                try {
-                    document.getElementById('linha_atual_sincronizar_cell').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
-                } catch{}
+    //             const text = document.getElementById('linha_atual_sincronizar_cell')
+    //             const span = document.createElement('span')
+    //             span.innerText = text.innerText
+    //             span.className = 'animated-span'
+    //             text.innerHTML = ''
+    //             text.appendChild(span)
+    //             setTimeout(() => {
+    //                 span.classList.add('animated')
+    //             }, 100)
+    //             //? Faz o scroll para a linha atual
+    //             try {
+    //                 document.getElementById('linha_atual_sincronizar_cell').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+    //             } catch{}
                 
-            }
-        }
-    }
+    //         }
+    //     }
+    // }
 }
 
 let pd_atualizar_letra_pc = false
