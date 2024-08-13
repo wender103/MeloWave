@@ -322,7 +322,7 @@ function Artistas_Tocados_Recentemente() {
     let max_tocados_recentemente = 14
 
     if(Device.Tipo == 'Mobile') {
-        max_tocados_recentemente = 7
+        max_tocados_recentemente = 2
     }
 
     let contador_divs = 0
@@ -441,7 +441,7 @@ function Retornar_Artistas_Mais_Vistos() {
     let max_artistas = 14
 
     if(Device.Tipo == 'Mobile') {
-        max_artistas = 7
+        max_artistas = 2
     }
     
     const section = document.createElement('section')
@@ -483,7 +483,7 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
     let max_outros = 14
 
     if(Device.Tipo == 'Mobile') {
-        max_outros = 7
+        max_outros = 2
     }
 
     for (let c = 0; c < Outros.length && c < max_outros; c++) {
