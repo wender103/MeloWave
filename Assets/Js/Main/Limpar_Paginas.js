@@ -2,8 +2,8 @@ function Limpar_Paginas() {
     Avisos_Rapidos('Limpar Paginas')
     const Paginas = document.querySelectorAll('.Paginas')
 
-    Paginas.forEach(pagina => {
-        if(pagina.style.display == 'none') {
+    Paginas.forEach(pagina => {        
+        if(pagina.style.opacity == '' || pagina.style.opacity == 0 || pagina.style.opacity == '0') {
             if(pagina.id == 'Pagina_musicascurtidas') {
                 document.getElementById('container_musicas_curtidas').innerText = ''
 

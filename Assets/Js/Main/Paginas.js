@@ -166,7 +166,9 @@ function Abrir_Pagina(Pagina, ID) {
     }
 
     //! Limpar Paginas
-    Limpar_Paginas()
+    setTimeout(() => {
+        Limpar_Paginas()
+    }, 800)
 }
 
 const reset_background = {
