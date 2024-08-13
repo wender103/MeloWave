@@ -186,6 +186,7 @@ function Retornar_Daily() {
                 img.className = 'Img_daily_caixa'    
 
                 //! Valores
+                img.loading = 'lazy'
                 img.src = array_daily[array_daily.length -1].Imagens[1]
                 p.innerText = `Seu Mix ${Todos_Os_Generos_Historico[qts_vezes_chamadaS_feito_pra_voce - 1]}`
                 p_daily.innerText = `Mix ${Todos_Os_Generos_Historico[qts_vezes_chamadaS_feito_pra_voce - 1]}`

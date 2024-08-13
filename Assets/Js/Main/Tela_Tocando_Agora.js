@@ -6,21 +6,27 @@ let currentIndex_tela_musica_tocando_agora = 0
 const btn_seguir_artista_tela_tocando_agora = document.getElementById('btn_seguir_artista_tela_tocando_agora')
 
 let infos_artistas_musica_tela_musica_tocando = []
+const container_letra_tela_tocando_agora = document.getElementById('container_letra_tela_tocando_agora')
 const container_tela_tocando_agora = document.getElementById('container_tela_tocando_agora')
+const carouselTocandoAgora = document.getElementById('carousel_telta_tocando_agora')
+const imgMusicaTelaTocandoAgora = document.getElementById('img_musica_tela_tocando_agora')
+const nomeMusicaTelaTocandoAgora = document.getElementById('nome_musica_tela_tocando_agora')
+const nomeArtistasTelaTocandoAgora = document.getElementById('nome_artistas_tela_tocando_agora')
+const nomeArtistasCreditoTelaTocandoAgora = document.getElementById('nome_artistas_credito_tela_tocando_agora')
+const nomeMusicaCreditoTelaTocandoAgora = document.getElementById('nome_musica_cretido_tela_tocando_agora')
+
 function Carregar_Tela_Tocando_Agora(Musica) {
     infos_artistas_musica_tela_musica_tocando = []
-    const container_letra_tela_tocando_agora = document.getElementById('container_letra_tela_tocando_agora')
-    document.getElementById('carousel_telta_tocando_agora').innerHTML = ''
-    document.getElementById('img_musica_tela_tocando_agora').src = Musica.Imagens[1]
-    document.getElementById('nome_musica_tela_tocando_agora').innerText = Musica.Nome
-    document.getElementById('nome_artistas_tela_tocando_agora').innerHTML = ''
-    document.getElementById('nome_artistas_tela_tocando_agora').appendChild(Retornar_Artistas_Da_Musica(Musica))
+    carouselTocandoAgora.innerHTML = ''
+    imgMusicaTelaTocandoAgora.src = Musica.Imagens[1]
+    imgMusicaTelaTocandoAgora.loading = 'lazy'
+    nomeMusicaTelaTocandoAgora.innerText = Musica.Nome
+    nomeArtistasTelaTocandoAgora.innerHTML = ''
+    nomeArtistasTelaTocandoAgora.appendChild(Retornar_Artistas_Da_Musica(Musica))
 
-    document.getElementById('nome_artistas_credito_tela_tocando_agora').innerHTML = ''
-    document.getElementById('nome_artistas_credito_tela_tocando_agora').appendChild(Retornar_Artistas_Da_Musica(Musica))
-    document.getElementById('nome_musica_cretido_tela_tocando_agora').innerText = Musica.Nome
-
-    document.getElementById('p_nome_album_tela_tocando_agora').innerText = Separar_Por_Virgula(Musica.Autor)[0]
+    nomeArtistasCreditoTelaTocandoAgora.innerHTML = ''
+    nomeArtistasCreditoTelaTocandoAgora.appendChild(Retornar_Artistas_Da_Musica(Musica))
+    nomeMusicaCreditoTelaTocandoAgora.innerText = Musica.Nome
 
     if(!Array.isArray(Musica.Letra)) {
         container_letra_tela_tocando_agora.style.display = 'block'

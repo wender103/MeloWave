@@ -685,90 +685,74 @@ audio_player.addEventListener('ended', () => {
 })
 
 
-let interval_audio_tocando
 let em_transicao = false
 const contador_segundos_musica  = document.getElementById('contador_segundos_musica')
 const contador_segundos_musica_fullscreen  = document.getElementById('contador_segundos_musica_fullscreen')
 const contador_segundos_musica_pag_musica_tocando_agora = document.getElementById('contador_segundos_musica_pag_musica_tocando_agora')
-audio_player.addEventListener('play', () => {
-    interval_view = setInterval(() => {
+let intervalView
+let intervalAudioTocando
 
+audio_player.addEventListener('play', () => {
+    intervalView = setInterval(() => {
         if (!audio_player.paused && !audio_player.ended) {
             tmp_ouvindo_musica++
             if (tmp_ouvindo_musica >= 30) {
                 Adicionar_View_Musica(Listas_Prox.MusicaAtual)
-                clearInterval(interval_view)
+                clearInterval(intervalView)
             }
-
         }
 
-        if(!audio_player.paused && User.Configuracoes.Transicoes_De_Faixas) {
+        if (!audio_player.paused && User.Configuracoes.Transicoes_De_Faixas) {
             const currentTime = audio_player.currentTime
             const duration = audio_player.duration
 
-            
-
-            // Verifica se falta menos de 5 segundos para o fim da música
             if (duration - currentTime <= 5) {
                 Proxima_Musica()
             }
         }
     }, 1000)
 
-    interval_audio_tocando = setInterval(() => {
-        
-        if(User.Configuracoes.Transicoes_De_Faixas && !em_transicao) {
-            let diferenca = Math.floor(audio_player.duration - audio_player.currentTime)
-        
-            if(diferenca < 6) {
-                let pd_atualizar_letra_pc2 = pd_atualizar_letra_pc
+    intervalAudioTocando = setInterval(() => {
+        if (User.Configuracoes.Transicoes_De_Faixas && !em_transicao) {
+            const diferenca = Math.floor(audio_player.duration - audio_player.currentTime)
+
+            if (diferenca < 6) {
+                let [pdAtualizarLetraPC2, podeAtualizarLetraFullscreen2, podeAtualizarLetraTelaTocandoAgora2, letreCellAberta2] = [pd_atualizar_letra_pc, pode_atualizar_letra_fullscreen, pode_atualizar_letra_tela_tocando_agora, letre_cell_aberta]
+
                 pd_atualizar_letra_pc = false
-
-                let pode_atualizar_letra_fullscreen2 = pode_atualizar_letra_fullscreen
                 pode_atualizar_letra_fullscreen = false
-
-                let pode_atualizar_letra_tela_tocando_agora2 = pode_atualizar_letra_tela_tocando_agora
                 pode_atualizar_letra_tela_tocando_agora = false
-
-                let letre_cell_aberta2 = letre_cell_aberta
                 letre_cell_aberta = false
 
                 Proxima_Musica()
 
                 setTimeout(() => {
-                    pd_atualizar_letra_pc = pd_atualizar_letra_pc2
-                    pode_atualizar_letra_fullscreen = pode_atualizar_letra_fullscreen2
-                    pode_atualizar_letra_tela_tocando_agora = pode_atualizar_letra_tela_tocando_agora2
-                    letre_cell_aberta = letre_cell_aberta2
+                    pd_atualizar_letra_pc = pdAtualizarLetraPC2
+                    pode_atualizar_letra_fullscreen = podeAtualizarLetraFullscreen2
+                    pode_atualizar_letra_tela_tocando_agora = podeAtualizarLetraTelaTocandoAgora2
+                    letre_cell_aberta = letreCellAberta2
                 }, 2000)
             }
         }
-        
-        //* Motivo de travar ao dar play no celular
-        if(Device.Tipo != 'Mobile' || pag_musica_tocando_agr.style.top == '0px') {
-            obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
-                if(Device.Tipo != 'Mobile') {
-                    if(!pode_atualizar_letra_fullscreen) {
-                        contador_segundos_musica.innerText = resp.formattedDuration
-                    } else {
-                    contador_segundos_musica_fullscreen.innerText = resp.formattedDuration
-                    }
 
-                } else {
-                    if(pag_musica_tocando_agr.style.top == '0px') {
-                        contador_segundos_musica_pag_musica_tocando_agora.innerText = resp.formattedDuration        
-                    }
+        if (Device.Tipo !== 'Mobile' || pag_musica_tocando_agr.style.top === '0px') {
+            obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
+                if (Device.Tipo !== 'Mobile') {
+                    contador_segundos_musica.innerText = pode_atualizar_letra_fullscreen ? resp.formattedDuration : contador_segundos_musica.innerText
+                    contador_segundos_musica_fullscreen.innerText = pode_atualizar_letra_fullscreen ? resp.formattedDuration : contador_segundos_musica_fullscreen.innerText
+                } else if (pag_musica_tocando_agr.style.top === '0px') {
+                    contador_segundos_musica_pag_musica_tocando_agora.innerText = resp.formattedDuration
                 }
             })
         }
 
-        //! Vai atualizar a letra
         Atualizar_Letra_PC()
     }, 1000)
 })
+
 audio_player.addEventListener('pause', () => {
-    clearInterval(interval_view)
-    clearInterval(interval_audio_tocando)
+    clearInterval(intervalView)
+    clearInterval(intervalAudioTocando)
 })
 
 // audio_player.addEventListener('seeked', () => {
@@ -779,6 +763,7 @@ audio_player.addEventListener('pause', () => {
 
 const container_barra_musica_cell = document.getElementById('container_barra_musica_cell')
 const container_barra_musica = document.querySelector('#container_barra_musica')
+const img_musica_barra_musica = document.getElementById('img_musica_barra_musica')
 function Ativar_Musica(Musica) {
     if(Device.Tipo != 'Mobile') {
         const nav = document.querySelector('nav')
@@ -807,7 +792,8 @@ function Ativar_Musica(Musica) {
         const autor_musica_barra_musica = document.getElementById('autor_musica_barra_musica')
         autor_musica_barra_musica.innerHTML = ''
         autor_musica_barra_musica.appendChild(Retornar_Artistas_Da_Musica(Musica))
-        document.getElementById('img_musica_barra_musica').src = Musica.Imagens[1]
+        img_musica_barra_musica.src = Musica.Imagens[1]
+        img_musica_barra_musica.loading = 'lazy'
 
     } else {
         Ativar_Barra_Musica_Cell(Musica)

@@ -1,3 +1,6 @@
+const container = document.getElementById('container_carregamento_tela_innteira')
+const messageElement = document.getElementById('message_carregamento')
+
 const messages = [
     "A música mais curta já gravada tem apenas 1,316 segundos.",
     "O piano é conhecido como o instrumento mais difícil de tocar.",
@@ -45,28 +48,27 @@ let currentIndex_curiosidades = 0
 let messageInterval
 
 function changeMessage() {
-    document.getElementById('message_carregamento').innerText = messages[currentIndex_curiosidades]
+    messageElement.innerText = messages[currentIndex_curiosidades]
     currentIndex_curiosidades = (currentIndex_curiosidades + 1) % messages.length
 }
 
 function toggleLoadingScreen(showMessages, background='hsla(0, 0%, 0%, 0.643)') {
-    const container = document.getElementById('container_carregamento_tela_innteira')
-    const messageElement = document.getElementById('message_carregamento')
-
     container.style.background = background
     container.style.display = 'flex'
 
     if (showMessages) {
         messageElement.style.display = 'block'
         changeMessage()
-        messageInterval = setInterval(changeMessage, 3000) // Muda a mensagem a cada 3 segundos
+        messageInterval = setInterval(changeMessage, 3000)
     } else {
         messageElement.style.display = 'none'
+        clearInterval(messageInterval)
     }
-} toggleLoadingScreen(true, '#181818')
+}
+
+toggleLoadingScreen(true, '#181818')
 
 function closeLoadingScreen() {
-    const container = document.getElementById('container_carregamento_tela_innteira')
     container.style.display = 'none'
     clearInterval(messageInterval)
 }

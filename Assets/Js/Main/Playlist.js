@@ -337,6 +337,7 @@ function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
         img_perfil.className = 'img_perfil_playlist'
 
         //! Valores
+        img_perfil.loading = 'lazy'
         img.loading = 'lazy'
         img.src = Musicas_Playlist[c].Musica.Imagens[0]
         p.innerText = Musicas_Playlist[c].Musica.Nome

@@ -943,8 +943,11 @@ function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'd
                     }
                 } else {
                     traco_barra_musica_cell.style.width = `${percentProgress}%`
-                    input_range_musica_cell.value = percentProgress
-                    atualizar_cor_progresso_input(input_range_musica_cell)
+
+                    if(pag_musica_tocando_agr.style.top == '0px') {
+                        input_range_musica_cell.value = percentProgress
+                        atualizar_cor_progresso_input(input_range_musica_cell)
+                    }
                 }
             }
         }
