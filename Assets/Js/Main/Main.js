@@ -745,20 +745,22 @@ audio_player.addEventListener('play', () => {
         }
         
         //* Motivo de travar ao dar play no celular
-        obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
-            if(Device.Tipo != 'Mobile') {
-                if(!pode_atualizar_letra_fullscreen) {
-                    contador_segundos_musica.innerText = resp.formattedDuration
-                } else {
-                   contador_segundos_musica_fullscreen.innerText = resp.formattedDuration
-                }
+        if(Device.Tipo != 'Mobile' || pag_musica_tocando_agr.style.top == '0px') {
+            obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
+                if(Device.Tipo != 'Mobile') {
+                    if(!pode_atualizar_letra_fullscreen) {
+                        contador_segundos_musica.innerText = resp.formattedDuration
+                    } else {
+                    contador_segundos_musica_fullscreen.innerText = resp.formattedDuration
+                    }
 
-            } else {
-                if(pag_musica_tocando_agr.style.top == '0px') {
-                    contador_segundos_musica_pag_musica_tocando_agora.innerText = resp.formattedDuration        
+                } else {
+                    if(pag_musica_tocando_agr.style.top == '0px') {
+                        contador_segundos_musica_pag_musica_tocando_agora.innerText = resp.formattedDuration        
+                    }
                 }
-            }
-        })
+            })
+        }
 
         //! Vai atualizar a letra
         Atualizar_Letra_PC()
