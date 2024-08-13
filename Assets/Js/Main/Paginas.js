@@ -164,6 +164,9 @@ function Abrir_Pagina(Pagina, ID) {
     } else {
         aplicar_filtros(filtrosAplicados, 'Aplicar')
     }
+
+    //! Limpar Paginas
+    Limpar_Paginas()
 }
 
 const reset_background = {
