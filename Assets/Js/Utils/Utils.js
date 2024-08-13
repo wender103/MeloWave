@@ -907,16 +907,19 @@ function validateImage(imageUrl, Qm_Chamou) {
 
 //! Mostra o time da música
 function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'duration', atualizarInputs = false) {
-    if (formatado) {
-        return '0:0:0'
-    } else {
+    return new Promise((resolve, reject) => {
         const durationObj = {
             hours: 0,
             minutes: 0,
             seconds: 0
         }
-        return durationObj
-    }
+
+        if (formatado) {
+            return resolve({...durationObj, formattedDuration: "0:0:0"})
+        } else {
+            return resolve(durationObj)
+        }
+    })
 
     // return new Promise((resolve, reject) => {
     //     if (!audioPlayer) {
