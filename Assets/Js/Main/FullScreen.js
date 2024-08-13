@@ -1,20 +1,22 @@
 let timeoutId;
 
 document.addEventListener('mousemove', () => {
-    // Quando o mouse se move, definimos a opacidade como 1 e redefinimos o temporizador
-    document.getElementById('container_barra_musica_fullscreen').style.bottom = '50px'
-    setTimeout(() => {
-        document.getElementById('contaier_controles_fullscreen').style.opacity = 1
-    }, 500)
-
-    clearTimeout(timeoutId) // Limpa o temporizador anterior
-    timeoutId = setTimeout(() => {
-        // Depois de 2 segundos com o mouse parado, definimos a opacidade como 0
-        document.getElementById('contaier_controles_fullscreen').style.opacity = 0
+    if(fullscreen_aberta) {
+        // Quando o mouse se move, definimos a opacidade como 1 e redefinimos o temporizador
+        document.getElementById('container_barra_musica_fullscreen').style.bottom = '50px'
         setTimeout(() => {
-            document.getElementById('container_barra_musica_fullscreen').style.bottom = '-70px'
+            document.getElementById('contaier_controles_fullscreen').style.opacity = 1
         }, 500)
-    }, 2000)
+
+        clearTimeout(timeoutId) // Limpa o temporizador anterior
+        timeoutId = setTimeout(() => {
+            // Depois de 2 segundos com o mouse parado, definimos a opacidade como 0
+            document.getElementById('contaier_controles_fullscreen').style.opacity = 0
+            setTimeout(() => {
+                document.getElementById('container_barra_musica_fullscreen').style.bottom = '-70px'
+            }, 500)
+        }, 2000)
+    }
 })
 
 let fullscreen_aberta = false
