@@ -370,6 +370,9 @@ function Retornar_Artistas_Caixa(Artista) {
     p.innerText = Artista
     try {
         img.src = musicas_artista[0].Imagens[1]
+        img.addEventListener('mouseenter', () => {
+            Trocar_Cores_Main(musicas_artista[0].Cores[2])
+        })
         img.loading = 'lazy'
         
     } catch{}

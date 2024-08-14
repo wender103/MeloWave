@@ -18,6 +18,11 @@
 
     <nav>
         <ul>
+            <div id="container_background_nav1">
+                <div class="backgrounds_nav1"></div>
+                <div class="backgrounds_nav1"></div>
+            </div>
+
             <li class="li_icon" id="li_icon_config" title="Configurações">
                 <img src="Assets/Imgs/config.png" id="id_img_config" class="icone">
             </li>
@@ -62,6 +67,11 @@
         </ul>
 
         <ul id="ul_artistas_seguindo">
+            <div id="container_background_nav2">
+                <div class="backgrounds_nav2"></div>
+                <div class="backgrounds_nav2"></div>
+            </div>
+
             <li class="li_icon" title="Músicas Curtidas">
                 <img src="Assets/Imgs/Musicas curtidas.svg">
             </li>
@@ -170,6 +180,10 @@
 
     <!--! Main -->
     <main>
+        <div id="container_background_main">
+            <div class="background_main"></div>
+            <div class="background_main"></div>
+        </div>
 
         <section class="Paginas" id="Pagina_configuracoes">
             <h1>Configurações</h1>
@@ -186,6 +200,9 @@
                 <div class="container_config_unica">
                     <strong>Background</strong>
                     <ul>
+                        <li>Cores Solidas <div class="btn_marcar_config" id="btn_cores_solidas"><div class="boll_config"></div></li>
+                    </ul>
+                    <ul id="ul_config_background">
                         <li>Blur <input type="range" value="20" min="0" max="100" class="inputs_config_background" id="input_blur_config"></li>
                         <li>Contraste <input type="range" value="100" min="0" max="100" class="inputs_config_background" id="input_contraste_config"></li>
                         <li>Saturação <input type="range" value="100" min="0" max="100" class="inputs_config_background" id="input_saturacao_config"></li>
@@ -312,7 +329,7 @@
             </section>
 
             <div id="pesquisa_nao_encontrada">
-                <h1>Nehum resultado encontrado para: <span id="span_pesquisa_nao_encontrada"></span></h1>
+                <h1>Nenhum resultado encontrado para: <span id="span_pesquisa_nao_encontrada"></span></h1>
                 <p>Tente escrevendo o termo da busca de outra forma ou usando outra palavra-chave</p>
             </div>
         </section>
@@ -1321,6 +1338,16 @@
     <!--! Avisos Raídos -->
     <div id="avisos_rapidos"></div>
 
+    <div id="Container_Off_Line">
+        <div class="container">
+            <div class="emoji">🚧</div>
+            <h1>Ops! Sem Conexão</h1>
+            <p>Você está offline. Verifique sua conexão com a internet.</p>
+            <p>Por favor, volte mais tarde.</p>
+            <div class="footer">© 2024 MeloWave</div>       
+        </div>
+    </div>
+
     <!--! Carregamento -->
     <div id="container_carregamento_tela_innteira">
         <div class="loader">
@@ -1350,10 +1377,9 @@
 
     <!--! Remover -------------------------------------- Remover -------------------------------------->
     <div id="cores_imgs">
-
     </div>
 
-    <div id="fpsMonitor">
+    <div id="fpsMonitor" style="display: none;">
         <div id="fps">FPS: 0</div>
         <div id="status">Status: Normal</div>
         <div id="Qtns_Travamentos">Qnts Travamentos: 0</div>
@@ -1372,6 +1398,9 @@
     <script src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script> 
 
     <!--? My Scripts -->
+
+    <!--* Sem internet -->
+    <script src="Assets/Sem_Net/Sem_Net.js"></script>
 
     <!--* Cast Google -->
     <script src="Assets/Js/Cast/Cast.js"></script>
@@ -1431,5 +1460,7 @@
     
     <!--* Configurações -->
     <script src="Assets/Js/Configs/Configs.js"></script>
+
+    <script src="Codigos_A_Parte/Configuracao/config.js"></script>
 </body>
 </html>

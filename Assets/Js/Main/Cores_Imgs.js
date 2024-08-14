@@ -174,3 +174,42 @@ function updateColors(Todas_Cores) {
     //     })
     // }
 }
+
+//! --------------------------- Alterar Roots ----------------------------------------
+function alterarRoot() {
+    document.documentElement.style.setProperty('--black_transparent', `#1f1f1f`);
+    // document.documentElement.style.setProperty('--white', cor);
+    // document.documentElement.style.setProperty('--white_pouco_transparent', `${cor}99`);
+    // document.documentElement.style.setProperty('--white_transparent', `${cor}8a`);
+    // document.documentElement.style.setProperty('--padrao1', `${cor}66`);
+    // document.documentElement.style.setProperty('--padrao15', `${cor}66`);
+    // document.documentElement.style.setProperty('--padrao2', cor);
+    // document.documentElement.style.setProperty('--padrao3', cor);
+    // document.documentElement.style.setProperty('--padrao4', cor);
+    // document.documentElement.style.setProperty('--background', `${cor}c4`);
+    // document.documentElement.style.setProperty('--cor_qse_transparente_background', `${cor}3f`);
+    // document.documentElement.style.setProperty('--background_black', `${cor}a4`);
+    // document.documentElement.style.setProperty('--background_black2', `${cor}66`);
+    // document.documentElement.style.setProperty('--fonte_transparente', `${cor}3b`);
+    // document.documentElement.style.setProperty('--fonte_meio_transparente', `${cor}8e`);
+    // document.documentElement.style.setProperty('--verde_azul', cor);
+}
+
+function restaurarRoot() {
+    document.documentElement.style.setProperty('--white', '#fff');
+    document.documentElement.style.setProperty('--white_pouco_transparent', '#0000009c');
+    document.documentElement.style.setProperty('--white_transparent', '#2e2e2e');
+    document.documentElement.style.setProperty('--black_transparent', '#0000001a');
+    document.documentElement.style.setProperty('--padrao1', 'rgba(58, 62, 64, 0.404)');
+    document.documentElement.style.setProperty('--padrao15', 'rgba(35, 38, 39, 0.404)');
+    document.documentElement.style.setProperty('--padrao2', 'rgba(46, 49, 50, 1)');
+    document.documentElement.style.setProperty('--padrao3', 'rgb(31, 36, 37)');
+    document.documentElement.style.setProperty('--padrao4', '#0d0e0e');
+    document.documentElement.style.setProperty('--background', 'rgba(82, 87, 90, 0.77)');
+    document.documentElement.style.setProperty('--cor_qse_transparente_background', '#2e31333f');
+    document.documentElement.style.setProperty('--background_black', 'hsla(0, 0%, 0%, 0.643)');
+    document.documentElement.style.setProperty('--background_black2', 'rgba(0, 0, 0, 0.411)');
+    document.documentElement.style.setProperty('--fonte_transparente', 'rgba(255, 255, 255, 0.23)');
+    document.documentElement.style.setProperty('--fonte_meio_transparente', 'rgba(255, 255, 255, 0.555)');
+    document.documentElement.style.setProperty('--verde_azul', '#007fb1');
+}

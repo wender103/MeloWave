@@ -802,14 +802,24 @@ function Abrir_Ver_Letra_PC(id_musica=undefined) {
         Montar_Cores_Na_Tela(musica_do_musica_id)
 
         if(musica_do_musica_id.Cores.length > 0) {
+            
             Atualizar_Cores_Partes_Site()
             Adicionar_Opacidade_Das_Cores_Fundo_Interativo()
-            if(corEhClara(musica_do_musica_id.Cores[0])) {
-                setTimeout(() => {
-                    mudarTemaParaEscuro()
-                }, 500)
-            } else {
-                mudarTemaParaClaro()
+            if(!User.Configuracoes.Background.Cores_Solidas) {
+                if(corEhClara(musica_do_musica_id.Cores[0])) {
+                    setTimeout(() => {
+                        mudarTemaParaEscuro()
+                    }, 500)
+                } else {
+                    mudarTemaParaClaro()
+                }
+            } else {                
+                animateBackgroundColor(Listas_Prox.MusicaAtual.Cores[4], document.querySelector('main'), 500, true)
+                if(corEhClara(Listas_Prox.MusicaAtual.Cores[4])) {
+                    document.getElementById('pre_letra_da_musica').classList.add('Dark')
+                } else {
+                    document.getElementById('pre_letra_da_musica').classList.remove('Dark')
+                }
             }
         }
 
@@ -857,8 +867,13 @@ function Fechar_Ver_Letra_PC(Comando='') {
         Atualizar_Cores_Partes_Site()
     }
     
-    animateBackgroundColor('transparent', lista_elementos_mudar_cor_letra, 1500)
-    animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 1500)
+    if(!User.Configuracoes.Background.Cores_Solidas) {
+        animateBackgroundColor('transparent', lista_elementos_mudar_cor_letra, 1500)
+        animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 1500)
+
+    } else {
+        animateBackgroundColor('#121212', document.querySelector('main'), 500, true)
+    }
     document.querySelector('main').style.overflow = 'auto'
 
     Remover_Opacidade_Das_Cores_Fundo_Interativo()

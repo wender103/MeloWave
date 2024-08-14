@@ -150,7 +150,16 @@ function Recarregar_Infos_Url() {
             Abrir_Pagina('meuperfil', `meuperfil_${id_page}`)
 
         } else if(page == 'verletra') {
-            Abrir_Ver_Letra_PC(id_page)
+
+            function Checar() {
+                if(document.getElementById('container_barra_musica').style.bottom == '8px') {
+                    Abrir_Ver_Letra_PC(id_page)
+                } else {
+                    setTimeout(() => {
+                        Checar()
+                    }, 300)
+                }
+            } Checar()
 
         } else if(page == 'biblioteca') {
             Abrir_Pagina('biblioteca') 

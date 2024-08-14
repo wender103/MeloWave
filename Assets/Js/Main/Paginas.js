@@ -27,8 +27,10 @@ function Abrir_Pagina(Pagina, ID) {
         }
     }
 
-    animateBackgroundColor('transparent', lista_elementos_mudar_cor_letra, 800)
-    animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 800)
+    if(!User.Configuracoes.Background.Cores_Solidas) {
+        animateBackgroundColor('transparent', lista_elementos_mudar_cor_letra, 800)
+        animateBackgroundColor('#2e31333f', document.querySelector('nav').querySelectorAll('ul'), 800)
+    }
     Fechar_Creditos()
     
     if(Pagina != 'verletra') {
@@ -38,6 +40,10 @@ function Abrir_Pagina(Pagina, ID) {
         }
 
         Remover_Opacidade_Das_Cores_Fundo_Interativo()
+
+        if(User.Configuracoes.Background.Cores_Solidas) {
+            animateBackgroundColor('#121212', document.querySelector('main'), 500, true)
+        }
     }
     
     let tem_btns_voltar = true
@@ -166,9 +172,11 @@ function Abrir_Pagina(Pagina, ID) {
     }
 
     //! Limpar Paginas
-    setTimeout(() => {
-        Limpar_Paginas()
-    }, 800)
+    if(!Pagina == 'ver_letra') {
+        setTimeout(() => {
+            Limpar_Paginas()
+        }, 800)
+    }
 }
 
 const reset_background = {

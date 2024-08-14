@@ -259,14 +259,33 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         if(pd_atualizar_letra_pc) {
             Montar_Cores_Na_Tela(MusicaAtual)
 
-            if(corEhClara(MusicaAtual.Cores[0])) {
-                mudarTemaParaEscuro()
+            if(!User.Configuracoes.Background.Cores_Solidas) {
+                if(corEhClara(MusicaAtual.Cores[0])) {
+                    mudarTemaParaEscuro()
+                } else {
+                    mudarTemaParaClaro()
+                } 
+              
             } else {
-                mudarTemaParaClaro()
-            }   
+                
+                animateBackgroundColor(MusicaAtual.Cores[4], document.querySelector('main'), 500, true)
+                if(corEhClara(MusicaAtual.Cores[4])) {
+                    document.getElementById('pre_letra_da_musica').classList.add('Dark')
+                } else {
+                    document.getElementById('pre_letra_da_musica').classList.remove('Dark')
+                }
+            }
 
             Atualizar_Cores_Partes_Site()
             Adicionar_Opacidade_Das_Cores_Fundo_Interativo()
+        } else if(User.Configuracoes.Background.Cores_Solidas) {
+            animateBackgroundColor(MusicaAtual.Cores[4], document.getElementById('container_letra_tela_tocando_agora'), 500, true)
+
+            if(corEhClara(MusicaAtual.Cores[4])) {
+                    document.getElementById('container_letra_tela_tocando_agora').classList.add('Dark')
+                } else {
+                    document.getElementById('container_letra_tela_tocando_agora').classList.remove('Dark')
+                }
         }
 
     } else {
@@ -392,13 +411,12 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     if(!Comando.includes('Não Ativar Música')) {
         Ativar_Musica(MusicaAtual)
 
-        if(!pagina_igual) {
-            console.log(Device.Tipo)
+        if(!pagina_igual) {            
             
             if(Device.Tipo == 'Mobile') {
                 console.log('Rapaz')
                 
-                // Trocar_Background(MusicaAtual.Imagens[0], document.body)
+                Trocar_Background(MusicaAtual.Imagens[0], document.body)
             } else {
                 Trocar_Background(MusicaAtual.Img, document.body)
             }
@@ -1333,8 +1351,10 @@ if(Device.Tipo == 'Mobile') {
 //! -------------------------------- Fim Som - Volume --------------------------------
 
 function Trocar_Background(background, Local) {
-    Local.style.transition = 'background 1s ease-in-out'
-    Local.style.backgroundImage = `url('${background}')`
+    if(!User.Configuracoes.Background.Cores_Solidas) {
+        Local.style.transition = 'background 1s ease-in-out'
+        Local.style.backgroundImage = `url('${background}')`
+    }
 }
 
 function Pegar_Musicas(pesquisa, tipo) {

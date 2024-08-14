@@ -138,8 +138,106 @@ btn_animacao_detalhada.addEventListener('click', () => {
     Salvar_Configs()
 })
 
+//! ------------------------------------------- Cores Solidas ------------------------------------------------------
+const btn_cores_solidas = document.getElementById('btn_cores_solidas')
+const ul_config_background = document.getElementById('ul_config_background')
+btn_cores_solidas.addEventListener('click', () => {
+    //! Caso esteja ativo
+    if(btn_cores_solidas.classList.contains('active')) {
+        User.Configuracoes.Background.Cores_Solidas = true
+        ul_config_background.style.display = 'none'
+        Ativar_Cores_Solidas()
 
+    } else {
+        User.Configuracoes.Background.Cores_Solidas = false
+        ul_config_background.style.display = 'block'
+        Desativar_Cores_Solidas()
+    }
 
+    Salvar_Configs()
+})
+
+function Ativar_Cores_Solidas() {
+    document.body.style.background = 'black'
+    document.getElementById('container_background_main').style.display = 'block'
+    document.getElementById('container_background_nav1').style.display = 'block'
+    document.getElementById('container_background_nav2').style.display = 'block'
+    document.querySelector('main').style.background = '#121212'
+    document.querySelector('nav').querySelectorAll('ul')[0].style.background = '#121212'
+    document.querySelector('nav').querySelectorAll('ul')[1].style.background = '#121212'
+    document.getElementById('container_tela_tocando_agora').style.background = '#121212'
+    document.getElementById('container_fila').style.background = '#121212'
+    document.getElementById('container_barra_musica').style.background = '#121212'
+    alterarRoot()
+
+    if(Listas_Prox.Indice) {
+        Trocar_Cores_Main(Listas_Prox.MusicaAtual.Cores[2])
+    } else {
+        Trocar_Cores_Main('#007fb1')
+    }
+}
+
+function Desativar_Cores_Solidas() {
+    document.body.style.background = ''
+    document.getElementById('container_background_main').style.display = 'none'
+    document.getElementById('container_background_nav1').style.display = 'none'
+    document.getElementById('container_background_nav2').style.display = 'none'
+    document.querySelector('main').style.background = ''
+    document.querySelector('nav').querySelectorAll('ul')[0].style.background = ''
+    document.querySelector('nav').querySelectorAll('ul')[1].style.background = ''
+    document.getElementById('container_tela_tocando_agora').style.background = ''
+    document.getElementById('container_fila').style.background = ''
+    document.getElementById('container_barra_musica').style.background = ''
+    restaurarRoot()
+
+    if(!Listas_Prox.Indice) {
+        document.body.style.backgroundImage = `url(${User.Perfil.Img_Background})`
+    } else {
+        document.body.style.backgroundImage = `url(${Listas_Prox.MusicaAtual.Img})`
+    }
+}
+
+function Trocar_Cores_Main(Cor) {
+    if(User.Configuracoes.Background.Cores_Solidas) {
+        
+        const background_main1 = document.querySelectorAll('.background_main')[0]
+        const background_main2 = document.querySelectorAll('.background_main')[1]
+
+        const backgrounds_nav1 = document.querySelectorAll('.backgrounds_nav1')[0]
+        const backgrounds_nav12 = document.querySelectorAll('.backgrounds_nav1')[1]
+
+        const backgrounds_nav2 = document.querySelectorAll('.backgrounds_nav2')[0]
+        const backgrounds_nav22 = document.querySelectorAll('.backgrounds_nav2')[1]
+
+        // Define o background da segunda camada como a nova cor
+        background_main2.style.backgroundImage = `linear-gradient(to bottom, ${Cor}, transparent 0%)`
+        background_main2.style.opacity = 1
+        background_main1.style.opacity = 0
+
+        backgrounds_nav12.style.backgroundImage = `linear-gradient(to bottom, ${Cor}, transparent 0%)`
+        backgrounds_nav12.style.opacity = 1
+        backgrounds_nav1.style.opacity = 0
+
+        backgrounds_nav22.style.backgroundImage = `linear-gradient(to bottom, ${Cor}, transparent 0%)`
+        backgrounds_nav22.style.opacity = 1
+        backgrounds_nav2.style.opacity = 0
+
+        setTimeout(() => {
+            // Troca a cor do primeiro plano de fundo para a nova cor
+            background_main1.style.backgroundImage = `linear-gradient(to bottom, ${Cor}, transparent 0%)`
+            background_main1.style.opacity = 1
+            background_main2.style.opacity = 0
+
+            // backgrounds_nav1.style.backgroundImage = `linear-gradient(to bottom, ${Cor}, ${alterarTransparencia(Cor, 0.6)})`
+            backgrounds_nav1.style.opacity = 1
+            backgrounds_nav12.style.opacity = 0
+
+            backgrounds_nav2.style.backgroundImage = `linear-gradient(to bottom, ${alterarTransparencia(Cor, 0.6)}, transparent 0%)`
+            backgrounds_nav2.style.opacity = 1
+            backgrounds_nav22.style.opacity = 0
+        }, 300)
+    }
+}
 
 //! ----------------------------------------- Carregar Configs ---------------------------------------
 function Carregar_Configuracoes() {
@@ -154,5 +252,11 @@ function Carregar_Configuracoes() {
 
     if(User.Configuracoes.Animacao_Detalhada) {
         btn_animacao_detalhada.classList.add('active')
+    }
+
+    if(User.Configuracoes.Background.Cores_Solidas) {
+        btn_cores_solidas.classList.add('active')
+        ul_config_background.style.display = 'none'
+        Ativar_Cores_Solidas()
     }
 }

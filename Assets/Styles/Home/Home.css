@@ -657,6 +657,45 @@ div.btn_marcar_config div.boll_config {
   filter: invert(1) sepia(1) saturate(5) hue-rotate(190deg) !important;
 }
 
+#Container_Off_Line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  background-color: #fff;
+}
+#Container_Off_Line .container {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+}
+
+p {
+  color: #666;
+  margin: 10px 0;
+}
+
+.emoji {
+  font-size: 50px;
+  margin: 20px 0;
+}
+
+.footer {
+  margin-top: 20px;
+  color: #999;
+}
+
 html {
   max-height: 100vh;
   overflow: hidden;
@@ -716,6 +755,29 @@ body nav ul {
   padding: 18px 0;
   border-radius: 8px;
   overflow: auto;
+  position: relative;
+}
+body nav ul div#container_background_nav1, body nav ul div#container_background_nav2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+body nav ul div#container_background_nav1 div.backgrounds_nav1, body nav ul div#container_background_nav1 div.backgrounds_nav2, body nav ul div#container_background_nav2 div.backgrounds_nav1, body nav ul div#container_background_nav2 div.backgrounds_nav2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transition: 0.3s opacity ease-in-out;
+}
+body nav ul div#container_background_nav1 div.backgrounds_nav1:nth-child(1), body nav ul div#container_background_nav1 div.backgrounds_nav2:nth-child(1), body nav ul div#container_background_nav2 div.backgrounds_nav1:nth-child(1), body nav ul div#container_background_nav2 div.backgrounds_nav2:nth-child(1) {
+  z-index: 2;
+}
+body nav ul div#container_background_nav1 div.backgrounds_nav1:nth-child(2), body nav ul div#container_background_nav1 div.backgrounds_nav2:nth-child(2), body nav ul div#container_background_nav2 div.backgrounds_nav1:nth-child(2), body nav ul div#container_background_nav2 div.backgrounds_nav2:nth-child(2) {
+  z-index: 1;
 }
 body nav ul div.gradient-bg {
   min-height: auto;
@@ -1043,6 +1105,28 @@ body main {
   border-radius: 8px;
   overflow: auto;
   background-image: linear-gradient(to bottom, transparent, var(--padrao15));
+}
+body main div#container_background_main {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+body main div#container_background_main div.background_main {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transition: 0.3s opacity ease-in-out;
+}
+body main div#container_background_main div.background_main:nth-child(1) {
+  z-index: 2;
+}
+body main div#container_background_main div.background_main:nth-child(2) {
+  z-index: 1;
 }
 body main section.Paginas {
   padding: 22px;
@@ -3979,6 +4063,27 @@ body section#container_tela_tocando_agora article div#container_letra_tela_tocan
 body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora.active pre {
   margin-top: 10px;
   background-position: center;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark pre {
+  color: rgba(0, 0, 0, 0.2509803922) !important;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark pre span.linha_pre_anterior_add_letra {
+  color: rgba(0, 0, 0, 0.4705882353) !important;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark pre span.linha_pre_em_destaque_add_letra .animated-span {
+  color: rgba(0, 0, 0, 0.4705882353) !important;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark pre span.linha_pre_em_destaque_add_letra .animated-span.animated {
+  color: black !important;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0) !important;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark pre h1 {
+  color: black;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0) !important;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark button {
+  border: 1px solid rgba(0, 0, 0, 0.2509803922) !important;
+  color: rgba(0, 0, 0, 0.2509803922);
 }
 body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre {
   width: 100%;

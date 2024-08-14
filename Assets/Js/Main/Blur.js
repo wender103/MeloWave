@@ -20,16 +20,18 @@ function increaseBlur() {
 } increaseBlur()
 
 function decreaseBlur() {
-    if (blurAmount > 0) {
-    blurAmount -= 1
-    main.style.backdropFilter = `blur(${blurAmount}px)`
-    document.querySelector('body').style.backdropFilter = `blur(${blurAmount}px)`
-    container_tela_tocando_agora.style.backdropFilter = `blur(${blurAmount}px)`
-    nav_ul.forEach(ul => {
-        ul.style.backdropFilter = `blur(${blurAmount}px)`
-    })
-    container_barra_musica.style.backdropFilter = `blur(${blurAmount}px)`
-    container_fila.style.backdropFilter = `blur(${blurAmount}px)`
-    setTimeout(decreaseBlur, tempo_mudar_blur) // Ajuste o tempo aqui para um efeito mais rápido ou mais lento
+    if(!User.Configuracoes.Background.Cores_Solidas) {
+        if (blurAmount > 0) {
+        blurAmount -= 1
+        main.style.backdropFilter = `blur(${blurAmount}px)`
+        document.querySelector('body').style.backdropFilter = `blur(${blurAmount}px)`
+        container_tela_tocando_agora.style.backdropFilter = `blur(${blurAmount}px)`
+        nav_ul.forEach(ul => {
+            ul.style.backdropFilter = `blur(${blurAmount}px)`
+        })
+        container_barra_musica.style.backdropFilter = `blur(${blurAmount}px)`
+        container_fila.style.backdropFilter = `blur(${blurAmount}px)`
+        setTimeout(decreaseBlur, tempo_mudar_blur) // Ajuste o tempo aqui para um efeito mais rápido ou mais lento
+        }
     }
 }

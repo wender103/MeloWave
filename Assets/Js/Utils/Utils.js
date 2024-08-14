@@ -645,11 +645,16 @@ function stopImageRain() {
 }
 
 //! Vai trocar a cor de fundo de forma animada
-function animateBackgroundColor(color, elements, duration = 2000) {
-    elements.forEach(element => {
-        element.style.transition = `background-color ${duration}ms linear`
-        element.style.backgroundColor = color
-    })
+function animateBackgroundColor(color, elements, duration = 2000, Is_One=false) {
+    if(Is_One) {
+        elements.style.transition = `background-color ${duration}ms linear`
+        elements.style.backgroundColor = color
+    } else {
+        elements.forEach(element => {
+            element.style.transition = `background-color ${duration}ms linear`
+            element.style.backgroundColor = color
+        })
+    }
 }
 
 //! Vai remover as palavras do texto

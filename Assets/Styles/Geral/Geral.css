@@ -654,4 +654,43 @@ div.btn_marcar_config div.boll_config {
 .icone.active {
   fill: var(--verde_azul) !important;
   filter: invert(1) sepia(1) saturate(5) hue-rotate(190deg) !important;
+}
+
+#Container_Off_Line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 8;
+  background-color: #fff;
+}
+#Container_Off_Line .container {
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+}
+
+p {
+  color: #666;
+  margin: 10px 0;
+}
+
+.emoji {
+  font-size: 50px;
+  margin: 20px 0;
+}
+
+.footer {
+  margin-top: 20px;
+  color: #999;
 }/*# sourceMappingURL=Geral.css.map */
