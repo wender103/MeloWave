@@ -248,8 +248,10 @@ let interval_view
 const img_btn_mic_letra = document.querySelectorAll('.img_btn_mic_letra')
 let Musica_Antiga_Transicao = undefined
 let Comando_Tocar_Musica = ''
+let pd_adicionar_view = false
 
 function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {
+    pd_adicionar_view = true
     Comando_Tocar_Musica = Comando
     //! Vai deixar as cores pretas caso o background interativo for branco
 
@@ -689,16 +691,19 @@ let em_transicao = false
 const contador_segundos_musica  = document.getElementById('contador_segundos_musica')
 const contador_segundos_musica_fullscreen  = document.getElementById('contador_segundos_musica_fullscreen')
 const contador_segundos_musica_pag_musica_tocando_agora = document.getElementById('contador_segundos_musica_pag_musica_tocando_agora')
-let intervalView
 let intervalAudioTocando
+let interval_atualizar_letra
 
 audio_player.addEventListener('play', () => {
-    intervalView = setInterval(() => {
+    interval_view = setInterval(() => {
         if (!audio_player.paused && !audio_player.ended) {
             tmp_ouvindo_musica++
-            if (tmp_ouvindo_musica >= 30) {
+            if (tmp_ouvindo_musica >= 30 && pd_adicionar_view) {
+                pd_adicionar_view = false
+                console.log('Adicionando a view a música')
+                
                 Adicionar_View_Musica(Listas_Prox.MusicaAtual)
-                clearInterval(intervalView)
+                clearInterval(interval_view)
             }
         }
 
@@ -738,21 +743,27 @@ audio_player.addEventListener('play', () => {
         if (Device.Tipo !== 'Mobile' || pag_musica_tocando_agr.style.top === '0px') {
             obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
                 if (Device.Tipo !== 'Mobile') {
-                    contador_segundos_musica.innerText = pode_atualizar_letra_fullscreen ? resp.formattedDuration : contador_segundos_musica.innerText
-                    contador_segundos_musica_fullscreen.innerText = pode_atualizar_letra_fullscreen ? resp.formattedDuration : contador_segundos_musica_fullscreen.innerText
+                    if(!pode_atualizar_letra_fullscreen) {
+                        contador_segundos_musica.innerText = resp.formattedDuration
+                    } else {
+                        contador_segundos_musica_fullscreen.innerText = resp.formattedDuration
+                    }
                 } else if (pag_musica_tocando_agr.style.top === '0px') {
                     contador_segundos_musica_pag_musica_tocando_agora.innerText = resp.formattedDuration
                 }
             })
         }
-
-        Atualizar_Letra_PC()
     }, 1000)
+
+    interval_atualizar_letra = setInterval(() => {
+        Atualizar_Letra_PC()
+    }, 300)
 })
 
 audio_player.addEventListener('pause', () => {
-    clearInterval(intervalView)
+    clearInterval(interval_view)
     clearInterval(intervalAudioTocando)
+    clearInterval(interval_atualizar_letra)
 })
 
 // audio_player.addEventListener('seeked', () => {

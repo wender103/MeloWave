@@ -10,7 +10,7 @@ btn_marcar_config.forEach(element => {
     })  
 })
 
-//! Transições de faixas
+//! ------------------------------------------- Transições de faixas --------------------------------
 const btn_fazer_transicao = document.getElementById('btn_fazer_transicao')
 btn_fazer_transicao.addEventListener('click', () => {
     //! Caso esteja ativo
@@ -19,19 +19,10 @@ btn_fazer_transicao.addEventListener('click', () => {
 
     } else {
         User.Configuracoes.Transicoes_De_Faixas = false
-
-        document.getElementById('audio_player')
     }
 
     Salvar_Configs()
 })
-
-//! ----------------------------------------- Carregar Configs ---------------------------------------
-function Carregar_Configs() {
-    if(User.Configuracoes.Transicoes_De_Faixas) {
-        btn_fazer_transicao.classList.add('active')
-    }
-}
 
 //! ----------------------------------------- Salvar Configurações -----------------------------------
 function Salvar_Configs() {
@@ -63,13 +54,6 @@ let filtrosAplicados = {
   contraste: 100,
   brilho: 100,
   saturacao: 100
-}
-
-function Carregar_Configuracoes() {
-    if(User.Configuracoes.Background) {
-        filtrosAplicados = User.Configuracoes.Background
-        aplicar_filtros(filtrosAplicados, 'Aplicar')
-    }
 }
 
 let time_salvar_confings_background
@@ -139,3 +123,36 @@ inputs_config_background.forEach(element => {
         aplicar_filtros(filtrosAplicados)
     })  
 })
+
+//! --------------------------------------------- Animação Detalhada ---------------------------------------------
+const btn_animacao_detalhada = document.getElementById('btn_animacao_detalhada')
+btn_animacao_detalhada.addEventListener('click', () => {
+    //! Caso esteja ativo
+    if(btn_animacao_detalhada.classList.contains('active')) {
+        User.Configuracoes.Animacao_Detalhada = true
+
+    } else {
+        User.Configuracoes.Animacao_Detalhada = false
+    }
+
+    Salvar_Configs()
+})
+
+
+
+
+//! ----------------------------------------- Carregar Configs ---------------------------------------
+function Carregar_Configuracoes() {
+    if(User.Configuracoes.Background) {
+        filtrosAplicados = User.Configuracoes.Background
+        aplicar_filtros(filtrosAplicados, 'Aplicar')
+    }
+
+    if(User.Configuracoes.Transicoes_De_Faixas) {
+        btn_fazer_transicao.classList.add('active')
+    }
+
+    if(User.Configuracoes.Animacao_Detalhada) {
+        btn_animacao_detalhada.classList.add('active')
+    }
+}

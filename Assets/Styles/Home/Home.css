@@ -1147,6 +1147,17 @@ body main section.Paginas#Pagina_configuracoes article div.container_config_unic
   padding: 5px 0;
   /* Hides the thumb (slider handle) */
 }
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li span.hover {
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li span.hover img {
+  opacity: 0.6;
+}
 body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li input.inputs_config_background {
   background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
   border: none;

@@ -594,7 +594,9 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
                 }
             }
 
-            Criar_Elemento()
+            if(img_container.querySelectorAll('img').length > 0) {
+                Criar_Elemento()
+            }
 
         } else if(validarEmail(Outros[c])) {
             for (let d = 0; d < Todos_Usuarios.length; d++) {

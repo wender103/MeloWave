@@ -454,18 +454,22 @@ function Destacar_linhas() {
         pre_letra_da_musica.style.padding = '500px 10px 500px'
     }
     
-    let duracao_transicao = 50
+    // let duracao_transicao = 50
 
     if(Device.Tipo != 'Mobile') {
         if(pd_atualizar_letra_pc) {
             pre_letra_da_musica.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
             letra_pre_ver_letra = pre_letra_da_musica.innerText.split('\n')
             let linhas = pre_letra_da_musica.innerHTML.split('\n')
+            let duracao_transicao = 1
             
             if (linha_atual <= linhas.length) {
                 // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
                 for (let c = 0; c < linhas.length; c++) {
                     if(c == linha_atual) {
+                        duracao_transicao = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c + 1] - Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c]
+                        duracao_transicao = duracao_transicao * 1000 - 1.6
+
                         linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_ver_letra">' + letra_pre_ver_letra[c] + '</span>'
 
                     } else if(c < linha_atual) {
@@ -485,10 +489,12 @@ function Destacar_linhas() {
                     pre_letra_da_musica.innerHTML += linhas[c] + '\n'
                 }
 
-                if(Infos_Desempenho.Niveis_Desempenho < 3) {
+                if(Infos_Desempenho.Niveis_Desempenho < 3 && User.Configuracoes.Animacao_Detalhada) {
                     const text = document.getElementById('linha_atual_sincronizar_ver_letra')
                     const letters = text.textContent.split('')
                     text.innerHTML = ''
+
+                    const tempoPorLetra = duracao_transicao / letters.length
 
                     letters.forEach((letter, index) => {
                         const span = document.createElement('span')
@@ -498,11 +504,27 @@ function Destacar_linhas() {
                             span.textContent = letter
                             span.className = 'animated-span'
                             text.appendChild(span)
+                        }                        
+                    })
 
-                            setTimeout(() => {
-                                span.classList.add('animated')
-                            }, index * duracao_transicao) 
+                    let contador_animacoes = 0
+                    function Animar() {
+                        if(contador_animacoes < letters.length && !audio_player.paused) {
+                            try {
+                                text.getElementsByTagName('span')[contador_animacoes].classList.add('animated')
+                                contador_animacoes++
+
+                                setTimeout(() => {
+                                    Animar()
+                                }, tempoPorLetra)
+                            } catch (error) {
+                                
+                            }
                         }
+                    } Animar()
+
+                    audio_player.addEventListener('play', () => {
+                        Animar()
                     })
                 } else {
                     const text = document.getElementById('linha_atual_sincronizar_ver_letra')
@@ -524,11 +546,20 @@ function Destacar_linhas() {
             pre_letra_tocando_agora.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
             letra_pre_ver_letra = pre_letra_tocando_agora.innerText.split('\n')
             let linhas = pre_letra_tocando_agora.innerHTML.split('\n')
+            let duracao_transicao = 1
             
             if (linha_atual <= linhas.length) {
                 // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
                 for (let c = 0; c < linhas.length; c++) {
                     if(c == linha_atual) {
+                        try {
+                            duracao_transicao = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c + 1] - Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c]
+                            duracao_transicao = duracao_transicao * 1000 - 1.6
+                            
+                        } catch (error) {
+                            console.warn('Erro calcular o tempo de transação das letras: ' + error)
+                        }
+
                         linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_aba_musica_tocando_agora">' + letra_pre_ver_letra[c] + '</span>'
                     } else if(c < linha_atual) {
                         linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
@@ -546,10 +577,15 @@ function Destacar_linhas() {
                 for (let c = 0; c < linhas.length; c++) {
                     pre_letra_tocando_agora.innerHTML += linhas[c] + '\n'   
                 }
+                
 
-                if(Infos_Desempenho.Niveis_Desempenho < 3) {
+                if(Infos_Desempenho.Niveis_Desempenho < 3 && User.Configuracoes.Animacao_Detalhada) {
                     const text = document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora')                        
                     const letters = text.textContent.split('')
+                    text.innerHTML = ''
+
+                    const tempoPorLetra = duracao_transicao / letters.length
+
                     text.innerHTML = ''
 
                     letters.forEach((letter, index) => {
@@ -560,14 +596,30 @@ function Destacar_linhas() {
                             span.textContent = letter
                             span.className = 'animated-span'
                             text.appendChild(span)
+                        }                        
+                    })
 
-                            setTimeout(() => {
-                                span.classList.add('animated')
-                            }, index * duracao_transicao) 
+                    let contador_animacoes = 0
+                    function Animar() {
+                        if(contador_animacoes < letters.length && !audio_player.paused) {
+                            try {
+                                text.getElementsByTagName('span')[contador_animacoes].classList.add('animated')
+                                contador_animacoes++
+
+                                setTimeout(() => {
+                                    Animar()
+                                }, tempoPorLetra)
+                            } catch (error) {
+                                
+                            }
                         }
+                    } Animar()
+
+                    audio_player.addEventListener('play', () => {
+                        Animar()
                     })
                 } else {
-                    const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+                    const text = document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora')
                     const span = document.createElement('span')
                     span.innerText = text.innerText
                     span.className = 'animated-span'
@@ -588,11 +640,15 @@ function Destacar_linhas() {
             pre_letra_fullscreen.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
             letra_pre_ver_letra = pre_letra_fullscreen.innerText.split('\n')
             let linhas = pre_letra_fullscreen.innerHTML.split('\n')
+            let duracao_transicao = 1
             
             if (linha_atual <= linhas.length) {
                 // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
                 for (let c = 0; c < linhas.length; c++) {
                     if(c == linha_atual) {
+                        duracao_transicao = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c + 1] - Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c]
+                        duracao_transicao = duracao_transicao * 1000 - 6
+
                         linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_fullscreen">' + letra_pre_ver_letra[c] + '</span>'
                     } else if(c < linha_atual) {
                         linhas[c] = `<span class="linha_pre_anterior_add_letra" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
@@ -611,10 +667,13 @@ function Destacar_linhas() {
                     pre_letra_fullscreen.innerHTML += linhas[c] + '\n'   
                 }
 
-                if(Infos_Desempenho.Niveis_Desempenho < 3) {
-                    const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+                if(Infos_Desempenho.Niveis_Desempenho < 3 && User.Configuracoes.Animacao_Detalhada) {
+
+                    const text = document.getElementById('linha_atual_sincronizar_fullscreen')
                     const letters = text.textContent.split('')
                     text.innerHTML = ''
+
+                    const tempoPorLetra = duracao_transicao / letters.length
 
                     letters.forEach((letter, index) => {
                         const span = document.createElement('span')
@@ -624,14 +683,30 @@ function Destacar_linhas() {
                             span.textContent = letter
                             span.className = 'animated-span'
                             text.appendChild(span)
+                        }                        
+                    })
 
-                            setTimeout(() => {
-                                span.classList.add('animated')
-                            }, index * duracao_transicao) 
+                    let contador_animacoes = 0
+                    function Animar() {
+                        if(contador_animacoes < letters.length && !audio_player.paused) {
+                            try {
+                                text.getElementsByTagName('span')[contador_animacoes].classList.add('animated')
+                                contador_animacoes++
+
+                                setTimeout(() => {
+                                    Animar()
+                                }, tempoPorLetra)
+                            } catch (error) {
+                                
+                            }
                         }
+                    } Animar()
+
+                    audio_player.addEventListener('play', () => {
+                        Animar()
                     })
                 } else {
-                    const text = document.getElementById('linha_atual_sincronizar_ver_letra')
+                    const text = document.getElementById('linha_atual_sincronizar_fullscreen')
                     const span = document.createElement('span')
                     span.innerText = text.innerText
                     span.className = 'animated-span'
@@ -838,7 +913,7 @@ function Atualizar_Letra_PC() {
             info_dada_nao_aprendi = false
             let Tempo = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado
 
-            if(audio_player.currentTime + 0.75 > parseFloat(Tempo[linha_atual + 1])) {
+            if(audio_player.currentTime + 0.30 >= parseFloat(Tempo[linha_atual + 1])) {
                 linha_atual++
                 Destacar_linhas()
             }
