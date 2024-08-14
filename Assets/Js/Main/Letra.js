@@ -468,7 +468,7 @@ function Destacar_linhas() {
                 for (let c = 0; c < linhas.length; c++) {
                     if(c == linha_atual) {
                         duracao_transicao = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c + 1] - Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c]
-                        duracao_transicao = duracao_transicao * 1000 - 1.6
+                        duracao_transicao = duracao_transicao * 1000
 
                         linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_ver_letra">' + letra_pre_ver_letra[c] + '</span>'
 
@@ -494,7 +494,7 @@ function Destacar_linhas() {
                     const letters = text.textContent.split('')
                     text.innerHTML = ''
 
-                    const tempoPorLetra = duracao_transicao / letters.length
+                    const tempoPorLetra = duracao_transicao / letters.length - 7
 
                     letters.forEach((letter, index) => {
                         const span = document.createElement('span')
@@ -554,7 +554,7 @@ function Destacar_linhas() {
                     if(c == linha_atual) {
                         try {
                             duracao_transicao = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c + 1] - Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c]
-                            duracao_transicao = duracao_transicao * 1000 - 1.6
+                            duracao_transicao = duracao_transicao * 1000
                             
                         } catch (error) {
                             console.warn('Erro calcular o tempo de transação das letras: ' + error)
@@ -584,7 +584,7 @@ function Destacar_linhas() {
                     const letters = text.textContent.split('')
                     text.innerHTML = ''
 
-                    const tempoPorLetra = duracao_transicao / letters.length
+                    const tempoPorLetra = duracao_transicao / letters.length  - 7
 
                     text.innerHTML = ''
 
@@ -647,7 +647,7 @@ function Destacar_linhas() {
                 for (let c = 0; c < linhas.length; c++) {
                     if(c == linha_atual) {
                         duracao_transicao = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c + 1] - Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c]
-                        duracao_transicao = duracao_transicao * 1000 - 6
+                        duracao_transicao = duracao_transicao * 1000
 
                         linhas[c] = '<span class="linha_pre_em_destaque_add_letra" id="linha_atual_sincronizar_fullscreen">' + letra_pre_ver_letra[c] + '</span>'
                     } else if(c < linha_atual) {
@@ -673,7 +673,7 @@ function Destacar_linhas() {
                     const letters = text.textContent.split('')
                     text.innerHTML = ''
 
-                    const tempoPorLetra = duracao_transicao / letters.length
+                    const tempoPorLetra = duracao_transicao / letters.length  - 12
 
                     letters.forEach((letter, index) => {
                         const span = document.createElement('span')
