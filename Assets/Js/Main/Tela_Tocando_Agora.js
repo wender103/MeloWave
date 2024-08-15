@@ -360,13 +360,7 @@ function Mostrar_Letra_Tela_Tocando_Agora() {
         btn_mostrar_letra_tela_tocando_agora.innerText = 'Fechar Letra'
         pode_atualizar_letra_tela_tocando_agora = true
         container_letra_tocando_agora.classList.add('active')
-
-        if(!User.Configuracoes.Background.Cores_Solidas) {
-            container_letra_tela_tocando_agora.style.background = 'rgba(13, 17, 31, 0.192)'
-            container_letra_tela_tocando_agora.style.backdropFilter = 'blur(20px)'
-        } else {
-            animateBackgroundColor(Listas_Prox.MusicaAtual.Cores[4], document.getElementById('container_letra_tela_tocando_agora'), 500, true)
-        }
+        animateBackgroundColor(Listas_Prox.MusicaAtual.Cores[2], document.getElementById('container_letra_tela_tocando_agora'), 500, true)
 
         setTimeout(() => {
             Atualizar_Cores_Partes_Site()
@@ -390,14 +384,7 @@ function Fechar_Letra_Tela_Tocando_Agora(Comando = '') {
     btn_mostrar_letra_tela_tocando_agora.innerText = 'Mostrar Letra'
     pode_atualizar_letra_tela_tocando_agora = false
     container_letra_tocando_agora.classList.remove('active')
-
-    if(!User.Configuracoes.Background.Cores_Solidas) {
-        container_letra_tela_tocando_agora.style.background = '#0000001a'
-        container_letra_tela_tocando_agora.style.backdropFilter = 'blur(0px)'
-
-    } else {
-        animateBackgroundColor(Listas_Prox.MusicaAtual.Cores[4], document.getElementById('container_letra_tela_tocando_agora'), 500, true)
-    }
+    animateBackgroundColor(Listas_Prox.MusicaAtual.Cores[2], document.getElementById('container_letra_tela_tocando_agora'), 500, true)
 
     setTimeout(() => {
         Atualizar_Cores_Partes_Site()

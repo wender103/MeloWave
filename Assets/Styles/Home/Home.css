@@ -676,22 +676,18 @@ div.btn_marcar_config div.boll_config {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-h1 {
+#Container_Off_Line h1 {
   color: #333;
 }
-
-p {
+#Container_Off_Line p {
   color: #666;
   margin: 10px 0;
 }
-
-.emoji {
+#Container_Off_Line .emoji {
   font-size: 50px;
   margin: 20px 0;
 }
-
-.footer {
+#Container_Off_Line .footer {
   margin-top: 20px;
   color: #999;
 }
@@ -2009,6 +2005,32 @@ body main section.Paginas#Pagina_artista section#container_pag_artista {
   position: absolute;
   z-index: 2;
 }
+body main section.Paginas#Pagina_artista section#container_pag_artista div#background_img_artista_cores_solidas {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  display: none;
+  z-index: -1;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista div#background_img_artista_cores_solidas div#img_artistas_cores_solidas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  -webkit-mask-image: linear-gradient(to bottom, #000000, transparent);
+  mask-image: linear-gradient(to bottom, #000000, transparent);
+  z-index: 2;
+}
+body main section.Paginas#Pagina_artista section#container_pag_artista div#background_img_artista_cores_solidas div#cor_artista_cores_solidas {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: none;
+}
 body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas {
   width: 100%;
   height: 50%;
@@ -2522,6 +2544,14 @@ body main section.Paginas#Pagina_verletra.Pagina_Aberta > article > pre {
 body main section.Paginas#Pagina_verletra.Tem_Letra article > pre {
   display: block;
   height: auto;
+}
+body main section.Paginas#Pagina_verletra div#background_ver_letra {
+  position: absolute;
+  top: -200px;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: calc(100% + 200px);
 }
 body main section.Paginas#Pagina_verletra article#container_letra_verletra {
   overflow: hidden;
@@ -4038,6 +4068,30 @@ body section#container_tela_tocando_agora article div#container_letra_tela_tocan
   flex-direction: column;
   background-color: var(--black_transparent);
 }
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora.Dark div#container_letra_tocando_agora pre {
+  color: rgba(0, 0, 0, 0.2509803922) !important;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora.Dark div#container_letra_tocando_agora pre span.linha_pre_anterior_add_letra {
+  color: rgba(0, 0, 0, 0.4705882353) !important;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora.Dark div#container_letra_tocando_agora pre span.linha_pre_em_destaque_add_letra .animated-span {
+  color: rgba(0, 0, 0, 0.4705882353) !important;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora.Dark div#container_letra_tocando_agora pre span.linha_pre_em_destaque_add_letra .animated-span.animated {
+  color: black;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0) !important;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora.Dark div#container_letra_tocando_agora pre h1 {
+  color: black;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0) !important;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora.Dark div#container_mostrar_letra_tela_tocando_agora button {
+  border: 1px solid black;
+  color: black;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora.Dark div#container_mostrar_letra_tela_tocando_agora p {
+  color: black;
+}
 body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_mostrar_letra_tela_tocando_agora {
   display: flex;
   align-items: center;
@@ -4063,27 +4117,6 @@ body section#container_tela_tocando_agora article div#container_letra_tela_tocan
 body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora.active pre {
   margin-top: 10px;
   background-position: center;
-}
-body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark pre {
-  color: rgba(0, 0, 0, 0.2509803922) !important;
-}
-body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark pre span.linha_pre_anterior_add_letra {
-  color: rgba(0, 0, 0, 0.4705882353) !important;
-}
-body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark pre span.linha_pre_em_destaque_add_letra .animated-span {
-  color: rgba(0, 0, 0, 0.4705882353) !important;
-}
-body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark pre span.linha_pre_em_destaque_add_letra .animated-span.animated {
-  color: black !important;
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0) !important;
-}
-body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark pre h1 {
-  color: black;
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0) !important;
-}
-body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora div#container_letra_tela_tocando_agora.Dark button {
-  border: 1px solid rgba(0, 0, 0, 0.2509803922) !important;
-  color: rgba(0, 0, 0, 0.2509803922);
 }
 body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div#container_letra_tocando_agora pre {
   width: 100%;

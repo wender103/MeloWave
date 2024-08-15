@@ -34,10 +34,20 @@ function Abrir_Perfil_Artista(Artista, Musica) {
     }
     
     if(Device.Tipo != 'Mobile') {
-        document.getElementById('background_paginas_artista').style.backgroundImage = `url(${musica_escolhida.Img})`
+        if(User.Configuracoes.Background.Cores_Solidas) {
+            document.getElementById('img_artistas_cores_solidas').style.backgroundImage = `url(${musica_escolhida.Img})`
+            document.getElementById('cor_artista_cores_solidas').style.backgroundImage = `linear-gradient(to bottom, ${musica_escolhida.Cores[0]}, transparent)`
+        } else {
+            document.getElementById('background_paginas_artista').style.backgroundImage = `url(${musica_escolhida.Img})`
+        }
 
     } else {
-        document.getElementById('background_paginas_artista').style.backgroundImage = `url(${musica_escolhida.Imagens[2]})`
+        if(User.Configuracoes.Background.Cores_Solidas) {
+            document.getElementById('img_artistas_cores_solidas').style.backgroundImage = `url(${musica_escolhida.Imagens[2]})`
+            document.getElementById('cor_artista_cores_solidas').style.backgroundImage = `linear-gradient(to bottom, ${musica_escolhida.Cores[0]}, transparent)`
+        } else {
+            document.getElementById('background_paginas_artista').style.backgroundImage = `url(${musica_escolhida.Imagens[2]})`
+        }
     }
 
     document.getElementById('nome_artista').innerText = Artista

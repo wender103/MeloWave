@@ -158,6 +158,7 @@ btn_cores_solidas.addEventListener('click', () => {
 })
 
 function Ativar_Cores_Solidas() {
+    document.getElementById('background_img_artista_cores_solidas').style.display = 'block'
     document.body.style.background = 'black'
     document.getElementById('container_background_main').style.display = 'block'
     document.getElementById('container_background_nav1').style.display = 'block'
@@ -178,6 +179,7 @@ function Ativar_Cores_Solidas() {
 }
 
 function Desativar_Cores_Solidas() {
+    document.getElementById('background_img_artista_cores_solidas').style.display = 'none'
     document.body.style.background = ''
     document.getElementById('container_background_main').style.display = 'none'
     document.getElementById('container_background_nav1').style.display = 'none'

@@ -1327,7 +1327,7 @@ function corEhClara(cor) {
     const brilho = calcularBrilho(cor);
 
     // Define um limite de brilho para determinar se a cor é clara demais
-    const limiteBrilho = 100;
+    const limiteBrilho = 45;
 
     // Retorna verdadeiro se a cor for clara demais (brilho acima do limite)
     return brilho > limiteBrilho;

@@ -675,22 +675,18 @@ div.btn_marcar_config div.boll_config {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
-h1 {
+#Container_Off_Line h1 {
   color: #333;
 }
-
-p {
+#Container_Off_Line p {
   color: #666;
   margin: 10px 0;
 }
-
-.emoji {
+#Container_Off_Line .emoji {
   font-size: 50px;
   margin: 20px 0;
 }
-
-.footer {
+#Container_Off_Line .footer {
   margin-top: 20px;
   color: #999;
 }/*# sourceMappingURL=Geral.css.map */

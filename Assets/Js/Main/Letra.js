@@ -805,21 +805,11 @@ function Abrir_Ver_Letra_PC(id_musica=undefined) {
             
             Atualizar_Cores_Partes_Site()
             Adicionar_Opacidade_Das_Cores_Fundo_Interativo()
-            if(!User.Configuracoes.Background.Cores_Solidas) {
-                if(corEhClara(musica_do_musica_id.Cores[0])) {
-                    setTimeout(() => {
-                        mudarTemaParaEscuro()
-                    }, 500)
-                } else {
-                    mudarTemaParaClaro()
-                }
-            } else {                
-                animateBackgroundColor(Listas_Prox.MusicaAtual.Cores[4], document.querySelector('main'), 500, true)
-                if(corEhClara(Listas_Prox.MusicaAtual.Cores[4])) {
-                    document.getElementById('pre_letra_da_musica').classList.add('Dark')
-                } else {
-                    document.getElementById('pre_letra_da_musica').classList.remove('Dark')
-                }
+            animateBackgroundColor(Listas_Prox.MusicaAtual.Cores[2], document.getElementById('background_ver_letra'), 500, true)
+            if(corEhClara(Listas_Prox.MusicaAtual.Cores[2])) {
+                document.getElementById('pre_letra_da_musica').classList.add('Dark')
+            } else {
+                document.getElementById('pre_letra_da_musica').classList.remove('Dark')
             }
         }
 

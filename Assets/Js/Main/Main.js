@@ -258,38 +258,28 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     if(MusicaAtual.Cores.length > 0 && Device.Tipo != 'Mobile') {
         if(pd_atualizar_letra_pc) {
             Montar_Cores_Na_Tela(MusicaAtual)
-
-            if(!User.Configuracoes.Background.Cores_Solidas) {
-                if(corEhClara(MusicaAtual.Cores[0])) {
-                    mudarTemaParaEscuro()
-                } else {
-                    mudarTemaParaClaro()
-                } 
-              
-            } else {
                 
-                animateBackgroundColor(MusicaAtual.Cores[4], document.querySelector('main'), 500, true)
-                if(corEhClara(MusicaAtual.Cores[4])) {
-                    document.getElementById('pre_letra_da_musica').classList.add('Dark')
-                } else {
-                    document.getElementById('pre_letra_da_musica').classList.remove('Dark')
-                }
+            animateBackgroundColor(MusicaAtual.Cores[2], document.getElementById('background_ver_letra'), 500, true)
+            if(corEhClara(MusicaAtual.Cores[2])) {
+                document.getElementById('container_letra_tela_tocando_agora').classList.add('Dark')
+                document.getElementById('pre_letra_da_musica').classList.add('Dark')
+                
+            } else {
+                document.getElementById('container_letra_tela_tocando_agora').classList.remove('Dark')
+                document.getElementById('pre_letra_da_musica').classList.remove('Dark')
             }
 
             Atualizar_Cores_Partes_Site()
             Adicionar_Opacidade_Das_Cores_Fundo_Interativo()
-        } else if(User.Configuracoes.Background.Cores_Solidas) {
-            animateBackgroundColor(MusicaAtual.Cores[4], document.getElementById('container_letra_tela_tocando_agora'), 500, true)
-
-            if(corEhClara(MusicaAtual.Cores[4])) {
-                    document.getElementById('container_letra_tela_tocando_agora').classList.add('Dark')
-                } else {
-                    document.getElementById('container_letra_tela_tocando_agora').classList.remove('Dark')
-                }
         }
 
-    } else {
-        Remover_Opacidade_Das_Cores_Fundo_Interativo()
+        animateBackgroundColor(MusicaAtual.Cores[2], document.getElementById('container_letra_tela_tocando_agora'), 500, true)
+
+        if(corEhClara(MusicaAtual.Cores[2])) {
+            document.getElementById('container_letra_tela_tocando_agora').classList.add('Dark')
+        } else {
+            document.getElementById('container_letra_tela_tocando_agora').classList.remove('Dark')
+        }
     }
 
     if(Comando == null || Comando == undefined) {
@@ -914,7 +904,7 @@ function Ativar_Pag_Musica_Tocando(Musica=Listas_Prox.MusicaAtual) {
     let cor_background = '#636363'
 
     if(Musica.Cores.length > 0) {
-        cor_background = alterarTransparencia(Musica.Cores[0], 0.5)
+        cor_background = alterarTransparencia(Musica.Cores[1], 0.6)
     }
 
     if(Musica.Cores.length > 0) {
