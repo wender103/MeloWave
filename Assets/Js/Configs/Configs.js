@@ -260,5 +260,32 @@ function Carregar_Configuracoes() {
         btn_cores_solidas.classList.add('active')
         ul_config_background.style.display = 'none'
         Ativar_Cores_Solidas()
+ 
+ 
     }
+}
+
+//! --------------------------------------- Equalizar Audio --------------------------------------------
+function aplicarEfeitoNoAudio() {
+  // Cria o contexto de áudio
+  const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+
+  // Seleciona o elemento de áudio
+  const audioElement = document.getElementById('audio_player')
+
+  // Cria uma source a partir do elemento de áudio
+  const track = audioContext.createMediaElementSource(audioElement)
+
+  // Cria um filtro para aumentar os graves
+  const bassBoost = audioContext.createBiquadFilter()
+  bassBoost.type = 'lowshelf'
+  bassBoost.frequency.setValueAtTime(200, audioContext.currentTime)
+  bassBoost.gain.setValueAtTime(10, audioContext.currentTime) // Aumenta o grave
+
+  // Conecta o track ao filtro e depois ao destino final (saída de áudio)
+  track.connect(bassBoost)
+  bassBoost.connect(audioContext.destination)
+
+  // Play no áudio com o efeito
+  audioElement.play()
 }

@@ -1,4 +1,12 @@
 
+//! Vai checar se o user está conectado em uma conta
+auth.onAuthStateChanged((val) => {
+    if(val == null || val == undefined) {
+        //! Caso o user não esteja conectado
+        location.href = 'Cadastro.html'
+    }
+})
+
 function getDataAtualCadastro() {
     var data = new Date()
     var dia = data.getDate()
@@ -71,7 +79,7 @@ function logout() {
       .then(() => {
         console.log('Deslogado com sucesso!') // Mensagem de sucesso
         // Aqui você pode redirecionar o usuário para uma página de login, por exemplo
-        location.reload()
+        location.href = 'Cadastro.html'
       })
       .catch((error) => {
         console.error('Erro ao deslogar:', error) // Mensagem de erro
