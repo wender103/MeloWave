@@ -119,8 +119,8 @@ auth.onAuthStateChanged((val) => {
                                 saturacao: 100,
                                 Cores_Solidas: false
                             },
-                            Transicoes_De_Faixas: false,
-                            Animacao_Detalhada: false,
+                            Transicoes_De_Faixas: true,
+                            Animacao_Detalhada: true,
                         },
                         Social: {
                             Seguindo: [],

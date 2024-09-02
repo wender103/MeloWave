@@ -50,9 +50,9 @@ function Execultar_Funcoes_Ao_Carregar() {
           adicionarTarefa(Carregar_Musica_Pendentes);
           adicionarTarefa(Remover_Musicas_Tempo_Exedido);
           adicionarTarefa(Carregar_Notificacaoes);
-          adicionarTarefa(Artistas_Tocados_Recentemente);
-          adicionarTarefa(Mostrar_Max_Musicas);
           adicionarTarefa(Retornar_Artistas_Mais_Vistos);
+          adicionarTarefa(Mostrar_Max_Musicas);
+          adicionarTarefa(Artistas_Tocados_Recentemente);
           adicionarTarefa(Carregar_Configuracoes)
           adicionarTarefa(Retornar_Tocados_Recentemente_Primeira_Parte)
   
@@ -76,6 +76,17 @@ function Execultar_Funcoes_Ao_Carregar() {
           adicionarTarefa(Carregar_Notificacaoes_Em_Tempo_Real);
           
           adicionarTarefa(checkIfAllLoaded);
+
+          if(User.Gosto_Musical.Generos.length <= 0) {
+            adicionarTarefa(Abrir_Selecionar_Generos_Musicais)
+          } else {
+            adicionarTarefa(Retornar_Artistas_Com_Base_Nos_Generos)
+
+            for (let c = 0; c < User.Gosto_Musical.Generos.length; c++) {
+              adicionarTarefa(Retornar_Musicas_Com_Base_Nos_Generos_Musicais(User.Gosto_Musical.Generos[c]))
+            }
+          }
+
   
           // Esperar todas as tarefas serem concluídas
           Promise.all(tarefas).then(resolve).catch(reject);

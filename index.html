@@ -1085,7 +1085,7 @@
                 <img src="Assets/Imgs/Mic.svg" onclick="Abrir_Ver_Letra_PC()" class="img_btn_mic_letra icone">
                 <img src="Assets/Imgs/icon_tela_tocando_agora.png" class="img_btn_tela_tocando_agora icone" onclick="Abrir_Tela_Tocando_Agora()">
                 <img src="Assets/Imgs/Fila.svg" onclick="Abrir_Fila()" class="icone">
-                <img src="Assets/Imgs/Pc.svg" class="icone Btn_Cast_Google">
+                <img src="Assets/Imgs/logotipo-do-google-cast.png" class="icone Btn_Cast_Google">
 
                 <div class="container_icon_som">
                     <div id="container_icon_volume">
@@ -1164,7 +1164,7 @@
                 <div id="conatiner_btns_compartilhar_pag_musica_tocando_agora">
                     <div>
                         <img src="Assets/Imgs/Share.png" id="btn_compartilhar_pag_musica_tocando_agora" class="icone_pag_cell">
-                        <img src="Assets/Imgs/Pc.svg" class="icone Btn_Cast_Google">
+                        <img src="Assets/Imgs/logotipo-do-google-cast.png" class="icone Btn_Cast_Google">
                     </div>
                     
                     <img src="Assets/Imgs/Maximizar.svg" id="btn_tela_cheia_cell" class="icone_pag_cell">
@@ -1354,6 +1354,25 @@
         </div>
     </div>
 
+    <section id="container_generos_musicais_cadastro">
+        <div id="container_pesquisar_musicas_curtidas" class="container_inputs_pesquisar">
+            <img src="Assets/Imgs/Icons_search_input.svg">
+            <input type="text" placeholder="Buscar na playlist" id="input_pesquisar_musicas_curtidas" oninput="Pesquisar_Musicas_Curtidas(this.value)" autocomplete="off">
+        </div>
+
+        <article id="contaier_generos_cadastro">
+            
+        </article>
+    </section>
+
+    <section id="Container_Selecionar_Generos">
+        <h1>🎶🎸 Escolha seus gêneros musicais favoritos! 🎵🎤</h1>
+        <p>⚠️👉 Não se esqueça de selecionar pelo menos 5 para continuar! 🎯🎶✨</p>
+        <article id="container_article_selecionar_generos"></article>
+
+        <button id="btn_pronto_selecionar_generos">Pronto</button>
+    </section>
+
     <!--! Carregamento -->
     <div id="container_carregamento_tela_innteira">
         <div class="loader">
@@ -1463,6 +1482,7 @@
     <script src="Assets/Js/Main/Cores_Imgs.js"></script>
     <script src="Assets/Js/Nav/Navegation.js"></script>
     <script src="Assets/Js/Main/Limpar_Paginas.js"></script>
+    <script src="Assets/Js/Main/Selecionar_Generos.js"></script>
     
     <!--* Configurações -->
     <script src="Assets/Js/Configs/Configs.js"></script>

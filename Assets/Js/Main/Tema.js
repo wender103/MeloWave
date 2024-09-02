@@ -10,7 +10,7 @@ function mudarTemaParaClaro(Comando='') {
     document.documentElement.style.setProperty('--fonte_meio_transparente', 'rgba(255, 255, 255, 0.555)')
     document.documentElement.style.setProperty('--white_pouco_transparent', 'rgba(255, 255, 255, 0.612)')
 
-    document.getElementById('pre_letra_da_musica').classList.remove('Dark')
+    // document.getElementById('pre_letra_da_musica').classList.remove('Dark')        
 
     const imagensClasse = document.querySelectorAll('img.icone')
     imagensClasse.forEach(img => {
@@ -41,7 +41,7 @@ function mudarTemaParaEscuro(Comando='') {
     document.documentElement.style.setProperty('--fonte_meio_transparente', '#0000008e')
     document.documentElement.style.setProperty('--white_pouco_transparent', '#0000009c')
 
-    document.getElementById('pre_letra_da_musica').classList.add('Dark')
+    // document.getElementById('pre_letra_da_musica').classList.add('Dark')
 
     const imagensClasse = document.querySelectorAll('img.icone')
     imagensClasse.forEach(img => {

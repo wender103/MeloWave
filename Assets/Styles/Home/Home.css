@@ -1541,10 +1541,10 @@ body main section.Paginas#Pagina_home section#container_tocados_recentemente div
   overflow: hidden;
   text-overflow: ellipsis;
 }
-body main section.Paginas#Pagina_home section#container_artistas_favoritos div.container_artista_caixa {
+body main section.Paginas#Pagina_home section#container_artistas_favoritos div.container_artista_caixa, body main section.Paginas#Pagina_home section#container_artistas_com_base_no_genero_musical div.container_artista_caixa {
   background-color: transparent;
 }
-body main section.Paginas#Pagina_home section#container_artistas_favoritos div.container_artista_caixa div.container_img_artista_caixa {
+body main section.Paginas#Pagina_home section#container_artistas_favoritos div.container_artista_caixa div.container_img_artista_caixa, body main section.Paginas#Pagina_home section#container_artistas_com_base_no_genero_musical div.container_artista_caixa div.container_img_artista_caixa {
   width: 113%;
   height: 92%;
 }
@@ -5778,4 +5778,74 @@ body section#Container_Cadastro article button {
   gap: 20px;
   cursor: pointer;
   margin-bottom: 20px;
+}
+body section#Container_Selecionar_Generos {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 6;
+  background-color: #181818;
+  overflow: auto;
+  padding-bottom: 200px;
+  color: white;
+  text-align: center;
+  display: none;
+}
+body section#Container_Selecionar_Generos h1 {
+  margin: 30px 0 10px;
+}
+body section#Container_Selecionar_Generos p {
+  color: rgba(255, 255, 255, 0.637);
+  font-size: 14px;
+}
+body section#Container_Selecionar_Generos article#container_article_selecionar_generos {
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  margin-top: 100px;
+}
+body section#Container_Selecionar_Generos article#container_article_selecionar_generos div.container_div_escolher_genero {
+  cursor: pointer;
+  position: relative;
+}
+body section#Container_Selecionar_Generos article#container_article_selecionar_generos div.container_div_escolher_genero p {
+  width: 90%;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+  z-index: 1;
+  font-size: 110%;
+  font-weight: 700;
+}
+body section#Container_Selecionar_Generos article#container_article_selecionar_generos div.container_div_escolher_genero img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+body section#Container_Selecionar_Generos button#btn_pronto_selecionar_generos {
+  position: fixed;
+  bottom: 50px;
+  right: 20px;
+  color: white;
+  background-color: rgb(133, 133, 133);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: not-allowed;
+  z-index: 2;
+}
+body section#Container_Selecionar_Generos button#btn_pronto_selecionar_generos.Active {
+  cursor: pointer;
+  background-color: var(--verde_azul);
 }/*# sourceMappingURL=Home.css.map */

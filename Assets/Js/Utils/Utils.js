@@ -916,6 +916,8 @@ const inputRangeMusicaPCFullscreen = document.getElementById('input_range_musica
 const traco_barra_musica_cell = document.getElementById('traco_barra_musica_cell')
 
 function obterDuracaoOuTempoAtualAudio(audioPlayer, formatado = false, tipo = 'duration', atualizarInputs = false) {
+    console.log(atualizarInputs)
+    
     return new Promise((resolve, reject) => {
         if (!audioPlayer) {
             return reject(new Error('Elemento de áudio não fornecido'))
@@ -1197,8 +1199,6 @@ function Avisos_Rapidos(Aviso) {
                 }
             }, 600)
         }, 2000)
-        
-
     } 
     
     if(!aviso_rapido_ativado) {
@@ -1467,4 +1467,23 @@ function scrollToTopLetra() {
     } else if(letre_cell_aberta) {
         scrollToTop(document.getElementById('pre_letra_cell'))
     }
+}
+
+//! Retorna Quantas Views Tem Aquele Genêro Musical
+function Views_Por_Genero(Genero) {
+    let views = 0
+    for (let c = 0; c < TodasMusicas.length; c++) {
+        if(TodasMusicas[c].Estado == 'Ativo') {
+            if(TodasMusicas[c].Genero.includes(Genero) || Genero.includes(TodasMusicas[c].Genero)) {
+                views += parseInt(TodasMusicas[c].Views)
+            }
+        }
+    }
+
+    return views
+}
+
+//! Captalizar String
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }

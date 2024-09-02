@@ -58,7 +58,7 @@ async function Postar_Musica(Comando = '') {
                         },
                         body: JSON.stringify({ 
                             videoURL: input_add_musica,
-                            userEmail: User.Email,
+                            // userEmail: User.Email,
                         })
                     })
                     const data = await response.json()

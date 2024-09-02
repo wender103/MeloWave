@@ -643,3 +643,153 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
         }
     }
 }
+
+function Retornar_Artistas_Com_Base_Nos_Generos() {
+    let Musicas = shuffleArray([...TodasMusicas])
+    const section = document.createElement('section')
+    const h1 = document.createElement('h1')
+    let article = document.createElement('article')
+    let Array_Musicas = []
+    const Generos = ordenarNomesPorFrequencia(User.Gosto_Musical.Generos)
+
+    h1.innerText = 'Com Base Nos Seus Gostos'
+    section.id = 'container_artistas_com_base_no_genero_musical'
+    article.id = 'container_artistas_com_base_no_genero_musical_article'
+
+    let max_artistas_por_genero = 2
+    for (let e = 0; e < Generos.length; e++) {
+        for (let c = 0; c < Musicas.length; c++) {
+            if(Musicas[c].Genero.includes(Generos[e]) || Generos[e].includes(Musicas[c].Genero)) {
+                let ja_tem_essa_musica = false
+                for (let d = 0; d < Array_Musicas.length; d++) {
+                    if(Array_Musicas[d].ID == Musicas[c].ID) {
+                        ja_tem_essa_musica = true
+                        break
+                    }
+                }
+                if(!ja_tem_essa_musica) {
+                    max_artistas_por_genero--
+                    Array_Musicas.push(Musicas[c])
+                }
+
+                if(max_artistas_por_genero <= 1) {
+                    break
+                }
+            }
+        }
+    }
+
+    for (let c = 0; c < Array_Musicas.length; c++) {
+        const div_container = document.createElement('div')
+        const container_img_artista_caixa = document.createElement('div')
+        const container_texto_artista_caixa = document.createElement('div')
+        const img = document.createElement('img')
+        const p = document.createElement('p')
+        const span = document.createElement('span')
+
+        span.innerText = 'Artista'
+        p.innerText = Separar_Por_Virgula(Array_Musicas[c].Autor)[0]
+        img.src = Array_Musicas[c].Imagens[1]
+        img.loading = 'lazy'
+        container_img_artista_caixa.className = 'container_img_artista_caixa'
+        div_container.className = 'container_artista_caixa'
+        container_texto_artista_caixa.className = 'container_texto_artista_caixa'
+
+        container_img_artista_caixa.appendChild(img)
+        div_container.appendChild(container_img_artista_caixa)
+        container_texto_artista_caixa.appendChild(span)
+        container_texto_artista_caixa.appendChild(p)
+        div_container.appendChild(container_texto_artista_caixa)
+        article.appendChild(div_container)
+
+        div_container.addEventListener('click', () => {
+            Abrir_Perfil_Artista(p.innerText, Array_Musicas[c])
+        })
+
+        div_container.addEventListener('contextmenu', (event) => {
+            Ativar_Opcoes_Click_Direita('Artista', Array_Musicas[c], c, p.innerText,Array_Musicas[c].ID)
+            posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+        })
+    }
+
+    if(article.innerHTML != '') {
+        section.appendChild(h1)
+        section.appendChild(article)
+        document.getElementById('Pagina_home').appendChild(section)
+    }
+}
+
+function Retornar_Musicas_Com_Base_Nos_Generos_Musicais(Genero) {
+    const section = document.createElement('section')
+    const h1 = document.createElement('h1')
+    let article = document.createElement('article')
+
+    h1.innerText = `${capitalizeFirstLetter(Genero)}`
+    section.className = 'container_musicas_com_base_no_genero_musical'
+    article.className = 'container_musicas_com_base_no_genero_musical_article'
+
+    let contador = 0
+    let max_musicas = 14
+    if(Device.Tipo == 'Mobile') {
+        max_musicas = 7
+    }
+    let array_musicas_genero = []
+    for (let c = 0; c < TodasMusicas.length; c++) {
+        if(contador < max_musicas) {
+            if(TodasMusicas[c].Genero.includes(Genero) || Genero.includes(TodasMusicas[c].Genero)) {
+                array_musicas_genero.push(TodasMusicas[c])
+                contador++
+            }
+        } else {
+            break
+        }
+    }
+
+    for (let c = 0; c < array_musicas_genero.length; c++) {
+        const div_container = document.createElement('div')
+        const container_img_musica_caixa = document.createElement('div')
+        const container_texto_musica_caixa = document.createElement('div')
+        const img = document.createElement('img')
+        const p = document.createElement('p')
+        const span = document.createElement('span')
+
+        p.innerText = array_musicas_genero[c].Nome
+        span.innerText = array_musicas_genero[c].Autor
+        img.src = array_musicas_genero[c].Imagens[1]
+        img.loading = 'lazy'
+
+        img.className = 'Img_musica_caixa'
+        p.className = 'Nome_musicas_caixa'
+        container_texto_musica_caixa.className = 'texto_musica'
+        container_img_musica_caixa.className = 'container_img_musica'
+        div_container.className = 'musica_caixa'
+
+        container_img_musica_caixa.appendChild(img)
+        div_container.appendChild(container_img_musica_caixa)
+        container_texto_musica_caixa.appendChild(p)
+        container_texto_musica_caixa.appendChild(span)
+        div_container.appendChild(container_texto_musica_caixa)
+        article.appendChild(div_container)
+
+        div_container.addEventListener('click', (e) => {
+            let el = e.target.className
+
+            if(el == 'musica_caixa' || el == 'Nome_musicas_caixa' || el == 'Img_musica_caixa') {
+                Listas_Prox.Tocando.Nome = 'Pesquisa'
+                Listas_Prox.Tocando.ID = Pagina_Atual.ID
+                
+                Tocar_Musica(array_musicas_genero, array_musicas_genero[c])
+            }
+        })
+        div_container.addEventListener('contextmenu', (event) => {
+            Ativar_Opcoes_Click_Direita('Músicas Caixa', array_musicas_genero[c], c)
+            posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+        })
+    }
+
+    if(article.innerHTML != '') {
+        section.appendChild(h1)
+        section.appendChild(article)
+        document.getElementById('Pagina_home').appendChild(section)
+    }
+}

@@ -445,7 +445,7 @@ function Incrementar_Musica(Musica=undefined) {
             const img = document.createElement('img')
             img.loading = 'lazy'
             img.className = 'active'
-            img.src = musicas_nova_playlist[0].Img
+            img.src = musicas_nova_playlist[0].Imagens[1]
             container_imgs_criar_playlist[0].innerHTML = ''
             container_imgs_criar_playlist[0].classList.remove('active')
             container_imgs_criar_playlist[0].appendChild(img)
@@ -453,7 +453,7 @@ function Incrementar_Musica(Musica=undefined) {
             const img2 = document.createElement('img')
             img2.loading = 'lazy'
             img2.className = 'active'
-            img2.src = musicas_nova_playlist[0].Img
+            img2.src = musicas_nova_playlist[0].Imagens[1]
             container_imgs_criar_playlist[1].innerHTML = ''
             container_imgs_criar_playlist[1].classList.remove('active')
             container_imgs_criar_playlist[1].appendChild(img2)
@@ -464,7 +464,7 @@ function Incrementar_Musica(Musica=undefined) {
                 const img = document.createElement('img')
                 img.loading = 'lazy'
                 img.className = 'active2'
-                img.src = musicas_nova_playlist[c].Img
+                img.src = musicas_nova_playlist[c].Imagens[1]
                 container_imgs_criar_playlist[0].classList.add('active')
                 container_imgs_criar_playlist[0].appendChild(img)
             }
@@ -474,7 +474,7 @@ function Incrementar_Musica(Musica=undefined) {
                 const img = document.createElement('img')
                 img.loading = 'lazy'
                 img.className = 'active2'
-                img.src = musicas_nova_playlist[c].Img
+                img.src = musicas_nova_playlist[c].Imagens[1]
                 container_imgs_criar_playlist[1].classList.add('active')
                 container_imgs_criar_playlist[1].appendChild(img)
             }
@@ -498,7 +498,7 @@ function Incrementar_Musica(Musica=undefined) {
         const img = document.createElement('img')
         img.loading = 'lazy'
         img.className = 'active'
-        img.src = Nova_Playlist.Img
+        img.src = Nova_Playlist.Imagens[1]
         container_imgs_criar_playlist[0].classList.remove('active')
         container_imgs_criar_playlist[0].innerHTML = ''
         container_imgs_criar_playlist[0].appendChild(img)
@@ -506,7 +506,7 @@ function Incrementar_Musica(Musica=undefined) {
         const img2 = document.createElement('img')
         img2.loading = 'lazy'
         img2.className = 'active'
-        img2.src = Nova_Playlist.Img
+        img2.src = Nova_Playlist.Imagens[1]
         container_imgs_criar_playlist[1].classList.remove('active')
         container_imgs_criar_playlist[1].innerHTML = ''
         container_imgs_criar_playlist[1].appendChild(img2)
