@@ -39,7 +39,7 @@ body:not(.background) {
   transition: none;
 }
 
-main {
+section#container_cadastro_pc {
   width: 95%;
   max-width: 1000px;
   height: 600px;
@@ -51,8 +51,13 @@ main {
   justify-content: space-between;
   position: relative;
   overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  transition: 1s top ease-in-out;
 }
-main div#background_orange {
+section#container_cadastro_pc div#background_orange {
   width: 50%;
   height: 100%;
   background-image: linear-gradient(var(--background1), var(--background2));
@@ -61,13 +66,13 @@ main div#background_orange {
   z-index: 3;
   overflow: hidden;
 }
-main div#background_orange.left {
+section#container_cadastro_pc div#background_orange.left {
   left: 0;
 }
-main div#background_orange.right {
+section#container_cadastro_pc div#background_orange.right {
   left: 50%;
 }
-main div#background_orange div#container_background_orange {
+section#container_cadastro_pc div#background_orange div#container_background_orange {
   width: 200%;
   height: 100%;
   display: flex;
@@ -77,14 +82,14 @@ main div#background_orange div#container_background_orange {
   left: -100%;
   transition: all 0.6s ease-in-out;
 }
-main div#background_orange div#container_background_orange section {
+section#container_cadastro_pc div#background_orange div#container_background_orange section {
   width: 90%;
   color: var(--white2);
   text-align: center;
   background-color: transparent;
   position: relative;
 }
-main div#background_orange div#container_background_orange section button {
+section#container_cadastro_pc div#background_orange div#container_background_orange section button {
   width: auto;
   padding: 15px 20px;
   color: var(--white2);
@@ -94,7 +99,7 @@ main div#background_orange div#container_background_orange section button {
   border-radius: 20px;
   margin: 30px auto;
 }
-main div.bakground_sections {
+section#container_cadastro_pc div.bakground_sections {
   width: 50%;
   height: 100%;
   position: absolute;
@@ -102,14 +107,14 @@ main div.bakground_sections {
   background-color: var(--white);
   transition: all 0.4s ease-in-out;
 }
-main div.bakground_sections#background_signIn {
+section#container_cadastro_pc div.bakground_sections#background_signIn {
   z-index: 2;
   left: 0;
 }
-main div.bakground_sections#background_CreatAcoonout {
+section#container_cadastro_pc div.bakground_sections#background_CreatAcoonout {
   right: 0;
 }
-main section {
+section#container_cadastro_pc section {
   width: 50%;
   height: 100%;
   display: flex;
@@ -121,22 +126,22 @@ main section {
   transition: left 0.6s ease-in-out;
   z-index: 2;
 }
-main section#container_signIn {
+section#container_cadastro_pc section#container_signIn {
   left: 0;
 }
-main section#container_CreatAcoonout {
+section#container_cadastro_pc section#container_CreatAcoonout {
   left: 0;
   z-index: 1;
 }
-main section h1 {
+section#container_cadastro_pc section h1 {
   font-size: 2.5em;
   font-weight: 800;
 }
-main section p {
+section#container_cadastro_pc section p {
   max-width: 90%;
   text-align: center;
 }
-main section .google-btn {
+section#container_cadastro_pc section .google-btn {
   width: auto;
   padding: 15px 20px;
   border: none;

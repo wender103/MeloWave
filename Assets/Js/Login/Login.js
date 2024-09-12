@@ -188,7 +188,6 @@ auth.onAuthStateChanged((val) => {
         console.warn(error)
     }
 })
-
 function Fazer_Login() {
     auth.signInWithPopup(provider)
 }

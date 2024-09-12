@@ -304,6 +304,12 @@ div.musica_caixa div.texto_musica span {
   color: var(--fonte_meio_transparente);
   cursor: pointer;
 }
+div.musica_caixa div.texto_musica span p {
+  white-space: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--fonte_meio_transparente);
+}
 div.musica_caixa div.texto_musica span p span {
   padding-left: 5px;
   margin-bottom: -0.5px;
@@ -3531,6 +3537,15 @@ body main section.Paginas#Pagina_playlist article#container_header_playlist_page
 }
 body main section.Paginas#Pagina_playlist article#container_header_playlist_page div#container_infos_header_playlist_page div#container_infos_playlist_page div#div_infos_playlist_page p {
   font-size: 13px;
+  color: var(--white_pouco_transparent);
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist_page div#container_infos_header_playlist_page div#container_infos_playlist_page div#div_infos_playlist_page p span {
+  color: var(--white);
+  cursor: pointer;
+  font-size: 14px;
+}
+body main section.Paginas#Pagina_playlist article#container_header_playlist_page div#container_infos_header_playlist_page div#container_infos_playlist_page div#div_infos_playlist_page p span:hover {
+  text-decoration: underline;
 }
 body main section.Paginas#Pagina_playlist article#container_header_playlist_page div#container_infos_header_playlist_page div#container_infos_playlist_page div#div_infos_playlist_page span {
   font-weight: normal;

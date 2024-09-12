@@ -754,7 +754,7 @@ function Retornar_Musicas_Com_Base_Nos_Generos_Musicais(Genero) {
         const span = document.createElement('span')
 
         p.innerText = array_musicas_genero[c].Nome
-        span.innerText = array_musicas_genero[c].Autor
+        span.appendChild(Retornar_Artistas_Da_Musica(array_musicas_genero[c]))
         img.src = array_musicas_genero[c].Imagens[1]
         img.loading = 'lazy'
 

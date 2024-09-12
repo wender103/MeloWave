@@ -448,9 +448,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
         if(!pagina_igual) {            
             
-            if(Device.Tipo == 'Mobile') {
-                console.log('Rapaz')
-                
+            if(Device.Tipo == 'Mobile') {                
                 Trocar_Background(MusicaAtual.Imagens[0], document.body)
             } else {
                 Trocar_Background(MusicaAtual.Img, document.body)
@@ -700,9 +698,7 @@ let debounceTimeout3
 input_range_musica_cell.addEventListener('input', handleInputRangeMusicaPCFullscreen)
 
 //! ---------------- Audio ------------------------------------------
-audio_player.addEventListener('loadedmetadata', () => {
-    console.log('Rapaz')
-    
+audio_player.addEventListener('loadedmetadata', () => {    
     let feito = false
     if(!feito) {
         feito = true
@@ -770,8 +766,8 @@ audio_player.addEventListener('play', () => {
     }, 1000)
 
     intervalAudioTocando = setInterval(() => {
+        const diferenca = Math.floor(audio_player.duration - audio_player.currentTime)
         if (User.Configuracoes.Transicoes_De_Faixas && !em_transicao) {
-            const diferenca = Math.floor(audio_player.duration - audio_player.currentTime)
 
             if (diferenca < 6) {
                 let [pdAtualizarLetraPC2, podeAtualizarLetraFullscreen2, podeAtualizarLetraTelaTocandoAgora2, letreCellAberta2] = [pd_atualizar_letra_pc, pode_atualizar_letra_fullscreen, pode_atualizar_letra_tela_tocando_agora, letre_cell_aberta]
@@ -789,6 +785,10 @@ audio_player.addEventListener('play', () => {
                     pode_atualizar_letra_tela_tocando_agora = podeAtualizarLetraTelaTocandoAgora2
                     letre_cell_aberta = letreCellAberta2
                 }, 1500)
+            }
+        } else if(!User.Configuracoes.Transicoes_De_Faixas) {
+            if(diferenca < 1) {
+                Proxima_Musica()
             }
         }
 

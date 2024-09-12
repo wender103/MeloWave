@@ -303,6 +303,12 @@ div.musica_caixa div.texto_musica span {
   color: var(--fonte_meio_transparente);
   cursor: pointer;
 }
+div.musica_caixa div.texto_musica span p {
+  white-space: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--fonte_meio_transparente);
+}
 div.musica_caixa div.texto_musica span p span {
   padding-left: 5px;
   margin-bottom: -0.5px;

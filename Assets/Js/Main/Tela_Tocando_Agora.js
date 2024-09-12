@@ -384,7 +384,9 @@ function Fechar_Letra_Tela_Tocando_Agora(Comando = '') {
     btn_mostrar_letra_tela_tocando_agora.innerText = 'Mostrar Letra'
     pode_atualizar_letra_tela_tocando_agora = false
     container_letra_tocando_agora.classList.remove('active')
-    animateBackgroundColor(Listas_Prox.MusicaAtual.Cores[2], document.getElementById('container_letra_tela_tocando_agora'), 500, true)
+    try {
+        animateBackgroundColor(Listas_Prox.MusicaAtual.Cores[2], document.getElementById('container_letra_tela_tocando_agora'), 500, true)
+    } catch{}
 
     setTimeout(() => {
         Atualizar_Cores_Partes_Site()

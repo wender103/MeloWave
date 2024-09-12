@@ -707,8 +707,15 @@ function Retornar_Playlists(Lista, Local) {
         container_playlist.appendChild(container_texto_playlist)
         Local.querySelector('article').appendChild(container_playlist)
     
-        container_playlist.addEventListener('click', () => {
-            Abrir_Pagina('playlist', Lista[c].ID)
+        container_playlist.addEventListener('click', (e) => {
+            const el = e.target
+            if(!el.classList.contains('qm_postou_playlist')) {
+                Abrir_Pagina('playlist', Lista[c].ID)
+            }
+        })
+
+        qm_postou_playlist.addEventListener('click', () => {
+            Carregar_Perfil(user_adm)
         })
     }
 

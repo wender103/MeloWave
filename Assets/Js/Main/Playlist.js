@@ -131,6 +131,7 @@ function Abrir_Playlist(ID_PLaylist) {
         Participantes_PLaylist.reverse()
         let nomes_participantes_playlist_page = ''
         container_imgs_header_playlist_page.innerHTML = ''
+        nomes_colaboradores_playlist_page.innerHTML = ''
         let z_index_imgs = Participantes_PLaylist.length
         for (let c = 0; c < Participantes_PLaylist.length; c++) {
             const img = document.createElement('img')
@@ -139,20 +140,33 @@ function Abrir_Playlist(ID_PLaylist) {
             img.style.zIndex = z_index_imgs
             container_imgs_header_playlist_page.appendChild(img)
             z_index_imgs--
+            const span = document.createElement('span')
     
-            if(c + 1 > Participantes_PLaylist.length && Participantes_PLaylist.length > 1) {
-                nomes_participantes_playlist_page += 'e ' + Participantes_PLaylist[c].Nome
+            if(c + 1 >= Participantes_PLaylist.length && Participantes_PLaylist.length > 1) {
+                span.innerText = Participantes_PLaylist[c].Nome
+                nomes_colaboradores_playlist_page.innerHTML += ' e '
+                nomes_colaboradores_playlist_page.appendChild(span)
             } else {
-                if(Participantes_PLaylist.length > 1) {
-                    nomes_participantes_playlist_page += Participantes_PLaylist[c].Nome + ', '
+                if(Participantes_PLaylist.length > 2) {
+                    span.innerText = Participantes_PLaylist[c].Nome
+                    nomes_colaboradores_playlist_page.appendChild(span)
+                    nomes_participantes_playlist_page.innerHTML += ', '
+
                 } else {
-    
-                    nomes_participantes_playlist_page += Participantes_PLaylist[c].Nome
+                    span.innerText = Participantes_PLaylist[c].Nome
+                    nomes_colaboradores_playlist_page.appendChild(span)
                 }
             }
         }
-    
-        nomes_colaboradores_playlist_page.innerText = nomes_participantes_playlist_page
+        
+        const todos_os_colaboradores_span = nomes_colaboradores_playlist_page.querySelectorAll('span')
+        console.log(todos_os_colaboradores_span);
+        for (let c = 0; c < todos_os_colaboradores_span.length; c++) {
+            todos_os_colaboradores_span[c].addEventListener('click', () => {
+                console.log(Participantes_PLaylist[c])
+                Carregar_Perfil(Participantes_PLaylist[c])
+            })
+        }
     
         //! Carregar as imgs
         container_imgs_criar_playlist_page.innerHTML =  ''
