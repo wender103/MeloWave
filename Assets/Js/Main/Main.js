@@ -556,7 +556,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     navigator.mediaSession.setActionHandler('nexttrack', function() {
         if(!Comando.includes('Pausar Ao Finalizar')) {
             RepetirMusica = false
-            Proxima_Musica()
+            Proxima_Musica('Navegador')
         }
     })
 
@@ -760,7 +760,7 @@ audio_player.addEventListener('play', () => {
             const duration = audio_player.duration
 
             if (duration - currentTime <= 5) {
-                Proxima_Musica()
+                Proxima_Musica('fim_do_audio')
             }
         }
     }, 1000)
@@ -777,7 +777,7 @@ audio_player.addEventListener('play', () => {
                 pode_atualizar_letra_tela_tocando_agora = false
                 letre_cell_aberta = false
 
-                Proxima_Musica()
+                Proxima_Musica('fim_do_audio')
 
                 setTimeout(() => {
                     pd_atualizar_letra_pc = pdAtualizarLetraPC2
@@ -788,7 +788,7 @@ audio_player.addEventListener('play', () => {
             }
         } else if(!User.Configuracoes.Transicoes_De_Faixas) {
             if(diferenca < 1) {
-                Proxima_Musica()
+                Proxima_Musica('fim_do_audio')
             }
         }
 
@@ -1188,7 +1188,7 @@ function Play(Comando='') {
 let prox_ativo = false
 function Proxima_Musica(Chamado_Por) {
     
-    if(!prox_ativo && !repetir_musicas || !prox_ativo && Chamado_Por != 'fim_do_audio') {
+    if(!prox_ativo && !repetir_musicas || !prox_ativo && Chamado_Por != 'fim_do_audio') {        
         prox_ativo = true
 
         if(repetir_musicas) {
@@ -1201,31 +1201,43 @@ function Proxima_Musica(Chamado_Por) {
 
         if(Listas_Prox.A_Seguir.length <= 0) {
             if(Tocando_Musica_A_Seguir) {
+                
                 Tocando_Musica_A_Seguir = false
 
-                if(Listas_Prox.Indice >= Listas_Prox.Lista_Musicas.length - 1) {
-                    Listas_Prox.Indice = 0
-                    
-                } else {
-                    Listas_Prox.Indice = Listas_Prox.Indice + 1
+                //! Caso o random n esteja ativado ele vai para a prox música
+                if(!random_musicas) {
+                    if(Listas_Prox.Indice >= Listas_Prox.Lista_Musicas.length - 1) {
+                        Listas_Prox.Indice = 0
+                        
+                    } else {
+                        Listas_Prox.Indice = Listas_Prox.Indice + 1
+                    }
+                } else {                    
+                    Listas_Prox.Indice = Math.floor(Math.random() * Listas_Prox.Lista_Musicas.length)
+                    Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[Listas_Prox.Indice]
                 }
 
                 Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[Listas_Prox.Indice]
 
             } else {
-
-                for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
-                    if(Listas_Prox.Lista_Musicas[c].ID == Listas_Prox.MusicaAtual.ID) {
-            
-                        if(c >= Listas_Prox.Lista_Musicas.length - 1) {
-                            Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[0]
-            
-                        } else {
-                            Listas_Prox.Indice = c + 1
-                            Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[c + 1]
+                
+                if(!random_musicas) {
+                    for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
+                        if(Listas_Prox.Lista_Musicas[c].ID == Listas_Prox.MusicaAtual.ID) {
+                
+                            if(c >= Listas_Prox.Lista_Musicas.length - 1) {
+                                Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[0]
+                
+                            } else {
+                                Listas_Prox.Indice = c + 1
+                                Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[c + 1]
+                            }
+                            break
                         }
-                        break
                     }
+                } else {                    
+                    Listas_Prox.Indice = Math.floor(Math.random() * Listas_Prox.Lista_Musicas.length)
+                    Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[Listas_Prox.Indice]
                 }
             }
             
@@ -1250,10 +1262,9 @@ function Proxima_Musica(Chamado_Por) {
             prox_ativo = false
         }, 1000)
 
-    } else if(repetir_musicas) {
-        audio_player.currentTime = 0
+    } else if(repetir_musicas) {        
+        Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual, Pagina_Atual.ID, null, Listas_Prox.Nome_Album)
         feito_musica_tocar = false
-        Play()
         Atualizar_Linha_Letra_Input()
     }
 }
