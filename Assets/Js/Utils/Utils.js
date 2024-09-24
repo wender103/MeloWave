@@ -1487,3 +1487,74 @@ function Views_Por_Genero(Genero) {
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+//! Formata as views
+function formatViews(number, useDot = true, adicionar_ouvintes = '') {    
+    // Converte `number` para um número caso seja passado como string ou outro tipo
+    number = Number(number);
+
+    if (isNaN(number)) {
+        throw new Error('O parâmetro deve ser um número válido.');
+    }
+
+    if (number < 1_000) return number; // Menos de mil, retorna o número original
+
+    // Definindo os sufixos para milhões, bilhões, etc.
+    const suffixes = [' mil', ' milhão', ' bilhões', ' trilhões'];
+    let suffixIndex = -1;
+
+    // Determinando o índice do sufixo correto
+    while (number >= 1_000 && suffixIndex < suffixes.length - 1) {
+        number /= 1_000;
+        suffixIndex++;
+    }
+
+    // Formatando o número com ponto ou vírgula
+    const separator = useDot ? '.' : ',';
+    let formattedNumber;
+
+    // Ajusta a quantidade de casas decimais com base no valor
+    if (number >= 1 && number < 10) {
+        formattedNumber = number.toFixed(1); // 1 casa decimal se número entre 1 e 10
+    } else if (number >= 10 && number < 100) {
+        formattedNumber = number.toFixed(1); // 1 casa decimal se número entre 10 e 100
+    } else {
+        formattedNumber = number.toFixed(0); // Nenhuma casa decimal se >= 100
+    }
+
+    // Substituindo o ponto pelo separador desejado
+    formattedNumber = formattedNumber.replace('.', separator);
+
+    // Corrigindo o sufixo para milhões e bilhões
+    if (suffixIndex === 1 && formattedNumber.endsWith('1')) {
+        formattedNumber = formattedNumber.replace(/1$/, '1 milhão'); // Singular
+    } else if (suffixIndex === 1) {
+        formattedNumber = formattedNumber.replace(/(\d+)$/, '$1 milhões'); // Plural
+    } else if (suffixIndex === 2 && formattedNumber.endsWith('1')) {
+        formattedNumber = formattedNumber.replace(/1$/, '1 bilhão'); // Singular
+    } else if (suffixIndex === 2) {
+        formattedNumber = formattedNumber.replace(/(\d+)$/, '$1 bilhões'); // Plural
+    } else if (suffixIndex === 3 && formattedNumber.endsWith('1')) {
+        formattedNumber = formattedNumber.replace(/1$/, '1 trilhão'); // Singular
+    } else if (suffixIndex === 3) {
+        formattedNumber = formattedNumber.replace(/(\d+)$/, '$1 trilhões'); // Plural
+    } else {
+        formattedNumber += suffixes[suffixIndex];
+    }
+
+    if (adicionar_ouvintes == '') {
+        if (suffixIndex < 1) {
+            formattedNumber += ' ouvintes';
+        } else {
+            formattedNumber += ' de ouvintes';
+        }
+    } else {
+        if (suffixIndex < 1) {
+            formattedNumber += ` ${adicionar_ouvintes}`;
+        } else {
+            formattedNumber += ` de ${adicionar_ouvintes}`;
+        }
+    }
+
+    return formattedNumber;
+}

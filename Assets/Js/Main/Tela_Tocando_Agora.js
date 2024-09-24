@@ -224,7 +224,7 @@ function updateButtons() {
     }
 
     document.getElementById('nome_artista_tela_tocando_agora').innerText = infos_artistas_musica_tela_musica_tocando[currentIndex_tela_musica_tocando_agora].Artista
-    document.getElementById('ouvintes_mensais_artista_tela_tocando_agora').innerText = `${ouvintes_mensais} ouvintes mensais`
+    document.getElementById('ouvintes_mensais_artista_tela_tocando_agora').innerText = `${formatViews(ouvintes_mensais)}`
 
     if(Seguir_Artista(infos_artistas_musica_tela_musica_tocando[currentIndex_tela_musica_tocando_agora].Artista, 'Checar')) {
         btn_seguir_artista_tela_tocando_agora.innerText = 'Deixar de seguir'

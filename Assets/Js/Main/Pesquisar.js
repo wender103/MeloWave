@@ -338,7 +338,7 @@ function Retornar_Artistas(Artista, Local, min) {
                     texto_musica.classList.add('texto_musica')
                 
                     //! Valores
-                    img.src = TodasMusicas[c].Img
+                    img.src = TodasMusicas[c].Imagens[1]
                     img.loading = 'lazy'
 
                     let musica_atual = TodasMusicas[c]

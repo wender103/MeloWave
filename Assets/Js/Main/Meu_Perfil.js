@@ -50,12 +50,11 @@ function Carregar_Meu_Perfil() {
     }
 
     if(ouvintes > 0) {
-        ouvintes = `${ouvintes} views`
         if(qtns_seguidores_infos != '') {
-            qtns_seguidores_infos += ` - ${ouvintes}`
+            qtns_seguidores_infos += ` - ${formatViews(ouvintes, true, 'views')}`
 
         } else {
-            qtns_seguidores_infos += ouvintes
+            qtns_seguidores_infos += formatViews(ouvintes, true, 'views')
         }
     }
 

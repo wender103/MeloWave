@@ -1619,7 +1619,9 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
         }
     }
 
-    document.getElementById('ouvintes_artista').innerText = `${soma_ouvintes} ouvintes mensais`
+    if(Comando.includes('View')) {
+        document.getElementById('ouvintes_artista').innerText = formatViews(soma_ouvintes)
+    }
 }
 
 function Adicionar_View_Musica(Musica) {

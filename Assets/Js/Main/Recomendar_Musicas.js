@@ -483,20 +483,20 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
     const Outros = [...User.Historico.Outros]
     Outros.reverse()
 
-    let max_outros = 14
+    let max_outros = 6
 
     if(Device.Tipo == 'Mobile') {
         max_outros = 7
     }
 
-    for (let c = 0; c < Outros.length && c < max_outros; c++) {
+    for (let c = 0; c < Outros.length && autores_recentes.querySelectorAll('.tocados_recentes').length < max_outros; c++) {
         const div_container = document.createElement('div')
         const img_container = document.createElement('div')
         const paragrafo = document.createElement('p')
         paragrafo.className = 'paragrafo'
 
         //! Caso for um match
-        if(typeof Outros === 'string' && Outros[c].includes('Match:')) {
+        if(typeof Outros[c] === 'string' && Outros[c].includes('Match:')) {            
             let id_match = Outros[c].replace('Match:', '').trim()
             for (let d = 0; d < TodosMatchs.length; d++) {
                 if(TodosMatchs[d].ID == id_match) {

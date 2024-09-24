@@ -49,7 +49,7 @@ async function Postar_Musica(Comando = '') {
                     
                     console.error('URL não reconhecida')
                 }
-        
+                        
                 try {
                     const response = await fetch(downloadURL, {
                         method: 'POST',
@@ -57,8 +57,8 @@ async function Postar_Musica(Comando = '') {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({ 
-                            videoURL: input_add_musica,
-                            // userEmail: User.Email,
+                            VideoURL: input_add_musica.split('&list')[0],
+                            Email_User: User.Email,
                         })
                     })
                     const data = await response.json()
@@ -67,20 +67,20 @@ async function Postar_Musica(Comando = '') {
                     let img_carregada = false
         
                     function Carregar_Musica() {
-                        carregarImagem(data.thumbnailUrl, function(imgThumb) {
+                        carregarImagem(data.Img, function(imgThumb) {
             
                             function Carregar_infos() {
                                 closeLoadingScreen()
                                 img_carregada = true
                                 // Aqui dentro você atualiza os elementos na página
-                                document.getElementById('input_add_musica_nome').value = data.videoTitle;
-                                document.getElementById('input_add_musica_autor').value = data.channelName;
-                                document.getElementById('img_musica_postada').src = data.thumbnailUrl;
+                                document.getElementById('input_add_musica_nome').value = data.Nome;
+                                document.getElementById('input_add_musica_autor').value = data.Autor;
+                                document.getElementById('img_musica_postada').src = data.Imagens[2];
                                 document.getElementById('primeira_parte_postar_musica').style.display = 'none'
                                 document.getElementById('segunda_parte_postar_musica').style.display = 'flex'
                                 carregamento_postar_musica.style.display = 'none'
                                 //! Gerar link
-                                btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('Genre of the song ' + data.videoTitle, ' by artist ' + data.channelName)}`
+                                btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('Genre of the song ' + data.Nome, ' by artist ' + data.Autor)}`
                                 btn_pesquisar_genero.addEventListener('click', () => {
                                     sairDaTelaCheia()
                                 })
@@ -155,7 +155,6 @@ async function Postar_Musica(Comando = '') {
             }
         }
 
-
     } else {
         Abrir_Entrar()
     }
@@ -164,6 +163,7 @@ async function Postar_Musica(Comando = '') {
 let adicionando_musicas_pendentes = false
 function Finalizar_Postar() {
     if(User.Estado_Da_Conta != 'Anônima') {
+
         const input_add_musica_nome = document.getElementById('input_add_musica_nome').value
         const input_add_musica_autor = document.getElementById('input_add_musica_autor').value
         const input_add_musica_genero = document.getElementById('input_add_musica_genero').value
@@ -175,7 +175,8 @@ function Finalizar_Postar() {
                     TodasMusicas = Musicas.data().Musicas
                     
                     for (let c = 0; c < TodasMusicas.length; c++) {                    
-                        if(TodasMusicas[c].ID == infos_musica_postada.uid) {
+                        if(TodasMusicas[c].ID == infos_musica_postada.ID) {
+                            
                             TodasMusicas[c].Autor = input_add_musica_autor
                             TodasMusicas[c].Nome = input_add_musica_nome
                             TodasMusicas[c].Genero = input_add_musica_genero
@@ -264,24 +265,15 @@ function Terminar_Adicionar_Musica(Musica) {
         Abrir_Pagina('adicionarmusicas')
     }
 
-    let new_obj = {
-        videoTitle: Musica.Nome,
-        channelName: Musica.Autor,
-        audioUrl: Musica.Audio,
-        thumbnailUrl: Musica.Img,
-        videoURL: Musica.VideoURL,
-        uid: Musica.ID
-    }
+    infos_musica_postada = Musica
 
-    infos_musica_postada = new_obj
-
-    document.getElementById('input_add_musica_nome').value = new_obj.videoTitle;
-    document.getElementById('input_add_musica_autor').value = new_obj.channelName;
-    document.getElementById('img_musica_postada').src = new_obj.thumbnailUrl;
+    document.getElementById('input_add_musica_nome').value = Musica.Nome;
+    document.getElementById('input_add_musica_autor').value = Musica.Autor;
+    document.getElementById('img_musica_postada').src = Musica.Imagens[2];
     document.getElementById('primeira_parte_postar_musica').style.display = 'none'
     document.getElementById('segunda_parte_postar_musica').style.display = 'flex'
     //! Gerar link
-    btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('Genre of the song ' + new_obj.videoTitle, ' by artist ' + new_obj.channelName)}`
+    btn_pesquisar_genero.href = `https://www.google.com/search?q=${formatarTermoPesquisa('Genre of the song ' + Musica.Nome, ' by artist ' + Musica.Autor)}`
     btn_pesquisar_genero.addEventListener('click', () => {
         sairDaTelaCheia()
     })
