@@ -746,6 +746,22 @@ body nav {
   gap: 8px;
   overflow: hidden;
 }
+body nav.Desabilitada {
+  opacity: 0.5;
+}
+body nav.Desabilitada div#div_block_nav {
+  display: block;
+}
+body nav div#div_block_nav {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: none;
+  cursor: not-allowed;
+}
 body nav ul {
   display: flex;
   flex-direction: column;

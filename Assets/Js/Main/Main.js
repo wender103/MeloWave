@@ -1590,8 +1590,10 @@ function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou =
                 let Musicas_Recebidas = [...Musicas]
                 let el = e.target.className
                 let qm_chamou = formatarString(Qm_Chamou)
-    
-                if(el != 'span_nomes_artistas' && el != 'like_musicas_linha' && el != 'btn_editar_musica' && el != 'btn_trash' && el != 'img_trash' && el != 'img_pen' && el != 'img_mic_editar' && el != 'btn_letra_editar' && el != 'bnt_carrinho_editar' && el != 'img_carrinho_editar') {
+
+                const itensNaoPermitidos = ['span_nomes_artistas', 'like_musicas_linha', 'btn_editar_musica', 'btn_trash', 'img_trash', 'img_pen', 'img_mic_editar', 'btn_letra_editar', 'bnt_carrinho_editar', 'img_carrinho_editar']
+
+                if (!itensNaoPermitidos.some(item => el.includes(item))) {
                     if(!Comando.includes('Resumido')) {
                         if(Qm_Chamou == 'perfil') {
                             User_Tocando_Agora = infos_user_carregar.Email

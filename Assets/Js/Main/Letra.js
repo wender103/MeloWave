@@ -35,6 +35,14 @@ function Fechar_Add_Letra(Comando='') {
         document.getElementById('primeira_parte_add_letra').style.display = 'block'
         document.getElementById('segunda_parte_add_letra').style.display = 'none'
     }, 1000)
+
+    document.querySelector('nav').classList.remove('Desabilitada')
+
+    if(document.getElementById('btn_fazer_transicao').classList.contains('active')) {
+        User.Configuracoes.Transicoes_De_Faixas = true
+    } else {
+        User.Configuracoes.Transicoes_De_Faixas = false
+    }
 }
 
 function Checar_Proximo_Add_Letra() {
@@ -53,6 +61,8 @@ function Proximo_Passo_Add_Letra() {
         document.getElementById('segunda_parte_add_letra').style.display = 'block'
         preElemento.innerText = text_area_add_letra.value
         Desativar_Musica()
+        document.querySelector('nav').classList.add('Desabilitada')
+        User.Configuracoes.Transicoes_De_Faixas = false
         
     } else {
         Notificar_Infos('Por favor, insira a letra da música antes de prosseguir! 🚨🎶📝')
@@ -72,6 +82,13 @@ function Voltar_Editar_Letra() {
     array_historico_keys_add_letra = []
     Pausar()
     Volume(Volume_Antigo, input_volume_pc)
+    document.querySelector('nav').classList.remove('Desabilitada')
+
+    if(document.getElementById('btn_fazer_transicao').classList.contains('active')) {
+        User.Configuracoes.Transicoes_De_Faixas = true
+    } else {
+        User.Configuracoes.Transicoes_De_Faixas = false
+    }
 }
 
 //! Sincronizar

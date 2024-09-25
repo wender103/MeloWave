@@ -291,7 +291,7 @@ function Abrir_Container_Editar_Musicas(Musica) {
     musica_editando_meu_perfil = Musica
     document.getElementById('container_editar_musica').style.display = 'flex'
 
-    img_musicas_sendo_editada.src = Musica.Img
+    img_musicas_sendo_editada.src = Musica.Imagens[2]
     input_autor_musica_sendo_editada.value = Musica.Autor
     input_nome_musica_sendo_editada.value = Musica.Nome
     input_genero_musica_sendo_editada.value = Musica.Genero
