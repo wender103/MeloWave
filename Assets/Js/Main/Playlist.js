@@ -3,6 +3,11 @@ function Abrir_PLaylistMix(Array, Nome, svg) {
 
     document.getElementById('container_svg_mix_daily').style.display = 'flex'
     document.getElementById('nome_mix_playlistmix').innerText = Nome
+
+    if(corEhClara(new_array[new_array.length - 1].Cores[0])) {
+        document.getElementById('nome_mix_playlistmix').style.color = 'black'
+    }
+
     document.getElementById('contaier_svg_playlistmix').innerHTML = svg
     document.getElementById('nome_playlistmix').innerText = Nome
     document.getElementById('img_da_playlistmix').src = new_array[new_array.length - 1].Img
