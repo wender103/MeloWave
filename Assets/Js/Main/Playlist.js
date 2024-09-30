@@ -165,10 +165,8 @@ function Abrir_Playlist(ID_PLaylist) {
         }
         
         const todos_os_colaboradores_span = nomes_colaboradores_playlist_page.querySelectorAll('span')
-        console.log(todos_os_colaboradores_span);
         for (let c = 0; c < todos_os_colaboradores_span.length; c++) {
             todos_os_colaboradores_span[c].addEventListener('click', () => {
-                console.log(Participantes_PLaylist[c])
                 Carregar_Perfil(Participantes_PLaylist[c])
             })
         }

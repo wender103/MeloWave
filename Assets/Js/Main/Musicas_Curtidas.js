@@ -69,6 +69,7 @@ let Musicas_Curtidas_Array = []
 let musicas_curtidas_convertidas = false
 function Retornar_Musicas_Curtidas(Array_Musicas = undefined, Comando = undefined) {
     Musicas_Curtidas_Array = [...User.Musicas_Curtidas]
+    
 
     if(!Array_Musicas) {
         Array_Musicas = [...User.Musicas_Curtidas]
@@ -181,7 +182,9 @@ function Salvar_Musica_Curtida(Comando) {
     let IDs_Musicas_Curtidas = []
 
     User.Musicas_Curtidas.forEach(IDs => {
-        IDs_Musicas_Curtidas.push(IDs.ID)
+        if(IDs.ID) {
+            IDs_Musicas_Curtidas.push(IDs.ID)
+        }
     })
 
     if(Comando != 'Não Salvar') {

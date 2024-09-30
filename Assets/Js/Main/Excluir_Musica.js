@@ -30,88 +30,81 @@ function Deletar_Musica_Selecionada() {
         Notificar_Infos('⚠️🤔 Nenhuma música foi selecionada para ser deletada! 🎵❌')
     }
 }
+//! --------------------------------
 
 async function ExcluirMusica(Musica) {
+    const idMusica = Musica.ID
+
     try {
-        let LinkImg = removerParteInicial(Musica.Img, 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/')
-        let LinkAudio = removerParteInicial(Musica.Audio, 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/')
+        Fechar_Remover_Musica()
+        // 1. Remove a música do Firebase Storage
+        await deletarArquivosDaMusica(idMusica)
 
-        // Excluir a pasta do Firebase Storage
-        await Promise.all([
-            excluirObjetoStorage(LinkImg),
-            excluirObjetoStorage(LinkAudio)
-        ]);
-
-        // Remover a música do local
-        for (let c = 0; c < TodasMusicas.length; c++) {
-            if (TodasMusicas[c].ID == Musica.ID) {
-                TodasMusicas.splice(c, 1)
-                break; // Encerrar o loop assim que a música for encontrada e removida
-            }
-        }
-
-        for (let c = 0; c < musicas_meu_perfil.length; c++) {
-            if (musicas_meu_perfil[c].ID == Musica.ID) {
-                musicas_meu_perfil.splice(c, 1)
-                break; // Encerrar o loop assim que a música for encontrada e removida
-            }
-        }
-
-        for (let c = 0; c < musicas_meu_perfil_pesquisa.length; c++) {
-            if (musicas_meu_perfil_pesquisa[c].ID == Musica.ID) {
-                musicas_meu_perfil_pesquisa.splice(c, 1)
-                break; // Encerrar o loop assim que a música for encontrada e removida
-            }
-        }
-
-        // Remover a música do Firebase Firestore
+        // 2. Remove a música do Firebase Firestore
         const snapshot = await db.collection('Musicas').get()
+        let musicaRemovida = false
+
         snapshot.docs.forEach((doc) => {
             const InfoMusicas = doc.data().Musicas
             for (let c = 0; c < InfoMusicas.length; c++) {
-                if (InfoMusicas[c].ID == Musica.ID) {
+                if (InfoMusicas[c].ID == idMusica) {
                     InfoMusicas.splice(c, 1)
-                    db.collection('Musicas').doc(doc.id).update({ Musicas: InfoMusicas })
-                    break; // Encerrar o loop assim que a música for encontrada e removida
+                    db.collection('Musicas').doc(doc.id).update({ Musicas: InfoMusicas }).then(() => {
+                        // A música foi removida do Firestore, agora removemos do local
+                        removerMusicaLocal(idMusica)
+                        musicaRemovida = true
+                    })
+                    break // Encerra o loop assim que a música for encontrada e removida
                 }
             }
         })
 
-        let musica_foi_removida = true
-        for (let c = 0; c < TodasMusicas.length; c++) {
-            if(TodasMusicas[c].ID == Musica.ID) {
-                musica_foi_removida = false
-                break
+        // Notificar o usuário sobre a exclusão bem-sucedida
+        Notificar_Infos('✅🎉 A música foi excluída com sucesso! 🎵✨')
+
+        setTimeout(() => {
+            Pesquisar_Musicas_Meu_Perfil('')
+        }, 1000)
+
+        console.log(`Música com ID ${idMusica} excluída com sucesso! 🎉`)
+    } catch (error) {
+        console.error('Erro ao excluir a música:', error)
+    }
+}
+
+async function deletarArquivosDaMusica(idMusica) {
+    // Referência à pasta da música
+    const pastaRef = storage.ref(`MusicasPostadas/${idMusica}`)
+
+    try {
+        // Lista todos os arquivos na pasta
+        const lista = await pastaRef.listAll()
+
+        // Mapeia os arquivos para suas promessas de exclusão
+        const deletarPromessas = lista.items.map(item => item.delete())
+
+        // Aguarda todas as promessas de exclusão
+        await Promise.all(deletarPromessas)
+
+        console.log(`Todos os arquivos da música ${idMusica} foram deletados com sucesso! 🎶🗑️`)
+    } catch (error) {
+        console.error('Erro ao deletar os arquivos:', error)
+    }
+}
+
+// Função para excluir o documento do Firebase Firestore
+function removerMusicaLocal(idMusica) {
+    [TodasMusicas, musicas_meu_perfil, musicas_meu_perfil_pesquisa].forEach(array => {
+        for (let c = 0; c < array.length; c++) {
+            if (array[c].ID == idMusica) {
+                array.splice(c, 1)
+                break; // Encerrar o loop assim que a música for encontrada e removida
             }
         }
-
-        if(musica_deletar != undefined) {
-            // Notificar o usuário sobre a exclusão bem-sucedida
-            Notificar_Infos('✅🎉 A música foi excluída com sucesso! 🎵✨')
-            Fechar_Remover_Musica()
-            Pesquisar_Musicas_Meu_Perfil(input_pesquisar_musicas_meu_perfil.value)
-        }
-    } catch (error) {
-        console.error('Erro ao excluir pasta da música:', error)
-        if(musica_deletar != undefined) {
-            // Notificar o usuário sobre o erro na exclusão
-            Fechar_Remover_Musica()
-            Notificar_Infos('❌😢 Algo deu errado e não conseguimos remover a música. 🚫🎵 Por favor, tente novamente mais tarde. ⏳🙏')
-        }
-    }
+    })
 }
 
-async function excluirObjetoStorage(path) {
-    try {
-        await storage.ref().child(path).delete()
-    } catch (error) {
-        if (error.code === 'storage/object-not-found') {
-            console.warn('Objeto não encontrado:', path)
-        } else {
-            throw error // Rejeitar o erro se não for um 'object-not-found'
-        }
-    }
-}
+//! --------------------------------
 
 let musicas_tmp_exedido = []
 function Remover_Musicas_Tempo_Exedido() {

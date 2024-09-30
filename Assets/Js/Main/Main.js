@@ -602,8 +602,13 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     // Manipulador para alterar a posição de reprodução para um tempo específico
     navigator.mediaSession.setActionHandler('seekto', function(details) {
         if(!Comando.includes('Pausar Ao Finalizar')) {
-            if (details.fastSeek && 'seekable' in audio_player) {
-                audio_player.currentTime = details.seekTime // Altera a posição de reprodução para o tempo especificado
+            const input = document.getElementById('input_range_musica_cell')
+            const duracaoMusica = audioElement.duration // Pega a duração total da música
+
+            if (duracaoMusica) {
+                const porcentagem = (details.seekTime / duracaoMusica) * 100 // Calcula a porcentagem do tempo atual
+                input.value = porcentagem // Atualiza o valor do input de acordo com o tempo da música
+                handleInputRangeMusicaMobile()
             }
         }
     })
@@ -631,14 +636,12 @@ function handleInputRangeMusicaPC() {
     const newTime = (input_range_musica_pc.value / 100) * audio_player.duration
     audio_player.currentTime = newTime
 
-    if(fullscreen_aberta) {
-        atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+    input_range_musica_cell.value = input_range_musica_pc.value
+    input_range_musica_pc_fullscreen.value = input_range_musica_pc.value
 
-    } else if(Device.Tipo != 'Mobile') {
-        atualizar_cor_progresso_input(input_range_musica_pc)
-    } else {
-        atualizar_cor_progresso_input(input_range_musica_cell)
-    }
+    atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+    atualizar_cor_progresso_input(input_range_musica_cell)
+    atualizar_cor_progresso_input(input_range_musica_pc)
 
     clearTimeout(debounceTimeout1)
     debounceTimeout1 = setTimeout(function() {
@@ -650,16 +653,13 @@ function handleInputRangeMusicaPC() {
 function handleInputRangeMusicaPCFullscreen() {
     const newTime = (input_range_musica_pc_fullscreen.value / 100) * audio_player.duration
     audio_player.currentTime = newTime
+
+    input_range_musica_cell.value = input_range_musica_pc_fullscreen.value
+    input_range_musica_pc.value = input_range_musica_pc_fullscreen.value
     
-    if(fullscreen_aberta) {
-        atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
-
-    } else if(Device.Tipo != 'Mobile') {
-        atualizar_cor_progresso_input(input_range_musica_pc)
-
-    } else {
-        atualizar_cor_progresso_input(input_range_musica_cell)
-    }
+    atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+    atualizar_cor_progresso_input(input_range_musica_cell)
+    atualizar_cor_progresso_input(input_range_musica_pc)
 
     clearTimeout(debounceTimeout2)
     debounceTimeout2 = setTimeout(function() {
@@ -668,22 +668,19 @@ function handleInputRangeMusicaPCFullscreen() {
 }
 
 //? Função handler para input_range_musica_cell
-function handleInputRangeMusicaPCFullscreen() {
+function handleInputRangeMusicaMobile() {
     const newTime = (input_range_musica_cell.value / 100) * audio_player.duration
     audio_player.currentTime = newTime
+
+    input_range_musica_pc.value = input_range_musica_cell.value
+    input_range_musica_pc.value = input_range_musica_cell.value
     
-    if(fullscreen_aberta) {
-        atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+    atualizar_cor_progresso_input(input_range_musica_pc_fullscreen)
+    atualizar_cor_progresso_input(input_range_musica_cell)
+    atualizar_cor_progresso_input(input_range_musica_pc)
 
-    } else if(Device.Tipo != 'Mobile') {
-        atualizar_cor_progresso_input(input_range_musica_pc)
-        
-    } else {
-        atualizar_cor_progresso_input(input_range_musica_cell)
-    }
-
-    clearTimeout(debounceTimeout3)
-    debounceTimeout3 = setTimeout(function() {
+    clearTimeout(debounceTimeout2)
+    debounceTimeout2 = setTimeout(function() {
         Atualizar_Linha_Letra_Input()
     }, 300)
 }
@@ -695,7 +692,7 @@ let debounceTimeout2
 input_range_musica_pc_fullscreen.addEventListener('input', handleInputRangeMusicaPCFullscreen)
 
 let debounceTimeout3
-input_range_musica_cell.addEventListener('input', handleInputRangeMusicaPCFullscreen)
+input_range_musica_cell.addEventListener('input', handleInputRangeMusicaMobile)
 
 //! ---------------- Audio ------------------------------------------
 audio_player.addEventListener('loadedmetadata', () => {    
@@ -794,7 +791,7 @@ audio_player.addEventListener('play', () => {
 
         obterDuracaoOuTempoAtualAudio(audio_player, true, 'currentTime', true).then((resp) => {
             if (Device.Tipo !== 'Mobile') {
-                if(!pode_atualizar_letra_fullscreen) {
+                if(!fullscreen_aberta) {
                     contador_segundos_musica.innerText = resp.formattedDuration
                 } else {
                     contador_segundos_musica_fullscreen.innerText = resp.formattedDuration
@@ -1427,6 +1424,13 @@ function inverterArrayDeMusicas(arrayDeMusicas) {
 
 let Array_Musica_Linha = []
 function Retornar_Musica_Linha(Musicas_Recebidas, Local, Comando='', Qm_Chamou = '', ID_Pagina='', Nome_Album = '') {
+    for (let c = 0; c < Musicas_Recebidas.length; c++) {
+        if(Musicas_Recebidas[c].ID == null || Musicas_Recebidas[c].ID == undefined) {
+            Musicas_Recebidas.splice(c, 1)
+        }
+    }
+
+
     if(Comando == null || Comando == undefined) {
         Comando = ''
     }

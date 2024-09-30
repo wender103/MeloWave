@@ -330,7 +330,11 @@ function Artistas_Tocados_Recentemente() {
         if(contador_divs < max_tocados_recentemente) {
             if(typeof artistas[c] == 'string' && !artistas[c].includes('Playlist') && !artistas[c].includes('Match')) {
                 if(!validarEmail(artistas[c])) {
-                    article.appendChild(Retornar_Artistas_Caixa(artistas[c]))
+                    const resp = Retornar_Artistas_Caixa(artistas[c])
+
+                    if(resp) {
+                        article.appendChild(resp)
+                    }
                     contador_divs++
                 } else {
                     article.appendChild(Retornar_User_Historico(artistas[c]))
@@ -355,45 +359,49 @@ function Artistas_Tocados_Recentemente() {
 function Retornar_Artistas_Caixa(Artista) {
     let musicas_artista = Retornar_Musicas_Mais_View_Artista(Artista, true)
 
-    const container_artista_caixa = document.createElement('div')
-    const container_img = document.createElement('div')
-    const img = document.createElement('img')
-    const container_texto = document.createElement('div')
-    const span = document.createElement('span')
-    const p = document.createElement('p')
+    if(musicas_artista != undefined) {
 
-    container_artista_caixa.classList.add('container_artista_caixa')
-    container_img.className = 'container_img_artista_caixa'
-    container_texto.className = 'container_texto_artista_caixa'
+        const container_artista_caixa = document.createElement('div')
+        const container_img = document.createElement('div')
+        const img = document.createElement('img')
+        const container_texto = document.createElement('div')
+        const span = document.createElement('span')
+        const p = document.createElement('p')
 
-    span.innerText = 'Artista'
-    p.innerText = Artista
-    try {
-        img.src = musicas_artista[0].Imagens[1]
-        img.addEventListener('mouseenter', () => {
-            Trocar_Cores_Main(musicas_artista[0].Cores[2])
+        container_artista_caixa.classList.add('container_artista_caixa')
+        container_img.className = 'container_img_artista_caixa'
+        container_texto.className = 'container_texto_artista_caixa'
+
+        span.innerText = 'Artista'
+        p.innerText = Artista
+        try {
+            img.src = musicas_artista[0].Imagens[1]
+            img.addEventListener('mouseenter', () => {
+                Trocar_Cores_Main(musicas_artista[0].Cores[2])
+            })
+            img.loading = 'lazy'
+            
+        } catch{}
+            
+
+        container_img.appendChild(img)
+        container_texto.appendChild(span)
+        container_texto.appendChild(p)
+        container_artista_caixa.appendChild(container_img)
+        container_artista_caixa.appendChild(container_texto)
+
+        container_artista_caixa.addEventListener('click', () => {
+            Abrir_Perfil_Artista(Artista, musicas_artista[0])
         })
-        img.loading = 'lazy'
-        
-    } catch{}
-        
 
-    container_img.appendChild(img)
-    container_texto.appendChild(span)
-    container_texto.appendChild(p)
-    container_artista_caixa.appendChild(container_img)
-    container_artista_caixa.appendChild(container_texto)
+        container_artista_caixa.addEventListener('contextmenu', (event) => {
+            Ativar_Opcoes_Click_Direita('Artista', musicas_artista[0], 0, p.innerText, musicas_artista[0].ID)
+            posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+        })
 
-    container_artista_caixa.addEventListener('click', () => {
-        Abrir_Perfil_Artista(Artista, musicas_artista[0])
-    })
-
-    container_artista_caixa.addEventListener('contextmenu', (event) => {
-        Ativar_Opcoes_Click_Direita('Artista', musicas_artista[0], 0, p.innerText, musicas_artista[0].ID)
-        posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
-    })
-
-    return container_artista_caixa
+        return container_artista_caixa
+    } else return false
+    
 }
 
 function Retornar_User_Historico(Email) {
@@ -461,7 +469,10 @@ function Retornar_Artistas_Mais_Vistos() {
     }
 
     for (let c = 0; c < artistas.length && c < max_artistas; c++) {
-        article.appendChild(Retornar_Artistas_Caixa(artistas[c]))
+        const resp = Retornar_Artistas_Caixa(artistas[c])
+        if(resp) {
+            article.appendChild(resp)
+        }
     }
 
     if(article.innerHTML != '' && !artistas_favoritos_retornados) {
@@ -486,7 +497,7 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
     let max_outros = 6
 
     if(Device.Tipo == 'Mobile') {
-        max_outros = 7
+        max_outros = 6
     }
 
     for (let c = 0; c < Outros.length && autores_recentes.querySelectorAll('.tocados_recentes').length < max_outros; c++) {
