@@ -147,6 +147,22 @@
     border-radius: 3px !important;
     bottom: -4px !important;
   }
+  main section.Paginas#Pagina_pesquisar section#container_melhor_resultado {
+    flex-direction: column;
+    gap: 0px !important;
+  }
+  main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte1_melhor_resultado {
+    width: 100% !important;
+    min-width: none !important;
+    max-width: none !important;
+  }
+  main section.Paginas#Pagina_pesquisar section#container_melhor_resultado section#parte1_melhor_resultado article#article_melhor_resultado {
+    flex-direction: row !important;
+    align-items: center;
+  }
+  main section.Paginas#Pagina_pesquisar section.Container_Musicas_Caixa article {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+  }
   main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca {
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
   }

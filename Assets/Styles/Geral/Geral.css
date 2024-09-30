@@ -257,24 +257,34 @@ div.container_inputs_pesquisar input::placeholder {
 }
 
 div.musica_caixa {
-  width: 160px;
-  min-width: 150px;
-  height: 230px;
+  width: 100%;
+  height: auto;
+  min-height: 230px;
   border-radius: 8px;
   background-color: var(--black_transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0px;
+  gap: 8px;
   cursor: pointer;
   padding: 10px;
 }
+@media (max-width: 768px) {
+  div.musica_caixa {
+    min-height: 200px;
+  }
+}
+@media (max-width: 480px) {
+  div.musica_caixa {
+    min-height: 180px;
+  }
+}
 div.musica_caixa div.container_img_musica {
-  width: 95%;
-  height: 95%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
   border-radius: 8px;
   overflow: hidden;
-  margin-top: 2px;
 }
 div.musica_caixa div.container_img_musica img {
   width: 100%;
@@ -286,7 +296,7 @@ div.musica_caixa div.container_img_musica img {
 }
 div.musica_caixa div.texto_musica {
   width: 100%;
-  height: 45%;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -304,7 +314,7 @@ div.musica_caixa div.texto_musica span {
   cursor: pointer;
 }
 div.musica_caixa div.texto_musica span p {
-  white-space: none;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--fonte_meio_transparente);

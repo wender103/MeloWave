@@ -1292,45 +1292,48 @@ function corEhClara(cor) {
     function hexParaRgb(hex) {
         hex = hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, (m, r, g, b) => {
             return r + r + g + g + b + b;
-        });
-        const bigint = parseInt(hex.substring(1), 16);
-        const r = (bigint >> 16) & 255;
-        const g = (bigint >> 8) & 255;
-        const b = bigint & 255;
-        return `rgb(${r}, ${g}, ${b})`;
+        })
+        const bigint = parseInt(hex.substring(1), 16)
+        const r = (bigint >> 16) & 255
+        const g = (bigint >> 8) & 255
+        const b = bigint & 255
+        return `rgb(${r}, ${g}, ${b})`
     }
 
     // Função para calcular o brilho da cor
     function calcularBrilho(cor) {
-        let r, g, b, a;
+        let r, g, b
 
         if (cor.startsWith('rgba')) {
-            [r, g, b, a] = cor.match(/[\d.]+/g);
+            [r, g, b] = cor.match(/[\d.]+/g)
         } else if (cor.startsWith('rgb')) {
-            [r, g, b] = cor.match(/[\d.]+/g);
-            a = 1;
+            [r, g, b] = cor.match(/[\d.]+/g)
         } else if (cor.startsWith('#')) {
-            cor = hexParaRgb(cor);
-            [r, g, b] = cor.match(/[\d.]+/g);
-            a = 1;
+            cor = hexParaRgb(cor)
+            ;[r, g, b] = cor.match(/[\d.]+/g)
         }
 
+        // Converte os valores para números
+        r = Number(r)
+        g = Number(g)
+        b = Number(b)
+
         // Calcula o brilho conforme a fórmula perceptiva
-        const brilho = (r * 299 + g * 587 + b * 114) / 1000;
-        return brilho;
+        const brilho = (r * 299 + g * 587 + b * 114) / 1000
+        return brilho
     }
 
     // Converte a cor para minúsculas para facilitar a comparação
-    cor = cor.toLowerCase();
+    cor = cor.toLowerCase()
 
     // Obtém o brilho da cor
-    const brilho = calcularBrilho(cor);
+    const brilho = calcularBrilho(cor)
 
-    // Define um limite de brilho para determinar se a cor é clara demais
-    const limiteBrilho = 55;
+    // Define um limite de brilho para determinar se a cor é clara ou escura
+    const limiteBrilho = 128
 
-    // Retorna verdadeiro se a cor for clara demais (brilho acima do limite)
-    return brilho > limiteBrilho;
+    // Retorna verdadeiro se a cor for clara (brilho acima do limite)
+    return brilho > limiteBrilho
 }
 
 function limitarTamanhoArray(array, tamanhoMaximo = 10, removerPrimeiros = false) {

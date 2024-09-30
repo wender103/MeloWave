@@ -603,7 +603,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     navigator.mediaSession.setActionHandler('seekto', function(details) {
         if(!Comando.includes('Pausar Ao Finalizar')) {
             const input = document.getElementById('input_range_musica_cell')
-            const duracaoMusica = audioElement.duration // Pega a duração total da música
+            const duracaoMusica = audio_player.duration // Pega a duração total da música
 
             if (duracaoMusica) {
                 const porcentagem = (details.seekTime / duracaoMusica) * 100 // Calcula a porcentagem do tempo atual
@@ -943,13 +943,21 @@ function Ativar_Pag_Musica_Tocando(Musica=Listas_Prox.MusicaAtual) {
     let cor_background = '#636363'
 
     if(Musica.Cores.length > 0) {
-        cor_background = alterarTransparencia(Musica.Cores[1], 0.6)
+        cor_background = Musica.Cores[2]
     }
 
     if(Musica.Cores.length > 0) {
         pag_musica_tocando_agr.style.background = Musica.Cores[0]
 
         containers_pag_cell.forEach(element => {
+            if(!corEhClara(cor_background)) {
+                element.classList.remove('dark')
+                element.classList.add('white')
+                
+            } else {
+                element.classList.remove('white')
+                element.classList.add('dark')
+            }
             element.style.background = cor_background
         })
 

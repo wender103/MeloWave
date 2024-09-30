@@ -258,24 +258,34 @@ div.container_inputs_pesquisar input::placeholder {
 }
 
 div.musica_caixa {
-  width: 160px;
-  min-width: 150px;
-  height: 230px;
+  width: 100%;
+  height: auto;
+  min-height: 230px;
   border-radius: 8px;
   background-color: var(--black_transparent);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0px;
+  gap: 8px;
   cursor: pointer;
   padding: 10px;
 }
+@media (max-width: 768px) {
+  div.musica_caixa {
+    min-height: 200px;
+  }
+}
+@media (max-width: 480px) {
+  div.musica_caixa {
+    min-height: 180px;
+  }
+}
 div.musica_caixa div.container_img_musica {
-  width: 95%;
-  height: 95%;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
   border-radius: 8px;
   overflow: hidden;
-  margin-top: 2px;
 }
 div.musica_caixa div.container_img_musica img {
   width: 100%;
@@ -287,7 +297,7 @@ div.musica_caixa div.container_img_musica img {
 }
 div.musica_caixa div.texto_musica {
   width: 100%;
-  height: 45%;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -305,7 +315,7 @@ div.musica_caixa div.texto_musica span {
   cursor: pointer;
 }
 div.musica_caixa div.texto_musica span p {
-  white-space: none;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   color: var(--fonte_meio_transparente);
@@ -5159,6 +5169,58 @@ body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell di
   background-color: #636363;
   padding: 0 10px;
   overflow: hidden;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white {
+  color: white !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white span {
+  color: rgba(255, 255, 255, 0.5019607843) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white img.icone_pag_cell, body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white svg {
+  filter: brightness(0%) grayscale(100%);
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white button {
+  color: white !important;
+  border-color: white !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white pre {
+  color: var(--fonte_transparente) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white pre span.linha_pre_anterior_cell {
+  color: var(--fonte_meio_transparente) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white pre span.linha_pre_em_destaque_cell .animated-span {
+  color: rgba(255, 255, 255, 0.23) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white pre span.linha_pre_em_destaque_cell .animated-span.animated {
+  color: white !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0), 0 0 10px rgba(255, 255, 255, 0.83), 0 0 15px rgba(255, 255, 255, 0.38) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark {
+  color: black !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark span {
+  color: rgba(0, 0, 0, 0.5019607843) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark img.icone_pag_cell, body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark svg {
+  filter: brightness(0%) grayscale(100%) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark button {
+  color: black !important;
+  border-color: black !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark pre {
+  color: rgba(0, 0, 0, 0.2509803922) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark pre span.linha_pre_anterior_add_letra {
+  color: rgba(0, 0, 0, 0.2509803922) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark pre span.linha_pre_em_destaque_cell .animated-span {
+  color: rgba(0, 0, 0, 0.23) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark pre span.linha_pre_em_destaque_cell .animated-span.animated {
+  color: black !important;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0), 0 0 15px rgba(0, 0, 0, 0) !important;
 }
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell {
   height: 48px;
