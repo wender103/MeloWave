@@ -200,7 +200,13 @@
   main section.Paginas section#container_pag_artista {
     height: auto !important;
     min-height: 100vh !important;
-    padding: 200px 0 100px !important;
+    padding: 170px 0 100px !important;
+  }
+  main section.Paginas section#container_pag_artista article#header_pag_artistas {
+    margin-top: 0px !important;
+  }
+  main section.Paginas section#container_pag_artista article#header_pag_artistas h1 {
+    font-size: 12vw !important;
   }
   div.musica_linha div.primeira_parte_musica_linha p.p_contador_musica_curtida {
     display: none;

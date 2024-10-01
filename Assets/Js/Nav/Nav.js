@@ -39,7 +39,7 @@ document.addEventListener('click', () => {
 
         container_config_email.style.display = 'flex'
 
-        if(fila_aberta || telca_tocando_agora_aberta) {
+        if(fila_aberta || tela_tocando_agora_aberta) {
             container_config_email.style.right = '320px'
         } else {
             container_config_email.style.right = '8px'

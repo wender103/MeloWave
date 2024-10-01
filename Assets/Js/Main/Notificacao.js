@@ -207,9 +207,9 @@ function Mostrar_Notificaco_Tempo_Real() {
         
             container_infos_notificacoes.className = Notificacao.Modelo
         
-            if(!fila_aberta && !telca_tocando_agora_aberta && Listas_Prox.Indice == undefined) {
+            if(!fila_aberta && !tela_tocando_agora_aberta && Listas_Prox.Indice == undefined) {
                 container_notificacoes_tempo_real.className = 'active'
-            } else if(!fila_aberta && !telca_tocando_agora_aberta && Listas_Prox.Indice != undefined) {
+            } else if(!fila_aberta && !tela_tocando_agora_aberta && Listas_Prox.Indice != undefined) {
                 container_notificacoes_tempo_real.className = 'active1'
         
             }  else {

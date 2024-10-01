@@ -323,6 +323,7 @@ function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
     }
 
     //! Vai construir as música na tela
+    let contador_musicas_playlist = 1
     for (let c = Musicas_Playlist.length - 1; c >= 0 ; c--) {
         const musica_linha = document.createElement('div')
         const primeira_parte_musica_linha = document.createElement('div')
@@ -359,7 +360,7 @@ function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
         img.src = Musicas_Playlist[c].Musica.Imagens[0]
         p.innerText = Musicas_Playlist[c].Musica.Nome
         span.appendChild(Retornar_Artistas_Da_Musica(Musicas_Playlist[c].Musica))
-        p_contador.innerText = c + 1
+        p_contador.innerText = contador_musicas_playlist
         img_perfil.src = Musicas_Playlist[c].User.Perfil.Img_Perfil
         container_img_perfil.title = `Adicionada por ${Musicas_Playlist[c].User.Nome}`
 
@@ -395,6 +396,8 @@ function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
         musica_linha.appendChild(views)
         musica_linha.appendChild(segunda_parte_musica_linha)
         Local.appendChild(musica_linha)
+
+        contador_musicas_playlist++
 
         if(User.Configuracoes.Tema == 'Escuro') {
             mudarTemaParaEscuro()

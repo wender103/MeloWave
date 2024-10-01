@@ -2222,6 +2222,16 @@ body main section.Paginas#Pagina_musicascurtidas article#container_header_musica
   width: 70px;
   height: 70px;
 }
+body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#part1_btns_musicas_curtidas span#btn_config_musicas_curtidas {
+  width: 100%;
+  height: 80%;
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  color: var(--white);
+  cursor: pointer;
+  margin-top: -12px;
+}
 body main section.Paginas#Pagina_musicascurtidas article#container_header_musicas_curtidas div#container_headers_btns_musicas_curtidas div#container_pesquisar_musicas_curtidas {
   display: flex;
   height: 32px;
@@ -4920,6 +4930,7 @@ body section#container_barra_musica_cell article img.icone {
   height: 20px;
   -o-object-fit: contain;
      object-fit: contain;
+  cursor: pointer;
 }
 body section#container_barra_musica_cell div#traco_barra_musica_cell {
   width: 0%;
@@ -5131,9 +5142,9 @@ body section#pag_musica_tocando_agr article#container_parte_musica div#container
   width: 27px;
   height: 27px;
 }
-body section#pag_musica_tocando_agr article#container_parte_musica div#container_main_pag_musica_tocando_agora div#container_controles_pag_musica_tocando_agora img.icone_play_pc {
-  width: 60px;
-  height: 60px;
+body section#pag_musica_tocando_agr article#container_parte_musica div#container_main_pag_musica_tocando_agora div#container_controles_pag_musica_tocando_agora img.icone_play {
+  width: 45px;
+  height: 45px;
 }
 body section#pag_musica_tocando_agr article#container_parte_musica div#container_main_pag_musica_tocando_agora div#conatiner_btns_compartilhar_pag_musica_tocando_agora {
   width: 100%;

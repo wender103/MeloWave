@@ -822,7 +822,8 @@ audio_player.addEventListener('pause', () => {
 const container_barra_musica_cell = document.getElementById('container_barra_musica_cell')
 const container_barra_musica = document.querySelector('#container_barra_musica')
 const img_musica_barra_musica = document.getElementById('img_musica_barra_musica')
-function Ativar_Musica(Musica) {
+function Ativar_Musica(Musica=Listas_Prox.MusicaAtual) {
+
     if(Device.Tipo != 'Mobile') {
         const nav = document.querySelector('nav')
         nav.classList.add('Musica_On')
@@ -858,11 +859,13 @@ function Ativar_Musica(Musica) {
     }
 }
 
-function Desativar_Musica() {
-    Pausar()
+function Desativar_Musica(Comando='') {
+    if (!Comando.includes('Não Pausar')) {
+        Pausar()
+    }
     try {
-        Fehcar_Fila()
-    } catch{}
+        Fechar_Fila()
+    } catch(e){}
 
     try {
         Fechar_Tela_Tocando_Agora()
@@ -1117,8 +1120,10 @@ function Carregar_Creditos_Cell(Musica=Listas_Prox.MusicaAtual) {
 
 //! -------------------------------- Funções do audio --------------------------------
 const icone_play_pc = document.querySelectorAll('.icone_play_pc')
+const icone_play_mobile = document.querySelectorAll('.icone_play_mobile')
+const icone_play = document.querySelectorAll('.icone_play')
 
-icone_play_pc.forEach(element => {
+icone_play.forEach(element => {
     element.addEventListener('click', () => {
 
         if (audio_player.paused) {
@@ -1133,11 +1138,11 @@ icone_play_pc.forEach(element => {
 let Musica_Pausada = true
 function Pausar() {
     icone_play_pc.forEach(element => {
-        if(Device.Tipo != 'Mobile' || element.id == 'icone_play_normal') {
             element.src = 'Assets/Imgs/play_pc.svg'
-        } else {
-            element.src = 'Assets/Imgs/botao_play_sem_fundo.png'
-        }
+    })
+
+    icone_play_mobile.forEach(element => {
+        element.src = 'Assets/Imgs/botao_play_sem_fundo.png'
     })
 
     if(User.Configuracoes.Transicoes_De_Faixas) {
@@ -1166,11 +1171,11 @@ function Pausar() {
 
 function Play(Comando='') {
     icone_play_pc.forEach(element => {
-        if(Device.Tipo != 'Mobile' || element.id == 'icone_play_normal') {
-            element.src = 'Assets/Imgs/Pause.svg'
-        } else {
-            element.src = 'Assets/Imgs/pausa_icon_sem_fundo.png'
-        }
+        element.src = 'Assets/Imgs/Pause.svg'
+    })
+
+    icone_play_mobile.forEach(element => {
+        element.src = 'Assets/Imgs/pausa_icon_sem_fundo.png'
     })
     
     audio_player.play()

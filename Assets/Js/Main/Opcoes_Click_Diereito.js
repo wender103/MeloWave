@@ -1088,7 +1088,16 @@ function Apagar_playlist() {
 }
 
 function Adicionar_Playlisy_Fila() {
-    Listas_Prox.Lista_Musicas.push(...Playlist_Aberta.Musicas)
+    for (let d = Playlist_Aberta.Musicas.length - 1; d >= 0 ; d--) {  
+        for (let c = 0; c < TodasMusicas.length; c++) {
+            if(TodasMusicas[c].ID == Playlist_Aberta.Musicas[d].ID_Musica) {
+                Listas_Prox.Lista_Musicas.push(TodasMusicas[c])
+                break        
+            }
+            
+        }
+    }
+
     Atualizar_Fila()
 }
 

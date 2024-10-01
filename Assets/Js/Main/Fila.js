@@ -20,7 +20,7 @@ function Abrir_Fila() {
     if(pd_abrir_lista && Device.Tipo != 'Mobile') {
         let time_esperar = 0
 
-        if(telca_tocando_agora_aberta) {
+        if(tela_tocando_agora_aberta) {
             time_esperar = 600
         }
 
@@ -75,7 +75,7 @@ function Fechar_Fila() {
 
     nav_main.style.transition = '500ms width ease-in-out'
     nav_main.style.width = 'calc(100vw - 96px)'
-    if(!telca_tocando_agora_aberta && notificacao_tempo_real_aberta) {
+    if(!tela_tocando_agora_aberta && notificacao_tempo_real_aberta) {
         Mostrar_Notificacao_Na_Tela(1)
     }
 

@@ -267,7 +267,7 @@ prev_btn_telta_tocando_agora.addEventListener('click', () => {
 })
 
 //! Tela Tocando Agora
-let telca_tocando_agora_aberta = false
+let tela_tocando_agora_aberta = false
 let pd_abrir_tela_tocando_agora = true
 function Abrir_Tela_Tocando_Agora() {
     let time_esperar = 0
@@ -285,8 +285,8 @@ function Abrir_Tela_Tocando_Agora() {
             pd_abrir_tela_tocando_agora = true
         }, 600)
 
-        if(!telca_tocando_agora_aberta) {
-            telca_tocando_agora_aberta = true
+        if(!tela_tocando_agora_aberta) {
+            tela_tocando_agora_aberta = true
             setTimeout(() => {
                 main.style.transition = '500ms width ease-in-out'
                 main.style.width = 'calc(100vw - 386px)'
@@ -317,7 +317,7 @@ function Abrir_Tela_Tocando_Agora() {
 }
 
 function Fechar_Tela_Tocando_Agora() {
-    telca_tocando_agora_aberta = false
+    tela_tocando_agora_aberta = false
     main.style.transition = '500ms width ease-in-out'
     main.style.width = 'calc(100vw - 96px)'
     container_tela_tocando_agora.style.right = '-282px'
