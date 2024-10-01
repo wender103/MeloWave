@@ -5266,18 +5266,23 @@ body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell di
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell pre span {
   cursor: pointer;
 }
-body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell pre span.linha_pre_anterior_cell {
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell pre span.linha_pre_anterior_add_letra {
   color: var(--fonte_meio_transparente);
 }
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell pre span.linha_pre_em_destaque_cell .animated-span {
-  font-size: 1em;
+  font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.23);
   transition: font-size 0.3s, color 0.3s;
 }
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell pre span.linha_pre_em_destaque_cell .animated-span.animated {
-  font-size: 1.1em;
+  font-size: 1.4rem;
   color: white;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0), 0 0 10px rgba(255, 255, 255, 0.83), 0 0 15px rgba(255, 255, 255, 0.38);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell pre h1 {
+  color: var(--white);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
+  font-size: 1.7rem;
 }
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_creditos_pag_cell {
   height: 255px;

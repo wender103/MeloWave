@@ -784,6 +784,102 @@ function Destacar_linhas() {
                 
             }
         }
+
+        //! ------------------------------
+        if(letre_cell_aberta) {
+            pre_letra_cell.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
+            letra_pre_ver_letra = pre_letra_cell.innerText.split('\n')
+            let linhas = pre_letra_cell.innerHTML.split('\n')
+            let duracao_transicao = 1
+            
+            if (linha_atual <= linhas.length) {
+                // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+                for (let c = 0; c < linhas.length; c++) {
+                    if(c == linha_atual) {
+                        try {
+                            duracao_transicao = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c + 1] - Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c]
+                            duracao_transicao = duracao_transicao * 1000
+                            
+                        } catch (error) {
+                            console.warn('Erro calcular o tempo de transação das letras: ' + error)
+                        }
+
+                        linhas[c] = '<span class="linha_pre_em_destaque_cell" id="linha_atual_sincronizar_cell">' + letra_pre_ver_letra[c] + '</span>'
+                    } else if(c < linha_atual) {
+                        linhas[c] = `<span class="linha_pre_anterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+                    } else {
+                        if(c == 0) {
+                            linhas[c] = `<span class="linha_pre_posterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_cell">` + letra_pre_ver_letra[c] + '</span>'
+                        } else {
+                            linhas[c] = `<span class="linha_pre_posterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+                        }
+                    }
+                }
+
+                // Atualiza o conteúdo do <pre> com as linhas modificadas
+                pre_letra_cell.innerHTML = ''
+                for (let c = 0; c < linhas.length; c++) {
+                    pre_letra_cell.innerHTML += linhas[c] + '\n'   
+                }
+                
+
+                if(Infos_Desempenho.Niveis_Desempenho < 3 && User.Configuracoes.Animacao_Detalhada) {
+                    const text = document.getElementById('linha_atual_sincronizar_cell')                        
+                    const letters = text.textContent.split('')
+                    text.innerHTML = ''
+
+                    const tempoPorLetra = duracao_transicao / letters.length  - 7
+
+                    text.innerHTML = ''
+
+                    letters.forEach((letter, index) => {
+                        const span = document.createElement('span')
+                        if (letter === ' ' && text.lastElementChild) {
+                            text.lastElementChild.textContent += letter
+                        } else {
+                            span.textContent = letter
+                            span.className = 'animated-span'
+                            text.appendChild(span)
+                        }                        
+                    })
+
+                    let contador_animacoes = 0
+                    function Animar() {
+                        if(contador_animacoes < letters.length && !audio_player.paused) {
+                            try {
+                                text.getElementsByTagName('span')[contador_animacoes].classList.add('animated')
+                                contador_animacoes++
+
+                                setTimeout(() => {
+                                    Animar()
+                                }, tempoPorLetra)
+                            } catch (error) {
+                                
+                            }
+                        }
+                    } Animar()
+
+                    audio_player.addEventListener('play', () => {
+                        Animar()
+                    })
+                } else {
+                    const text = document.getElementById('linha_atual_sincronizar_cell')
+                    const span = document.createElement('span')
+                    span.innerText = text.innerText
+                    span.className = 'animated-span'
+                    text.innerHTML = ''
+                    text.appendChild(span)
+                    setTimeout(() => {
+                        span.classList.add('animated')
+                    }, 100)
+                }
+                //? Faz o scroll para a linha atual
+                try {
+                    document.getElementById('linha_atual_sincronizar_cell').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+                } catch{}
+                
+            }
+        }
     }
 }
 
