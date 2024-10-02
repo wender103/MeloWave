@@ -240,3 +240,9 @@ container_header_img_musicas_curtidas.addEventListener('click', () => {
     container_imgs_playlist_zoom.appendChild(img)
     container_imgs_playlist_zoom.className = ''
 })
+
+const btn_config_musicas_curtidas = document.getElementById('btn_config_musicas_curtidas')
+btn_config_musicas_curtidas.addEventListener('click', (event) => {
+    Ativar_Opcoes_Click_Direita('Músicas Curtidas')
+    posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+})

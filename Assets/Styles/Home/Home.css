@@ -709,6 +709,11 @@ div.btn_marcar_config div.boll_config {
   color: #999;
 }
 
+.Blocked {
+  opacity: 0.4;
+  cursor: not-allowed !important;
+}
+
 html {
   max-height: 100vh;
   overflow: hidden;
@@ -5604,7 +5609,7 @@ body section#opcoes_click_direito div.divs_opcs_click {
   min-width: 270px;
   -webkit-backdrop-filter: blur(4px);
           backdrop-filter: blur(4px);
-  background-color: var(--padrao15);
+  background-color: #282828;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.404);
   padding: 12px;
   border-radius: 8px;

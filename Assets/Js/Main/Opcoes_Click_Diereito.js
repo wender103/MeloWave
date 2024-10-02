@@ -2,6 +2,11 @@ const opcoes2_click_direito = document.getElementById('opcoes2_click_direito')
 let Is_Banir_Amigo_Playlist = false
 let Is_Banir_Amigo_Match = false
 function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Artista, Perfil) {
+    if(Musica == undefined) {
+        Musica = {
+            ID: null
+        }
+    }
     opcoes2_click_direito.style.display = 'none'
     //! ---------------- Uls ----------------------
     const opcoes_musica_ul = document.getElementById('opcoes_musica_ul')
@@ -24,7 +29,7 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
     ul3div2_opcs.innerHTML = ''
 
     //! ---------------- Buttons ----------------------
-    let Add_Playlist = `<li onclick="Adicionar_Playlist_Fila('${Musica.ID}')"><img src="Assets/Imgs/Plus_icos.svg"><p>Adicionar À Playlist</p></li>`
+        let Add_Playlist = `<li onclick="Adicionar_Playlist_Fila('${Musica.ID}')"><img src="Assets/Imgs/Plus_icos.svg"><p>Adicionar À Playlist</p></li>`
 
     let Remover_Musica_Curtida = `<li onclick="Remover_Musica_Curtida_Opcoes_Click_Direito('${Musica.ID}', 'Fila')"><img src="Assets/Imgs/Like.svg"><p>Remover De Músicas Curtidas</p></li>`
 
@@ -79,6 +84,10 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
     let btn_adicionar_a_fila_playlist = `<li onclick="Adicionar_Playlisy_Fila()"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar A Fila</p></li>`
     let Share_playlist = `<li onclick="Comapartilhar_playlist()"><img src="Assets/Imgs/Share.png"><p>Compartilhar Playlist</p></li>`
     let Sair_playlist = `<li onclick="Sair_Da_Playlist()"><img src="Assets/Imgs/remover-participante.png"><p>Sair Da Playlist</p></li>`
+
+    //! Músicas Curtidas
+    let btn_adicionar_a_fila_musicas_curtidas = `<li onclick="Adicionar_Musicas_Curtidas_A_Fila()"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar A Fila</p></li>`
+    let btn_remover_todas_musicas_curtidas = `<li onclick="Remover_Todas_Musicas_Curtidas()"><img src="Assets/Imgs/lixeira_branca.png"><p>Remover Todas As Curtidas</p></li>`
 
     let pode_add_a_fila = true
 
@@ -455,6 +464,26 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
         }
 
         opcoes_musica2_ul.innerHTML += Share_playlist
+    } else if(Modo == 'Músicas Curtidas') {
+        console.log('caiu aqui');
+        
+        if(!Listas_Prox.MusicaAtual.ID) {
+            btn_adicionar_a_fila_musicas_curtidas = `<li class="Blocked" onclick="Adicionar_Musicas_Curtidas_A_Fila()"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar A Fila</p></li>`
+
+        } else {
+            btn_adicionar_a_fila_musicas_curtidas = `<li onclick="Adicionar_Musicas_Curtidas_A_Fila()"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar A Fila</p></li>`
+        }
+
+        if(User.Musicas_Curtidas.length <= 0) {
+            btn_remover_todas_musicas_curtidas = `<li class="Blocked" onclick="Remover_Todas_Musicas_Curtidas()"><img src="Assets/Imgs/lixeira_branca.png"><p>Remover Todas As Curtidas</p></li>`
+
+        } else {
+            btn_remover_todas_musicas_curtidas = `<li onclick="Remover_Todas_Musicas_Curtidas()"><img src="Assets/Imgs/lixeira_branca.png"><p>Remover Todas As Curtidas</p></li>`
+        }
+
+        opcoes_musica_ul.innerHTML += btn_adicionar_a_fila_musicas_curtidas
+        opcoes_musica_ul.innerHTML += '<hr>'
+        opcoes_musica_ul.innerHTML += btn_remover_todas_musicas_curtidas
     }
 }
 
@@ -1234,4 +1263,30 @@ function Sair_Da_Playlist() {
             }
         })
     })
+}
+
+//! Músicas Curtidas
+function Adicionar_Musicas_Curtidas_A_Fila() {
+    if(Listas_Prox.MusicaAtual.ID) {
+        if(Musicas_Curtidas_Array.length > 0) {
+            for (let c = Musicas_Curtidas_Array.length - 1; c >= 0; c--) {
+                Listas_Prox.Lista_Musicas.push(Musicas_Curtidas_Array[c])
+            }
+            Atualizar_Fila()
+        }
+    }
+}
+
+function Remover_Todas_Musicas_Curtidas() {
+    if(User.Musicas_Curtidas.length > 0) {
+        Notificar_Infos('⚠️ Você tem certeza que deseja remover todas as músicas curtidas? Essa ação não poderá ser desfeita.', 'Confirmar').then((resp) => {
+            if(resp) {
+                User.Musicas_Curtidas = []
+                db.collection('Users').doc(User.ID).update({ Musicas_Curtidas: User.Musicas_Curtidas }).then(() => {
+                    Avisos_Rapidos('✅ Todas as músicas curtidas foram removidas com sucesso!.')
+                    Abrir_Pagina('musicascurtidas')
+                })
+            }
+        })   
+    }
 }

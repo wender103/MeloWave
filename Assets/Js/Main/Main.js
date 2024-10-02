@@ -1791,3 +1791,9 @@ document.getElementById('fpsMonitor').addEventListener('click',() => {
     Avisos_Rapidos(`Novo volume: ${Volume_Atual}`)
     Volume(100)
 })
+
+const tres_pontos_musica_tocando_agora_aba_lateral = document.getElementById('3_pontos_musica_tocando_agora_aba_lateral')
+tres_pontos_musica_tocando_agora_aba_lateral.addEventListener('click', (event) => {
+    Ativar_Opcoes_Click_Direita('Músicas Caixa', Listas_Prox.MusicaAtual, Listas_Prox.Indice)
+    posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+})

@@ -706,4 +706,9 @@ div.btn_marcar_config div.boll_config {
 #Container_Off_Line .footer {
   margin-top: 20px;
   color: #999;
+}
+
+.Blocked {
+  opacity: 0.4;
+  cursor: not-allowed !important;
 }/*# sourceMappingURL=Geral.css.map */
