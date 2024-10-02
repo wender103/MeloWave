@@ -478,8 +478,6 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
                     break
                 }
             }
-        } else if(ja_tem_a_musica) {
-            break
         }
     }
 
