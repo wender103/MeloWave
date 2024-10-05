@@ -890,9 +890,11 @@ let pagina_anterior_ver_letra = {
 }
 
 let reabrir_letra_aba_musica_tocando_agora = false
+let letra_pc_aberta = false
 function Abrir_Ver_Letra_PC(id_musica=undefined) {
 
-    if(!pd_atualizar_letra_pc) {
+    if(!letra_pc_aberta) {
+        letra_pc_aberta = true
         if(pode_atualizar_letra_tela_tocando_agora) {
             Fechar_Letra_Tela_Tocando_Agora('Reabrir')
         }
@@ -956,6 +958,7 @@ function Abrir_Ver_Letra_PC(id_musica=undefined) {
 }
 
 function Fechar_Ver_Letra_PC(Comando='') {
+    letra_pc_aberta = false
     if(reabrir_letra_aba_musica_tocando_agora && !Comando.includes('Não Abrir Letra Tela Tocando Agora')) {
         Mostrar_Letra_Tela_Tocando_Agora()
     }
