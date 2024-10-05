@@ -550,7 +550,15 @@ function Retornar_Perfis(Lista, Local) {
         //! Valores
         nome_user.innerText = Lista[c].Nome
         span.innerText = 'Perfil'
-        img.src = Lista[c].Perfil.Img_Perfil
+
+        carregarImagem(Lista[c].Perfil.Img_Perfil, function(img_perfil) {
+            if(img_perfil) {
+                img.src = img_perfil.src
+
+            } else {                
+                img.src = Lista[c].Perfil.Img_Email
+            }
+        })
         img.loading = 'lazy'
 
         //! AppendChild

@@ -77,7 +77,7 @@ function Retornar_Musicas_Curtidas(Array_Musicas = undefined, Comando = undefine
 
     const Local = document.getElementById('container_musicas_curtidas')
     Local.innerHTML = ''
-    Retornar_Musica_Linha(Array_Musicas, Local, null, 'Músicas Curtidas')
+    Retornar_Musica_Linha(Array_Musicas, Local, 'View', 'Músicas Curtidas')
 
     let name_msuicas = 'músicas'
     if(Array_Musicas.length == 1) {

@@ -562,6 +562,7 @@ function Retornar_Musicas_Match(Users) {
                         if(genero_formatado.includes(generos_mais_ouvidos_user[b]) || generos_mais_ouvidos_user[b].includes(genero_formatado)) {
                             let infos_user = {
                                 Img: User_Recebido.Perfil.Img_Perfil,
+                                Img_Email: User_Recebido.Perfil.Img_Email,
                                 ID: User_Recebido.ID,
                                 Nome: User_Recebido.Nome
                             }
@@ -621,7 +622,17 @@ function Retornar_Musicas_Match(Users) {
         p.innerText = todas_musicas_match[c].Nome
         span.appendChild(Retornar_Artistas_Da_Musica(todas_musicas_match[c]))
         p_contador.innerText = c + 1
-        img_perfil.src = todas_musicas_match[c].User_Match.Img
+
+        carregarImagem(todas_musicas_match[c].User_Match.Img, function(img_user_match) {
+            if(img_user_match) {
+                img_perfil.src = img_user_match.src
+
+            } else {
+                img_perfil.src = todas_musicas_match[c].User_Match.Img_Email
+                
+            }
+
+        })
         container_img_perfil.title = `Sugerida com base nos gostos de: ${todas_musicas_match[c].User_Match.Nome}`
 
         if(todas_musicas_match[c].Views <= 0) {
@@ -791,6 +802,7 @@ function Pesquisar_Matchs(Pesquisa) {
             p.innerText = array_musicas[c].Nome
             span.appendChild(Retornar_Artistas_Da_Musica(array_musicas[c]))
             p_contador.innerText = c + 1
+            
             img_perfil.src = array_musicas[c].User_Match.Img
     
             if(array_musicas[c].Views <= 0) {

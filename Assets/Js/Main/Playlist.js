@@ -141,7 +141,15 @@ function Abrir_Playlist(ID_PLaylist) {
         for (let c = 0; c < Participantes_PLaylist.length; c++) {
             const img = document.createElement('img')
             img.loading = 'lazy'
-            img.src = Participantes_PLaylist[c].Perfil.Img_Perfil
+            carregarImagem(Participantes_PLaylist[c].Perfil.Img_Perfil, function(img_perfil) {
+                if(img_perfil) {
+                    img.src = img_perfil.src
+
+                } else {
+                    img.src = Participantes_PLaylist[c].Perfil.Img_Email
+                }
+
+            })
             img.style.zIndex = z_index_imgs
             container_imgs_header_playlist_page.appendChild(img)
             z_index_imgs--
@@ -361,7 +369,14 @@ function Retornar_Musicas_Playlist(ID_Playlist, Local, ArrayMusicas=undefined) {
         p.innerText = Musicas_Playlist[c].Musica.Nome
         span.appendChild(Retornar_Artistas_Da_Musica(Musicas_Playlist[c].Musica))
         p_contador.innerText = contador_musicas_playlist
-        img_perfil.src = Musicas_Playlist[c].User.Perfil.Img_Perfil
+
+        carregarImagem(Musicas_Playlist[c].User.Perfil.Img_Perfil, function(img_perfil_carregar) {
+            if(img_perfil_carregar) {
+                img_perfil.src = img_perfil_carregar.src
+            } else {
+                img_perfil.src = Musicas_Playlist[c].User.Perfil.Img_Email
+            }
+        })
         container_img_perfil.title = `Adicionada por ${Musicas_Playlist[c].User.Nome}`
 
         if(Musicas_Playlist[c].Musica.Views <= 0) {

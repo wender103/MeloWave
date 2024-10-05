@@ -62,7 +62,7 @@ function Carregar_Meu_Perfil() {
 
     let new_aray = [...musicas_meu_perfil]
     new_aray.reverse()
-    Retornar_Musica_Linha(new_aray.reverse(), document.getElementById('container_musicas_meu_perfil'), 'Editar', 'meuperfil')
+    Retornar_Musica_Linha(new_aray.reverse(), document.getElementById('container_musicas_meu_perfil'), 'View, Editar', 'meuperfil')
 }
 
 document.getElementById('img_play_musicas_meu_perfil').addEventListener('click', () => {
@@ -271,12 +271,12 @@ function Pesquisar_Musicas_Meu_Perfil(Pesquisa) {
             }
         }
 
-        Retornar_Musica_Linha(array_musicas_encontradas, document.getElementById('container_musicas_meu_perfil'), 'Editar', 'meuperfil')
+        Retornar_Musica_Linha(array_musicas_encontradas, document.getElementById('container_musicas_meu_perfil'), 'View, Editar', 'meuperfil')
         musicas_meu_perfil_pesquisa = [...array_musicas_encontradas]
 
     } else {
         musicas_meu_perfil_pesquisa = [...musicas_meu_perfil]
-        Retornar_Musica_Linha(musicas_meu_perfil, document.getElementById('container_musicas_meu_perfil'), 'Editar', 'meuperfil')
+        Retornar_Musica_Linha(musicas_meu_perfil, document.getElementById('container_musicas_meu_perfil'), 'View, Editar', 'meuperfil')
     }
 }
 
