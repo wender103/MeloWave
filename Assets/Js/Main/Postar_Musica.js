@@ -44,7 +44,8 @@ async function Postar_Musica(Comando = '') {
                 if (window.location.href.includes('http://127.0.0.1:')) {
                     downloadURL = 'http://localhost:3001/download'
                 } else if (window.location.href.includes('https://wender103.github.io/MeloWave/')) {
-                    downloadURL = 'https://baixar-musicas-py.onrender.com/download'
+                    // downloadURL = 'https://baixar-musicas-py.onrender.com/download'
+                    downloadURL = 'fora_do_ar'
                 } else {
                     pd_postar_outra_musica = true
                     carregamento_postar_musica.style.display = 'none'
