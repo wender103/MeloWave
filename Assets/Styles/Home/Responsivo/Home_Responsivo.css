@@ -161,7 +161,7 @@
     align-items: center;
   }
   main section.Paginas#Pagina_pesquisar section.Container_Musicas_Caixa article {
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
+    grid-template-columns: repeat(auto-fill, minmax(146px, 1fr)) !important;
   }
   main section.Paginas#Pagina_biblioteca article#container_itens_biblioteca {
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
@@ -216,6 +216,64 @@
   }
   div.musica_linha div.segunda_parte_musica_linha {
     display: none;
+  }
+  div.musica_caixa {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 230px !important;
+    max-width: 200px !important;
+    gap: 8px !important;
+    padding: 10px !important;
+  }
+  div.musica_caixa div.container_img_musica {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1/1 !important;
+    border-radius: 8px !important;
+  }
+  div.musica_caixa div.container_img_musica img {
+    width: 100% !important;
+    height: 100% !important;
+    -o-object-fit: cover !important;
+       object-fit: cover !important;
+    -o-object-position: center !important;
+       object-position: center !important;
+  }
+  div.musica_caixa div.texto_musica {
+    width: 100% !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  div.musica_caixa div.texto_musica p {
+    font-size: 14px !important;
+    color: var(--white) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  div.musica_caixa div.texto_musica span {
+    font-size: 13px !important;
+    color: var(--fonte_meio_transparente) !important;
+    cursor: pointer !important;
+  }
+  div.musica_caixa div.texto_musica span p {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    color: var(--fonte_meio_transparente) !important;
+  }
+  div.musica_caixa div.texto_musica span p span {
+    padding-left: 5px !important;
+    margin-bottom: -0.5px !important;
+  }
+  div.musica_caixa div.texto_musica span p span:first-child {
+    padding: 0 !important;
+  }
+  div.musica_caixa div.texto_musica span p span:hover {
+    text-decoration: underline !important;
+    cursor: pointer !important;
   }
   div#container_nav_cell {
     position: fixed;

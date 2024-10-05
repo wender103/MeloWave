@@ -258,9 +258,9 @@ div.container_inputs_pesquisar input::placeholder {
 }
 
 div.musica_caixa {
-  width: 100%;
-  height: auto;
-  min-height: 230px;
+  width: 160px;
+  min-width: 150px;
+  height: 230px;
   border-radius: 8px;
   background-color: var(--black_transparent);
   display: flex;
@@ -270,19 +270,9 @@ div.musica_caixa {
   cursor: pointer;
   padding: 10px;
 }
-@media (max-width: 768px) {
-  div.musica_caixa {
-    min-height: 200px;
-  }
-}
-@media (max-width: 480px) {
-  div.musica_caixa {
-    min-height: 180px;
-  }
-}
 div.musica_caixa div.container_img_musica {
-  width: 100%;
-  height: auto;
+  width: 95%;
+  height: 86%;
   aspect-ratio: 1/1;
   border-radius: 8px;
   overflow: hidden;
@@ -297,7 +287,7 @@ div.musica_caixa div.container_img_musica img {
 }
 div.musica_caixa div.texto_musica {
   width: 100%;
-  height: auto;
+  height: 45%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1426,7 +1416,7 @@ body main section.Paginas#Pagina_home section#container_banner_top_list {
   justify-content: center;
   position: relative;
   margin-bottom: 20px;
-  background-color: white;
+  background-color: transparent;
   border-radius: 8px;
 }
 body main section.Paginas#Pagina_home section#autores_recentes {
@@ -1815,11 +1805,14 @@ body main section.Paginas#Pagina_pesquisar section#container_playlists {
 }
 body main section.Paginas#Pagina_pesquisar section#container_pesquisa article {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
   gap: 4px;
 }
 body main section.Paginas#Pagina_pesquisar section#container_pesquisa article div {
   margin-bottom: 15px;
+}
+body main section.Paginas#Pagina_pesquisar section#container_pesquisa article div.musica_caixa div.container_img_musica {
+  height: 145%;
 }
 body main section.Paginas#Pagina_pesquisar div#pesquisa_nao_encontrada {
   width: 70%;
@@ -5273,7 +5266,7 @@ body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell di
   overflow: auto;
   font-weight: bold;
   white-space: pre-wrap;
-  padding: 150px 0;
+  padding: 50px 0;
   margin-top: 48px;
   -webkit-mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
           mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);

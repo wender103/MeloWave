@@ -257,9 +257,9 @@ div.container_inputs_pesquisar input::placeholder {
 }
 
 div.musica_caixa {
-  width: 100%;
-  height: auto;
-  min-height: 230px;
+  width: 160px;
+  min-width: 150px;
+  height: 230px;
   border-radius: 8px;
   background-color: var(--black_transparent);
   display: flex;
@@ -269,19 +269,9 @@ div.musica_caixa {
   cursor: pointer;
   padding: 10px;
 }
-@media (max-width: 768px) {
-  div.musica_caixa {
-    min-height: 200px;
-  }
-}
-@media (max-width: 480px) {
-  div.musica_caixa {
-    min-height: 180px;
-  }
-}
 div.musica_caixa div.container_img_musica {
-  width: 100%;
-  height: auto;
+  width: 95%;
+  height: 86%;
   aspect-ratio: 1/1;
   border-radius: 8px;
   overflow: hidden;
@@ -296,7 +286,7 @@ div.musica_caixa div.container_img_musica img {
 }
 div.musica_caixa div.texto_musica {
   width: 100%;
-  height: auto;
+  height: 45%;
   display: flex;
   flex-direction: column;
   justify-content: center;

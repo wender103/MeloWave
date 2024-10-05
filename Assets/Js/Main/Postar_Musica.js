@@ -2,19 +2,23 @@ let infos_musica_postada
 let pd_postar_outra_musica = true
 const btn_pesquisar_genero = document.getElementById('btn_pesquisar_genero')
 async function Postar_Musica(Comando = '') {
-    if(User.Estado_Da_Conta != 'Anônima') {
+    if (User.Estado_Da_Conta != 'Anônima') {
         const input_add_musica = document.getElementById('input_add_musica').value
 
         //! Vai checar se a música já foi adicionada anteriormente
-        db.collection('Musicas').get().then((snapshot) => {
+        try {
+            const snapshot = await db.collection('Musicas').get()
             snapshot.docs.forEach(Musicas => {
                 TodasMusicas = Musicas.data().Musicas
             })
-        })
+        } catch (error) {
+            Notificar_Infos(`❌ Ocorreu um erro ao buscar músicas existentes: ${error.message}`)
+            return
+        }
 
         let musica_ja_adicionada_anteriormente = false
         for (let c = 0; c < TodasMusicas.length; c++) {
-            if(TodasMusicas[c].VideoURL == input_add_musica) {
+            if (TodasMusicas[c].VideoURL == input_add_musica) {
                 musica_ja_adicionada_anteriormente = TodasMusicas[c]
                 break
             }
@@ -24,58 +28,61 @@ async function Postar_Musica(Comando = '') {
         const carregamento_postar_musica = document.getElementById('carregamento_postar_musica')
         const primeira_parte_postar_musica = document.getElementById('primeira_parte_postar_musica')
 
-        if(!musica_ja_adicionada_anteriormente) {
-            if(Comando.includes('Abrir Página: ')) {
+        if (!musica_ja_adicionada_anteriormente) {
+            if (Comando.includes('Abrir Página: ')) {
                 Abrir_Pagina(Comando.replace('Abrir Página: ', ''))
             }
 
-            if(input_add_musica.startsWith('https://music.youtube.com') && pd_postar_outra_musica) {
+            if (input_add_musica.startsWith('https://music.youtube.com') && pd_postar_outra_musica) {
                 pd_postar_outra_musica = false
                 carregamento_postar_musica.style.display = 'flex'
                 primeira_parte_postar_musica.style.display = 'none'
-                
+
                 let downloadURL
-        
+
                 // Verifica se está rodando localmente
                 if (window.location.href.includes('http://127.0.0.1:')) {
                     downloadURL = 'http://localhost:3001/download'
                 } else if (window.location.href.includes('https://wender103.github.io/MeloWave/')) {
                     downloadURL = 'https://baixar-musicas-py.onrender.com/download'
                 } else {
-                    // Caso a URL não corresponda a nenhum dos casos anteriores
                     pd_postar_outra_musica = true
                     carregamento_postar_musica.style.display = 'none'
                     primeira_parte_postar_musica.style.display = 'flex'
-                    
-                    console.error('URL não reconhecida')
+                    Notificar_Infos('❌ URL não reconhecida. Verifique o ambiente!')
+                    return
                 }
-                        
+
                 try {
                     const response = await fetch(downloadURL, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ 
+                        body: JSON.stringify({
                             VideoURL: input_add_musica.split('&list')[0],
                             Email_User: User.Email,
                         })
                     })
+
+                    if (!response.ok) {
+                        throw new Error(`Erro: ${response.statusText}`)
+                    }
+
                     const data = await response.json()
                     infos_musica_postada = data
-        
                     let img_carregada = false
-        
+
                     function Carregar_Musica() {
-                        carregarImagem(data.Img, function(imgThumb) {
-            
+                        carregarImagem(data.Img, function (imgThumb) {
+
                             function Carregar_infos() {
                                 closeLoadingScreen()
                                 img_carregada = true
-                                // Aqui dentro você atualiza os elementos na página
-                                document.getElementById('input_add_musica_nome').value = data.Nome;
-                                document.getElementById('input_add_musica_autor').value = data.Autor;
-                                document.getElementById('img_musica_postada').src = data.Imagens[2];
+                                // Atualiza os elementos na página
+                                document.getElementById('input_add_musica_nome').value = data.Nome
+                                document.getElementById('input_add_musica_autor').value = data.Autor
+                                document.getElementById('img_musica_postada').src = data.Imagens[2]
                                 document.getElementById('primeira_parte_postar_musica').style.display = 'none'
                                 document.getElementById('segunda_parte_postar_musica').style.display = 'flex'
                                 carregamento_postar_musica.style.display = 'none'
@@ -85,38 +92,36 @@ async function Postar_Musica(Comando = '') {
                                     sairDaTelaCheia()
                                 })
                             }
-        
-                            if(imgThumb) {
+
+                            if (imgThumb) {
                                 Carregar_infos()
-                            } else{
+                            } else {
                                 setTimeout(() => {
                                     Carregar_Musica()
                                 }, 1000)
                             }
                         })
-                    } Carregar_Musica()
-                    
+                    }
+                    Carregar_Musica()
+
                 } catch (error) {
-                    console.error("Erro na requisição: ")
-                    console.error(error)
-                    alert('Erro: ' + error.message)
+                    Notificar_Infos(`❌ Erro ao tentar postar música: ${error.message}`)
                     pd_postar_outra_musica = true
                     carregamento_postar_musica.style.display = 'none'
                     primeira_parte_postar_musica.style.display = 'flex'
-                    
                     closeLoadingScreen()
                 }
-        
-            } else if(input_add_musica.startsWith('https://music.youtube.com') && !pd_postar_outra_musica) {
+
+            } else if (input_add_musica.startsWith('https://music.youtube.com') && !pd_postar_outra_musica) {
                 Notificar_Infos('🚫 Você precisa terminar de adicionar a música anterior antes de postar uma nova! 🎵⏳ Espere mais um pouco.', 'Emojis:🕰️,⏳,⌛,⏱️,⏲️')
 
-            } else if(input_add_musica.trim() != '') {
+            } else if (input_add_musica.trim() != '') {
                 Notificar_Infos('Por favor, utilize apenas links do YouTube Music para adicionar músicas.')
             } else {
                 Notificar_Infos('🚨 Opa! 🚨 Você esqueceu de colocar o link da música do YouTube Music no input 🎶. Sem isso, não dá pra postar a música 😢. Por favor, adicione o link e tente novamente! 👍')
             }
         } else {
-            if(musica_ja_adicionada_anteriormente.Estado == 'Ativo') {
+            if (musica_ja_adicionada_anteriormente.Estado == 'Ativo') {
                 Notificar_Infos('⚠️ Essa música já foi adicionada antes! 🎵 Quer ouvir agora? 🎧', 'Confirmar').then((confirmed) => {
                     if (confirmed) {
                         Tocar_Musica([musica_ja_adicionada_anteriormente], musica_ja_adicionada_anteriormente)
@@ -131,7 +136,7 @@ async function Postar_Musica(Comando = '') {
                     let autores = Separar_Por_Virgula(musica_ja_adicionada_anteriormente.Autor)
                     for (let b = 0; b < autores.length; b++) {
                         let autores_formatado = formatarString(autores[b])
-                        if(autores_formatado == nome_artista_user) {
+                        if (autores_formatado == nome_artista_user) {
                             ja_segue = true
                             Notificar_Infos(`⚠️ Esta música já foi adicionada, mas o usuário ainda está configurando! 🎵 Assim que ele terminar você será notificado na aba notificações por já seguir o artista ${autores[b]}!🎧📲`, 'Confirmar', 'Ver Artista').then((confirmed) => {
                                 if (confirmed) {
@@ -144,7 +149,7 @@ async function Postar_Musica(Comando = '') {
                     }
                 }
 
-                if(!ja_segue) {
+                if (!ja_segue) {
                     Notificar_Infos('⚠️ Esta música já foi adicionada, mas o usuário ainda está configurando! 🎵 Quer receber uma notificação quando ele terminar? Enão Siga o autor 🎧📲', 'Confirmar', `Seguir ${Separar_Por_Virgula(musica_ja_adicionada_anteriormente.Autor)[0]}`).then((confirmed) => {
                         if (confirmed) {
                             Tocar_Musica([musica_ja_adicionada_anteriormente], musica_ja_adicionada_anteriormente)
@@ -163,6 +168,8 @@ async function Postar_Musica(Comando = '') {
 let adicionando_musicas_pendentes = false
 function Finalizar_Postar() {
     if(User.Estado_Da_Conta != 'Anônima') {
+        document.getElementById('segunda_parte_postar_musica').style.display = 'none'
+        document.getElementById('carregamento_postar_musica').style.display = 'flex'
 
         const input_add_musica_nome = document.getElementById('input_add_musica_nome').value
         const input_add_musica_autor = document.getElementById('input_add_musica_autor').value
@@ -216,6 +223,7 @@ function Limpar_add_Musica() {
     document.getElementById('img_musica_postada').src = ''
     document.getElementById('primeira_parte_postar_musica').style.display = 'flex'
     document.getElementById('segunda_parte_postar_musica').style.display = 'none'
+    document.getElementById('carregamento_postar_musica').style.display = 'none'
 }
 
 let array_musica_pendentes = []
