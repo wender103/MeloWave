@@ -1301,9 +1301,14 @@ body main section.Paginas#Pagina_configuracoes article div.container_config_unic
   font-size: 16px; /* Tamanho da fonte */
   margin: 4px 2px; /* Margens para espaçamento */
   cursor: pointer; /* Cursor em forma de mãozinha */
-  border-radius: 5px; /* Bordas arredondadas */
+  border-radius: 2px; /* Bordas arredondadas */
   transition: background-color 0.3s; /* Transição suave para o hover */
   width: 50px; /* Largura fixa para todos os botões */
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li button#btn_resetar_atalhos {
+  width: auto;
+  padding: 5px 10px;
+  background-color: rgb(0, 89, 255);
 }
 body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li button:hover {
   background-color: var(--verde_azul); /* Cor mais escura ao passar o mouse */

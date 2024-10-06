@@ -322,3 +322,26 @@ document.addEventListener('keydown', (event) => {
         }, 100)
     }
 })
+
+function Resetar_Atalhos() {
+    User.Configuracoes.Mapeamento_De_Teclas = {
+        Tela_Cheia: 'f',
+        Mute: 'm',
+        Play_Pause: 'p',
+        Aumentar_Volume: '+',
+        Diminuir_Volume: '-',
+        Proxima_Musica: 'n',
+        Musica_Anterior: 'b',
+        Repetir_Musica: 'r',
+        Alternar_Fullscreen: 't',
+        Ver_Letra: 'l'
+    }
+
+    Salvar_Configs()
+    Carregar_Atalhos()
+}
+
+const btn_resetar_atalhos = document.getElementById('btn_resetar_atalhos')
+btn_resetar_atalhos.addEventListener('click', () => {
+    Resetar_Atalhos()
+})
