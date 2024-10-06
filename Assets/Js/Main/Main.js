@@ -485,7 +485,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     if(!ja_tem_a_musica) {
         for (let c = 0; c < user_artistas_seguindo.length; c++) {
             if(MusicaAtual.Autor.includes(user_artistas_seguindo[c].Autor)) {  
-                user_artistas_seguindo[c].Musicas_Ouvidas = removerNomesDuplicados(user_artistas_seguindo[c].Musicas_Ouvidas)
+                user_artistas_seguindo[c].Musicas_Ouvidas = removerDuplicados(user_artistas_seguindo[c].Musicas_Ouvidas)
                 user_artistas_seguindo[c].Musicas_Ouvidas.push(MusicaAtual.ID)
                 Salvar_Musicas_Ouvidas_Artista_Seguindo(user_artistas_seguindo)
                 break
