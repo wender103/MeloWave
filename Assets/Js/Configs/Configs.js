@@ -265,4 +265,60 @@ function Carregar_Configuracoes() {
     }
 }
 
-//! --------------------------------------- Equalizar Audio --------------------------------------------
+//! --------------------------------------- Remapear Atalhos --------------------------------------------
+const btn_atalho = document.querySelectorAll('.btn_atalho')
+const Container_Alterar_Atalhos = document.getElementById('Container_Alterar_Atalhos')
+let botaoSelecionado = null // Variável para guardar o botão que foi clicado
+
+function Carregar_Atalhos() {
+    btn_atalho.forEach(Btns => {
+        // Obter o valor da tecla correspondente pelo id do botão
+        const tecla = User.Configuracoes.Mapeamento_De_Teclas[Btns.id]
+        
+        // Verificar se a tecla existe e trocar o texto do botão
+        if (tecla) {
+            Btns.textContent = tecla
+        }
+
+        // Adicionar evento de clique ao botão
+        Btns.addEventListener('click', () => {
+            // Exibir o contêiner de alteração de atalhos
+            Container_Alterar_Atalhos.style.display = 'flex'
+            
+            // Guardar o botão clicado para atualizar o valor depois
+            botaoSelecionado = Btns
+        })
+    })
+}
+
+// Função para capturar a tecla pressionada e atualizar o atalho
+document.addEventListener('keydown', (event) => {
+    // Verificar se há um botão selecionado para alterar o atalho
+    if (botaoSelecionado) {
+        const novaTecla = event.key // Capturar a tecla pressionada
+        
+        // Verificar se a nova tecla já está sendo usada
+        const teclaEmUso = Object.values(User.Configuracoes.Mapeamento_De_Teclas).includes(novaTecla)
+
+        if (teclaEmUso && novaTecla !== User.Configuracoes.Mapeamento_De_Teclas[botaoSelecionado.id]) {
+            alert(`A tecla "${novaTecla}" já está em uso! Escolha outra tecla.`)
+            return // Não faz nada se a tecla já estiver em uso
+        }
+
+        setTimeout(() => {
+            // Atualizar o objeto Mapeamento_De_Teclas com a nova tecla
+            const idBotao = botaoSelecionado.id
+            User.Configuracoes.Mapeamento_De_Teclas[idBotao] = novaTecla
+
+            // Atualizar o texto do botão com a nova tecla
+            botaoSelecionado.textContent = novaTecla
+
+            // Esconder o contêiner de alteração de atalhos
+            Container_Alterar_Atalhos.style.display = 'none'
+
+            // Limpar a seleção do botão
+            botaoSelecionado = null
+            Salvar_Configs()
+        }, 100)
+    }
+})

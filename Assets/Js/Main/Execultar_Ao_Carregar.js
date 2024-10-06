@@ -55,6 +55,7 @@ function Execultar_Funcoes_Ao_Carregar() {
           adicionarTarefa(Artistas_Tocados_Recentemente);
           adicionarTarefa(Carregar_Configuracoes)
           adicionarTarefa(Retornar_Tocados_Recentemente_Primeira_Parte)
+          adicionarTarefa(Carregar_Atalhos)
   
           if (['/MeloWave/index.html', '/MeloWave/', '/', '/index.html'].includes(window.location.pathname)) {
             adicionarTarefa(() => {

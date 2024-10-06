@@ -1290,6 +1290,24 @@ body main section.Paginas#Pagina_configuracoes article div.container_config_unic
 body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li input.inputs_config_background:focus::-webkit-slider-thumb {
   opacity: 1; /* torna visível ao passar o mouse ou focar */
 }
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li button {
+  background-color: var(--verde_azul); /* Verde */
+  color: white; /* Cor da fonte branca */
+  border: none; /* Sem borda */
+  padding: 10px 0; /* Espaçamento interno (sem espaçamento lateral) */
+  text-align: center; /* Centralizar o texto */
+  text-decoration: none; /* Sem sublinhado */
+  display: inline-block; /* Exibir em linha */
+  font-size: 16px; /* Tamanho da fonte */
+  margin: 4px 2px; /* Margens para espaçamento */
+  cursor: pointer; /* Cursor em forma de mãozinha */
+  border-radius: 5px; /* Bordas arredondadas */
+  transition: background-color 0.3s; /* Transição suave para o hover */
+  width: 50px; /* Largura fixa para todos os botões */
+}
+body main section.Paginas#Pagina_configuracoes article div.container_config_unica ul li button:hover {
+  background-color: var(--verde_azul); /* Cor mais escura ao passar o mouse */
+}
 body main section.Paginas#Pagina_meuperfil article#container_header_meu_perfil {
   display: flex;
   flex-direction: column;
@@ -3737,6 +3755,19 @@ body main section.Paginas#Pagina_aceitarplaylist article button {
   font-size: 16px;
   padding: 0 20px;
   margin-top: 30px;
+}
+body div#Container_Alterar_Atalhos {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.7882352941);
+  z-index: 7;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
 }
 body div#container_editar_musica {
   width: 100%;

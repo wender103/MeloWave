@@ -137,6 +137,27 @@ function Logar_Na_Conta() {
                                 },
                                 Configuracoes: {
                                     Tema: 'Claro',
+                                    Background: {
+                                        blur: 20,
+                                        brilho: 100,
+                                        contraste: 100,
+                                        saturacao: 100,
+                                        Cores_Solidas: false
+                                    },
+                                    Transicoes_De_Faixas: true,
+                                    Animacao_Detalhada: true,
+                                    Mapeamento_De_Teclas: {
+                                        Tela_Cheia: 'f',
+                                        Mute: 'm',
+                                        Play_Pause: 'p',
+                                        Aumentar_Volume: '+',
+                                        Diminuir_Volume: '-',
+                                        Proxima_Musica: 'n',
+                                        Musica_Anterior: 'b',
+                                        Repetir_Musica: 'r',
+                                        Alternar_Fullscreen: 't',
+                                        Ver_Letra: 'l'
+                                    }
                                 },
                                 Social: {
                                     Seguindo: [],
