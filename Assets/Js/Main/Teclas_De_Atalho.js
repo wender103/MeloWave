@@ -2,11 +2,11 @@ let volume_tecla_atual = Volume_Atual
 let mute_ativado = false
 
 // Event Listener para atalhos de teclado
-document.addEventListener('keypress', (event) => {
+document.addEventListener('keydown', (event) => {
   if(document.getElementById('Container_Alterar_Atalhos').style.display != 'flex') {
 
     let key_event = event.key
-
+    
     if(key_event == User.Configuracoes.Mapeamento_De_Teclas.Tela_Cheia && event.target.nodeName !== 'INPUT' && event.target.nodeName !== 'TEXTAREA') {
       event.preventDefault()
       isFullscreen() ? sairTelaCheia() : entrarEmTelaCheia()

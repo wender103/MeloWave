@@ -292,7 +292,7 @@ function Carregar_Atalhos() {
 }
 
 // Função para capturar a tecla pressionada e atualizar o atalho
-document.addEventListener('keydown', (event) => {
+document.addEventListener('keydown', (event) => {    
     // Verificar se há um botão selecionado para alterar o atalho
     if (botaoSelecionado) {
         const novaTecla = event.key // Capturar a tecla pressionada
