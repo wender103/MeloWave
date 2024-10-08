@@ -346,10 +346,6 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
         Repetir_Musica(false)
     }
 
-    if(Listas_Prox.Indice == undefined) {
-        Abrir_Tela_Tocando_Agora()   
-    }
-
     atualizarURL_add_Musica(MusicaAtual.ID)
 
     tmp_ouvindo_musica = 0
@@ -390,7 +386,13 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     localStorage.setItem('Lista_De_Reproducao', JSON.stringify(new_lista_prox))
 
-    Carregar_Tela_Tocando_Agora(MusicaAtual)
+    if(!Comando.includes('Não Ativar Música 2')) {
+        Carregar_Tela_Tocando_Agora(MusicaAtual)
+
+        if(Listas_Prox.Indice == undefined) {
+            Abrir_Tela_Tocando_Agora()   
+        }
+    }
 
     if(User.Configuracoes.Transicoes_De_Faixas && !audio_player.paused) {
         Criar_Transicao(MusicaAtual.Audio)

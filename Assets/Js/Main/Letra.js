@@ -34,6 +34,8 @@ function Fechar_Add_Letra(Comando='') {
         text_area_add_letra.value = ''
         document.getElementById('primeira_parte_add_letra').style.display = 'block'
         document.getElementById('segunda_parte_add_letra').style.display = 'none'
+        container_btn_comecar_sincronizar_letra.style.bottom = '30px'
+        container_btns_add_letra_segunda_parte.style.bottom = '-100vh'
     }, 1000)
 
     document.querySelector('nav').classList.remove('Desabilitada')
@@ -213,7 +215,7 @@ function Contagem_Regressiva(Comando = 'Tocar') {
 
                     if(Comando == 'Tocar') {
                         setTimeout(() => {
-                            Tocar_Musica([musica_editando_meu_perfil], musica_editando_meu_perfil, 'Não Ativar Música, Pausar Ao Finalizar', `adicionarletra${musica_editando_meu_perfil.ID}`, 'adicionarletra')
+                            Tocar_Musica([musica_editando_meu_perfil], musica_editando_meu_perfil, 'Não Ativar Música 2, Pausar Ao Finalizar', `adicionarletra${musica_editando_meu_perfil.ID}`, 'adicionarletra')
 
                             resolve(true)
                         }, 1000)
