@@ -1561,3 +1561,25 @@ function formatViews(number, useDot = true, adicionar_ouvintes = '') {
 
     return formattedNumber;
 }
+
+function getDispositivoInfo() {
+  const userAgent = navigator.userAgent
+  const isMobile = /Mobi|Android/i.test(userAgent)  // ? Verifica se é mobile
+  
+  // * Coletando as infos básicas
+  const dispositivo = {
+    sistema: navigator.platform,             // ! Sistema operacional
+    navegador: navigator.userAgent,          // * Infos do navegador
+    dispositivo: isMobile ? 'Mobile' : 'PC', // ! Verifica se é mobile ou desktop
+  }
+
+  alert(`${dispositivo.sistema}`)
+  alert(`${dispositivo.navegador}`)
+  alert(`${dispositivo.dispositivo}`)
+
+  return dispositivo
+}
+
+setTimeout(() => {
+    getDispositivoInfo()
+}, 3000)

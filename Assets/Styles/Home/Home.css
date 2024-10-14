@@ -4701,6 +4701,18 @@ body section#container_barra_musica article {
   align-items: center;
   justify-content: space-between;
 }
+body section#container_barra_musica article div#container_sincronizar_pc {
+  min-width: 270px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  background-color: #282828;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.404);
+  padding: 12px;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 96px;
+  right: 103px;
+}
 body section#container_barra_musica article div#infos_musica_barra_musica {
   flex: 1;
   display: flex;
