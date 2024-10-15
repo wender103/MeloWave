@@ -6,6 +6,8 @@ const background_container_sincronizar_pc = document.getElementById('background_
 const Btn_Sincronizar_Dispositivos = document.getElementById('Btn_Sincronizar_Dispositivos')
 const span_como_sincronizar_pc = document.getElementById('span_como_sincronizar_pc')
 const p_como_sincronizar_pc = document.getElementById('p_como_sincronizar_pc')
+const container_volume_sincronizar_cell = document.getElementById('container_volume_sincronizar_cell')
+const input_volume_sincronizar = document.getElementById('input_volume_sincronizar')
 
 let User_Sincronizado = false
 
@@ -42,6 +44,10 @@ function Abrir_Aba_Sincronizar() {
  
         Texto_Dispositivo_Sincronizar.style.color = '#1DB954'
         Btn_Sincronizar_Dispositivos.style.backgroundColor = '#1DB954'
+        
+        if(Tipo_Dispositivo.dispositivo == 'Mobile') {
+            container_volume_sincronizar_cell.style.display = 'flex'
+        }
 
     } else if(Ultimo_Dado_Sincronizar.Estado_Sincronizacao == 'Aguardando') {
         if(Tipo_Dispositivo.dispositivo == 'Mobile') {
@@ -55,6 +61,7 @@ function Abrir_Aba_Sincronizar() {
         Texto_Dispositivo_Sincronizar.style.color = '#FFC107'
         Btn_Sincronizar_Dispositivos.style.backgroundColor = '#FFC107'
         Btn_Sincronizar_Dispositivos.innerText = 'Cancelar'
+        container_volume_sincronizar_cell.style.display = 'none'
         
     } else {
         p_como_sincronizar_pc.style.display = 'block'
@@ -72,6 +79,7 @@ function Abrir_Aba_Sincronizar() {
         Texto_Dispositivo_Sincronizar.style.color = '#fff'
 
         Btn_Sincronizar_Dispositivos.style.backgroundColor = '#1DB954'
+        container_volume_sincronizar_cell.style.display = 'none'
     }
 }
 
@@ -262,7 +270,9 @@ function Aceitar_Sincronizar(Dados) {
     if(Dados.User_ID == User.ID) {
         if(Dados.Estado_Sincronizacao == 'Aguardando' && Dados.Dispositivo_Chefe != Tipo_Dispositivo.dispositivo) {
             Dados.Estado_Sincronizacao = 'Ativo'
-            db.collection('Dispositivos_Sincronizados').doc(User.ID).update(Dados)
+            db.collection('Dispositivos_Sincronizados').doc(User.ID).update(Dados).then(() => {
+                Avisos_Rapidos('🔗 Aparelho sincronizado com sucesso! 😊')
+            })
 
             if(Tipo_Dispositivo.dispositivo == 'Mobile') {
                 Volume(0, document.getElementById('input_volume_pc'), 'Não Atualizar')
@@ -282,6 +292,7 @@ function Aceitar_Sincronizar(Dados) {
 }
 
 function Execultar_Sincronizacoes() {
+    Volume_Sincronizar(Ultimo_Dado_Sincronizar.Musica.Volume, 'Não Atualizar') 
     //* Descompactar Listas De Músicas
     let New_A_Seguir = []
     for (let c = 0; c < Ultimo_Dado_Sincronizar.Lista_Prox.A_Seguir.length; c++) {
@@ -322,11 +333,13 @@ function Execultar_Sincronizacoes() {
         }
     }
 
-    let Ja_Esta_Tocando = false
+    let Ja_Esta_Tocando = false    
 
-    if(New_Lista_Prox.MusicaAtual.ID == Listas_Prox.MusicaAtual.ID) {
-        Ja_Esta_Tocando = true
-    }
+    try {
+        if(New_Lista_Prox.MusicaAtual.ID == Listas_Prox.MusicaAtual.ID) {
+            Ja_Esta_Tocando = true
+        }
+    } catch{}
 
     Listas_Prox = New_Lista_Prox
     if(!Ja_Esta_Tocando) {
@@ -354,6 +367,10 @@ function Execultar_Sincronizacoes() {
     if(Tipo_Dispositivo.dispositivo == 'PC') {
         if(Ultimo_Dado_Sincronizar.Musica.Volume != Volume_Atual) {
             Volume(Ultimo_Dado_Sincronizar.Musica.Volume, document.getElementById('input_volume_pc'), 'Não Atualizar')
+
+            setTimeout(() => {
+                Volume(Ultimo_Dado_Sincronizar.Musica.Volume, document.getElementById('input_volume_pc'), 'Não Atualizar')
+            }, 300)
         }
 
     } else {
@@ -372,3 +389,38 @@ Btn_Sincronizar_Dispositivos.addEventListener('click', () => {
         Criar_Sincronizacao()
     }
 })
+
+//* Atualizar Volume
+input_volume_sincronizar.oninput = function() {
+    Volume_Sincronizar(this.value)
+    atualizar_cor_progresso_input(this)
+}
+
+let Time_Volume_Sincronizar
+function Volume_Sincronizar(volume, Comando='') {
+    input_volume_sincronizar.value = volume
+    atualizar_cor_progresso_input(input_volume_sincronizar)
+    
+    clearTimeout(Time_Volume_Sincronizar)
+    let img_icone_som
+    if(volume > 0 && volume < 50) {
+        img_icone_som = 'Assets/Imgs/Som1.svg'
+    } else if(volume >= 50 && volume <= 99) {
+        img_icone_som = 'Assets/Imgs/Som2.svg'
+    } else if(volume > 99) {
+        img_icone_som = 'Assets/Imgs/Som3.svg'
+    } else {
+        img_icone_som = 'Assets/Imgs/Som.svg'
+    }
+
+    document.getElementById('icone_som_sincornizar_cell').src = img_icone_som
+    
+    if(!Comando.includes('Não Atualizar')) {
+    Time_Volume_Sincronizar = setTimeout(() => {
+        Ultimo_Dado_Sincronizar.Musica.Volume = volume
+        Atualizar_Sincronizar()
+        Avisos_Rapidos('Volume alterado')
+    }, 300) 
+
+    }
+}

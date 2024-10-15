@@ -4736,6 +4736,9 @@ body div#background_container_sincronizar_pc div#container_sincronizar_pc p {
 body div#background_container_sincronizar_pc div#container_sincronizar_pc span {
   color: rgb(153, 153, 153);
 }
+body div#background_container_sincronizar_pc div#container_sincronizar_pc div.container_icon_som {
+  display: none;
+}
 body section#container_barra_musica {
   width: calc(100vw - 16px);
   height: 88px;

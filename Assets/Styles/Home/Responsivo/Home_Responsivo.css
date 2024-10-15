@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url("../../Geral/Geral.scss");
 @media screen and (max-width: 1000px) {
   pre {
@@ -327,5 +328,45 @@
   }
   div#background_container_sincronizar_pc div#container_sincronizar_pc {
     position: static !important;
+  }
+  div#background_container_sincronizar_pc div#container_sincronizar_pc div.container_icon_som {
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    /* Hides the thumb (slider handle) */
+  }
+  div#background_container_sincronizar_pc div#container_sincronizar_pc div.container_icon_som div#container_icon_volume_sincronizar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  div#background_container_sincronizar_pc div#container_sincronizar_pc div.container_icon_som div#container_icon_volume_sincronizar img {
+    height: 19px;
+    cursor: pointer;
+  }
+  div#background_container_sincronizar_pc div#container_sincronizar_pc div.container_icon_som input {
+    background: linear-gradient(to right, rgb(0, 255, 255) 0%, rgb(0, 255, 255) 0%, rgba(77, 77, 77, 0.32) 0%, rgba(77, 77, 77, 0.32) 100%);
+    border: none;
+    border-radius: 8px;
+    height: 5px;
+    width: 100%;
+    outline: none;
+    transition: background 450ms ease-in;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+  div#background_container_sincronizar_pc div#container_sincronizar_pc div.container_icon_som input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 10px; /* ajuste conforme necessário */
+    height: 10px; /* ajuste conforme necessário */
+    background-color: rgb(255, 255, 255); /* Altere para a cor desejada */
+    border-radius: 50%; /* para fazer uma bolinha */
+    -webkit-transition: opacity 0.1s ease-in-out;
+    transition: opacity 0.1s ease-in-out; /* para suavizar a transição */
+    opacity: 0; /* inicia invisível */
+  }
+  div#background_container_sincronizar_pc div#container_sincronizar_pc div.container_icon_som input:hover::-webkit-slider-thumb,
+  div#background_container_sincronizar_pc div#container_sincronizar_pc div.container_icon_som input:focus::-webkit-slider-thumb {
+    opacity: 1; /* torna visível ao passar o mouse ou focar */
   }
 }/*# sourceMappingURL=Home_Responsivo.css.map */
