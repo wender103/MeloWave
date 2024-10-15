@@ -38,6 +38,7 @@ function Execultar_Funcoes_Ao_Carregar() {
           adicionarTarefa(Checar_Notificacao_Artista_Seguindo);
           adicionarTarefa(Carregar_Banimento);
           adicionarTarefa(Atualizar_Infos_Perfil_Loja);
+          adicionarTarefa(Listner_Sicronizacoes)
           
           adicionarTarefa(() => {
             if(Pagina_Atual.Nome == 'home' && User.Perfil.Img_Background) {

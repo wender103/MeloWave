@@ -1090,6 +1090,26 @@
         </article>
     </section>
 
+    <!--! container_sincronizar_pc -->
+    <div id="background_container_sincronizar_pc">
+        <div id="container_sincronizar_pc" class="container_sincronizar_pc">
+            <div id="container_sincronizar_pc_texto" class="container_sincronizar_pc">
+                <div>
+                    <img src="Assets/Imgs/Pc.svg" id="Icon_Dispositivo_Sincronizar" class="container_sincronizar_pc">
+                    <p id="Texto_Dispositivo_Sincronizar" class="container_sincronizar_pc">Conecte-se a um dispositivo móvel!</p>
+                </div>
+                <hr class="container_sincronizar_pc">
+                <button id="Btn_Sincronizar_Dispositivos">Sincronizar</button>
+            </div>
+
+            <p class="container_sincronizar_pc" id="p_como_sincronizar_pc">Como sincronizar?</p>
+
+            <span class="container_sincronizar_pc" id="span_como_sincronizar_pc">
+                Para conseguir sincronizar os dispositivos, você precisa abrir o site tanto no celular quanto no PC. Assim, os dois poderão se conectar e compartilhar as informações corretamente. Então, não esquece de acessar a mesma conta nos dois dispositivos! 😉📱💻
+            </span>
+        </div>
+    </div>
+
     <!--! Container Barra Música PC -->
     <section id="container_barra_musica">
         <div class="gradient-bg">
@@ -1110,9 +1130,6 @@
         </div>
 
         <article>
-            <div id="container_sincronizar_pc">        
-            </div>
-
             <div id="infos_musica_barra_musica">
                 <div id="container_container_img_musica_barra_musica">
                     <div id="container_img_musica_barra_musica" onclick="Ativar_img_maior_barra_musica()">
@@ -1157,7 +1174,7 @@
                 <img src="Assets/Imgs/icon_tela_tocando_agora.png" class="img_btn_tela_tocando_agora icone" onclick="Abrir_Tela_Tocando_Agora()">
                 <img src="Assets/Imgs/Fila.svg" onclick="Abrir_Fila()" class="icone">
                 <img src="Assets/Imgs/logotipo-do-google-cast.png" class="icone Btn_Cast_Google">
-                <img src="Assets/Imgs/Pc.svg" class="icone Btn_Sincronizar">
+                <img src="Assets/Imgs/Pc.svg" class="icone Btn_Sincronizar" id="Btn_Sincronizar_Pc">
 
                 <div class="container_icon_som">
                     <div id="container_icon_volume">
@@ -1245,7 +1262,11 @@
                         <img src="Assets/Imgs/logotipo-do-google-cast.png" class="icone Btn_Cast_Google">
                     </div>
                     
-                    <img src="Assets/Imgs/Maximizar.svg" id="btn_tela_cheia_cell" class="icone_pag_cell">
+                    <div>
+                        <img src="Assets/Imgs/Maximizar.svg" id="btn_tela_cheia_cell" class="icone_pag_cell">
+                        <img src="Assets/Imgs/Pc.svg" id="btn_sincronizar_cell" class="icone_pag_cell">
+
+                    </div>
                 </div>
             </div>
         </article>
@@ -1588,6 +1609,9 @@
     <script src="Assets/Js/Main/Selecionar_Generos.js"></script>
     <script src="Assets/Js/Main/Top_List.js"></script>  
     <script src="Assets/Js/Responsive/Responsive.js"></script>
+
+    <!--* Sincronizar -->
+    <script src="Assets/Js/Sincronizar/Sincronizar.js"></script>
     
     <!--* Configurações -->
     <script src="Assets/Js/Configs/Configs.js"></script>

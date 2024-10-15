@@ -313,4 +313,19 @@
   pre {
     font-size: 1.2em !important;
   }
+  div#background_container_sincronizar_pc {
+    width: 100%;
+    height: 100%;
+    background-color: var(--background_black);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 7;
+  }
+  div#background_container_sincronizar_pc div#container_sincronizar_pc {
+    position: static !important;
+  }
 }/*# sourceMappingURL=Home_Responsivo.css.map */

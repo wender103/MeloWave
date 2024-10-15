@@ -162,8 +162,12 @@ function Carregar_Tela_Tocando_Agora(Musica) {
 
 let array_sequencia_musica = []
 function update_lista_a_seguir(Comando='') {
-    let Indice_global = Listas_Prox.Indice
+    if(!Listas_Prox.Indice) {
+        Listas_Prox.Indice = 0
+    }
 
+    let Indice_global = Listas_Prox.Indice
+        
     if(Listas_Prox.MusicaAtual.ID != Listas_Prox.Lista_Musicas[Listas_Prox.Indice].ID) {
         Indice_global = Listas_Prox.Indice - 1
     }

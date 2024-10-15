@@ -20,6 +20,13 @@ function Curtir_Musica_Descurtir(Musica, Elemento=undefined, Comando) {
                     Checar_Musica_Atual_Is_Curtida()
                     Atualizar_Likes_Musica(Musica, 'Descurtir')
                     Salvar_Musica_Curtida()
+                    Atualizar_Sincronizar()
+
+                    for (let c = 0; c < Musicas_Curtidas_Array.length; c++) {
+                        if(Musicas_Curtidas_Array[c].ID == Musica.ID) {
+                            Musicas_Curtidas_Array.splice(c, 1)
+                        }
+                    }
                     return false
                 }
     
@@ -37,6 +44,8 @@ function Curtir_Musica_Descurtir(Musica, Elemento=undefined, Comando) {
             Checar_Musica_Atual_Is_Curtida()
             Atualizar_Likes_Musica(Musica)
             Salvar_Musica_Curtida()
+            Atualizar_Sincronizar()
+            Musicas_Curtidas_Array.push(Musica)
             return true
 
         } else {

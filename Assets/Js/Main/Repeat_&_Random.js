@@ -7,7 +7,7 @@ repeat_icons.forEach(repeat => {
 })
 
 let repetir_musicas = false
-function Repetir_Musica(Repetir=null) {
+function Repetir_Musica(Repetir=null, Comando='') {
     if(Repetir != null) {
         repetir_musicas = !Repetir
     }
@@ -32,6 +32,10 @@ function Repetir_Musica(Repetir=null) {
             })
         })
     }
+
+    if(!Comando.includes('Não Atualizar')) {
+        Atualizar_Sincronizar()
+    }
 }
 
 //! ------------------------ Random Songs ---------------------------------------------
@@ -44,7 +48,7 @@ icon_random_barra_musica.forEach(repeat => {
 })
 
 let random_musicas = false
-function Deixar_Random(Random=null) {    
+function Deixar_Random(Random=null, Comando='') {    
     if(Random != null) {
         random_musicas = !Random
     }
@@ -68,5 +72,9 @@ function Deixar_Random(Random=null) {
                 path.style.fill = '#fff'
             })
         })
+    }
+
+    if(!Comando.includes('Não Atualizar')) {
+        Atualizar_Sincronizar()
     }
 }

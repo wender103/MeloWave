@@ -2,6 +2,7 @@ let TodasMusicas = []
 let TodosMatchs = []
 let TodasPlaylists
 let Audio_Mutado = false
+let Musica_Anterior_Ativado = false
 let Device = {
     Tipo: 'Desktop'
 }
@@ -295,7 +296,7 @@ let Musica_Antiga_Transicao = undefined
 let Comando_Tocar_Musica = ''
 let pd_adicionar_view = false
 
-function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {    
+function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {      
     pd_adicionar_view = true
     Comando_Tocar_Musica = Comando
     //! Vai deixar as cores pretas caso o background interativo for branco
@@ -372,7 +373,7 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
             Nome: Listas_Prox.Tocando.Nome,
             ID: Listas_Prox.Tocando.ID,
         },
-    }
+    }  
 
     for (let c = 0; c < Listas_Prox.A_Seguir.length; c++) {
         new_lista_prox.A_Seguir.push(Listas_Prox.A_Seguir[c].ID)   
@@ -403,10 +404,16 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     if(!Comando.includes('Pausar')) {
         document.title = `${MusicaAtual.Nome} - ${MusicaAtual.Autor}`
-        Play()
+        Play(Comando.includes('Não Atualizar Sincronizar') ? 'Não Atualizar' : '')
     } else {
-        Pausar()
+        Pausar(Comando.includes('Não Atualizar Sincronizar') ? 'Não Atualizar' : '')
     }
+
+    if(!Comando.includes('Não Atualizar Sincronizar')) {
+        Atualizar_Sincronizar(Musica_Anterior_Ativado ? 'Zerar Current_Time' : '')
+    }
+
+    Musica_Anterior_Ativado = false
 
     //! Vai trocar o background apenas se não for as páginas bloqueadas
     let pagina_igual = false
@@ -646,6 +653,7 @@ function handleInputRangeMusicaPC() {
 
     clearTimeout(debounceTimeout1)
     debounceTimeout1 = setTimeout(function() {
+        Atualizar_Sincronizar()
         Atualizar_Linha_Letra_Input()
     }, 300)
 }
@@ -664,6 +672,7 @@ function handleInputRangeMusicaPCFullscreen() {
 
     clearTimeout(debounceTimeout2)
     debounceTimeout2 = setTimeout(function() {
+        Atualizar_Sincronizar()
         Atualizar_Linha_Letra_Input()
     }, 300)
 }
@@ -682,6 +691,7 @@ function handleInputRangeMusicaMobile() {
 
     clearTimeout(debounceTimeout2)
     debounceTimeout2 = setTimeout(function() {
+        Atualizar_Sincronizar()
         Atualizar_Linha_Letra_Input()
     }, 300)
 }
@@ -966,7 +976,6 @@ function Ativar_Pag_Musica_Tocando(Musica=Listas_Prox.MusicaAtual) {
         })
 
         if(corEhClara(Musica.Cores[0])) {
-            console.log('É clara')
             pag_musica_tocando_agr.classList.add('dark')
         } else {
             pag_musica_tocando_agr.classList.remove('dark')
@@ -1137,9 +1146,9 @@ icone_play.forEach(element => {
 })
 
 let Musica_Pausada = true
-function Pausar() {
+function Pausar(Comando='') {
     icone_play_pc.forEach(element => {
-            element.src = 'Assets/Imgs/play_pc.svg'
+        element.src = 'Assets/Imgs/play_pc.svg'
     })
 
     icone_play_mobile.forEach(element => {
@@ -1168,6 +1177,11 @@ function Pausar() {
 
         ajustarVolume(audio_player, 0, 0)
     }
+
+    if(!Comando.includes('Não Atualizar')) {
+        audio_player.pause()
+        Atualizar_Sincronizar()
+    }
 }
 
 function Play(Comando='') {
@@ -1193,6 +1207,10 @@ function Play(Comando='') {
     if (isCasting && mediaSession) {
         mediaSession.play()
         ajustarVolume(audio_player, 0, 0)
+    }
+
+    if(!Comando.includes('Não Atualizar')) {
+        Atualizar_Sincronizar()
     }
 }
 
@@ -1253,6 +1271,7 @@ function Proxima_Musica(Chamado_Por) {
             }
             
             Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual)
+            // Atualizar_Sincronizar()
             Atualizar_Fila()
 
         } else {
@@ -1267,6 +1286,7 @@ function Proxima_Musica(Chamado_Por) {
 
             Remover_Da_Fila('Fila a Seguir', Listas_Prox.MusicaAtual.ID)
             Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual, 'Não Atualizar')
+            // Atualizar_Sincronizar()
         }
 
         setTimeout(() => {
@@ -1281,21 +1301,20 @@ function Proxima_Musica(Chamado_Por) {
 }
 
 function Musica_Anterior() {
+    Musica_Anterior_Ativado = true
     //! Vai checar se o tempo do audio é menor q trez para voltar para a música anterior
     if(audio_player.currentTime < 3) {
         audio_player.currentTime = 0
-        let feito = false
         if(Tocando_Musica_A_Seguir) {
             Tocando_Musica_A_Seguir = false
             Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[Listas_Prox.Indice]
-            Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual)
+            Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual)            
 
         } else {
 
             for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
-                if(Listas_Prox.Lista_Musicas[c].ID == Listas_Prox.MusicaAtual.ID && !feito) {
-                    feito = true
-        
+                if(Listas_Prox.Lista_Musicas[c].ID == Listas_Prox.MusicaAtual.ID) {
+    
                     if(c == 0) {
                         Listas_Prox.MusicaAtual = Listas_Prox.Lista_Musicas[Listas_Prox.Lista_Musicas.length - 1]
         
@@ -1304,6 +1323,7 @@ function Musica_Anterior() {
                     }
         
                     Tocar_Musica(Listas_Prox.Lista_Musicas, Listas_Prox.MusicaAtual)
+                    break
                 }
             }
         }
@@ -1311,6 +1331,7 @@ function Musica_Anterior() {
     //! Caso contrario vai tocar de novo
     } else {
         audio_player.currentTime = 0
+        Atualizar_Sincronizar('Zerar Current_Time')
     }
 }
 
@@ -1324,6 +1345,58 @@ const input_volume_pc_fullscreen = document.getElementById("input_volume_pc_full
 let Volume_Atual = 0
 const icone_som_pc = document.querySelectorAll('.icone_som_pc')
 
+let TimeoutId_Volume; // Variável para armazenar o ID do timeout
+
+function Volume(volume = 0, input = undefined, Comando='') {
+    volume = parseInt(volume)
+
+    let volume_porcentagem = volume / 100
+    //? Vai mudar o volume de acordo com o input
+    audio_player.volume = volume_porcentagem
+
+    if(input) {
+        input.value = parseInt(volume)
+        atualizar_cor_progresso_input(input)
+    }
+
+    if(volume > 0) {
+        Audio_Mutado = false
+    } 
+
+    Volume_Atual = parseInt(volume)
+    
+    let img_icone_som
+    if(volume > 0 && volume < 50) {
+        img_icone_som = 'Assets/Imgs/Som1.svg'
+    } else if(volume >= 50 && volume <= 99) {
+        img_icone_som = 'Assets/Imgs/Som2.svg'
+    } else if(volume > 99) {
+        img_icone_som = 'Assets/Imgs/Som3.svg'
+    } else {
+        img_icone_som = 'Assets/Imgs/Som.svg'
+    }
+
+    icone_som_pc.forEach(element => {
+        element.src = img_icone_som
+    })
+
+    //? Vai salvar o volume do local Storage
+    localStorage.setItem('Volume_Melo_Wave', volume)
+    atualizar_cor_progresso_input(input_volume_pc)
+
+    //? --------------------------------- Cast --------------------------------------------
+    if (isCasting && mediaSession) {
+        mediaSession.setVolumeLevel(volume)
+    }
+
+    // Limpa o timeout anterior, se houver, e cria um novo
+    clearTimeout(TimeoutId_Volume)
+    if(!Comando.includes('Não Atualizar')) {
+        TimeoutId_Volume = setTimeout(() => {
+            Atualizar_Sincronizar() // Chama a função apenas uma vez
+        }, 1000) // Espera 1 segundo
+    }
+}
 
 //? Vai alterar o volume para o ultimo salvo
 const ultimoVolumeSalvo = localStorage.getItem('Volume_Melo_Wave')
@@ -1351,51 +1424,6 @@ input_volume_pc.oninput = function() {
 input_volume_pc.onmouseleave = function() {
     cor_input_agora = '#fff'
     atualizar_cor_progresso_input(this)
-}
-
-function Volume(volume = 0, input = undefined, Comando='') {
-    volume = parseInt(volume)
-
-    let volume_porcentagem = volume / 100
-    //? Vai mudar o volume de acordo com o input
-    audio_player.volume = volume_porcentagem
-
-    if(input) {
-        input.value = parseInt(volume)
-        atualizar_cor_progresso_input(input)
-    }
-
-    if(volume > 0) {
-        Audio_Mutado = false
-    } 
-
-    Volume_Atual = parseInt(volume)
-    
-    let img_icone_som
-    if(volume > 0 && volume < 50) {
-        img_icone_som = 'Assets/Imgs/Som1.svg'
-
-    } else if(volume >= 50 && volume <= 99) {
-        img_icone_som = 'Assets/Imgs/Som2.svg'
-
-    } else if(volume > 99) {
-        img_icone_som = 'Assets/Imgs/Som3.svg'
-    } else {
-        img_icone_som = 'Assets/Imgs/Som.svg'
-    }
-
-    icone_som_pc.forEach(element => {
-        element.src = img_icone_som
-    })
-
-    //? Vai salvar o volume do local Storage
-    localStorage.setItem('Volume_Melo_Wave', volume)
-    atualizar_cor_progresso_input(input_volume_pc)
-
-    //? --------------------------------- Cast --------------------------------------------
-    if (isCasting && mediaSession) {
-        mediaSession.setVolumeLevel(volume)
-    }
 }
 
 if(Device.Tipo == 'Mobile') {

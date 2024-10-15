@@ -1573,13 +1573,7 @@ function getDispositivoInfo() {
     dispositivo: isMobile ? 'Mobile' : 'PC', // ! Verifica se é mobile ou desktop
   }
 
-  alert(`${dispositivo.sistema}`)
-  alert(`${dispositivo.navegador}`)
-  alert(`${dispositivo.dispositivo}`)
-
   return dispositivo
 }
 
-setTimeout(() => {
-    getDispositivoInfo()
-}, 3000)
+const Tipo_Dispositivo = getDispositivoInfo()

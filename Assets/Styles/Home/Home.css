@@ -4678,6 +4678,64 @@ body section#contanier_creditos_musica article span span:hover {
   text-decoration: underline;
   cursor: pointer;
 }
+body div#background_container_sincronizar_pc {
+  display: none;
+}
+body div#background_container_sincronizar_pc div#container_sincronizar_pc {
+  width: 90%;
+  max-width: 400px;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  background-color: #282828;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.404);
+  padding: 12px;
+  border-radius: 8px;
+  position: fixed;
+  bottom: 96px;
+  right: 31px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 5;
+}
+body div#background_container_sincronizar_pc div#container_sincronizar_pc div#container_sincronizar_pc_texto {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+body div#background_container_sincronizar_pc div#container_sincronizar_pc div#container_sincronizar_pc_texto div {
+  gap: 10px;
+  align-items: center;
+  display: flex;
+}
+body div#background_container_sincronizar_pc div#container_sincronizar_pc div#container_sincronizar_pc_texto div p {
+  margin: 0;
+  font: 1em;
+}
+body div#background_container_sincronizar_pc div#container_sincronizar_pc div#container_sincronizar_pc_texto hr {
+  border-color: rgba(0, 0, 0, 0.322);
+}
+body div#background_container_sincronizar_pc div#container_sincronizar_pc div#container_sincronizar_pc_texto button {
+  background-color: #1DB954;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+}
+body div#background_container_sincronizar_pc div#container_sincronizar_pc div#container_sincronizar_pc_texto button:hover {
+  scale: 1.05;
+  transition: scale 200ms ease-in-out;
+}
+body div#background_container_sincronizar_pc div#container_sincronizar_pc p {
+  font-size: 1.1em;
+  margin-top: 20px;
+}
+body div#background_container_sincronizar_pc div#container_sincronizar_pc span {
+  color: rgb(153, 153, 153);
+}
 body section#container_barra_musica {
   width: calc(100vw - 16px);
   height: 88px;
@@ -4700,18 +4758,6 @@ body section#container_barra_musica article {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-body section#container_barra_musica article div#container_sincronizar_pc {
-  min-width: 270px;
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
-  background-color: #282828;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.404);
-  padding: 12px;
-  border-radius: 8px;
-  position: fixed;
-  bottom: 96px;
-  right: 103px;
 }
 body section#container_barra_musica article div#infos_musica_barra_musica {
   flex: 1;
