@@ -17,7 +17,19 @@ function Carregar_Meu_Perfil() {
     }
     
     if(User.Perfil.Img_Perfil) {
-        document.getElementById('img_foto_meu_perfil').src = User.Perfil.Img_Perfil
+        carregarImagem(User.Perfil.Img_Perfil, function(imgEmail) {
+            if(imgEmail) {
+                document.getElementById('img_foto_meu_perfil').src = User.Perfil.Img_Perfil
+            } else {
+                carregarImagem(document.getElementById('img_foto_meu_perfil').src = User.Perfil.Img_Email, function(imgEmail) {
+                    if(imgEmail) {
+                        document.getElementById('img_foto_meu_perfil').src = User.Perfil.Img_Email
+                    } else {
+                        document.getElementById('img_foto_meu_perfil').src = 'Assets/Imgs/user_anonimo.png'
+                    }
+                })
+            }
+        })
     }
 
     document.getElementById('img_foto_meu_perfil').classList.add('foto_de_perfil_meu_perfil')

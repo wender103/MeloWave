@@ -423,7 +423,21 @@ function Retornar_User_Historico(Email) {
             //! Valores
             nome_user.innerText = Todos_Usuarios[c].Nome
             span.innerText = 'Perfil'
-            img.src = Todos_Usuarios[c].Perfil.Img_Perfil
+            
+            carregarImagem(Todos_Usuarios[c].Perfil.Img_Perfil, function(imgEmail) {
+                if(imgEmail) {
+                    img.src = Todos_Usuarios[c].Perfil.Img_Perfil
+                } else {
+                    carregarImagem(img.src = Todos_Usuarios[c].Perfil.Img_Email, function(imgEmail) {
+                        if(imgEmail) {
+                            img.src = Todos_Usuarios[c].Perfil.Img_Email
+                        } else {
+                            img.src = 'Assets/Imgs/user_anonimo.png'
+                        }
+                    })
+                }
+            })
+
             img.loading = 'lazy'
 
             //! AppendChild
@@ -620,7 +634,19 @@ function Retornar_Tocados_Recentemente_Primeira_Parte() {
                     paragrafo.innerText = Todos_Usuarios[d].Nome
 
                     if(Todos_Usuarios[d].Perfil.Img_Perfil != null) {
-                        img.src = Todos_Usuarios[d].Perfil.Img_Perfil
+                        carregarImagem(Todos_Usuarios[d].Perfil.Img_Perfil, function(imgEmail) {
+                            if(imgEmail) {
+                                img.src = Todos_Usuarios[d].Perfil.Img_Perfil
+                            } else {
+                                carregarImagem(img.src = Todos_Usuarios[d].Perfil.Img_Email, function(imgEmail) {
+                                    if(imgEmail) {
+                                        img.src = Todos_Usuarios[d].Perfil.Img_Email
+                                    } else {
+                                        img.src = 'Assets/Imgs/user_anonimo.png'
+                                    }
+                                })
+                            }
+                        })
                     } else {
                         img.src = Todos_Usuarios[d].Perfil.Img_Email
                     }

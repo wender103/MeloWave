@@ -238,7 +238,20 @@ function Retornar_User_Seguindo(Email) {
             //! Valores
             nome_user.innerText = Todos_Usuarios[c].Nome
             span.innerText = 'Perfil'
-            img.src = Todos_Usuarios[c].Perfil.Img_Perfil
+
+            carregarImagem(Todos_Usuarios[c].Perfil.Img_Perfil, function(imgEmail) {
+                if(imgEmail) {
+                    img.src = Todos_Usuarios[c].Perfil.Img_Perfil
+                } else {
+                    carregarImagem(img.src = Todos_Usuarios[c].Perfil.Img_Email, function(imgEmail) {
+                        if(imgEmail) {
+                            img.src = Todos_Usuarios[c].Perfil.Img_Email
+                        } else {
+                            img.src = 'Assets/Imgs/user_anonimo.png'
+                        }
+                    })
+                }
+            })
             img.loading = 'lazy'
 
             //! AppendChild
