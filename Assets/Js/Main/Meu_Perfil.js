@@ -297,6 +297,7 @@ const img_musicas_sendo_editada = document.getElementById('img_musicas_sendo_edi
 const input_autor_musica_sendo_editada = document.getElementById('input_autor_musica_sendo_editada')
 const input_nome_musica_sendo_editada = document.getElementById('input_nome_musica_sendo_editada')
 const input_genero_musica_sendo_editada = document.getElementById('input_genero_musica_sendo_editada')
+const Btn_Adicionar_Traducao_Letra_Musica = document.getElementById('Btn_Adicionar_Traducao_Letra_Musica')
 
 let musica_editando_meu_perfil
 function Abrir_Container_Editar_Musicas(Musica) {
@@ -307,6 +308,11 @@ function Abrir_Container_Editar_Musicas(Musica) {
     input_autor_musica_sendo_editada.value = Musica.Autor
     input_nome_musica_sendo_editada.value = Musica.Nome
     input_genero_musica_sendo_editada.value = Musica.Genero
+
+    if(!Array.isArray(Musica.Letra)) {
+        Btn_Adicionar_Traducao_Letra_Musica.style.display = 'block'
+    }
+    
 }
 
 function Fechar_Container_Editar_Musicas() {
@@ -383,5 +389,100 @@ function Salvar_Edicao_Musica() {
             Abrir_Entrar()
         }
         
+    }
+}
+
+//* Tradução
+Btn_Adicionar_Traducao_Letra_Musica .addEventListener('click', () => {
+    Abrir_Pagina('adicionartraducao', `adicionartraducao_${musica_editando_meu_perfil.ID}`)
+    setTimeout(() => {
+        Notificar_Infos('Por favor, traduza a letra apenas para o seu idioma. Isso garantirá que a tradução fique mais precisa e que todos possam entender melhor! 🌍✨')
+    }, 1000)
+    Fechar_Container_Editar_Musicas()
+})
+
+const text_area_add_traducao_letra = document.getElementById('text_area_add_traducao_letra')
+const Btn_Salvar_Traducao = document.getElementById('Btn_Salvar_Traducao')
+function Checar_Salvar_Traducao_Letra(Traducao, Comando='') {
+    const Linhas_Letra_Original = musica_editando_meu_perfil.Letra.Letra_Musica.split('\n').length
+    const Linhas_Letra_Traducao = Traducao.split('\n').length
+
+    if(Linhas_Letra_Original == Linhas_Letra_Traducao) {
+        Btn_Salvar_Traducao.classList.add('Active')
+        return true
+    } else {
+        Btn_Salvar_Traducao.classList.remove('Active')
+        return false
+    }
+}
+
+function Fechar_Adicionar_Traducao() {
+    text_area_add_traducao_letra.value = ''
+    Voltar_Para_Pagina_Anterior()
+}
+
+function Salvar_Traducao_Letra() {
+    let feito = false
+    if(Checar_Salvar_Traducao_Letra(text_area_add_traducao_letra.value, 'Checar')) {
+
+        db.collection('Musicas').get().then((snapshot) => {
+                snapshot.docs.forEach(Musicas_firebase => {
+                    TodasMusicas = Musicas_firebase.data().Musicas
+        
+                    if(!feito) {
+                        feito = true
+
+                        for (let c = 0; c < TodasMusicas.length; c++) {
+                            if(TodasMusicas[c].ID == musica_editando_meu_perfil.ID) {
+                                const Nova_Traducao = {
+                                    Idioma: navigator.language || navigator.userLanguage,
+                                    Traducao: text_area_add_traducao_letra.value
+                                }
+
+                                let Ja_Tem_Traducao_Esse_Idioma = false
+
+                                if(TodasMusicas[c].Letra.Traducao) {
+                                    try {
+                                        for (let c = 0; c < TodasMusicas[c].Letra.Traducao.length; c++) {
+                                            if(TodasMusicas[c].Letra.Traducao[c].Idioma == Nova_Traducao.Idioma) {
+                                                Ja_Tem_Traducao_Esse_Idioma = true
+                                                break
+                                            }
+                                        }
+                                    } catch{}
+                                }
+
+                                if(!Ja_Tem_Traducao_Esse_Idioma) {
+                                    TodasMusicas[c].Letra.Traducao = [] 
+                                    TodasMusicas[c].Letra.Traducao.push(Nova_Traducao)
+
+                                    db.collection('Musicas').doc(Musicas_firebase.id).update({Musicas: TodasMusicas}).then(() => {
+                                        Fechar_Adicionar_Traducao()
+                                    })
+
+                                } else {
+                                    Notificar_Infos('Já existe uma tradução disponível nesse idioma. Por favor, verifique antes de adicionar uma nova! Obrigado! 😊✨', 'Confirmar', 'Substituir').then((resp) => {
+                                        if(resp) {
+                                            for (let c = 0; c < TodasMusicas[c].Letra.Traducao.length; c++) {
+                                                if(TodasMusicas[c].Letra.Traducao[c].Idioma == Nova_Traducao.Idioma) {
+                                                    TodasMusicas[c].Letra.Traducao[c].Traducao = text_area_add_traducao_letra.value
+
+                                                    db.collection('Musicas').doc(Musicas_firebase.id).update({Musicas: TodasMusicas}).then(() => {
+                                                        Fechar_Adicionar_Traducao()
+                                                    })
+                                                    break
+                                                }
+                                            }
+                                        }
+                                    })
+                                }
+                                break
+                            }
+                        }
+                    }
+                })
+        })
+    } else {
+        Notificar_Infos('⚠️ A tradução não tem o mesmo número de linhas que a letra original. Por favor, ajuste para manter a sincronia.') 
     }
 }

@@ -105,6 +105,16 @@ pre.pre_container_letra {
   white-space: pre-wrap;
   z-index: 2;
 }
+pre.pre_container_letra.Dark div.div_container_letra_traducao.Active p.linha_pre_traducao_add_letra {
+  color: black !important;
+}
+pre.pre_container_letra div.div_container_letra_traducao.Active p.linha_pre_traducao_add_letra {
+  color: white;
+}
+pre.pre_container_letra p.linha_pre_traducao_add_letra {
+  font-size: 0.7em;
+  margin-bottom: 10px;
+}
 pre.pre_container_letra span {
   cursor: pointer;
 }

@@ -645,6 +645,9 @@
         <section class="Paginas" id="Pagina_verletra">
             <div id="background_ver_letra"></div>
             <article id="container_letra_verletra">
+                <button class="Icon_Traduzin">
+                    <img src="Assets/Imgs/Tradutor.svg" alt="Translate Icon">
+                </button>
                 <pre id="pre_letra_da_musica" class="pre_container_letra"></pre>
             </article>
         </section>
@@ -876,6 +879,14 @@
                 <button id="btn__aceitarplaylist">Entrar</button>
             </article>
         </section>
+
+        <section class="Paginas" id="Pagina_adicionartraducao">
+            <textarea placeholder="Adicione a tradução da letra aqui" spellcheck="false" id="text_area_add_traducao_letra" oninput="Checar_Salvar_Traducao_Letra(this.value)"></textarea>
+
+            <div id="Container_Btns_Adicionar_Traducao">
+                <button onclick="Salvar_Traducao_Letra()" id="Btn_Salvar_Traducao">Salvar Tradução</button>
+            </div>
+        </section>
     </main>
     <!--! Fim Main -->
 
@@ -895,6 +906,7 @@
             <div id="container_btns_editar_musica_sendo_editada">
                 <button onclick="Fechar_Container_Editar_Musicas()">Cancelar</button>
                 <button id="btn_adicionar_letra_musica_sendo_editada" onclick="Abrir_Pagina('adicionarletra', `adicionarletra_${musica_editando_meu_perfil.ID}`)">Letra</button>
+                <button id="Btn_Adicionar_Traducao_Letra_Musica" style="display: none;">Tradução</button>
                 <button onclick="Salvar_Edicao_Musica()" id="btn_salvar_musica_editando" class="btn_bloqueado">Salvar</button>
             </div>
         </div>
@@ -967,6 +979,10 @@
                     <p>Letra</p>
                     <button id="btn_mostrar_letra_tela_tocando_agora">Mostrar Letra</button>
                 </div>
+
+                <button class="Icon_Traduzin">
+                    <img src="Assets/Imgs/Tradutor.svg" alt="Translate Icon">
+                </button>
 
                 <div id="container_letra_tocando_agora">
                     <pre id="pre_letra_tocando_agora"></pre>
@@ -1285,6 +1301,10 @@
                     <h3>Letra</h3>
                     <button id="btn_mostrar_letra_cell">Mostrar Letra</button>
                 </div>
+
+                <button class="Icon_Traduzin">
+                    <img src="Assets/Imgs/Tradutor.svg" alt="Translate Icon">
+                </button>
 
                 <pre id="pre_letra_cell"></pre>
                 

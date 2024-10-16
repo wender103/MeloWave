@@ -3,9 +3,11 @@ const btn_pesquisar_letra_add = document.getElementById('btn_pesquisar_letra_add
 const preElemento = document.getElementById('local_letra_musica_sincronizar')
 const bnt_salvar_letra = document.getElementById('bnt_salvar_letra')
 const Btn_Proximo_aAdd_Letra = document.getElementById('Btn_Proximo_aAdd_Letra')
+const Icon_Traduzin = document.querySelectorAll('.Icon_Traduzin')
 let adicionando_letra_na_musica = false
 let pode_salvar_letra = false
 let letre_cell_aberta = false
+let Traducao_Ativa = false
 
 const lista_elementos_mudar_cor_letra = [document.querySelector('main'), document.getElementById('container_fila'), document.getElementById('container_barra_musica'), document.getElementById('container_tela_tocando_agora')]
 
@@ -504,8 +506,35 @@ function Destacar_linhas() {
 
                 // Atualiza o conteúdo do <pre> com as linhas modificadas
                 pre_letra_da_musica.innerHTML = ''
-                for (let c = 0; c < linhas.length; c++) {
-                    pre_letra_da_musica.innerHTML += linhas[c] + '\n'
+                for (let a = 0; a < linhas.length; a++) {
+                    if(Checar_Tem_Traducao(Listas_Prox.MusicaAtual) && Traducao_Ativa) {
+                        let Traducao_Musica
+
+                        for (let b = 0; b < Listas_Prox.MusicaAtual.Letra.Traducao.length; b++) {
+                            if(Listas_Prox.MusicaAtual.Letra.Traducao[b].Idioma == Idioma_User()) {
+                                Traducao_Musica = Listas_Prox.MusicaAtual.Letra.Traducao[b].Traducao.split('\n')
+
+                                break
+                            }
+                        }
+
+                        const div_container_letra_traducao = document.createElement('div')
+                        div_container_letra_traducao.classList.add('div_container_letra_traducao')
+
+                        if(a == linha_atual) {
+                            div_container_letra_traducao.classList.add('Active')
+                        } else {
+                            div_container_letra_traducao.classList.remove('Active')
+                        }
+
+                        div_container_letra_traducao.innerHTML = `${linhas[a]} <p class="linha_pre_traducao_add_letra">${Traducao_Musica[a]}</p>`
+                        pre_letra_da_musica.appendChild(div_container_letra_traducao)
+
+
+                    } else {
+                        pre_letra_da_musica.innerHTML += linhas[a] + '\n'
+                    }
+
                 }
 
                 if(Infos_Desempenho.Niveis_Desempenho < 3 && User.Configuracoes.Animacao_Detalhada) {
@@ -593,10 +622,36 @@ function Destacar_linhas() {
 
                 // Atualiza o conteúdo do <pre> com as linhas modificadas
                 pre_letra_tocando_agora.innerHTML = ''
-                for (let c = 0; c < linhas.length; c++) {
-                    pre_letra_tocando_agora.innerHTML += linhas[c] + '\n'   
+                for (let a = 0; a < linhas.length; a++) {
+                    if(Checar_Tem_Traducao(Listas_Prox.MusicaAtual) && Traducao_Ativa) {                        
+                        let Traducao_Musica
+
+                        for (let b = 0; b < Listas_Prox.MusicaAtual.Letra.Traducao.length; b++) {
+                            if(Listas_Prox.MusicaAtual.Letra.Traducao[b].Idioma == Idioma_User()) {
+                                Traducao_Musica = Listas_Prox.MusicaAtual.Letra.Traducao[b].Traducao.split('\n')
+
+                                break
+                            }
+                        }
+
+                        const div_container_letra_traducao = document.createElement('div')
+                        div_container_letra_traducao.classList.add('div_container_letra_traducao')
+
+                        if(a == linha_atual) {
+                            div_container_letra_traducao.classList.add('Active')
+                        } else {
+                            div_container_letra_traducao.classList.remove('Active')
+                        }
+
+                        div_container_letra_traducao.innerHTML = `${linhas[a]} <p class="linha_pre_traducao_add_letra">${Traducao_Musica[a]}</p>`
+                        pre_letra_tocando_agora.appendChild(div_container_letra_traducao)
+
+
+                    } else {
+                        pre_letra_tocando_agora.innerHTML += linhas[a] + '\n'
+                    }
+
                 }
-                
 
                 if(Infos_Desempenho.Niveis_Desempenho < 3 && User.Configuracoes.Animacao_Detalhada) {
                     const text = document.getElementById('linha_atual_sincronizar_aba_musica_tocando_agora')                        
@@ -682,8 +737,35 @@ function Destacar_linhas() {
 
                 // Atualiza o conteúdo do <pre> com as linhas modificadas
                 pre_letra_fullscreen.innerHTML = ''
-                for (let c = 0; c < linhas.length; c++) {
-                    pre_letra_fullscreen.innerHTML += linhas[c] + '\n'   
+                for (let a = 0; a < linhas.length; a++) {
+                    if(Checar_Tem_Traducao(Listas_Prox.MusicaAtual) && Traducao_Ativa) {                        
+                        let Traducao_Musica
+
+                        for (let b = 0; b < Listas_Prox.MusicaAtual.Letra.Traducao.length; b++) {
+                            if(Listas_Prox.MusicaAtual.Letra.Traducao[b].Idioma == Idioma_User()) {
+                                Traducao_Musica = Listas_Prox.MusicaAtual.Letra.Traducao[b].Traducao.split('\n')
+
+                                break
+                            }
+                        }
+
+                        const div_container_letra_traducao = document.createElement('div')
+                        div_container_letra_traducao.classList.add('div_container_letra_traducao')
+
+                        if(a == linha_atual) {
+                            div_container_letra_traducao.classList.add('Active')
+                        } else {
+                            div_container_letra_traducao.classList.remove('Active')
+                        }
+
+                        div_container_letra_traducao.innerHTML = `${linhas[a]} <p class="linha_pre_traducao_add_letra">${Traducao_Musica[a]}</p>`
+                        pre_letra_fullscreen.appendChild(div_container_letra_traducao)
+
+
+                    } else {
+                        pre_letra_fullscreen.innerHTML += linhas[a] + '\n'
+                    }
+
                 }
 
                 if(Infos_Desempenho.Niveis_Desempenho < 3 && User.Configuracoes.Animacao_Detalhada) {
@@ -766,8 +848,35 @@ function Destacar_linhas() {
 
                 // Atualiza o conteúdo do <pre> com as linhas modificadas
                 pre_letra_cell.innerHTML = ''
-                for (let c = 0; c < linhas.length; c++) {
-                    pre_letra_cell.innerHTML += linhas[c] + '\n'   
+                for (let a = 0; a < linhas.length; a++) {
+                    if(Checar_Tem_Traducao(Listas_Prox.MusicaAtual) && Traducao_Ativa) {                        
+                        let Traducao_Musica
+
+                        for (let b = 0; b < Listas_Prox.MusicaAtual.Letra.Traducao.length; b++) {
+                            if(Listas_Prox.MusicaAtual.Letra.Traducao[b].Idioma == Idioma_User()) {
+                                Traducao_Musica = Listas_Prox.MusicaAtual.Letra.Traducao[b].Traducao.split('\n')
+
+                                break
+                            }
+                        }
+
+                        const div_container_letra_traducao = document.createElement('div')
+                        div_container_letra_traducao.classList.add('div_container_letra_traducao')
+
+                        if(a == linha_atual) {
+                            div_container_letra_traducao.classList.add('Active')
+                        } else {
+                            div_container_letra_traducao.classList.remove('Active')
+                        }
+
+                        div_container_letra_traducao.innerHTML = `${linhas[a]} <p class="linha_pre_traducao_add_letra">${Traducao_Musica[a]}</p>`
+                        pre_letra_cell.appendChild(div_container_letra_traducao)
+
+
+                    } else {
+                        pre_letra_cell.innerHTML += linhas[a] + '\n'
+                    }
+
                 }
 
                 const text = document.getElementById('linha_atual_sincronizar_cell')
@@ -788,100 +897,127 @@ function Destacar_linhas() {
         }
 
         //! ------------------------------
-        if(letre_cell_aberta) {
-            pre_letra_cell.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
-            letra_pre_ver_letra = pre_letra_cell.innerText.split('\n')
-            let linhas = pre_letra_cell.innerHTML.split('\n')
-            let duracao_transicao = 1
+        // if(letre_cell_aberta) {
+        //     pre_letra_cell.innerHTML = Listas_Prox.MusicaAtual.Letra.Letra_Musica
+        //     letra_pre_ver_letra = pre_letra_cell.innerText.split('\n')
+        //     let linhas = pre_letra_cell.innerHTML.split('\n')
+        //     let duracao_transicao = 1
             
-            if (linha_atual <= linhas.length) {
-                // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
-                for (let c = 0; c < linhas.length; c++) {
-                    if(c == linha_atual) {
-                        try {
-                            duracao_transicao = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c + 1] - Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c]
-                            duracao_transicao = duracao_transicao * 1000
+        //     if (linha_atual <= linhas.length) {
+        //         // Atualiza a linha atual com a classe 'linha_pre_em_destaque'
+        //         for (let c = 0; c < linhas.length; c++) {
+        //             if(c == linha_atual) {
+        //                 try {
+        //                     duracao_transicao = Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c + 1] - Listas_Prox.MusicaAtual.Letra.Tempo_Sincronizado[c]
+        //                     duracao_transicao = duracao_transicao * 1000
                             
-                        } catch (error) {
-                            console.warn('Erro calcular o tempo de transação das letras: ' + error)
-                        }
+        //                 } catch (error) {
+        //                     console.warn('Erro calcular o tempo de transação das letras: ' + error)
+        //                 }
 
-                        linhas[c] = '<span class="linha_pre_em_destaque_cell" id="linha_atual_sincronizar_cell">' + letra_pre_ver_letra[c] + '</span>'
-                    } else if(c < linha_atual) {
-                        linhas[c] = `<span class="linha_pre_anterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-                    } else {
-                        if(c == 0) {
-                            linhas[c] = `<span class="linha_pre_posterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_cell">` + letra_pre_ver_letra[c] + '</span>'
-                        } else {
-                            linhas[c] = `<span class="linha_pre_posterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
-                        }
-                    }
-                }
+        //                 linhas[c] = '<span class="linha_pre_em_destaque_cell" id="linha_atual_sincronizar_cell">' + letra_pre_ver_letra[c] + '</span>'
+        //             } else if(c < linha_atual) {
+        //                 linhas[c] = `<span class="linha_pre_anterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+        //             } else {
+        //                 if(c == 0) {
+        //                     linhas[c] = `<span class="linha_pre_posterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})" id="linha_atual_sincronizar_cell">` + letra_pre_ver_letra[c] + '</span>'
+        //                 } else {
+        //                     linhas[c] = `<span class="linha_pre_posterior_cell" onclick="Voltar_Letra_Ver_Musica(${c})">` + letra_pre_ver_letra[c] + '</span>'
+        //                 }
+        //             }
+        //         }
 
-                // Atualiza o conteúdo do <pre> com as linhas modificadas
-                pre_letra_cell.innerHTML = ''
-                for (let c = 0; c < linhas.length; c++) {
-                    pre_letra_cell.innerHTML += linhas[c] + '\n'   
-                }
+        //         // Atualiza o conteúdo do <pre> com as linhas modificadas
+        //         pre_letra_cell.innerHTML = ''
+        //         for (let a = 0; a < linhas.length; a++) {
+        //             if(Checar_Tem_Traducao(Listas_Prox.MusicaAtual) && Traducao_Ativa) {                        
+        //                 let Traducao_Musica
+
+        //                 for (let b = 0; b < Listas_Prox.MusicaAtual.Letra.Traducao.length; b++) {
+        //                     if(Listas_Prox.MusicaAtual.Letra.Traducao[b].Idioma == Idioma_User()) {
+        //                         Traducao_Musica = Listas_Prox.MusicaAtual.Letra.Traducao[b].Traducao.split('\n')
+
+        //                         break
+        //                     }
+        //                 }
+
+        //                 const div_container_letra_traducao = document.createElement('div')
+        //                 div_container_letra_traducao.classList.add('div_container_letra_traducao')
+
+        //                 if(a == linha_atual) {
+        //                     div_container_letra_traducao.classList.add('Active')
+        //                 } else {
+        //                     div_container_letra_traducao.classList.remove('Active')
+        //                 }
+
+        //                 div_container_letra_traducao.innerHTML = `${linhas[a]} <p class="linha_pre_traducao_add_letra">${Traducao_Musica[a]}</p>`
+        //                 pre_letra_fullscreen.appendChild(div_container_letra_traducao)
+
+
+        //             } else {
+        //                 pre_letra_fullscreen.innerHTML += linhas[a] + '\n'
+        //             }
+
+        //         }
                 
 
-                if(Infos_Desempenho.Niveis_Desempenho < 3 && User.Configuracoes.Animacao_Detalhada) {
-                    const text = document.getElementById('linha_atual_sincronizar_cell')                        
-                    const letters = text.textContent.split('')
-                    text.innerHTML = ''
+        //         if(Infos_Desempenho.Niveis_Desempenho < 3 && User.Configuracoes.Animacao_Detalhada) {
+        //             const text = document.getElementById('linha_atual_sincronizar_cell')                        
+        //             const letters = text.textContent.split('')
+        //             text.innerHTML = ''
 
-                    const tempoPorLetra = duracao_transicao / letters.length  - 7
+        //             const tempoPorLetra = duracao_transicao / letters.length  - 7
 
-                    text.innerHTML = ''
+        //             text.innerHTML = ''
 
-                    letters.forEach((letter, index) => {
-                        const span = document.createElement('span')
-                        if (letter === ' ' && text.lastElementChild) {
-                            text.lastElementChild.textContent += letter
-                        } else {
-                            span.textContent = letter
-                            span.className = 'animated-span'
-                            text.appendChild(span)
-                        }                        
-                    })
+        //             letters.forEach((letter, index) => {
+        //                 const span = document.createElement('span')
+        //                 if (letter === ' ' && text.lastElementChild) {
+        //                     text.lastElementChild.textContent += letter
+        //                 } else {
+        //                     span.textContent = letter
+        //                     span.className = 'animated-span'
+        //                     text.appendChild(span)
+        //                 }                        
+        //             })
 
-                    let contador_animacoes = 0
-                    function Animar() {
-                        if(contador_animacoes < letters.length && !audio_player.paused) {
-                            try {
-                                text.getElementsByTagName('span')[contador_animacoes].classList.add('animated')
-                                contador_animacoes++
+        //             let contador_animacoes = 0
+        //             function Animar() {
+        //                 if(contador_animacoes < letters.length && !audio_player.paused) {
+        //                     try {
+        //                         text.getElementsByTagName('span')[contador_animacoes].classList.add('animated')
+        //                         contador_animacoes++
 
-                                setTimeout(() => {
-                                    Animar()
-                                }, tempoPorLetra)
-                            } catch (error) {
+        //                         setTimeout(() => {
+        //                             Animar()
+        //                         }, tempoPorLetra)
+        //                     } catch (error) {
                                 
-                            }
-                        }
-                    } Animar()
+        //                     }
+        //                 }
+        //             } Animar()
 
-                    audio_player.addEventListener('play', () => {
-                        Animar()
-                    })
-                } else {
-                    const text = document.getElementById('linha_atual_sincronizar_cell')
-                    const span = document.createElement('span')
-                    span.innerText = text.innerText
-                    span.className = 'animated-span'
-                    text.innerHTML = ''
-                    text.appendChild(span)
-                    setTimeout(() => {
-                        span.classList.add('animated')
-                    }, 100)
-                }
-                //? Faz o scroll para a linha atual
-                try {
-                    document.getElementById('linha_atual_sincronizar_cell').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
-                } catch{}
+        //             audio_player.addEventListener('play', () => {
+        //                 Animar()
+        //             })
+        //         } else {
+        //             const text = document.getElementById('linha_atual_sincronizar_cell')
+        //             const span = document.createElement('span')
+        //             span.innerText = text.innerText
+        //             span.className = 'animated-span'
+        //             text.innerHTML = ''
+        //             text.appendChild(span)
+        //             setTimeout(() => {
+        //                 span.classList.add('animated')
+        //             }, 100)
+        //         }
+        //         //? Faz o scroll para a linha atual
+        //         try {
+        //             document.getElementById('linha_atual_sincronizar_cell').scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+        //         } catch{}
                 
-            }
-        }
+        //     }
+        // }
     }
 }
 
@@ -1116,4 +1252,42 @@ function Fechar_Letra_Cell() {
     letre_cell_aberta = false
     container_letra_cell.style.height = '48px'
     btn_mostrar_letra_cell.innerText = 'Mostrar Letra'
+}
+
+//* Traducao 
+Icon_Traduzin.forEach(element => {
+    element.addEventListener('click', () => {
+        Traducao_Ativa = !Traducao_Ativa
+
+        if(Traducao_Ativa) {
+            element.classList.add('Active')
+            element.querySelector('img').src = 'Assets/Imgs/Tradutor_Active.svg'
+        } else {
+            element.classList.remove('Active')       
+            element.querySelector('img').src = 'Assets/Imgs/Tradutor.svg'
+        }
+    })
+})
+
+function Checar_Tem_Traducao(Musica) {
+    let Tem_Traducao = false
+    if(Musica.Letra.Traducao) {
+        for (let c = 0; c < Musica.Letra.Traducao.length; c++) {
+            if(Musica.Letra.Traducao[c].Idioma == Idioma_User()) {
+                Tem_Traducao = true
+                Icon_Traduzin.forEach(element => {
+                    element.style.display = 'flex'
+                })
+                break
+            }
+        }
+    }
+
+    if(!Tem_Traducao) {
+        Icon_Traduzin.forEach(element => {
+            element.style.display = 'none'
+        })
+    }
+
+    return Tem_Traducao
 }

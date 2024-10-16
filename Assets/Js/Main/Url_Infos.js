@@ -207,6 +207,10 @@ function Recarregar_Infos_Url() {
             Abrir_Pagina('playlist', id_page)
         } else if(page == 'aceitarplaylist') {
             Abrir_Pagina('aceitarplaylist', id_page)
+        } else if(page == 'adicionartraducao') {
+            Abrir_Pagina('meuperfil', `meuperfil_${User.ID}`)
+        } else if(page == 'adicionarletra') {
+            Abrir_Pagina('meuperfil', `meuperfil_${User.ID}`)
         } else {
             let Pode_Salvar_Pagina = true
             for (let c = 0; c < Paginas_Nao_Salvar_No_Historico.length; c++) {

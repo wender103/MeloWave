@@ -296,7 +296,8 @@ let Musica_Antiga_Transicao = undefined
 let Comando_Tocar_Musica = ''
 let pd_adicionar_view = false
 
-function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {      
+function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {   
+    Checar_Tem_Traducao(MusicaAtual)   
     pd_adicionar_view = true
     Comando_Tocar_Musica = Comando
     //! Vai deixar as cores pretas caso o background interativo for branco

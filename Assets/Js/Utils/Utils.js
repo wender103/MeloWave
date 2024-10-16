@@ -1577,3 +1577,7 @@ function getDispositivoInfo() {
 }
 
 const Tipo_Dispositivo = getDispositivoInfo()
+
+function Idioma_User() {
+    return navigator.language || navigator.userLanguage
+}

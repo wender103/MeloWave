@@ -2640,6 +2640,31 @@ body main section.Paginas#Pagina_verletra article#container_letra_verletra {
   overflow: hidden;
   height: 100%;
 }
+body main section.Paginas#Pagina_verletra article#container_letra_verletra button.Icon_Traduzin {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(102, 102, 102, 0.4);
+  border: none;
+  border-radius: 4px;
+  position: fixed;
+  top: 200px;
+  right: 22px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  cursor: pointer;
+}
+body main section.Paginas#Pagina_verletra article#container_letra_verletra button.Icon_Traduzin.Active {
+  background-color: #fff;
+}
+body main section.Paginas#Pagina_verletra article#container_letra_verletra button.Icon_Traduzin img {
+  width: 90%;
+  height: 90%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 body main section.Paginas#Pagina_verletra article#container_letra_verletra pre.Dark {
   color: rgba(0, 0, 0, 0.2509803922);
 }
@@ -3761,6 +3786,50 @@ body main section.Paginas#Pagina_aceitarplaylist article button {
   padding: 0 20px;
   margin-top: 30px;
 }
+body main section.Paginas#Pagina_adicionartraducao textarea#text_area_add_traducao_letra {
+  width: 100%;
+  min-height: 100vh;
+  background-color: transparent;
+  border: none;
+  color: var(--white);
+  outline: none;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+body main section.Paginas#Pagina_adicionartraducao textarea#text_area_add_traducao_letra::-moz-placeholder {
+  color: var(--white);
+}
+body main section.Paginas#Pagina_adicionartraducao textarea#text_area_add_traducao_letra::placeholder {
+  color: var(--white);
+}
+body main section.Paginas#Pagina_adicionartraducao div#Container_Btns_Adicionar_Traducao {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
+body main section.Paginas#Pagina_adicionartraducao div#Container_Btns_Adicionar_Traducao button {
+  width: 100%;
+  padding: 15px 15px;
+  border-radius: 4px;
+  cursor: not-allowed;
+  opacity: 0.6;
+  color: var(--white);
+  background-color: var(--padrao15);
+  font-weight: 600;
+  border: none;
+  text-align: center;
+  white-space: nowrap;
+}
+body main section.Paginas#Pagina_adicionartraducao div#Container_Btns_Adicionar_Traducao button.Active {
+  cursor: pointer;
+  opacity: 1;
+  color: #000000;
+  background-color: #1db954;
+}
 body div#Container_Alterar_Atalhos {
   width: 100%;
   height: 100%;
@@ -3800,11 +3869,11 @@ body div#container_editar_musica div#container_conteudo_editar_musica {
 }
 body div#container_editar_musica div#container_conteudo_editar_musica img#img_musicas_sendo_editada {
   width: 100%;
-  height: 400px;
   margin: 0 auto 30px;
   border-radius: 8px;
   -o-object-fit: cover;
      object-fit: cover;
+  aspect-ratio: 1/1;
 }
 body div#container_editar_musica div#container_conteudo_editar_musica input {
   width: 100%;
@@ -3826,13 +3895,13 @@ body div#container_editar_musica div#container_conteudo_editar_musica input#inpu
 }
 body div#container_editar_musica div#container_conteudo_editar_musica div#container_btns_editar_musica_sendo_editada {
   display: flex;
-  gap: 20px;
+  gap: 5px;
   justify-content: space-around;
   margin-top: 30px;
 }
 body div#container_editar_musica div#container_conteudo_editar_musica div#container_btns_editar_musica_sendo_editada button {
   width: 100%;
-  padding: 15px 15px;
+  padding: 15px 10px;
   border-radius: 4px;
   cursor: pointer;
   color: var(--white);
@@ -4172,6 +4241,43 @@ body section#container_tela_tocando_agora article div#container_letra_tela_tocan
   display: flex;
   flex-direction: column;
   background-color: var(--black_transparent);
+  position: relative;
+  overflow: hidden;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora button.Icon_Traduzin {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(102, 102, 102, 0.4);
+  border: none;
+  border-radius: 4px;
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  cursor: pointer;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora button.Icon_Traduzin.Active {
+  background-color: #fff;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora button.Icon_Traduzin img {
+  width: 90%;
+  height: 90%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora div.div_container_letra_traducao.Active p.linha_pre_traducao_add_letra {
+  color: white;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora p.linha_pre_traducao_add_letra {
+  font-size: 0.8em;
+  margin-bottom: 10px;
+}
+body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora.Dark div.div_container_letra_traducao.Active p.linha_pre_traducao_add_letra {
+  color: black !important;
 }
 body section#container_tela_tocando_agora article div#container_letra_tela_tocando_agora.Dark div#container_letra_tocando_agora pre {
   color: rgba(0, 0, 0, 0.2509803922) !important;
@@ -5292,6 +5398,9 @@ body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell di
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white pre {
   color: var(--fonte_transparente) !important;
 }
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white pre div.div_container_letra_traducao.Active p.linha_pre_traducao_add_letra {
+  color: white;
+}
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.white pre span.linha_pre_anterior_cell {
   color: var(--fonte_meio_transparente) !important;
 }
@@ -5317,6 +5426,9 @@ body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell di
 }
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark pre {
   color: rgba(0, 0, 0, 0.2509803922) !important;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark pre pre div.div_container_letra_traducao.Active p.linha_pre_traducao_add_letra {
+  color: black !important;
 }
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell.dark pre span.linha_pre_anterior_add_letra {
   color: rgba(0, 0, 0, 0.2509803922) !important;
@@ -5352,6 +5464,31 @@ body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell di
   cursor: pointer;
   font-weight: 700;
 }
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell button.Icon_Traduzin {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(102, 102, 102, 0.4);
+  border: none;
+  border-radius: 4px;
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  cursor: pointer;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell button.Icon_Traduzin.Active {
+  background-color: #fff;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell button.Icon_Traduzin img {
+  width: 90%;
+  height: 90%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell pre {
   width: 100%;
   height: 80%;
@@ -5368,6 +5505,10 @@ body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell di
   -webkit-mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
           mask-image: linear-gradient(to bottom, transparent, white 25%, white 75%, transparent);
   overflow: auto;
+}
+body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell pre p.linha_pre_traducao_add_letra {
+  font-size: 0.7em;
+  margin-bottom: 10px;
 }
 body section#pag_musica_tocando_agr article#container_parte_sobre_musica_cell div.containers_pag_cell#container_letra_cell pre span {
   cursor: pointer;
@@ -5523,6 +5664,17 @@ body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_f
   text-align: center;
   overflow: hidden;
 }
+body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre.Dark div.div_container_letra_traducao.Active p.linha_pre_traducao_add_letra {
+  color: black !important;
+}
+body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre div.div_container_letra_traducao.Active p.linha_pre_traducao_add_letra {
+  color: white;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
+}
+body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre p.linha_pre_traducao_add_letra {
+  font-size: 1.3em;
+  margin-bottom: 10px;
+}
 body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre span {
   cursor: pointer;
   display: none;
@@ -5539,7 +5691,7 @@ body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_f
   display: inline;
   font-size: 2.5rem;
   color: white;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7), 0 0 15px rgba(255, 255, 255, 0.7);
 }
 body section#container_fullscreen div#letra_fullscreen div#container_pre_letra_fullscreen pre h1 {
   color: var(--white);
