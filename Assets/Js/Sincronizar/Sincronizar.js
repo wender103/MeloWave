@@ -35,7 +35,7 @@ function Abrir_Aba_Sincronizar() {
         span_como_sincronizar_pc.style.display = 'none'
         Btn_Sincronizar_Dispositivos.innerHTML = 'Cancelar'
         if(Tipo_Dispositivo.dispositivo == 'Mobile') {
-            Icon_Dispositivo_Sincronizar.src = 'Assets/Imgs/PC_Ativo.svg'
+            Icon_Dispositivo_Sincronizar.src = 'Assets/Imgs/Pc_Ativo.svg'
             Texto_Dispositivo_Sincronizar.innerHTML = 'Conectado a um computador!'
         } else {
             Icon_Dispositivo_Sincronizar.src = 'Assets/Imgs/Cell_Ativo.svg'
@@ -51,7 +51,7 @@ function Abrir_Aba_Sincronizar() {
 
     } else if(Ultimo_Dado_Sincronizar.Estado_Sincronizacao == 'Aguardando') {
         if(Tipo_Dispositivo.dispositivo == 'Mobile') {
-            Icon_Dispositivo_Sincronizar.src = 'Assets/Imgs/PC_Amarelo.svg'
+            Icon_Dispositivo_Sincronizar.src = 'Assets/Imgs/Pc_Amarelo.svg'
             Texto_Dispositivo_Sincronizar.innerHTML = 'Aguardando um PC!'
         } else {
             Icon_Dispositivo_Sincronizar.src = 'Assets/Imgs/Cell_Amarelo.svg'
@@ -69,7 +69,7 @@ function Abrir_Aba_Sincronizar() {
         Btn_Sincronizar_Dispositivos.innerHTML = 'Sincronizar'
 
         if(Tipo_Dispositivo.dispositivo == 'Mobile') {
-            Icon_Dispositivo_Sincronizar.src = 'Assets/Imgs/PC.svg'
+            Icon_Dispositivo_Sincronizar.src = 'Assets/Imgs/Pc.svg'
             Texto_Dispositivo_Sincronizar.innerHTML = 'Conecte-se a um computador!'
         } else {
             Icon_Dispositivo_Sincronizar.src = 'Assets/Imgs/Cell.svg'
