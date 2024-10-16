@@ -230,10 +230,12 @@ function Criar_Sincronizacao() {
         if(!User_Sincronizado) {
             db.collection('Dispositivos_Sincronizados').get().then((snapshot) => {
                 snapshot.docs.forEach(Dispositivos => {
-                    Todos_Dispositivos_Sincronizados = Dispositivos.data().Dados_Sincronizar
+                    Todos_Dispositivos_Sincronizados = Dispositivos.data()
                 })
 
                 let Ja_Tem_Dados_Salvos = false
+                console.log(Todos_Dispositivos_Sincronizados)
+                
 
                 for (let c = 0; c < Todos_Dispositivos_Sincronizados.length; c++) {
                     if(Todos_Dispositivos_Sincronizados[c].User_ID == User.ID) {
