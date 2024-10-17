@@ -240,18 +240,22 @@ function atualizarURL_add_Musica(ID) {
     window.history.pushState({path: url}, '', url)
 }
 
-function Copiar_Para_Area_Tranferencia(Link=undefined) {
+function Copiar_Para_Area_Tranferencia(Link=undefined, Recado='✅ Link copiado para a área de transferência!') {
     if(Link != undefined) {
         navigator.clipboard.writeText(Link).then(function() {
 
-            var notification = document.getElementById('copyNotification')
-            notification.classList.add('show')
-    
-            setTimeout(function() {
-                notification.classList.remove('show')
-            }, 3000)
+            Avisos_Rapidos(Recado)
         }, function(err) {
             console.error('Erro ao copiar o link: ', err)
         })
+    }
+}
+
+async function Checar_Ultima_Coisa_Area_Transferencia() {
+    try {
+        const text = await navigator.clipboard.readText()
+        return text
+    } catch (err) {
+        return err
     }
 }

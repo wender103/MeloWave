@@ -393,12 +393,43 @@ function Salvar_Edicao_Musica() {
 }
 
 //* Tradução
-Btn_Adicionar_Traducao_Letra_Musica .addEventListener('click', () => {
+async function Comparar_Letra() {
+  // Letra da música no perfil
+  const letra_original = musica_editando_meu_perfil.Letra.Letra_Musica
+  
+  // Normalizar letra do perfil removendo espaços extras e quebras de linha
+  const letra_normalizada_original = letra_original.replace(/\s+/g, ' ').trim()
+
+  // Checar o texto da área de transferência
+  const letra_area_transferencia = await Checar_Ultima_Coisa_Area_Transferencia()
+
+  // Normalizar o texto da área de transferência da mesma forma
+  const letra_normalizada_transferencia = letra_area_transferencia.replace(/\s+/g, ' ').trim()
+
+  // Comparar as duas letras
+  if (letra_normalizada_original === letra_normalizada_transferencia) {
+    return true
+  } else {
+    return false
+  }
+}
+
+Btn_Adicionar_Traducao_Letra_Musica.addEventListener('click', () => {
     Abrir_Pagina('adicionartraducao', `adicionartraducao_${musica_editando_meu_perfil.ID}`)
+
+    Checar_Ultima_Coisa_Area_Transferencia().then(result => {
+        console.log('Resultado:', result)
+        if(Comparar_Letra()) {
+            Avisos_Rapidos('🎶 A letra da música já foi copiada para a área de transferência! 😊📋')
+        } else {
+            Copiar_Para_Area_Tranferencia(musica_editando_meu_perfil.Letra.Letra_Musica, '🎶 A letra da música foi copiada para a área de transferência! 😊📝')
+        }
+    })
     setTimeout(() => {
         Notificar_Infos('Por favor, traduza a letra apenas para o seu idioma. Isso garantirá que a tradução fique mais precisa e que todos possam entender melhor! 🌍✨')
     }, 1000)
     Fechar_Container_Editar_Musicas()
+
 })
 
 const text_area_add_traducao_letra = document.getElementById('text_area_add_traducao_letra')

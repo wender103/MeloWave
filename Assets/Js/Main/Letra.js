@@ -506,8 +506,10 @@ function Destacar_linhas() {
 
                 // Atualiza o conteúdo do <pre> com as linhas modificadas
                 pre_letra_da_musica.innerHTML = ''
+                let Tem_Traducao = false
                 for (let a = 0; a < linhas.length; a++) {
                     if(Checar_Tem_Traducao(Listas_Prox.MusicaAtual) && Traducao_Ativa) {
+                        Tem_Traducao = true
                         let Traducao_Musica
 
                         for (let b = 0; b < Listas_Prox.MusicaAtual.Letra.Traducao.length; b++) {
@@ -523,6 +525,7 @@ function Destacar_linhas() {
 
                         if(a == linha_atual) {
                             div_container_letra_traducao.classList.add('Active')
+                            div_container_letra_traducao.id = 'Div_Atual_Sincronizar_Letra'
                         } else {
                             div_container_letra_traducao.classList.remove('Active')
                         }
@@ -587,7 +590,12 @@ function Destacar_linhas() {
                 }
                 //? Faz o scroll para a linha atual
                 try {
-                    document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    if(Tem_Traducao) {
+                        document.getElementById('Div_Atual_Sincronizar_Letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+                        
+                    } else {
+                        document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    }
                 } catch{}
             }
         } else if(pode_atualizar_letra_tela_tocando_agora) {
