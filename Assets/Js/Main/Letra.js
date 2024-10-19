@@ -588,11 +588,10 @@ function Destacar_linhas() {
                         span.classList.add('animated')
                     }, 100)
                 }
-                //? Faz o scroll para a linha atual
+               //? Faz o scroll para a linha atual após um pequeno delay
                 try {
-                    if(Tem_Traducao) {
-                        document.getElementById('Div_Atual_Sincronizar_Letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
-                        
+                    if(Tem_Traducao) {                            
+                        document.getElementById('Div_Atual_Sincronizar_Letra').scrollIntoView({ block: 'center' })
                     } else {
                         document.getElementById('linha_atual_sincronizar_ver_letra').scrollIntoView({ behavior: 'smooth', block: 'center' })
                     }
