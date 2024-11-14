@@ -1581,3 +1581,9 @@ const Tipo_Dispositivo = getDispositivoInfo()
 function Idioma_User() {
     return navigator.language || navigator.userLanguage
 }
+
+function sanitizeHtml(text) {
+    const element = document.createElement('div')
+    element.appendChild(document.createTextNode(text))
+    return element.innerHTML
+}

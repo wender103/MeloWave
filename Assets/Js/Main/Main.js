@@ -297,6 +297,10 @@ let Comando_Tocar_Musica = ''
 let pd_adicionar_view = false
 
 function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {   
+    if(MusicaAtual.ID != Listas_Prox.MusicaAtual.ID) {
+        Atualizar_Atividade(false, MusicaAtual)
+    }
+
     Checar_Tem_Traducao(MusicaAtual)   
     pd_adicionar_view = true
     Comando_Tocar_Musica = Comando
@@ -847,6 +851,7 @@ function Ativar_Musica(Musica=Listas_Prox.MusicaAtual) {
         nav.style.transition = '500ms height ease-in-out'
         nav.style.height = 'calc(100vh - 112px)'
         main.style.height = 'calc(100vh - 112px)'
+        document.getElementById('Container_Lista_Amigos').classList.add('Active')
 
         if(notificacao_tempo_real_aberta) {
             Mostrar_Notificacao_Na_Tela(2)
@@ -896,6 +901,8 @@ function Desativar_Musica(Comando='') {
 
     nav.style.height = 'calc(100vh - 16px)'
     main.style.height = 'calc(100vh - 16px)'
+    document.getElementById('Container_Lista_Amigos').classList.remove('Active')
+    Fechar_Lista_Amigos()
 
     setTimeout(() => {
         main.classList.remove('Musica_On')

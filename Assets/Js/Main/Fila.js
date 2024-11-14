@@ -20,11 +20,12 @@ function Abrir_Fila() {
     if(pd_abrir_lista && Device.Tipo != 'Mobile') {
         let time_esperar = 0
 
-        if(tela_tocando_agora_aberta) {
+        if(tela_tocando_agora_aberta || Lista_Amigos_Aberta) {
             time_esperar = 600
         }
 
         Fechar_Tela_Tocando_Agora()
+        Fechar_Lista_Amigos()
         pd_abrir_lista = false
 
         setTimeout(() => {

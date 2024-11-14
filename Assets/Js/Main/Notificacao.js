@@ -56,7 +56,7 @@ function Remover_Notificacao_User(Notificacao) {
 }
 
 //! Notificações em tempo real
-function Enviar_Notificacao_Tempo_Real(Destinatario, Titulo, Desc, Modelo='Modelo2', Comando=null, Img=null, Temporaria=false, Btn1='Fechar', Btn2=null, Adicional=null) {
+function Enviar_Notificacao_Tempo_Real(Destinatario, Titulo, Desc, Modelo='Modelo2', Comando='', Img=null, Temporaria=false, Btn1='Fechar', Btn2=null, Adicional=null) {
     const Nova_Notificacao = {
         Titulo,
         Desc,
@@ -224,7 +224,11 @@ function Mostrar_Notificaco_Tempo_Real() {
             container_btns_notificacao_tempo_real.appendChild(btn_notificacao_tempo_real)
         
             //! Funções
-            btn_fechar_notificacao_tempo_real.addEventListener('click', () => {
+            btn_fechar_notificacao_tempo_real.addEventListener('click', () => {                
+                if(Notificacao.Comando.includes('Aceitar Pedido De Amizade')) {
+                    Enviar_Notificacao_Tempo_Real(Notificacao.Enviada_Por, 'Pedido de Amizade Recusado', `*#ff0000*${User.Nome}*#ff0000* recusou seu pedido de amizade.`, 'Modelo1', '', User.Perfil.Img_Perfil, true, 'Fechar')
+                }
+
                 Zerar_Mostrar_Notificaco_Tempo_Real('Salvar')
                 resolve(false)
             })
@@ -247,14 +251,18 @@ function Mostrar_Notificaco_Tempo_Real() {
             }
 
             btn_notificacao_tempo_real.addEventListener('click', () => {
-                Zerar_Mostrar_Notificaco_Tempo_Real('Salvar')
-                resolve(true)
 
                 if(Notificacao.Comando != null) {
                     if(Notificacao.Comando.includes('Novo User Abrir Playlist:')) {
                         Abrir_Pagina('playlist', Notificacao.Comando.replace('Novo User Abrir Playlist:', ''))
+
+                    } else if(Notificacao.Comando.includes('Aceitar Pedido De Amizade')) {
+                        Aceitar_Pedido_Amizade(Notificacao.Enviada_Por)
                     }
                 }
+
+                Zerar_Mostrar_Notificaco_Tempo_Real('Salvar')
+                resolve(true)
             })
 
             if(Notificacao.Comando.includes('Novo User Abrir Playlist:') || Notificacao.Comando.includes('User Removido Playlist:')) {
@@ -329,6 +337,23 @@ function Mostrar_Notificaco_Tempo_Real() {
                 document.getElementById('btn_notificacao_tempo_real').addEventListener('click', () => {
                     Abrir_Pagina('match', Notificacao.Adicional.ID) 
                 }) 
+            } else if(Notificacao.Comando.includes('Amizade Confirmada')) {
+                db.collection('Users').get().then((snapshot) => {
+                    let contador = 0
+
+                    snapshot.docs.forEach(Users => {
+                        const InfoUsers = Users.data()
+
+                        Todos_Usuarios.push(InfoUsers)
+
+                        Todos_Usuarios[contador].ID = Users.id
+                        contador++
+                    })
+
+                    if(!Listner_Ativado) {
+                        Listner_Amigos()
+                    }
+                })
             }
 
         } 

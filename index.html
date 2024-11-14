@@ -132,7 +132,7 @@
                 </svg>    
             </button>
 
-            <button id="btn_amigos_div_nav">
+            <button id="btn_amigos_div_nav" onclick="Abrir_Lista_Amigos()">
                 <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg" class="icone">
                     <path d="M2.4 5.59999C3.2825 5.59999 4 4.88249 4 3.99999C4 3.11749 3.2825 2.39999 2.4 2.39999C1.5175 2.39999 0.8 3.11749 0.8 3.99999C0.8 4.88249 1.5175 5.59999 2.4 5.59999ZM13.6 5.59999C14.4825 5.59999 15.2 4.88249 15.2 3.99999C15.2 3.11749 14.4825 2.39999 13.6 2.39999C12.7175 2.39999 12 3.11749 12 3.99999C12 4.88249 12.7175 5.59999 13.6 5.59999ZM14.4 6.39999H12.8C12.36 6.39999 11.9625 6.57749 11.6725 6.86499C12.68 7.41749 13.395 8.41499 13.55 9.59999H15.2C15.6425 9.59999 16 9.24249 16 8.79999V7.99999C16 7.11749 15.2825 6.39999 14.4 6.39999ZM8 6.39999C9.5475 6.39999 10.8 5.14749 10.8 3.59999C10.8 2.05249 9.5475 0.799988 8 0.799988C6.4525 0.799988 5.2 2.05249 5.2 3.59999C5.2 5.14749 6.4525 6.39999 8 6.39999ZM9.92 7.19999H9.7125C9.1925 7.44999 8.615 7.59999 8 7.59999C7.385 7.59999 6.81 7.44999 6.2875 7.19999H6.08C4.49 7.19999 3.2 8.48999 3.2 10.08V10.8C3.2 11.4625 3.7375 12 4.4 12H11.6C12.2625 12 12.8 11.4625 12.8 10.8V10.08C12.8 8.48999 11.51 7.19999 9.92 7.19999ZM4.3275 6.86499C4.0375 6.57749 3.64 6.39999 3.2 6.39999H1.6C0.7175 6.39999 0 7.11749 0 7.99999V8.79999C0 9.24249 0.3575 9.59999 0.8 9.59999H2.4475C2.605 8.41499 3.32 7.41749 4.3275 6.86499Z" fill="white" class="icone"/>
                 </svg>                        
@@ -1075,6 +1075,98 @@
         </article>
     </section>
 
+    <!--! Lista Amigos -->
+    <section id="Container_Lista_Amigos">
+        <article>
+            <div id="Container_Header_Lista_Amigos">
+                <p>Amigos</p>
+                <button id="Btn_Fechar_Lista_Amigos" onclick="Fechar_Lista_Amigos() ">
+                    <img src="Assets/Imgs/x.svg">
+                </button>
+            </div>
+
+            <div id="Container_Divs_Lista_Amigos">
+                <div class="Container_Amigo">
+                    <div class="Perfil_Amigo">
+                        <div class="Container_Img_Perfil_Amigo">
+                            <img src="https://w.wallhaven.cc/full/dg/wallhaven-dg1yeg.jpg" alt="">
+                            <div class="Boll_Online"></div>
+                        </div>
+                        <div class="Container_Nome_Perfil_Amigo">
+                            <h3>Wender;-;</h3>
+                            <p>Online...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Container_Amigo">
+                    <div class="Adicional_Perfil_Amigo">
+                        <div class="Background_Adicional_Perfil_Amigo">
+                            <img src="https://akamai.sscdn.co/uploadfile/letras/albuns/d/a/8/9/1969261695993301.jpg" alt="">
+                        </div>
+                        <div class="Container_Img_Perfil_Amigo">
+                            <img src="https://w.wallhaven.cc/full/dg/wallhaven-dg1yeg.jpg" alt="">
+                            <div class="Boll_Online"></div>
+                        </div>
+                        <h3 class="Nome_User_Adicional_Perfil_Amigo">Wender;-;</h3>
+                        <div class="Atividade_User_Adicional_Perfil_Amigo">
+                            <p class="Ouvindo">Ouvindo</p>
+
+                            <div class="Atividade">
+                                <div class="Img_Musica_Atividade">
+                                    <img src="https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/95ff4b22-1dbe-4e5c-b4b1-37015228386a/200x200_cMFwIjLaAFY_520d8dc8-a71b-4e2f-8012-167d546bedd9.jpg" alt="">
+                                </div>
+
+                                <div class="Texto_Musica_Atividade">
+                                    <p>Cowgirls (feat. ERNEST)</p>
+                                    <span>Morgan Wallen, ERNEST</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Perfil_Amigo">
+                        <div class="Container_Img_Perfil_Amigo">
+                            <img src="https://w.wallhaven.cc/full/dg/wallhaven-dg1yeg.jpg" alt="">
+                            <div class="Boll_Online"></div>
+                        </div>
+                        <div class="Container_Nome_Perfil_Amigo">
+                            <h3>Wender;-;</h3>
+                            <p>Online...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Container_Amigo">
+                    <div class="Perfil_Amigo">
+                        <div class="Container_Img_Perfil_Amigo">
+                            <img src="https://w.wallhaven.cc/full/dg/wallhaven-dg1yeg.jpg" alt="">
+                            <div class="Boll_Online"></div>
+                        </div>
+                        <div class="Container_Nome_Perfil_Amigo">
+                            <h3>Wender;-;</h3>
+                            <p>Online...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Container_Amigo">
+                    <div class="Perfil_Amigo">
+                        <div class="Container_Img_Perfil_Amigo">
+                            <img src="https://w.wallhaven.cc/full/dg/wallhaven-dg1yeg.jpg" alt="">
+                            <div class="Boll_Online"></div>
+                        </div>
+                        <div class="Container_Nome_Perfil_Amigo">
+                            <h3>Wender;-;</h3>
+                            <p>Online...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="Container_Adicionar_Amigos">
+                <input type="text" placeholder="Adicionar Email Do Amigo" autocomplete="off" id="Input_Email_Adicionar_Amigo">
+                <button id="Btn_Adicionar_Amigo">+</button>
+            </div>
+        </article>
+    </section>
+
     <!--! Creditos -->
     <section id="contanier_creditos_musica"">
         <article>
@@ -1635,6 +1727,7 @@
     <script src="Assets/Js/Main/Selecionar_Generos.js"></script>
     <script src="Assets/Js/Main/Top_List.js"></script>  
     <script src="Assets/Js/Responsive/Responsive.js"></script>
+    <script src="Assets/Js/Amigos/Amigos.js"></script>
 
     <!--* Sincronizar -->
     <script src="Assets/Js/Sincronizar/Sincronizar.js"></script>

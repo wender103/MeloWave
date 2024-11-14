@@ -115,8 +115,14 @@ function Logar_Na_Conta() {
                             Execultar_Funcoes_Ao_Carregar().then(() => {
                                 closeLoadingScreen()
                             })                 
-                            
+                        } else {
+                            const Atividades_Atualizadas = {
+                                Estado_Online: 'Online',
+                                Musica: Listas_Prox.MusicaAtual.ID ? Listas_Prox.MusicaAtual.ID : null
+                            }
+                            db.collection('Amigos').doc(User.ID).update({ Atividade: Atividades_Atualizadas })
                         }
+
                     }
                 }
     

@@ -276,10 +276,11 @@ let pd_abrir_tela_tocando_agora = true
 function Abrir_Tela_Tocando_Agora() {
     let time_esperar = 0
 
-    if(fila_aberta) {
+    if(fila_aberta || Lista_Amigos_Aberta) {
         time_esperar = 600
     }
     Fechar_Fila()
+    Fechar_Lista_Amigos()
 
     if(pd_abrir_tela_tocando_agora && Device.Tipo != 'Mobile') {
         pd_abrir_tela_tocando_agora = false
