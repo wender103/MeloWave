@@ -158,9 +158,9 @@ const Atividade = {
 }
 
 let Todos_Amigos = []
+const listaAmigosContainer = document.querySelector('#Container_Divs_Lista_Amigos')
 function Carregar_Amigos() {
-    const listaAmigosContainer = document.querySelector('#Container_Divs_Lista_Amigos')
-    listaAmigosContainer.innerHTML = '' // Limpa a lista antes de renderizar os amigos
+    let Apagar_Tudo = true
 
     let Aceitos = User.Social.Amigos.Aceitos
     for (let c = 0; c < Aceitos.length; c++) {
@@ -177,7 +177,7 @@ function Carregar_Amigos() {
 
                 let User_On = usuario.Atividade.Estado_Online != 'Offline'
                 let Mostrar_Musica = User_On && usuario.Atividade.Musica != null
-
+                
                 if (usuario.Atividade.Musica != null) {
                     for (let a = 0; a < TodasMusicas.length; a++) {
                         if (TodasMusicas[a].ID == usuario.Atividade.Musica) {
@@ -187,81 +187,167 @@ function Carregar_Amigos() {
                     }
                 }
 
-                // Cria o elemento principal .Container_Amigo
-                const containerAmigo = document.createElement('div')
-                containerAmigo.classList.add('Container_Amigo')
 
-                // Adicional_Perfil_Amigo
-                containerAmigo.innerHTML = `
-                    <div class="Adicional_Perfil_Amigo" style="background-image: linear-gradient(${Musica_Atividade.Cores[1]}, ${Musica_Atividade.Cores[2]});">
-                        <div class="Background_Adicional_Perfil_Amigo">
-                            <img src="${usuario.Perfil.Img_Background || 'https://akamai.sscdn.co/uploadfile/letras/albuns/d/a/8/9/1969261695993301.jpg'}" alt="">
-                        </div>
-                        <div class="Container_Img_Perfil_Amigo">
-                            <img src="${usuario.Perfil.Img_Perfil || 'https://w.wallhaven.cc/full/dg/wallhaven-dg1yeg.jpg'}" alt="">
-                            <div class="${User_On ? `Boll_Online` : `Boll_Online Offline`}"></div>
-                        </div>
-                        <h3 class="Nome_User_Adicional_Perfil_Amigo">${sanitizeHtml(usuario.Nome)}</h3>
-                        <div class="Atividade_User_Adicional_Perfil_Amigo" onclick="Tocar_Musica_Amigo('${Musica_Atividade.ID}')">
-                            ${Mostrar_Musica ? `
-                                <p class="Ouvindo">Ouvindo</p>
-                                <div class="Atividade">
-                                    <div class="Img_Musica_Atividade">
-                                        <img src="${Musica_Atividade.Imagens[1] || 'https://storage.googleapis.com/melowave-f6f7c.appspot.com/MusicasPostadas/95ff4b22-1dbe-4e5c-b4b1-37015228386a/200x200_cMFwIjLaAFY_520d8dc8-a71b-4e2f-8012-167d546bedd9.jpg'}" alt="">
+                //! Carregar img do perfil             
+                carregarImagem(usuario.Perfil.Img_Perfil, function(imgPerfil) {
+                    let Img_Perfil
+
+                    if(imgPerfil) {
+                        Img_Perfil = usuario.Perfil.Img_Perfil
+
+                    } else {
+                        if(usuario.Perfil.Img_Email) {
+                            carregarImagem(usuario.Perfil.Img_Email, function(imgEmail) {
+                                if(imgEmail) {
+                                    Img_Perfil = usuario.Perfil.Img_Email
+                                } else {
+                                    Img_Perfil = 'Assets/Imgs/user_anonimo.png'
+                                }
+                            })
+                        }
+                    }
+
+                    carregarImagem(usuario.Perfil.Img_Background, function(imgPerfil) {
+                        let Img_Background
+                        
+                        if(imgPerfil) {
+                            Img_Background = usuario.Perfil.Img_Background
+
+                        } else {
+                            if(usuario.Perfil.Img_Email) {
+                                carregarImagem(usuario.Perfil.Img_Email, function(imgEmail) {
+                                    if(imgEmail) {
+                                        Img_Background = usuario.Perfil.Img_Email
+                                    } else {
+                                        Img_Background = 'Assets/Imgs/user_anonimo.png'
+                                    }
+                                })
+                            }
+                        }
+
+                        let Ja_Esta_Na_Lista = false
+                        const Container_Amigo = document.querySelectorAll('.Container_Amigo')
+
+                        for (let g = 0; g < Container_Amigo.length; g++) {                                  
+                            if (Container_Amigo[g].id == `Amigo_${usuario.ID}`) {
+                                Ja_Esta_Na_Lista = true
+
+                                Container_Amigo[g].querySelector('.Adicional_Perfil_Amigo').style.backgroundImage = `linear-gradient(${Musica_Atividade.Cores[1]}, ${Musica_Atividade.Cores[2]})`
+                                Container_Amigo[g].querySelector('.Adicional_Perfil_Amigo').querySelector('.Background_Adicional_Perfil_Amigo').querySelector('img').src = Img_Background
+                                Container_Amigo[g].querySelector('.Container_Img_Perfil_Amigo').querySelector('img').src = Img_Perfil
+                                Container_Amigo[g].querySelector('.Container_Img_Perfil_Amigo').querySelector('.Boll_Online').classList.add(User_On ? 'Online' : 'Offline')
+                                Container_Amigo[g].querySelector('.Nome_User_Adicional_Perfil_Amigo').textContent = usuario.Nome
+
+                                if(Mostrar_Musica) {
+                                    Container_Amigo[g].querySelector('.Atividade_User_Adicional_Perfil_Amigo').id = `Tocar_Musica_Amigo_${Musica_Atividade.ID}`
+
+                                    Container_Amigo[g].querySelector('.Atividade_User_Adicional_Perfil_Amigo').querySelector('.Atividade').querySelector('.Img_Musica_Atividade').querySelector('img').src = Musica_Atividade.Imagens[1]
+                                    Container_Amigo[g].querySelector('.Atividade_User_Adicional_Perfil_Amigo').querySelector('.Atividade').querySelector('.Texto_Musica_Atividade').querySelector('p').innerText = Musica_Atividade.Nome
+                                    Container_Amigo[g].querySelector('.Atividade_User_Adicional_Perfil_Amigo').querySelector('.Atividade').querySelector('.Texto_Musica_Atividade').querySelector('span').innerText = Musica_Atividade.Autor
+                                } else {
+                                    Container_Amigo[g].querySelector('.Atividade_User_Adicional_Perfil_Amigo').style.display = 'none'
+                                }
+
+                                Container_Amigo[g].querySelector('.Perfil_Amigo').querySelector('.Container_Img_Perfil_Amigo').querySelector('img').src = Img_Perfil
+                                Container_Amigo[g].querySelector('.Perfil_Amigo').querySelector('.Container_Img_Perfil_Amigo').querySelector('.Boll_Online').classList.add(User_On ? 'Online' : 'Offline')
+                                Container_Amigo[g].querySelector('.Perfil_Amigo').querySelector('p').classList.add(User_On ? 'Online...' : 'Offline...')
+                            }
+                        }
+
+                        if(!Ja_Esta_Na_Lista) {
+                            if(Apagar_Tudo) {
+                                Apagar_Tudo = false
+                                listaAmigosContainer.innerHTML = '' // Limpa a lista antes de renderizar os amigos
+                            }
+
+                            // Cria o elemento principal .Container_Amigo
+                            const containerAmigo = document.createElement('div')
+                            containerAmigo.classList.add('Container_Amigo')
+                            containerAmigo.id = `Amigo_${usuario.ID}`
+                            
+                            // Adicional_Perfil_Amigo
+                            containerAmigo.innerHTML = `
+                                <div class="Adicional_Perfil_Amigo" style="background-image: linear-gradient(${Musica_Atividade.Cores[1]}, ${Musica_Atividade.Cores[2]});">
+                                    <div class="Background_Adicional_Perfil_Amigo">
+                                        <img src="${usuario.Perfil.Img_Background}" alt="">
                                     </div>
-                                    <div class="Texto_Musica_Atividade">
-                                        <p>${Musica_Atividade.Nome || 'Cowgirls (feat. ERNEST)'}</p>
-                                        <span>${Musica_Atividade.Autor || 'Morgan Wallen, ERNEST'}</span>
+                                    <div class="Container_Img_Perfil_Amigo">
+                                        <img src="${Img_Perfil}" alt="">
+                                        <div class="${User_On ? `Boll_Online` : `Boll_Online Offline`}"></div>
+                                    </div>
+                                    <h3 class="Nome_User_Adicional_Perfil_Amigo">${sanitizeHtml(usuario.Nome)}</h3>
+                                    <div class="Atividade_User_Adicional_Perfil_Amigo" id="Tocar_Musica_Amigo_${Musica_Atividade.ID}" style="display: ${Mostrar_Musica ? 'block' : 'none'}">
+                                        <p class="Ouvindo">Ouvindo</p>
+                                        <div class="Atividade">
+                                            <div class="Img_Musica_Atividade">
+                                                <img src="${Musica_Atividade.Imagens[1]}" alt="">
+                                            </div>
+                                            <div class="Texto_Musica_Atividade">
+                                                <p>${Musica_Atividade.Nome || 'Cowgirls (feat. ERNEST)'}</p>
+                                                <span>${Musica_Atividade.Autor || 'Morgan Wallen, ERNEST'}</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            ` : ''} 
-                        </div>
-                    </div>
-                    <div class="Perfil_Amigo">
-                        <div class="Container_Img_Perfil_Amigo">
-                            <img src="${usuario.Perfil.Img_Perfil || 'https://w.wallhaven.cc/full/dg/wallhaven-dg1yeg.jpg'}" alt="">
-                            <div class="${User_On ? `Boll_Online` : `Boll_Online Offline`}"></div>
-                        </div>
-                        <div class="Container_Nome_Perfil_Amigo">
-                            <h3>${sanitizeHtml(usuario.Nome)}</h3>
-                            <p class="${User_On ? '' : `Offline`}">${User_On ? `Online...` : `Offline...`}</p>
-                        </div>
-                    </div>
-                `
+                                <div class="Perfil_Amigo" id="Perfil_Amigo_${usuario.ID}">
+                                    <div class="Container_Img_Perfil_Amigo">
+                                        <img src="${Img_Perfil}" alt="">
+                                        <div class="${User_On ? `Boll_Online` : `Boll_Online Offline`}"></div>
+                                    </div>
+                                    <div class="Container_Nome_Perfil_Amigo">
+                                        <h3>${sanitizeHtml(usuario.Nome)}</h3>
+                                        <p class="${User_On ? '' : `Offline`}">${User_On ? `Online...` : `Offline...`}</p>
+                                    </div>
+                                </div>
+                            `
 
-                // Adiciona o container de amigo na lista de amigos
-                listaAmigosContainer.appendChild(containerAmigo)
+                            // Adiciona o container de amigo na lista de amigos
+                            listaAmigosContainer.appendChild(containerAmigo)
 
-                // Seleciona os elementos para manipulação
-                const perfilAmigo = containerAmigo.querySelector('.Perfil_Amigo')
-                const adicionalPerfilAmigo = containerAmigo.querySelector('.Adicional_Perfil_Amigo')
+                            // Seleciona os elementos para manipulação
+                            const perfilAmigo = containerAmigo.querySelector('.Perfil_Amigo')
+                            const adicionalPerfilAmigo = containerAmigo.querySelector('.Adicional_Perfil_Amigo')
 
-                // Evento para abrir/fechar perfil adicional ao clicar no Perfil_Amigo
-                perfilAmigo.addEventListener('click', () => {
-                    // Fecha todos os outros perfis abertos
-                    const perfisAbertos = document.querySelectorAll('.Adicional_Perfil_Amigo.open')
-                    perfisAbertos.forEach((perfil) => {
-                        perfil.classList.remove('open')
-                        perfil.style.maxHeight = '0'
+                            // Evento para abrir/fechar perfil adicional ao clicar no Perfil_Amigo
+                            perfilAmigo.addEventListener('click', () => {
+                                // Fecha todos os outros perfis abertos
+                                const perfisAbertos = document.querySelectorAll('.Adicional_Perfil_Amigo.open')
+                                perfisAbertos.forEach((perfil) => {
+                                    perfil.classList.remove('open')
+                                    perfil.style.maxHeight = '0'
+                                })
+
+                                // Abre o perfil clicado
+                                adicionalPerfilAmigo.classList.toggle('open')
+                                adicionalPerfilAmigo.style.maxHeight = adicionalPerfilAmigo.classList.contains('open') ? adicionalPerfilAmigo.scrollHeight + 'px' : '0'
+                            })
+
+                            perfilAmigo.addEventListener('contextmenu', (event) => {
+                                Ativar_Opcoes_Click_Direita(perfilAmigo.id)
+                                posicionarElemento(event, document.getElementById('opcoes_click_direito'), array_locais_opcoes)
+                            })
+
+                            // Evento para fechar ao clicar fora do perfil
+                            document.addEventListener('click', (event) => {
+                                if (!containerAmigo.contains(event.target)) {
+                                    adicionalPerfilAmigo.classList.remove('open')
+                                    adicionalPerfilAmigo.style.maxHeight = '0'
+                                }
+                            })
+                        }
                     })
-
-                    // Abre o perfil clicado
-                    adicionalPerfilAmigo.classList.toggle('open')
-                    adicionalPerfilAmigo.style.maxHeight = adicionalPerfilAmigo.classList.contains('open') ? adicionalPerfilAmigo.scrollHeight + 'px' : '0'
-                })
-
-                // Evento para fechar ao clicar fora do perfil
-                document.addEventListener('click', (event) => {
-                    if (!containerAmigo.contains(event.target)) {
-                        adicionalPerfilAmigo.classList.remove('open')
-                        adicionalPerfilAmigo.style.maxHeight = '0'
-                    }
                 })
             }
         }
     }
-}
 
+    const Atividade_User_Adicional_Perfil_Amigo = document.querySelectorAll('.Atividade_User_Adicional_Perfil_Amigo')
+    Atividade_User_Adicional_Perfil_Amigo.forEach((Atividade_User_Adicional_Perfil_Amigo) => {
+        Atividade_User_Adicional_Perfil_Amigo.addEventListener('click', () => {
+            Tocar_Musica_Amigo(Atividade_User_Adicional_Perfil_Amigo.id.replace('Tocar_Musica_Amigo_', ''))
+        })
+    })
+}
 function Tocar_Musica_Amigo(_ID_Musica) {
     for (let c = 0; c < TodasMusicas.length; c++) {
         if(TodasMusicas[c].ID == _ID_Musica) {
@@ -305,11 +391,8 @@ function Atualizar_Atividade(Offline = false, Musica_Atual) {
         if (doc.exists) {
             // Se o documento existe, faz a atualização
             db.collection('Amigos').doc(User.ID).update({ Atividade: Atividade_Atualizada })
-            console.log('Atividade atualizada com sucesso!')
         } else {
             db.collection('Amigos').doc(User.ID).set({ Atividade: Atividade_Atualizada })
-            // Se o documento não existe, exibe uma mensagem ou toma outra ação
-            console.log(`Documento com ID ${User.ID} não encontrado.`)
         }
     }).catch((error) => {
         console.error('Erro ao verificar o documento:', error)
@@ -319,12 +402,9 @@ function Atualizar_Atividade(Offline = false, Musica_Atual) {
 function Listner_Amigos() {
     if (User.Social.Amigos.Aceitos.length > 0) {
         Listner_Ativado = true
-        console.log('Arroz')
 
         // Escuta para a coleção inteira
         db.collection('Amigos').onSnapshot((snapshot) => {
-            console.log('Dentro do listener')
-            
             Todos_Amigos = [] // Limpa a lista antes de recarregar
 
             for (let c = 0; c < Todos_Usuarios.length; c++) {
@@ -341,9 +421,7 @@ function Listner_Amigos() {
                 amigo.ID = doc.id // Adiciona o ID ao objeto do amigo
 
                 for (let c = 0; c < Todos_Amigos.length; c++) {
-                    if(Todos_Amigos[c].ID == doc.id) {
-                        console.log(amigo)
-                        
+                    if(Todos_Amigos[c].ID == doc.id) {                        
                         Todos_Amigos[c].Atividade = {
                             Estado_Online: amigo.Atividade.Estado_Online,
                             Musica: amigo.Atividade.Musica
@@ -355,4 +433,44 @@ function Listner_Amigos() {
             Carregar_Amigos() // Chama a função para exibir amigos
         })
     }
+}
+
+function Remover_Amigo_Lista_Amigos(_ID_Amigo) {
+    db.collection('Users').get().then((snapshot) => {
+        let contador = 0
+
+        snapshot.docs.forEach(Users => {
+            const InfoUsers = Users.data()
+
+            Todos_Usuarios.push(InfoUsers)
+
+            Todos_Usuarios[contador].ID = Users.id
+            contador++
+        })
+
+        for (let c = 0; c < Todos_Usuarios.length; c++) {
+            if(Todos_Usuarios[c].ID == _ID_Amigo) {
+
+                for (let d = 0; d < Todos_Usuarios[c].Social.Amigos.Aceitos.length; d++) {
+                    if(Todos_Usuarios[c].Social.Amigos.Aceitos[d] == User.ID) {
+                        Todos_Usuarios[c].Social.Amigos.Aceitos.splice(d, 1)
+                        db.collection('Users').doc(Todos_Usuarios[c].ID).update({ Social: Todos_Usuarios[c].Social })
+                        break
+                    }  
+                }
+            } else if(Todos_Usuarios[c].ID == User.ID) {
+                
+                for (let d = 0; d < Todos_Usuarios[c].Social.Amigos.Aceitos.length; d++) {
+                    if(Todos_Usuarios[c].Social.Amigos.Aceitos[d] == _ID_Amigo) {
+                        
+                        Todos_Usuarios[c].Social.Amigos.Aceitos.splice(d, 1)
+                        db.collection('Users').doc(Todos_Usuarios[c].ID).update({ Social: Todos_Usuarios[c].Social })
+                        User = Todos_Usuarios[c]
+                        listaAmigosContainer.innerHTML = ''
+                        break
+                    }  
+                }
+            }
+        }
+    })
 }

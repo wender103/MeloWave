@@ -297,9 +297,7 @@ let Comando_Tocar_Musica = ''
 let pd_adicionar_view = false
 
 function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {   
-    if(MusicaAtual.ID != Listas_Prox.MusicaAtual.ID) {
-        Atualizar_Atividade(false, MusicaAtual)
-    }
+    Atualizar_Atividade(false, MusicaAtual)
 
     Checar_Tem_Traducao(MusicaAtual)   
     pd_adicionar_view = true

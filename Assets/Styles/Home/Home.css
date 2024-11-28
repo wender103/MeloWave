@@ -4725,7 +4725,7 @@ body section#Container_Lista_Amigos article div#Container_Divs_Lista_Amigos div.
   position: absolute;
   height: auto;
   z-index: 3;
-  background-color: #7f7f7f;
+  background-color: #6b6b6b;
   border-radius: 8px;
   overflow: hidden;
   -webkit-backdrop-filter: blur(10px);
@@ -4743,6 +4743,7 @@ body section#Container_Lista_Amigos article div#Container_Divs_Lista_Amigos div.
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgba(0, 0, 0, 0.9098039216);
 }
 body section#Container_Lista_Amigos article div#Container_Divs_Lista_Amigos div.Container_Amigo div.Adicional_Perfil_Amigo div.Background_Adicional_Perfil_Amigo img {
   width: 100%;

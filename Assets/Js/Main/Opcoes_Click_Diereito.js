@@ -89,6 +89,9 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
     let btn_adicionar_a_fila_musicas_curtidas = `<li onclick="Adicionar_Musicas_Curtidas_A_Fila()"><img src="Assets/Imgs/Add_Fila.svg"><p>Adicionar A Fila</p></li>`
     let btn_remover_todas_musicas_curtidas = `<li onclick="Remover_Todas_Musicas_Curtidas()"><img src="Assets/Imgs/lixeira_branca.png"><p>Remover Todas As Curtidas</p></li>`
 
+    //! Perfil Amigos
+    let btn_remover_amigo = `<li onclick="Remover_Amigo_Lista_Amigos('${Modo.replace('Perfil_Amigo_', '')}')"><img src="Assets/Imgs/remover-participante.png"><p>Desfazer Amizade</p></li>`
+
     let pode_add_a_fila = true
 
     for (let c = 0; c < Listas_Prox.Lista_Musicas.length; c++) {
@@ -484,6 +487,8 @@ function Ativar_Opcoes_Click_Direita(Modo, Musica, Indice, Artista_Seguir, ID_Ar
         opcoes_musica_ul.innerHTML += btn_adicionar_a_fila_musicas_curtidas
         opcoes_musica_ul.innerHTML += '<hr>'
         opcoes_musica_ul.innerHTML += btn_remover_todas_musicas_curtidas
+    } else if(Modo.includes('Perfil_Amigo_')) {
+        opcoes_musica_ul.innerHTML += btn_remover_amigo
     }
 }
 
