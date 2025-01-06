@@ -64,8 +64,8 @@ function aplicar_filtros(filtros, comando='') {
         document.querySelector('#container_fila'),
         document.querySelector('nav').querySelectorAll('ul')[0],
         document.querySelector('nav').querySelectorAll('ul')[1],
-        document.getElementById('container_barra_musica'),
-        document.querySelector('body')
+        document.querySelector('#container_barra_musica'),
+        document.querySelector('body'),
     ]
 
     const filtro = `blur(${filtros.blur}px) contrast(${filtros.contraste}%) brightness(${filtros.brilho}%) saturate(${filtros.saturacao}%)`

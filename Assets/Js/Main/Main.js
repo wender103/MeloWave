@@ -297,6 +297,7 @@ let Comando_Tocar_Musica = ''
 let pd_adicionar_view = false
 
 function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_Album) {   
+    document.getElementById('p_nome_album_tela_tocando_agora').innerText = MusicaAtual.Autor.split(',')[0]
     Atualizar_Atividade(false, MusicaAtual)
 
     Checar_Tem_Traducao(MusicaAtual)   
@@ -418,15 +419,6 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
 
     Musica_Anterior_Ativado = false
 
-    //! Vai trocar o background apenas se não for as páginas bloqueadas
-    let pagina_igual = false
-    for (let c = 0; c < Paginas_Nao_Trocar_Background.length; c++) {
-        if(Paginas_Nao_Trocar_Background[c] == Pagina_Atual.Nome) {
-            pagina_igual = true
-            break
-        }
-    }
-
     //! Letra
     if(!Array.isArray(MusicaAtual.Letra)) {
         if(User.Configuracoes.Transicoes_De_Faixas) {
@@ -459,13 +451,10 @@ function Tocar_Musica(Lista, MusicaAtual, Comando='', IDPagina, Qm_Chamou, Nome_
     if(!Comando.includes('Não Ativar Música')) {
         Ativar_Musica(MusicaAtual)
 
-        if(!pagina_igual) {            
-            
-            if(Device.Tipo == 'Mobile') {                
-                Trocar_Background(MusicaAtual.Imagens[0], document.body)
-            } else {
-                Trocar_Background(MusicaAtual.Img, document.body)
-            }
+        if(Device.Tipo == 'Mobile') {                
+            Trocar_Background(MusicaAtual.Imagens[0], document.body)
+        } else {
+            Trocar_Background(MusicaAtual.Img, document.body)
         }
     }
 
@@ -1438,10 +1427,33 @@ if(Device.Tipo == 'Mobile') {
 
 //! -------------------------------- Fim Som - Volume --------------------------------
 
-function Trocar_Background(background, Local) {
+function Trocar_Background(background, Local, Cores = undefined, Local_Cores=undefined, Block=document.getElementById('background_img_artista_cores_solidas')) {
     if(!User.Configuracoes.Background.Cores_Solidas) {
         Local.style.transition = 'background 1s ease-in-out'
         Local.style.backgroundImage = `url('${background}')`
+    }
+
+    if(Cores != undefined) {
+        if(Local_Cores != undefined) {
+            Local_Cores.style.backgroundImage = Cores
+        } else {
+            Local.style.backgroundImage = Cores
+        }
+    }
+
+    let Pagina_Econtrada = false
+
+    for (let c = 0; c < Paginas_Nao_Trocar_Background.length; c++) {
+        if(Pagina_Atual.Nome == Paginas_Nao_Trocar_Background[c]) {
+            Pagina_Econtrada = true
+            break
+        }
+    }
+
+    if(Pagina_Econtrada) {        
+        document.getElementById('img_artistas_cores_solidas').style.display = 'block'
+    } else {
+        document.getElementById('img_artistas_cores_solidas').style.display = 'none'
     }
 }
 

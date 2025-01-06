@@ -1150,9 +1150,35 @@ body main div#container_background_main div.background_main:nth-child(1) {
 body main div#container_background_main div.background_main:nth-child(2) {
   z-index: 1;
 }
+body main div.background_cores_solidas {
+  position: sticky;
+  width: 100%;
+  height: 100vh;
+  display: block;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+body main div.background_cores_solidas div.img_cores_solidas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: 2;
+}
+body main div.background_cores_solidas div.cor_cores_solidas {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: none;
+}
 body main section.Paginas {
   padding: 22px;
-  margin: 54px 0 35px;
+  margin: calc(-100vh + 54px) 0 35px;
   display: none;
   min-height: calc(100vh - 149px);
   opacity: 0;
@@ -2075,32 +2101,6 @@ body main section.Paginas#Pagina_artista section#container_pag_artista {
   left: 0;
   position: absolute;
   z-index: 2;
-}
-body main section.Paginas#Pagina_artista section#container_pag_artista div#background_img_artista_cores_solidas {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  display: none;
-  z-index: -1;
-}
-body main section.Paginas#Pagina_artista section#container_pag_artista div#background_img_artista_cores_solidas div#img_artistas_cores_solidas {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  -webkit-mask-image: linear-gradient(to bottom, #000000, transparent);
-  mask-image: linear-gradient(to bottom, #000000, transparent);
-  z-index: 2;
-}
-body main section.Paginas#Pagina_artista section#container_pag_artista div#background_img_artista_cores_solidas div#cor_artista_cores_solidas {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  display: none;
 }
 body main section.Paginas#Pagina_artista section#container_pag_artista article#header_pag_artistas {
   width: 100%;

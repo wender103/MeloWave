@@ -52,7 +52,8 @@ function Abrir_PLaylistMix(Array, Nome, svg) {
 
     Retornar_Musica_Linha(new_array.reverse(), document.getElementById('container_playlistmix'), null, 'PlaylistMix')
     Abrir_Pagina('playlistmix', `${formatarString(Nome)}-${new_array[new_array.length - 1].ID}`)
-    Trocar_Background(new_array[0].Img, document.body)
+    // Trocar_Background(new_array[0].Img, document.body)
+    Trocar_Background(new_array[0].Imagens[2], document.getElementById('img_artistas_cores_solidas'), `linear-gradient(to bottom, ${new_array[0].Cores[0]}, transparent)`, document.getElementById('cor_artista_cores_solidas'))
 }
 
 const img_play_playlistmix = document.getElementById('img_play_playlistmix')

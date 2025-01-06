@@ -12,8 +12,9 @@ function Carregar_Meu_Perfil() {
 
     musicas_meu_perfil_pesquisa = [...musicas_meu_perfil]
 
-    if(User.Perfil.Img_Background) {
-        Trocar_Background(User.Perfil.Img_Background, document.body)
+    if(User.Perfil.Img_Background) {        
+        // Trocar_Background(User.Perfil.Img_Background, document.body)
+        Trocar_Background(User.Perfil.Img_Background, document.getElementById('img_artistas_cores_solidas'), `linear-gradient(to bottom, #000, transparent)`, document.getElementById('cor_artista_cores_solidas'))
     }
     
     if(User.Perfil.Img_Perfil) {
@@ -187,7 +188,8 @@ function Adicionar_Nova_img_Meu_Perfil() {
                         if (imgBackground_safe.isValid && imgBackground_safe.message != 'Ocorreu um erro ao processar a imagem. Por favor, tente novamente mais tarde.') {
 
                             decreaseBlur()
-                            Trocar_Background(imgBackground.src, document.body)
+                            // Trocar_Background(imgBackground.src, document.body)
+                            Trocar_Background(imgBackground.src, document.getElementById('img_meuperfil_cores_solidas'), `linear-gradient(to bottom, #000, transparent)`, document.getElementById('cor_meuperfil_cores_solidas'), document.getElementById('background_img_meuperfil_cores_solidas'))
                             User.Perfil.Img_Background = imgBackground.src
                             
                             Notificar_Infos(imgBackground_safe.message, imgBackground_safe.emojis)

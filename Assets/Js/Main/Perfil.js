@@ -52,7 +52,7 @@ function Atualizar_Perfil(User_Carregar) {
 
     carregarImagem(User_Carregar.Perfil.Img_Background, function(imgPerfil) {
         if(imgPerfil) {
-            Trocar_Background(User_Carregar.Perfil.Img_Background, document.querySelector('body'))
+            Trocar_Background(User_Carregar.Perfil.Img_Background, document.getElementById('img_artistas_cores_solidas'), `linear-gradient(to bottom, #000, transparent)`, document.getElementById('cor_artista_cores_solidas'))
         }
     })
 

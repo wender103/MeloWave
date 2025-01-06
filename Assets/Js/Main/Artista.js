@@ -37,12 +37,8 @@ function Abrir_Perfil_Artista(Artista, Musica) {
     }
     
     if(Device.Tipo != 'Mobile') {
-        if(User.Configuracoes.Background.Cores_Solidas) {
-            document.getElementById('img_artistas_cores_solidas').style.backgroundImage = `url(${musica_escolhida.Img})`
-            document.getElementById('cor_artista_cores_solidas').style.backgroundImage = `linear-gradient(to bottom, ${musica_escolhida.Cores[0]}, transparent)`
-        } else {
-            document.getElementById('background_paginas_artista').style.backgroundImage = `url(${musica_escolhida.Img})`
-        }
+        document.getElementById('background_img_artista_cores_solidas').style.display = 'block'
+        Trocar_Background(musica_escolhida.Imagens[2], document.getElementById('img_artistas_cores_solidas'), `linear-gradient(to bottom, ${musica_escolhida.Cores[0]}, transparent)`, document.getElementById('cor_artista_cores_solidas'))
 
     } else {
         if(User.Configuracoes.Background.Cores_Solidas) {
@@ -62,7 +58,7 @@ function Abrir_Perfil_Artista(Artista, Musica) {
     }
 
     Abrir_Pagina('artista', musica_escolhida.ID)
-    Trocar_Background(musica_escolhida.Img, document.body)
+    Trocar_Background(Listas_Prox.MusicaAtual.Img, document.body)
 
 }
 

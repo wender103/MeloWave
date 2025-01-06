@@ -77,6 +77,7 @@ function Abrir_Pagina(Pagina, ID) {
 
         if(Listas_Prox.MusicaAtual.Img && !pagina_igual) {
             Trocar_Background(Listas_Prox.MusicaAtual.Img, document.body)
+            Trocar_Background(Listas_Prox.MusicaAtual.Img, document.getElementById('img_artistas_cores_solidas'), `linear-gradient(to bottom, ${Listas_Prox.MusicaAtual.Cores[0]}, transparent)`, document.getElementById('cor_artista_cores_solidas'))
         }
         
         document.getElementById('bnt_editar_meu_perfil').style.display = 'none'
@@ -126,12 +127,12 @@ function Abrir_Pagina(Pagina, ID) {
                 document.getElementById('bolinha_icone_noficacao').style.display = 'none'
 
             } else if(Pagina == 'meuperfil') {
-                desativar_blur = true
+                // desativar_blur = true
                 Carregar_Meu_Perfil()
             } else if(Pagina == 'perfil') {
-                desativar_blur = true
+                // desativar_blur = true
             } else if(Pagina == 'artista') {
-                desativar_blur = true
+                // desativar_blur = true
             } else if(Pagina == 'adicionarletra') {
                 if(!Array.isArray(musica_editando_meu_perfil.Letra)) {
                     text_area_add_letra.value = musica_editando_meu_perfil.Letra.Letra_Musica
@@ -145,7 +146,6 @@ function Abrir_Pagina(Pagina, ID) {
                 Carregar_Criar_Match()
 
             } else if(Pagina == 'aceitarmatch') {
-                console.log(ID);
                 Carregar_Infos_Aceitar_Match(ID)
 
             } else if(Pagina == 'match') {
