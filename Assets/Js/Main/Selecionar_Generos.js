@@ -55,7 +55,7 @@ function Retornar_Generos_Musicais() {
         let views = Views_Por_Genero(genero)
 
         // Definir o tamanho da div com base nas views, normalizando o tamanho entre 150px e 300px
-        let tamanho = 150 + (150 * (views - viewsMin) / (viewsMax - viewsMin)) + 'px'
+        let tamanho = 100 + (100 * (views - viewsMin) / (viewsMax - viewsMin)) + 'px'
 
         if (generosMap[genero] && generosMap[genero].length > 0) {
             const container_div_escolher_genero = document.createElement('div')

@@ -284,4 +284,40 @@ section#container_notificacao_infos article div a#link_notificar_infos {
 }
 section#container_notificacao_infos article div a#link_notificar_infos:hover {
   text-decoration: underline;
+}
+
+@media screen and (max-width: 750px) {
+  section#container_cadastro_mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  section#container_cadastro_mobile article {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--white);
+    box-shadow: -2px 10px 15px var(--darkness);
+    padding: 30px 20px;
+    border-radius: 6px;
+    text-align: center;
+  }
+  section#container_cadastro_mobile article h1 {
+    font-size: 1.4em;
+  }
+  section#container_cadastro_mobile article .google-btn {
+    width: auto;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 20px;
+    margin: 30px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+  }
+  section#container_cadastro_pc {
+    display: none;
+  }
 }/*# sourceMappingURL=Login.css.map */

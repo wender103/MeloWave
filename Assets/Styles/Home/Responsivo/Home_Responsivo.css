@@ -20,6 +20,54 @@
     font-size: 6vw !important;
   }
 }
+@media screen and (max-width: 750px) {
+  div#container_infos_header_criarplaylist {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  div#container_inputs_editar_header_criar_plylist {
+    flex-direction: column !important;
+  }
+  div#container_inputs_editar_header_criar_plylist div#container_img_editar_criar_playlist, div#container_inputs_editar_header_criar_plylist div#container_inputs_editar_criar_playlist {
+    width: 100% !important;
+  }
+  div#container_infos_header_musicas_curtidas {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+  }
+  section#Pagina_musicascurtidas {
+    position: absolute !important;
+    top: 0 !important;
+  }
+  div#contaier_infos_e_img_perfil {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center;
+  }
+  div#contaier_infos_e_img_perfil div#container_img_perfil {
+    width: 100% !important;
+    max-width: 200px !important;
+  }
+  div#container_infos_header_playlistmix {
+    flex-direction: column;
+    align-items: center !important;
+  }
+  div#container_infos_header_playlistmix div#container_header_img_playlistmix {
+    width: 100% !important;
+    height: 200px !important;
+  }
+  div#container_infos_header_playlistmix div#container_svg_mix_daily div#contaier_svg_playlistmix svg {
+    height: 100vw !important;
+    bottom: -45vw !important;
+  }
+  div.container_div_escolher_genero p {
+    width: 90% !important;
+    word-wrap: break-word;
+    font-size: 70% !important;
+    font-weight: 700;
+  }
+}
 @media screen and (max-width: 700px) {
   body {
     min-height: auto !important;
@@ -116,9 +164,6 @@
   }
   main section.Paginas#Pagina_musicascurtidas div#container_infos_musicas_curtidas p span {
     display: inline;
-  }
-  main section.Paginas#Pagina_musicascurtidas div#container_header_img_musicas_curtidas {
-    display: none !important;
   }
   main section.Paginas#Pagina_musicascurtidas div#container_pesquisar_musicas_curtidas {
     width: 65% !important;

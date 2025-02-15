@@ -3217,6 +3217,8 @@ body main section.Paginas#Pagina_criarplaylist article#container_header_criarpla
   height: 100%;
 }
 body main section.Paginas#Pagina_criarplaylist article#container_header_criarplaylist div#container_infos_header_criarplaylist div#container_header_img_criarplaylist div.container_imgs_criar_playlist img {
+  max-width: 54px;
+  max-height: 54px;
   width: 50%;
   height: 50%;
   -o-object-fit: cover;
@@ -3419,6 +3421,8 @@ body main section.Paginas#Pagina_criarplaylist div#container_editar_perfil_heade
   height: 100%;
 }
 body main section.Paginas#Pagina_criarplaylist div#container_editar_perfil_header_criar_plylist div#container_container_editar_perfil_header_criar_plylist div#container_inputs_editar_header_criar_plylist div#container_img_editar_criar_playlist div.container_imgs_criar_playlist img {
+  max-width: 54px;
+  max-height: 54px;
   width: 50%;
   height: 50%;
   -o-object-fit: cover;
@@ -6409,7 +6413,7 @@ body section#Container_Selecionar_Generos article#container_article_selecionar_g
   min-height: 100vh;
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   margin-top: 100px;
 }
 body section#Container_Selecionar_Generos article#container_article_selecionar_generos div.container_div_escolher_genero {

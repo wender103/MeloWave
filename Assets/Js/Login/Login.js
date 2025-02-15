@@ -89,6 +89,7 @@ function logout() {
 }
 
 let Criando_Conta = false
+let Dispositivo_Fazer_Login = 'Pc'
 auth.onAuthStateChanged((val) => {
     if(val == null || val == undefined) {
         //! Caso o user não esteja conectado
@@ -172,8 +173,12 @@ auth.onAuthStateChanged((val) => {
                     logout()
                     Notificar_Infos('🚫 Ops! Parece que essa conta não está cadastrada. Quer criar uma nova conta? 😅', 'Confirmar', 'Criar conta').then((resp) => {
                         if(resp) {
-                            if(model_SignIn) {
-                                changeModel() 
+                            if(Dispositivo_Fazer_Login == 'Mobile') {
+                                Cadastrar()
+                            } else {
+                                if(model_SignIn) {
+                                    changeModel() 
+                                }
                             }
                         } else {
                             if(!model_SignIn) {
@@ -188,7 +193,8 @@ auth.onAuthStateChanged((val) => {
         console.warn(error)
     }
 })
-function Fazer_Login() {
+function Fazer_Login(Dispositivo_Login = 'Pc') {
+    Dispositivo_Fazer_Login = Dispositivo_Login
     auth.signInWithPopup(provider)
 }
 
